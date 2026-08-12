@@ -1,0 +1,105 @@
+{
+  "$defs": {
+    "ModuleManifestEntryV1": {
+      "additionalProperties": false,
+      "properties": {
+        "document_id": {
+          "title": "Document Id",
+          "type": "string"
+        },
+        "document_type": {
+          "enum": [
+            "query_example",
+            "table_schema",
+            "table_family"
+          ],
+          "title": "Document Type",
+          "type": "string"
+        },
+        "document_version": {
+          "exclusiveMinimum": 0,
+          "title": "Document Version",
+          "type": "integer"
+        },
+        "module": {
+          "title": "Module",
+          "type": "string"
+        },
+        "relative_path": {
+          "pattern": "^(?![A-Za-z]:)(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))[A-Za-z0-9_.-]+(?:/[A-Za-z0-9_.-]+)*$",
+          "title": "Relative Path",
+          "type": "string"
+        },
+        "source_file_sha256": {
+          "anyOf": [
+            {
+              "pattern": "^[0-9a-f]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source File Sha256"
+        }
+      },
+      "required": [
+        "document_id",
+        "document_version",
+        "document_type",
+        "module",
+        "relative_path"
+      ],
+      "title": "ModuleManifestEntryV1",
+      "type": "object"
+    }
+  },
+  "$id": "urn:erp-rag-contracts:schema:module-manifest:v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Contrato normativo module-manifest versión 1.",
+  "properties": {
+    "catalog_version": {
+      "title": "Catalog Version",
+      "type": "string"
+    },
+    "contract_version": {
+      "pattern": "^(?:0|[1-9]\\d*)\\.(?:0|[1-9]\\d*)\\.(?:0|[1-9]\\d*)$",
+      "title": "Contract Version",
+      "type": "string"
+    },
+    "dependencies": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Dependencies",
+      "type": "array"
+    },
+    "documents": {
+      "items": {
+        "$ref": "#/$defs/ModuleManifestEntryV1"
+      },
+      "title": "Documents",
+      "type": "array"
+    },
+    "module": {
+      "title": "Module",
+      "type": "string"
+    },
+    "schema_version": {
+      "pattern": "^(?:0|[1-9]\\d*)\\.(?:0|[1-9]\\d*)\\.(?:0|[1-9]\\d*)$",
+      "title": "Schema Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "contract_version",
+    "schema_version",
+    "catalog_version",
+    "module",
+    "documents"
+  ],
+  "title": "ModuleManifestSourceV1",
+  "type": "object"
+}

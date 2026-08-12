@@ -1,0 +1,15 @@
+{
+  "authoritative_source": "individual_document_files",
+  "default_sql_schema": "dbo",
+  "document_types": [
+    "query_example",
+    "table_schema",
+    "table_family"
+  ],
+  "duplicate_policy": {
+    "conflict": "DUPLICATE_DOCUMENT_CONFLICT",
+    "identical": "DUPLICATE_DOCUMENT_IDENTICAL"
+  },
+  "manifest_role": "index_only",
+  "version": "1.0.0"
+}

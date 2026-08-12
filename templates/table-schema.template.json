@@ -1,0 +1,54 @@
+{
+  "business_rules": [],
+  "catalog_version": "2026.08",
+  "common_filters": [],
+  "common_outputs": [],
+  "document_id": "erp.table.example.v1",
+  "document_type": "table_schema",
+  "document_version": 1,
+  "language": "es",
+  "metadata": {
+    "normalized_at": "2026-08-11",
+    "normalized_by": "scaffold",
+    "review_notes": [],
+    "source": "scaffold",
+    "source_files": []
+  },
+  "relationships": [],
+  "retrieval": {
+    "content_hash": "sha256:1caad7b25be4d83d0981643c84cb91834455288d5dd002e3f4a6e711e8daa942",
+    "keywords": [
+      "ejemplo"
+    ],
+    "semantic_text": "Tabla de ejemplo",
+    "text_template_version": "table-es-v1"
+  },
+  "schema_version": "1.0",
+  "status": "draft",
+  "table": {
+    "alias": "e",
+    "canonical_name": "example",
+    "columns": [
+      {
+        "business_terms": [],
+        "description": "Identificador",
+        "foreign_key": false,
+        "name": "Id",
+        "nullable": null,
+        "primary_key": true,
+        "sql_type": null,
+        "verification_status": "needs_review"
+      }
+    ],
+    "description": "Ejemplo.",
+    "grain": "Una fila",
+    "modules": [
+      "ventas"
+    ],
+    "name": "Example",
+    "primary_key": [
+      "Id"
+    ],
+    "used_for": []
+  }
+}

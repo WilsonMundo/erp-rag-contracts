@@ -1,0 +1,92 @@
+{
+  "$defs": {
+    "SQLObjectRegistryEntry": {
+      "additionalProperties": false,
+      "properties": {
+        "document_version": {
+          "title": "Document Version",
+          "type": "integer"
+        },
+        "knowledge_document_id": {
+          "title": "Knowledge Document Id",
+          "type": "string"
+        },
+        "lookup_key": {
+          "title": "Lookup Key",
+          "type": "string"
+        },
+        "object_kind": {
+          "title": "Object Kind",
+          "type": "string"
+        },
+        "original_name": {
+          "title": "Original Name",
+          "type": "string"
+        },
+        "physical_name": {
+          "title": "Physical Name",
+          "type": "string"
+        },
+        "physical_schema": {
+          "default": "dbo",
+          "title": "Physical Schema",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "approved",
+            "draft",
+            "needs_review",
+            "deprecated"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "usable_for_sql_generation": {
+          "title": "Usable For Sql Generation",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "original_name",
+        "physical_name",
+        "object_kind",
+        "lookup_key",
+        "knowledge_document_id",
+        "document_version",
+        "status",
+        "usable_for_sql_generation"
+      ],
+      "title": "SQLObjectRegistryEntry",
+      "type": "object"
+    }
+  },
+  "$id": "urn:erp-rag-contracts:schema:sql-object-registry:v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Contrato normativo sql-object-registry versión 1.",
+  "properties": {
+    "catalog_version": {
+      "title": "Catalog Version",
+      "type": "string"
+    },
+    "entries": {
+      "items": {
+        "$ref": "#/$defs/SQLObjectRegistryEntry"
+      },
+      "title": "Entries",
+      "type": "array"
+    },
+    "schema_version": {
+      "title": "Schema Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema_version",
+    "catalog_version",
+    "entries"
+  ],
+  "title": "SQLObjectRegistryV1",
+  "type": "object"
+}

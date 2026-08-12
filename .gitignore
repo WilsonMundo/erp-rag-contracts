@@ -1,0 +1,20 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+build/
+dist/
+
+# Releases generadas por los flujos de revisión y normalización
+/validated-release/
+/validated-releases/
+/normalized-release/
+/normalized-releases/
+
+# Informes generados por auditorías y ejecuciones técnicas
+/reports/
+
+# Configuración y skills locales de Codex
+/.codex/

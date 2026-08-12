@@ -1,0 +1,7 @@
+{
+  "matches": [
+    "dbo.Example",
+    "archive.Example"
+  ],
+  "reference": "Example"
+}

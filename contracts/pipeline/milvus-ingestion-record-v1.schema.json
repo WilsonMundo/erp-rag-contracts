@@ -1,0 +1,170 @@
+{
+  "$defs": {
+    "EligibilityCapabilitiesV1": {
+      "additionalProperties": false,
+      "properties": {
+        "embedding_eligible": {
+          "title": "Embedding Eligible",
+          "type": "boolean"
+        },
+        "physical_metadata_complete": {
+          "title": "Physical Metadata Complete",
+          "type": "boolean"
+        },
+        "policy_version": {
+          "pattern": "^(?:0|[1-9]\\d*)\\.(?:0|[1-9]\\d*)\\.(?:0|[1-9]\\d*)$",
+          "title": "Policy Version",
+          "type": "string"
+        },
+        "reasons": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Reasons",
+          "type": "array"
+        },
+        "retrieval_eligible": {
+          "title": "Retrieval Eligible",
+          "type": "boolean"
+        },
+        "sql_generation_eligible": {
+          "title": "Sql Generation Eligible",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "retrieval_eligible",
+        "embedding_eligible",
+        "sql_generation_eligible",
+        "physical_metadata_complete",
+        "reasons",
+        "policy_version"
+      ],
+      "title": "EligibilityCapabilitiesV1",
+      "type": "object"
+    }
+  },
+  "$id": "urn:erp-rag-contracts:schema:milvus-ingestion-record:v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Contrato normativo milvus-ingestion-record versión 1.",
+  "properties": {
+    "capabilities": {
+      "$ref": "#/$defs/EligibilityCapabilitiesV1"
+    },
+    "catalog_version": {
+      "title": "Catalog Version",
+      "type": "string"
+    },
+    "content_hash": {
+      "pattern": "^sha256:[0-9a-f]{64}$",
+      "title": "Content Hash",
+      "type": "string"
+    },
+    "document_id": {
+      "title": "Document Id",
+      "type": "string"
+    },
+    "document_type": {
+      "enum": [
+        "query_example",
+        "table_schema",
+        "table_family"
+      ],
+      "title": "Document Type",
+      "type": "string"
+    },
+    "document_version": {
+      "exclusiveMinimum": 0,
+      "title": "Document Version",
+      "type": "integer"
+    },
+    "embedding_dimensions": {
+      "exclusiveMinimum": 0,
+      "title": "Embedding Dimensions",
+      "type": "integer"
+    },
+    "embedding_model": {
+      "title": "Embedding Model",
+      "type": "string"
+    },
+    "ingested_at_epoch_ms": {
+      "minimum": 0,
+      "title": "Ingested At Epoch Ms",
+      "type": "integer"
+    },
+    "ingestion_schema_version": {
+      "pattern": "^(?:0|[1-9]\\d*)\\.(?:0|[1-9]\\d*)\\.(?:0|[1-9]\\d*)$",
+      "title": "Ingestion Schema Version",
+      "type": "string"
+    },
+    "language": {
+      "pattern": "^[a-z]{2}(?:-[A-Z]{2})?$",
+      "title": "Language",
+      "type": "string"
+    },
+    "module": {
+      "title": "Module",
+      "type": "string"
+    },
+    "modules": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Modules",
+      "type": "array"
+    },
+    "payload_reference": {
+      "pattern": "^(?![A-Za-z]:)(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))[A-Za-z0-9_.-]+(?:/[A-Za-z0-9_.-]+)*$",
+      "title": "Payload Reference",
+      "type": "string"
+    },
+    "semantic_text": {
+      "title": "Semantic Text",
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "approved",
+        "draft",
+        "needs_review",
+        "deprecated"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "title": {
+      "title": "Title",
+      "type": "string"
+    },
+    "vector": {
+      "items": {
+        "type": "number"
+      },
+      "title": "Vector",
+      "type": "array"
+    }
+  },
+  "required": [
+    "ingestion_schema_version",
+    "document_id",
+    "document_version",
+    "catalog_version",
+    "document_type",
+    "module",
+    "modules",
+    "status",
+    "language",
+    "title",
+    "semantic_text",
+    "content_hash",
+    "embedding_model",
+    "embedding_dimensions",
+    "capabilities",
+    "payload_reference",
+    "ingested_at_epoch_ms",
+    "vector"
+  ],
+  "title": "MilvusIngestionRecordV1",
+  "type": "object"
+}

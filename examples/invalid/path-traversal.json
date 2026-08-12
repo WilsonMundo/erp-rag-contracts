@@ -1,0 +1,16 @@
+{
+  "catalog_version": "2026.08",
+  "contract_version": "1.0.0",
+  "dependencies": [],
+  "documents": [
+    {
+      "document_id": "x",
+      "document_type": "query_example",
+      "document_version": 1,
+      "module": "ventas",
+      "relative_path": "../x.json"
+    }
+  ],
+  "module": "ventas",
+  "schema_version": "1.0.0"
+}

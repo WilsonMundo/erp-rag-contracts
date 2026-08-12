@@ -1,0 +1,97 @@
+{
+  "$defs": {
+    "FunctionalQueryCatalogEntryV1": {
+      "additionalProperties": false,
+      "properties": {
+        "catalog_version": {
+          "pattern": "^\\d{4}\\.\\d{2}$",
+          "title": "Catalog Version",
+          "type": "string"
+        },
+        "documents": {
+          "items": {
+            "$ref": "#/$defs/FunctionalQueryManifestDocumentV1"
+          },
+          "title": "Documents",
+          "type": "array"
+        },
+        "module": {
+          "title": "Module",
+          "type": "string"
+        },
+        "path": {
+          "pattern": "^(?![A-Za-z]:)(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))[A-Za-z0-9_.-]+(?:/[A-Za-z0-9_.-]+)*$",
+          "title": "Path",
+          "type": "string"
+        }
+      },
+      "required": [
+        "path",
+        "catalog_version",
+        "module",
+        "documents"
+      ],
+      "title": "FunctionalQueryCatalogEntryV1",
+      "type": "object"
+    },
+    "FunctionalQueryManifestDocumentV1": {
+      "additionalProperties": false,
+      "properties": {
+        "document_id": {
+          "title": "Document Id",
+          "type": "string"
+        },
+        "document_version": {
+          "title": "Document Version",
+          "type": "integer"
+        },
+        "status": {
+          "enum": [
+            "approved",
+            "draft",
+            "needs_review",
+            "deprecated"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "usable_for_sql_generation": {
+          "title": "Usable For Sql Generation",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "document_id",
+        "document_version",
+        "status",
+        "usable_for_sql_generation"
+      ],
+      "title": "FunctionalQueryManifestDocumentV1",
+      "type": "object"
+    }
+  },
+  "$id": "urn:erp-rag-contracts:schema:functional-query-manifest:v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Contrato normativo functional-query-manifest versión 1.",
+  "properties": {
+    "catalogs": {
+      "items": {
+        "$ref": "#/$defs/FunctionalQueryCatalogEntryV1"
+      },
+      "title": "Catalogs",
+      "type": "array"
+    },
+    "schema_version": {
+      "const": "1.0",
+      "title": "Schema Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema_version",
+    "catalogs"
+  ],
+  "title": "FunctionalQueryManifestV1",
+  "type": "object"
+}

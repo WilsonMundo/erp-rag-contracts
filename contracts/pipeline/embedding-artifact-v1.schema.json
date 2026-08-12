@@ -1,0 +1,54 @@
+{
+  "$id": "urn:erp-rag-contracts:schema:embedding-artifact:v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Contrato normativo embedding-artifact versión 1.",
+  "properties": {
+    "content_hash": {
+      "pattern": "^sha256:[0-9a-f]{64}$",
+      "title": "Content Hash",
+      "type": "string"
+    },
+    "document_id": {
+      "title": "Document Id",
+      "type": "string"
+    },
+    "document_version": {
+      "exclusiveMinimum": 0,
+      "title": "Document Version",
+      "type": "integer"
+    },
+    "embedding_dimensions": {
+      "exclusiveMinimum": 0,
+      "title": "Embedding Dimensions",
+      "type": "integer"
+    },
+    "embedding_model": {
+      "title": "Embedding Model",
+      "type": "string"
+    },
+    "generated_at_epoch_ms": {
+      "minimum": 0,
+      "title": "Generated At Epoch Ms",
+      "type": "integer"
+    },
+    "vector": {
+      "items": {
+        "type": "number"
+      },
+      "title": "Vector",
+      "type": "array"
+    }
+  },
+  "required": [
+    "document_id",
+    "document_version",
+    "content_hash",
+    "embedding_model",
+    "embedding_dimensions",
+    "vector",
+    "generated_at_epoch_ms"
+  ],
+  "title": "EmbeddingArtifactV1",
+  "type": "object"
+}

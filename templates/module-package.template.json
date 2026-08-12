@@ -1,0 +1,12 @@
+{
+  "catalog_version": "2026.08",
+  "contract_version": "1.0.0",
+  "dependencies": [],
+  "language": "es",
+  "manifest": "module-manifest.json",
+  "module": "ventas",
+  "query_examples": [],
+  "schema_version": "1.0.0",
+  "table_families": [],
+  "table_schemas": []
+}

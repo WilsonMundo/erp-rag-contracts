@@ -1,0 +1,57 @@
+{
+  "analysis_type": "summary",
+  "business_goal": "Analizar ventas.",
+  "business_rules": [],
+  "catalog_version": "2026.08",
+  "columns_used": [],
+  "dimensions": [],
+  "document_id": "example.query.sales",
+  "document_type": "query_example",
+  "document_version": 2,
+  "entity": {
+    "id": "sale",
+    "label": "Venta"
+  },
+  "expected_output": {
+    "columns": [
+      {
+        "label": "Valor",
+        "name": "Value",
+        "type": "integer"
+      }
+    ],
+    "default_order": "Value",
+    "presentation": "table"
+  },
+  "intent_id": "sales",
+  "joins_used": [],
+  "language": "es",
+  "metadata": {
+    "created_at": "2026-08-11",
+    "review_notes": [],
+    "reviewed_at": "2026-08-11",
+    "reviewed_by": "pending",
+    "source": "scaffold"
+  },
+  "metrics": [],
+  "module": "ventas",
+  "optional_fields": [],
+  "parameters": [],
+  "questions": {
+    "canonical": "¿Ventas?",
+    "paraphrases": []
+  },
+  "required_fields": [],
+  "retrieval": {
+    "keywords": [
+      "ventas"
+    ],
+    "text_template_version": "query-es-v1"
+  },
+  "schema_version": "1.0",
+  "source_examples": [],
+  "sql_template": "SELECT 1",
+  "status": "draft",
+  "tables_used": [],
+  "title": "Ventas revisión 2"
+}

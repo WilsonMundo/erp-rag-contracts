@@ -1,0 +1,1099 @@
+{
+  "$defs": {
+    "ColumnsUsedV1": {
+      "additionalProperties": false,
+      "properties": {
+        "alias": {
+          "title": "Alias",
+          "type": "string"
+        },
+        "columns": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Columns",
+          "type": "array"
+        },
+        "table": {
+          "title": "Table",
+          "type": "string"
+        }
+      },
+      "required": [
+        "table",
+        "alias",
+        "columns"
+      ],
+      "title": "ColumnsUsedV1",
+      "type": "object"
+    },
+    "DateRangeV1": {
+      "additionalProperties": false,
+      "properties": {
+        "end_exclusive": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "End Exclusive"
+        },
+        "start": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Start"
+        }
+      },
+      "required": [
+        "start",
+        "end_exclusive"
+      ],
+      "title": "DateRangeV1",
+      "type": "object"
+    },
+    "DimensionV1": {
+      "additionalProperties": false,
+      "properties": {
+        "group_by": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Group By",
+          "type": "array"
+        },
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "label": {
+          "title": "Label",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "label",
+        "group_by"
+      ],
+      "title": "DimensionV1",
+      "type": "object"
+    },
+    "EntityV1": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "label": {
+          "title": "Label",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "label"
+      ],
+      "title": "EntityV1",
+      "type": "object"
+    },
+    "ExpectedColumnV1": {
+      "additionalProperties": false,
+      "properties": {
+        "label": {
+          "title": "Label",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "type": {
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "label",
+        "type"
+      ],
+      "title": "ExpectedColumnV1",
+      "type": "object"
+    },
+    "ExpectedOutputV1": {
+      "additionalProperties": false,
+      "properties": {
+        "columns": {
+          "items": {
+            "$ref": "#/$defs/ExpectedColumnV1"
+          },
+          "title": "Columns",
+          "type": "array"
+        },
+        "default_order": {
+          "title": "Default Order",
+          "type": "string"
+        },
+        "presentation": {
+          "title": "Presentation",
+          "type": "string"
+        }
+      },
+      "required": [
+        "columns",
+        "default_order",
+        "presentation"
+      ],
+      "title": "ExpectedOutputV1",
+      "type": "object"
+    },
+    "JoinUsedV1": {
+      "additionalProperties": false,
+      "properties": {
+        "expression": {
+          "title": "Expression",
+          "type": "string"
+        },
+        "join_type": {
+          "title": "Join Type",
+          "type": "string"
+        },
+        "left_alias": {
+          "title": "Left Alias",
+          "type": "string"
+        },
+        "left_column": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
+          ],
+          "title": "Left Column"
+        },
+        "left_table": {
+          "title": "Left Table",
+          "type": "string"
+        },
+        "purpose": {
+          "title": "Purpose",
+          "type": "string"
+        },
+        "right_alias": {
+          "title": "Right Alias",
+          "type": "string"
+        },
+        "right_column": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
+          ],
+          "title": "Right Column"
+        },
+        "right_table": {
+          "title": "Right Table",
+          "type": "string"
+        }
+      },
+      "required": [
+        "left_table",
+        "left_alias",
+        "left_column",
+        "right_table",
+        "right_alias",
+        "right_column",
+        "join_type",
+        "expression",
+        "purpose"
+      ],
+      "title": "JoinUsedV1",
+      "type": "object"
+    },
+    "MetricV1": {
+      "additionalProperties": false,
+      "properties": {
+        "aggregation": {
+          "title": "Aggregation",
+          "type": "string"
+        },
+        "description": {
+          "title": "Description",
+          "type": "string"
+        },
+        "expression": {
+          "title": "Expression",
+          "type": "string"
+        },
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "label": {
+          "title": "Label",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "label",
+        "description",
+        "aggregation",
+        "expression"
+      ],
+      "title": "MetricV1",
+      "type": "object"
+    },
+    "OptionalFieldV1": {
+      "additionalProperties": false,
+      "properties": {
+        "default": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "integer"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Default"
+        },
+        "description": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Description"
+        },
+        "maximum": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Maximum"
+        },
+        "minimum": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Minimum"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "required": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Required"
+        },
+        "type": {
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "type"
+      ],
+      "title": "OptionalFieldV1",
+      "type": "object"
+    },
+    "ParameterV1": {
+      "additionalProperties": false,
+      "properties": {
+        "default": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "integer"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Default"
+        },
+        "maximum": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Maximum"
+        },
+        "minimum": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Minimum"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "required": {
+          "title": "Required",
+          "type": "boolean"
+        },
+        "source": {
+          "title": "Source",
+          "type": "string"
+        },
+        "sql_type": {
+          "title": "Sql Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "sql_type",
+        "required",
+        "source"
+      ],
+      "title": "ParameterV1",
+      "type": "object"
+    },
+    "QueryBusinessRuleV1": {
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "title": "Description",
+          "type": "string"
+        },
+        "expression": {
+          "title": "Expression",
+          "type": "string"
+        },
+        "rule_id": {
+          "title": "Rule Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "rule_id",
+        "description",
+        "expression"
+      ],
+      "title": "QueryBusinessRuleV1",
+      "type": "object"
+    },
+    "QueryMetadataV1": {
+      "additionalProperties": false,
+      "properties": {
+        "created_at": {
+          "title": "Created At",
+          "type": "string"
+        },
+        "original_example_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Original Example Id"
+        },
+        "review_notes": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Review Notes",
+          "type": "array"
+        },
+        "reviewed_at": {
+          "title": "Reviewed At",
+          "type": "string"
+        },
+        "reviewed_by": {
+          "title": "Reviewed By",
+          "type": "string"
+        },
+        "source": {
+          "title": "Source",
+          "type": "string"
+        }
+      },
+      "required": [
+        "created_at",
+        "reviewed_at",
+        "reviewed_by",
+        "source",
+        "review_notes"
+      ],
+      "title": "QueryMetadataV1",
+      "type": "object"
+    },
+    "QueryRetrievalV1": {
+      "additionalProperties": false,
+      "properties": {
+        "content_hash": {
+          "anyOf": [
+            {
+              "pattern": "^sha256:[0-9a-f]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Content Hash"
+        },
+        "keywords": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Keywords",
+          "type": "array"
+        },
+        "semantic_text": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Semantic Text"
+        },
+        "text_template_version": {
+          "title": "Text Template Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "keywords",
+        "text_template_version"
+      ],
+      "title": "QueryRetrievalV1",
+      "type": "object"
+    },
+    "QuestionsV1": {
+      "additionalProperties": false,
+      "properties": {
+        "canonical": {
+          "title": "Canonical",
+          "type": "string"
+        },
+        "paraphrases": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Paraphrases",
+          "type": "array"
+        }
+      },
+      "required": [
+        "canonical",
+        "paraphrases"
+      ],
+      "title": "QuestionsV1",
+      "type": "object"
+    },
+    "RequiredFieldV1": {
+      "additionalProperties": false,
+      "properties": {
+        "clarification_prompt": {
+          "title": "Clarification Prompt",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "required": {
+          "title": "Required",
+          "type": "boolean"
+        },
+        "type": {
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "type",
+        "required",
+        "clarification_prompt"
+      ],
+      "title": "RequiredFieldV1",
+      "type": "object"
+    },
+    "SourceExampleV1": {
+      "additionalProperties": false,
+      "properties": {
+        "base_period": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/DateRangeV1"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "comparison_period": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/DateRangeV1"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "customer_code": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Customer Code"
+        },
+        "date_range": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/DateRangeV1"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "period_1": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/DateRangeV1"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "period_2": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/DateRangeV1"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "product_code": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Product Code"
+        },
+        "question": {
+          "title": "Question",
+          "type": "string"
+        },
+        "top_n": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Top N"
+        }
+      },
+      "required": [
+        "question"
+      ],
+      "title": "SourceExampleV1",
+      "type": "object"
+    },
+    "SqlAnalysisAliasV1": {
+      "additionalProperties": false,
+      "properties": {
+        "alias": {
+          "title": "Alias",
+          "type": "string"
+        },
+        "target_name": {
+          "title": "Target Name",
+          "type": "string"
+        },
+        "target_object_kind": {
+          "title": "Target Object Kind",
+          "type": "string"
+        }
+      },
+      "required": [
+        "alias",
+        "target_name",
+        "target_object_kind"
+      ],
+      "title": "SqlAnalysisAliasV1",
+      "type": "object"
+    },
+    "SqlAnalysisObjectV1": {
+      "additionalProperties": false,
+      "properties": {
+        "alias": {
+          "title": "Alias",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "object_kind": {
+          "title": "Object Kind",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "alias",
+        "object_kind"
+      ],
+      "title": "SqlAnalysisObjectV1",
+      "type": "object"
+    },
+    "SqlObjectAnalysisV1": {
+      "additionalProperties": false,
+      "properties": {
+        "aliases": {
+          "items": {
+            "$ref": "#/$defs/SqlAnalysisAliasV1"
+          },
+          "title": "Aliases",
+          "type": "array"
+        },
+        "ctes": {
+          "items": {
+            "$ref": "#/$defs/SqlAnalysisObjectV1"
+          },
+          "title": "Ctes",
+          "type": "array"
+        },
+        "derived_tables": {
+          "items": {
+            "$ref": "#/$defs/SqlAnalysisObjectV1"
+          },
+          "title": "Derived Tables",
+          "type": "array"
+        },
+        "physical_tables": {
+          "items": {
+            "$ref": "#/$defs/SqlAnalysisObjectV1"
+          },
+          "title": "Physical Tables",
+          "type": "array"
+        }
+      },
+      "required": [
+        "physical_tables",
+        "ctes",
+        "derived_tables",
+        "aliases"
+      ],
+      "title": "SqlObjectAnalysisV1",
+      "type": "object"
+    },
+    "TableUsedV1": {
+      "additionalProperties": false,
+      "properties": {
+        "alias": {
+          "title": "Alias",
+          "type": "string"
+        },
+        "description": {
+          "title": "Description",
+          "type": "string"
+        },
+        "knowledge_document_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Knowledge Document Id"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "object_kind": {
+          "title": "Object Kind",
+          "type": "string"
+        },
+        "physical_schema": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Physical Schema"
+        },
+        "role": {
+          "title": "Role",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "alias",
+        "role",
+        "description",
+        "object_kind"
+      ],
+      "title": "TableUsedV1",
+      "type": "object"
+    }
+  },
+  "$id": "urn:erp-rag-contracts:schema:reviewer-query-effective:v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Contrato normativo reviewer-query-effective versión 1.",
+  "properties": {
+    "analysis_type": {
+      "title": "Analysis Type",
+      "type": "string"
+    },
+    "business_goal": {
+      "title": "Business Goal",
+      "type": "string"
+    },
+    "business_rules": {
+      "items": {
+        "$ref": "#/$defs/QueryBusinessRuleV1"
+      },
+      "title": "Business Rules",
+      "type": "array"
+    },
+    "catalog_version": {
+      "pattern": "^\\d{4}\\.\\d{2}$",
+      "title": "Catalog Version",
+      "type": "string"
+    },
+    "columns_used": {
+      "items": {
+        "$ref": "#/$defs/ColumnsUsedV1"
+      },
+      "title": "Columns Used",
+      "type": "array"
+    },
+    "content_hash": {
+      "anyOf": [
+        {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Content Hash"
+    },
+    "dimensions": {
+      "items": {
+        "$ref": "#/$defs/DimensionV1"
+      },
+      "title": "Dimensions",
+      "type": "array"
+    },
+    "document_id": {
+      "title": "Document Id",
+      "type": "string"
+    },
+    "document_type": {
+      "const": "query_example",
+      "title": "Document Type",
+      "type": "string"
+    },
+    "document_version": {
+      "exclusiveMinimum": 0,
+      "title": "Document Version",
+      "type": "integer"
+    },
+    "entity": {
+      "$ref": "#/$defs/EntityV1"
+    },
+    "expected_output": {
+      "$ref": "#/$defs/ExpectedOutputV1"
+    },
+    "intent_id": {
+      "title": "Intent Id",
+      "type": "string"
+    },
+    "joins_used": {
+      "items": {
+        "$ref": "#/$defs/JoinUsedV1"
+      },
+      "title": "Joins Used",
+      "type": "array"
+    },
+    "language": {
+      "pattern": "^[a-z]{2}(?:-[A-Z]{2})?$",
+      "title": "Language",
+      "type": "string"
+    },
+    "metadata": {
+      "$ref": "#/$defs/QueryMetadataV1"
+    },
+    "metrics": {
+      "items": {
+        "$ref": "#/$defs/MetricV1"
+      },
+      "title": "Metrics",
+      "type": "array"
+    },
+    "module": {
+      "title": "Module",
+      "type": "string"
+    },
+    "optional_fields": {
+      "items": {
+        "$ref": "#/$defs/OptionalFieldV1"
+      },
+      "title": "Optional Fields",
+      "type": "array"
+    },
+    "parameters": {
+      "items": {
+        "$ref": "#/$defs/ParameterV1"
+      },
+      "title": "Parameters",
+      "type": "array"
+    },
+    "questions": {
+      "$ref": "#/$defs/QuestionsV1"
+    },
+    "required_fields": {
+      "items": {
+        "$ref": "#/$defs/RequiredFieldV1"
+      },
+      "title": "Required Fields",
+      "type": "array"
+    },
+    "retrieval": {
+      "$ref": "#/$defs/QueryRetrievalV1"
+    },
+    "schema_version": {
+      "const": "1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "semantic_text": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Semantic Text"
+    },
+    "source_examples": {
+      "items": {
+        "$ref": "#/$defs/SourceExampleV1"
+      },
+      "title": "Source Examples",
+      "type": "array"
+    },
+    "sql_object_analysis": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/SqlObjectAnalysisV1"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "sql_template": {
+      "title": "Sql Template",
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "approved",
+        "draft",
+        "needs_review",
+        "deprecated"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "tables_used": {
+      "items": {
+        "$ref": "#/$defs/TableUsedV1"
+      },
+      "title": "Tables Used",
+      "type": "array"
+    },
+    "title": {
+      "title": "Title",
+      "type": "string"
+    },
+    "usable_for_sql_generation": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Usable For Sql Generation"
+    }
+  },
+  "required": [
+    "schema_version",
+    "catalog_version",
+    "document_id",
+    "document_version",
+    "document_type",
+    "status",
+    "module",
+    "language",
+    "intent_id",
+    "title",
+    "questions",
+    "business_goal",
+    "required_fields",
+    "optional_fields",
+    "analysis_type",
+    "entity",
+    "metrics",
+    "dimensions",
+    "tables_used",
+    "joins_used",
+    "business_rules",
+    "sql_template",
+    "parameters",
+    "expected_output",
+    "retrieval",
+    "source_examples",
+    "metadata"
+  ],
+  "title": "QueryExampleDocumentEffectiveV1",
+  "type": "object"
+}

@@ -1,0 +1,31 @@
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[project]
+name = "erp-rag-contracts"
+version = "1.0.0"
+description = "Contratos versionados para catalogos ERP destinados a sistemas RAG"
+readme = "README.md"
+requires-python = ">=3.11"
+license = {text = "Proprietary"}
+dependencies = ["pydantic>=2.7,<3", "jsonschema>=4.22,<5"]
+
+[project.optional-dependencies]
+dev = ["build>=1.2", "mypy>=1.10", "pytest>=8", "ruff>=0.5"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/erp_rag_contracts"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.mypy]
+python_version = "3.11"
+packages = ["erp_rag_contracts"]
+strict = true
+

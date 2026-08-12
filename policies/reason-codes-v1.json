@@ -1,0 +1,189 @@
+{
+  "codes": [
+    {
+      "blocks_eligibility": true,
+      "blocks_normalization": true,
+      "blocks_validation": true,
+      "code": "STATUS_NOT_APPROVED",
+      "description": "Status not approved.",
+      "severity": "error"
+    },
+    {
+      "blocks_eligibility": true,
+      "blocks_normalization": true,
+      "blocks_validation": true,
+      "code": "SOURCE_CONTRACT_INVALID",
+      "description": "Source contract invalid.",
+      "severity": "error"
+    },
+    {
+      "blocks_eligibility": true,
+      "blocks_normalization": true,
+      "blocks_validation": true,
+      "code": "NORMALIZED_CONTRACT_INVALID",
+      "description": "Normalized contract invalid.",
+      "severity": "error"
+    },
+    {
+      "blocks_eligibility": true,
+      "blocks_normalization": true,
+      "blocks_validation": true,
+      "code": "ENVELOPE_FIELD_CONFLICT",
+      "description": "Envelope field conflict.",
+      "severity": "error"
+    },
+    {
+      "blocks_eligibility": true,
+      "blocks_normalization": true,
+      "blocks_validation": true,
+      "code": "SEMANTIC_TEXT_INVALID",
+      "description": "Semantic text invalid.",
+      "severity": "error"
+    },
+    {
+      "blocks_eligibility": true,
+      "blocks_normalization": true,
+      "blocks_validation": true,
+      "code": "CONTENT_HASH_INVALID",
+      "description": "Content hash invalid.",
+      "severity": "error"
+    },
+    {
+      "blocks_eligibility": true,
+      "blocks_normalization": true,
+      "blocks_validation": true,
+      "code": "SQL_TEMPLATE_EMPTY",
+      "description": "Sql template empty.",
+      "severity": "error"
+    },
+    {
+      "blocks_eligibility": true,
+      "blocks_normalization": true,
+      "blocks_validation": true,
+      "code": "UNRESOLVED_PLACEHOLDER",
+      "description": "Unresolved placeholder.",
+      "severity": "error"
+    },
+    {
+      "blocks_eligibility": true,
+      "blocks_normalization": true,
+      "blocks_validation": true,
+      "code": "PARAMETER_UNDECLARED",
+      "description": "Parameter undeclared.",
+      "severity": "error"
+    },
+    {
+      "blocks_eligibility": false,
+      "blocks_normalization": false,
+      "blocks_validation": false,
+      "code": "PARAMETER_UNUSED",
+      "description": "Parameter unused.",
+      "severity": "warning"
+    },
+    {
+      "blocks_eligibility": true,
+      "blocks_normalization": true,
+      "blocks_validation": true,
+      "code": "SQL_OBJECT_UNRESOLVED",
+      "description": "Sql object unresolved.",
+      "severity": "error"
+    },
+    {
+      "blocks_eligibility": true,
+      "blocks_normalization": true,
+      "blocks_validation": true,
+      "code": "SQL_OBJECT_AMBIGUOUS",
+      "description": "Sql object ambiguous.",
+      "severity": "error"
+    },
+    {
+      "blocks_eligibility": true,
+      "blocks_normalization": true,
+      "blocks_validation": true,
+      "code": "ALIAS_UNDECLARED",
+      "description": "Alias undeclared.",
+      "severity": "error"
+    },
+    {
+      "blocks_eligibility": true,
+      "blocks_normalization": true,
+      "blocks_validation": true,
+      "code": "ALIAS_DUPLICATED",
+      "description": "Alias duplicated.",
+      "severity": "error"
+    },
+    {
+      "blocks_eligibility": true,
+      "blocks_normalization": true,
+      "blocks_validation": true,
+      "code": "JOIN_REFERENCE_INVALID",
+      "description": "Join reference invalid.",
+      "severity": "error"
+    },
+    {
+      "blocks_eligibility": true,
+      "blocks_normalization": true,
+      "blocks_validation": true,
+      "code": "COLUMN_UNRESOLVED",
+      "description": "Column unresolved.",
+      "severity": "error"
+    },
+    {
+      "blocks_eligibility": true,
+      "blocks_normalization": true,
+      "blocks_validation": true,
+      "code": "SQL_FUNCTION_UNRESOLVED",
+      "description": "Sql function unresolved.",
+      "severity": "error"
+    },
+    {
+      "blocks_eligibility": true,
+      "blocks_normalization": true,
+      "blocks_validation": true,
+      "code": "KNOWLEDGE_NOT_ELIGIBLE",
+      "description": "Knowledge not eligible.",
+      "severity": "error"
+    },
+    {
+      "blocks_eligibility": true,
+      "blocks_normalization": true,
+      "blocks_validation": true,
+      "code": "KNOWLEDGE_VERSION_INCOMPATIBLE",
+      "description": "Knowledge version incompatible.",
+      "severity": "error"
+    },
+    {
+      "blocks_eligibility": false,
+      "blocks_normalization": false,
+      "blocks_validation": false,
+      "code": "DUPLICATE_DOCUMENT_IDENTICAL",
+      "description": "Duplicate document identical.",
+      "severity": "warning"
+    },
+    {
+      "blocks_eligibility": true,
+      "blocks_normalization": true,
+      "blocks_validation": true,
+      "code": "DUPLICATE_DOCUMENT_CONFLICT",
+      "description": "Duplicate document conflict.",
+      "severity": "error"
+    },
+    {
+      "blocks_eligibility": true,
+      "blocks_normalization": true,
+      "blocks_validation": true,
+      "code": "DOCUMENT_VERSION_REGRESSION",
+      "description": "Document version regression.",
+      "severity": "error"
+    },
+    {
+      "blocks_eligibility": true,
+      "blocks_normalization": true,
+      "blocks_validation": true,
+      "code": "MANIFEST_PATH_INVALID",
+      "description": "Manifest path invalid.",
+      "severity": "error"
+    }
+  ],
+  "version": "1.0.0"
+}

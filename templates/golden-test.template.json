@@ -1,0 +1,6 @@
+{
+  "expected_document_id": "example.query.sales",
+  "language": "es",
+  "question": "¿Ventas?",
+  "test_id": "example"
+}

@@ -1,0 +1,150 @@
+{
+  "$defs": {
+    "ReleaseCountsV1": {
+      "additionalProperties": false,
+      "properties": {
+        "catalogs": {
+          "title": "Catalogs",
+          "type": "integer"
+        },
+        "eligible": {
+          "title": "Eligible",
+          "type": "integer"
+        },
+        "families": {
+          "title": "Families",
+          "type": "integer"
+        },
+        "files": {
+          "title": "Files",
+          "type": "integer"
+        },
+        "ineligible": {
+          "title": "Ineligible",
+          "type": "integer"
+        },
+        "query_examples": {
+          "title": "Query Examples",
+          "type": "integer"
+        },
+        "tables": {
+          "title": "Tables",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "catalogs",
+        "eligible",
+        "families",
+        "files",
+        "ineligible",
+        "query_examples",
+        "tables"
+      ],
+      "title": "ReleaseCountsV1",
+      "type": "object"
+    },
+    "ReleaseFileEntryV1": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "title": "Kind",
+          "type": "string"
+        },
+        "path": {
+          "pattern": "^(?![A-Za-z]:)(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))[A-Za-z0-9_.-]+(?:/[A-Za-z0-9_.-]+)*$",
+          "title": "Path",
+          "type": "string"
+        },
+        "sha256": {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "title": "Sha256",
+          "type": "string"
+        }
+      },
+      "required": [
+        "path",
+        "sha256",
+        "kind"
+      ],
+      "title": "ReleaseFileEntryV1",
+      "type": "object"
+    }
+  },
+  "$id": "urn:erp-rag-contracts:schema:release-manifest:v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Contrato normativo release-manifest versión 1.",
+  "properties": {
+    "blockers": {
+      "title": "Blockers",
+      "type": "integer"
+    },
+    "build_date": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Build Date"
+    },
+    "contract_version": {
+      "const": "1.0",
+      "default": "1.0",
+      "title": "Contract Version",
+      "type": "string"
+    },
+    "counts": {
+      "$ref": "#/$defs/ReleaseCountsV1"
+    },
+    "files": {
+      "items": {
+        "$ref": "#/$defs/ReleaseFileEntryV1"
+      },
+      "title": "Files",
+      "type": "array"
+    },
+    "release_version": {
+      "pattern": "^\\d{4}\\.\\d{2}$",
+      "title": "Release Version",
+      "type": "string"
+    },
+    "result": {
+      "enum": [
+        "valid",
+        "invalid"
+      ],
+      "title": "Result",
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "1.0",
+      "default": "1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "source": {
+      "title": "Source",
+      "type": "string"
+    },
+    "warnings": {
+      "title": "Warnings",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "release_version",
+    "source",
+    "result",
+    "files",
+    "counts",
+    "blockers",
+    "warnings"
+  ],
+  "title": "ReleaseManifestV1",
+  "type": "object"
+}

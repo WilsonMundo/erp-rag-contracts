@@ -1,0 +1,168 @@
+{
+  "contract_version": "1.0.0",
+  "contracts": [
+    {
+      "compatibility": "1.x",
+      "id": "urn:erp-rag-contracts:schema:normalized-record:v1",
+      "path": "contracts/normalized/normalized-catalog-record-v1.schema.json",
+      "sha256": "b1e72ee7f534250e281ab374c8b456ef2d38cef9d24bc1aef4946752cc0be64a",
+      "status": "stable",
+      "type": "normalized-record"
+    },
+    {
+      "compatibility": "1.x",
+      "id": "urn:erp-rag-contracts:schema:normalized-query:v1",
+      "path": "contracts/normalized/normalized-query-example-v1.schema.json",
+      "sha256": "3edb4fe5c4f1a8aa34e7b61719becc6c2495d98889054ebc969312dd089ef11e",
+      "status": "stable",
+      "type": "normalized-query"
+    },
+    {
+      "compatibility": "1.x",
+      "id": "urn:erp-rag-contracts:schema:normalized-family:v1",
+      "path": "contracts/normalized/normalized-table-family-v1.schema.json",
+      "sha256": "0286636a58cd12250876d6ab1785494e89b219ba329c27790d79044ae4a0b376",
+      "status": "stable",
+      "type": "normalized-family"
+    },
+    {
+      "compatibility": "1.x",
+      "id": "urn:erp-rag-contracts:schema:normalized-table:v1",
+      "path": "contracts/normalized/normalized-table-schema-v1.schema.json",
+      "sha256": "ad753f7340339871af629fdc91ec18d35a5c5e12f68f906c710bf2722d1b0953",
+      "status": "stable",
+      "type": "normalized-table"
+    },
+    {
+      "compatibility": "1.x",
+      "id": "urn:erp-rag-contracts:schema:embedding-artifact:v1",
+      "path": "contracts/pipeline/embedding-artifact-v1.schema.json",
+      "sha256": "173ee38276ac6679bec077a5974392434167cb0d63f4c121430cc78a85ac63dc",
+      "status": "stable",
+      "type": "embedding-artifact"
+    },
+    {
+      "compatibility": "1.x",
+      "id": "urn:erp-rag-contracts:schema:milvus-ingestion-record:v1",
+      "path": "contracts/pipeline/milvus-ingestion-record-v1.schema.json",
+      "sha256": "6a10237fdd28b29b2784dd84f53ba85c490f8bfb06ae44a6d0550057d4082342",
+      "status": "stable",
+      "type": "milvus-ingestion-record"
+    },
+    {
+      "compatibility": "1.x",
+      "id": "urn:erp-rag-contracts:schema:functional-knowledge-manifest:v1",
+      "path": "contracts/source/functional-knowledge-manifest-v1.schema.json",
+      "sha256": "e75db3c03b7a1334de8b2bf10d45ae3b8834faf24f3b796c3e660092709fe1ab",
+      "status": "stable",
+      "type": "functional-knowledge-manifest"
+    },
+    {
+      "compatibility": "1.x",
+      "id": "urn:erp-rag-contracts:schema:functional-query-manifest:v1",
+      "path": "contracts/source/functional-query-manifest-v1.schema.json",
+      "sha256": "6986088f16b93b0b93a552caab8139c3829154ee588508184b9bc3fb7e1deb23",
+      "status": "stable",
+      "type": "functional-query-manifest"
+    },
+    {
+      "compatibility": "1.x",
+      "id": "urn:erp-rag-contracts:schema:module-package:v1",
+      "path": "contracts/source/module-catalog-package-v1.schema.json",
+      "sha256": "e7c172e6a374cfcb3d633002a9e97b1bb41232f5c31c435799ae6aea8fce6d33",
+      "status": "stable",
+      "type": "module-package"
+    },
+    {
+      "compatibility": "1.x",
+      "id": "urn:erp-rag-contracts:schema:module-manifest:v1",
+      "path": "contracts/source/module-manifest-v1.schema.json",
+      "sha256": "0359da6941701dfa37e5ed40612c3edb682f9a886fb97a4d055ac4d8d96c1d44",
+      "status": "stable",
+      "type": "module-manifest"
+    },
+    {
+      "compatibility": "1.x",
+      "id": "urn:erp-rag-contracts:schema:reviewer-query-catalog:v1",
+      "path": "contracts/source/query-example-catalog-v1.schema.json",
+      "sha256": "e952c25bc822e2ebbf9c8bf2ba532341b55abf0787483796084cd89e9e2bdb07",
+      "status": "stable",
+      "type": "reviewer-query-catalog"
+    },
+    {
+      "compatibility": "1.x",
+      "id": "urn:erp-rag-contracts:schema:reviewer-query-source:v1",
+      "path": "contracts/source/query-example-document-v1.schema.json",
+      "sha256": "87abeb6096cd2e67f6ca28bbd88ec4233a60f89a87db48c99537cee1beda536a",
+      "status": "stable",
+      "type": "reviewer-query-source"
+    },
+    {
+      "compatibility": "1.x",
+      "id": "urn:erp-rag-contracts:schema:reviewer-query-effective:v1",
+      "path": "contracts/source/query-example-effective-v1.schema.json",
+      "sha256": "8d5bfc9b8bf1e04a6f3d316c48755805532956be5c7c26d3a5496683439a135b",
+      "status": "stable",
+      "type": "reviewer-query-effective"
+    },
+    {
+      "compatibility": "1.x",
+      "id": "urn:erp-rag-contracts:schema:release-manifest:v1",
+      "path": "contracts/source/release-manifest-v1.schema.json",
+      "sha256": "8a1e798a67e9aaa7b61a3c056ce0bd63449fd8a120f74c8808390487110d3ce0",
+      "status": "stable",
+      "type": "release-manifest"
+    },
+    {
+      "compatibility": "1.x",
+      "id": "urn:erp-rag-contracts:schema:source-manifest:v1",
+      "path": "contracts/source/source-manifest-v1.schema.json",
+      "sha256": "947a0ad6f446f7fc5c205332a4e18ed2f03de0d454a0e89fb79c2e806d5a6ea1",
+      "status": "stable",
+      "type": "source-manifest"
+    },
+    {
+      "compatibility": "1.x",
+      "id": "urn:erp-rag-contracts:schema:sql-object-registry:v1",
+      "path": "contracts/source/sql-object-registry-v1.schema.json",
+      "sha256": "8b9604aaf755416f3b249068a99f37c1ce0466e5a13a33aca008525ce2d178b6",
+      "status": "stable",
+      "type": "sql-object-registry"
+    },
+    {
+      "compatibility": "1.x",
+      "id": "urn:erp-rag-contracts:schema:reviewer-family-source:v1",
+      "path": "contracts/source/table-family-document-v1.schema.json",
+      "sha256": "7769e65493c1b9fd32d034085f03e509e573da7032fa75c406f7b326fc9863e8",
+      "status": "stable",
+      "type": "reviewer-family-source"
+    },
+    {
+      "compatibility": "1.x",
+      "id": "urn:erp-rag-contracts:schema:reviewer-table-source:v1",
+      "path": "contracts/source/table-schema-document-v1.schema.json",
+      "sha256": "e0137b4f17d0aeeabb9c6fdf2890f5f5ddf33577b1f9d62d3ea3e77a8c8eb7da",
+      "status": "stable",
+      "type": "reviewer-table-source"
+    }
+  ],
+  "json_schema_version": "2020-12",
+  "package": "erp-rag-contracts",
+  "policies": [
+    "policies/contract-policy-v1.json",
+    "policies/eligibility-policy-v1.json",
+    "policies/normalization-policy-v1.json",
+    "policies/reason-codes-v1.json",
+    "policies/versioning-policy-v1.json"
+  ],
+  "published_on": "2026-08-11",
+  "templates": [
+    "templates/golden-test.template.json",
+    "templates/module-manifest.template.json",
+    "templates/module-package.template.json",
+    "templates/query-example.template.json",
+    "templates/sql-object-registry.template.json",
+    "templates/table-family.template.json",
+    "templates/table-schema.template.json"
+  ]
+}

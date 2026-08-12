@@ -1,0 +1,77 @@
+{
+  "$id": "urn:erp-rag-contracts:schema:module-package:v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Contrato normativo module-package versión 1.",
+  "properties": {
+    "catalog_version": {
+      "title": "Catalog Version",
+      "type": "string"
+    },
+    "contract_version": {
+      "pattern": "^(?:0|[1-9]\\d*)\\.(?:0|[1-9]\\d*)\\.(?:0|[1-9]\\d*)$",
+      "title": "Contract Version",
+      "type": "string"
+    },
+    "dependencies": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Dependencies",
+      "type": "array"
+    },
+    "language": {
+      "pattern": "^[a-z]{2}(?:-[A-Z]{2})?$",
+      "title": "Language",
+      "type": "string"
+    },
+    "manifest": {
+      "pattern": "^(?![A-Za-z]:)(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))[A-Za-z0-9_.-]+(?:/[A-Za-z0-9_.-]+)*$",
+      "title": "Manifest",
+      "type": "string"
+    },
+    "module": {
+      "title": "Module",
+      "type": "string"
+    },
+    "query_examples": {
+      "items": {
+        "pattern": "^(?![A-Za-z]:)(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))[A-Za-z0-9_.-]+(?:/[A-Za-z0-9_.-]+)*$",
+        "type": "string"
+      },
+      "title": "Query Examples",
+      "type": "array"
+    },
+    "schema_version": {
+      "pattern": "^(?:0|[1-9]\\d*)\\.(?:0|[1-9]\\d*)\\.(?:0|[1-9]\\d*)$",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "table_families": {
+      "items": {
+        "pattern": "^(?![A-Za-z]:)(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))[A-Za-z0-9_.-]+(?:/[A-Za-z0-9_.-]+)*$",
+        "type": "string"
+      },
+      "title": "Table Families",
+      "type": "array"
+    },
+    "table_schemas": {
+      "items": {
+        "pattern": "^(?![A-Za-z]:)(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))[A-Za-z0-9_.-]+(?:/[A-Za-z0-9_.-]+)*$",
+        "type": "string"
+      },
+      "title": "Table Schemas",
+      "type": "array"
+    }
+  },
+  "required": [
+    "contract_version",
+    "schema_version",
+    "catalog_version",
+    "module",
+    "language",
+    "manifest"
+  ],
+  "title": "ModuleCatalogPackageSourceV1",
+  "type": "object"
+}

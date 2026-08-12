@@ -1,0 +1,946 @@
+{
+  "$defs": {
+    "ColumnV1": {
+      "additionalProperties": false,
+      "properties": {
+        "business_terms": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Business Terms",
+          "type": "array"
+        },
+        "description": {
+          "title": "Description",
+          "type": "string"
+        },
+        "foreign_key": {
+          "title": "Foreign Key",
+          "type": "boolean"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "nullable": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Nullable"
+        },
+        "primary_key": {
+          "title": "Primary Key",
+          "type": "boolean"
+        },
+        "sql_type": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Sql Type"
+        },
+        "verification_status": {
+          "title": "Verification Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "sql_type",
+        "nullable",
+        "primary_key",
+        "foreign_key",
+        "description",
+        "business_terms",
+        "verification_status"
+      ],
+      "title": "ColumnV1",
+      "type": "object"
+    },
+    "KnowledgeMetadataV1": {
+      "additionalProperties": false,
+      "properties": {
+        "normalized_at": {
+          "title": "Normalized At",
+          "type": "string"
+        },
+        "normalized_by": {
+          "title": "Normalized By",
+          "type": "string"
+        },
+        "review_notes": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Review Notes",
+          "type": "array"
+        },
+        "source": {
+          "title": "Source",
+          "type": "string"
+        },
+        "source_files": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Source Files",
+          "type": "array"
+        }
+      },
+      "required": [
+        "normalized_at",
+        "normalized_by",
+        "source",
+        "source_files",
+        "review_notes"
+      ],
+      "title": "KnowledgeMetadataV1",
+      "type": "object"
+    },
+    "KnowledgeRetrievalV1": {
+      "additionalProperties": false,
+      "properties": {
+        "content_hash": {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "title": "Content Hash",
+          "type": "string"
+        },
+        "keywords": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Keywords",
+          "type": "array"
+        },
+        "semantic_text": {
+          "title": "Semantic Text",
+          "type": "string"
+        },
+        "text_template_version": {
+          "title": "Text Template Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "keywords",
+        "semantic_text",
+        "content_hash",
+        "text_template_version"
+      ],
+      "title": "KnowledgeRetrievalV1",
+      "type": "object"
+    },
+    "ReferenceRecordV1": {
+      "additionalProperties": false,
+      "properties": {
+        "Descripcion": {
+          "title": "Descripcion",
+          "type": "string"
+        },
+        "FlagAfectaCtaCliente": {
+          "title": "Flagafectactacliente",
+          "type": "integer"
+        },
+        "FlagAfectaCtaProveedor": {
+          "title": "Flagafectactaproveedor",
+          "type": "integer"
+        },
+        "FlagAfectaImpuesto": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Flagafectaimpuesto"
+        },
+        "FlagAfectaInventario": {
+          "title": "Flagafectainventario",
+          "type": "integer"
+        },
+        "FlagReservaInventario": {
+          "title": "Flagreservainventario",
+          "type": "integer"
+        },
+        "business_intent": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Business Intent",
+          "type": "array"
+        },
+        "document_family": {
+          "title": "Document Family",
+          "type": "string"
+        },
+        "idTransaccionInv": {
+          "title": "Idtransaccioninv",
+          "type": "integer"
+        },
+        "inventory_effect": {
+          "title": "Inventory Effect",
+          "type": "string"
+        },
+        "module": {
+          "title": "Module",
+          "type": "string"
+        },
+        "notes": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Notes",
+          "type": "array"
+        },
+        "query_usage": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Query Usage",
+          "type": "array"
+        },
+        "reservation_effect": {
+          "title": "Reservation Effect",
+          "type": "string"
+        },
+        "tipo": {
+          "title": "Tipo",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "idTransaccionInv",
+        "Descripcion",
+        "tipo",
+        "FlagAfectaInventario",
+        "FlagReservaInventario",
+        "FlagAfectaCtaCliente",
+        "FlagAfectaCtaProveedor",
+        "FlagAfectaImpuesto",
+        "module",
+        "document_family",
+        "inventory_effect",
+        "reservation_effect",
+        "business_intent",
+        "query_usage",
+        "notes"
+      ],
+      "title": "ReferenceRecordV1",
+      "type": "object"
+    },
+    "RelationshipV1": {
+      "additionalProperties": false,
+      "properties": {
+        "join_expression": {
+          "title": "Join Expression",
+          "type": "string"
+        },
+        "join_type": {
+          "title": "Join Type",
+          "type": "string"
+        },
+        "local_columns": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Local Columns",
+          "type": "array"
+        },
+        "modules": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Modules"
+        },
+        "purpose": {
+          "title": "Purpose",
+          "type": "string"
+        },
+        "relationship_id": {
+          "title": "Relationship Id",
+          "type": "string"
+        },
+        "relationship_type": {
+          "title": "Relationship Type",
+          "type": "string"
+        },
+        "target_columns": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Target Columns",
+          "type": "array"
+        },
+        "target_resolution": {
+          "title": "Target Resolution",
+          "type": "string"
+        },
+        "target_table": {
+          "title": "Target Table",
+          "type": "string"
+        },
+        "verification_status": {
+          "title": "Verification Status",
+          "type": "string"
+        },
+        "when_to_use": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "When To Use"
+        }
+      },
+      "required": [
+        "relationship_id",
+        "target_table",
+        "local_columns",
+        "target_columns",
+        "join_type",
+        "join_expression",
+        "relationship_type",
+        "purpose",
+        "target_resolution",
+        "verification_status"
+      ],
+      "title": "RelationshipV1",
+      "type": "object"
+    },
+    "RuleValuesV1": {
+      "additionalProperties": false,
+      "properties": {
+        "0": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "0"
+        },
+        "1": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "1"
+        },
+        "10": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "10"
+        },
+        "11": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "11"
+        },
+        "12": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "12"
+        },
+        "13": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "13"
+        },
+        "2": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "2"
+        },
+        "3": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "3"
+        },
+        "4": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "4"
+        },
+        "5": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "5"
+        },
+        "6": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "6"
+        },
+        "7": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "7"
+        },
+        "8": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "8"
+        },
+        "9": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "9"
+        }
+      },
+      "title": "RuleValuesV1",
+      "type": "object"
+    },
+    "TableBusinessRuleV1": {
+      "additionalProperties": false,
+      "properties": {
+        "applies_to_modules": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Applies To Modules"
+        },
+        "condition": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Condition"
+        },
+        "description": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Description"
+        },
+        "exceptions": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Exceptions"
+        },
+        "expression_sql": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Expression Sql"
+        },
+        "fields_involved": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Fields Involved"
+        },
+        "name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Name"
+        },
+        "notes": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Notes"
+        },
+        "related_transaction_ids": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "integer"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Related Transaction Ids"
+        },
+        "rule_id": {
+          "title": "Rule Id",
+          "type": "string"
+        },
+        "rule_type": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Rule Type"
+        },
+        "severity": {
+          "title": "Severity",
+          "type": "string"
+        },
+        "source": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source"
+        },
+        "sql_expression": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Sql Expression"
+        },
+        "tables_involved": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Tables Involved"
+        },
+        "type": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Type"
+        },
+        "values": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/RuleValuesV1"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "verification_status": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Verification Status"
+        }
+      },
+      "required": [
+        "rule_id",
+        "severity",
+        "notes"
+      ],
+      "title": "TableBusinessRuleV1",
+      "type": "object"
+    },
+    "TableDefinitionV1": {
+      "additionalProperties": false,
+      "properties": {
+        "alias": {
+          "title": "Alias",
+          "type": "string"
+        },
+        "canonical_name": {
+          "title": "Canonical Name",
+          "type": "string"
+        },
+        "columns": {
+          "items": {
+            "$ref": "#/$defs/ColumnV1"
+          },
+          "title": "Columns",
+          "type": "array"
+        },
+        "description": {
+          "title": "Description",
+          "type": "string"
+        },
+        "grain": {
+          "title": "Grain",
+          "type": "string"
+        },
+        "modules": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Modules",
+          "type": "array"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "primary_key": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Primary Key",
+          "type": "array"
+        },
+        "used_for": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Used For",
+          "type": "array"
+        }
+      },
+      "required": [
+        "name",
+        "canonical_name",
+        "alias",
+        "description",
+        "grain",
+        "primary_key",
+        "columns",
+        "modules",
+        "used_for"
+      ],
+      "title": "TableDefinitionV1",
+      "type": "object"
+    }
+  },
+  "$id": "urn:erp-rag-contracts:schema:reviewer-table-source:v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Contrato normativo reviewer-table-source versión 1.",
+  "properties": {
+    "business_rules": {
+      "items": {
+        "$ref": "#/$defs/TableBusinessRuleV1"
+      },
+      "title": "Business Rules",
+      "type": "array"
+    },
+    "catalog_version": {
+      "pattern": "^\\d{4}\\.\\d{2}$",
+      "title": "Catalog Version",
+      "type": "string"
+    },
+    "common_filters": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Common Filters",
+      "type": "array"
+    },
+    "common_outputs": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Common Outputs",
+      "type": "array"
+    },
+    "document_id": {
+      "title": "Document Id",
+      "type": "string"
+    },
+    "document_type": {
+      "const": "table_schema",
+      "title": "Document Type",
+      "type": "string"
+    },
+    "document_version": {
+      "exclusiveMinimum": 0,
+      "title": "Document Version",
+      "type": "integer"
+    },
+    "language": {
+      "pattern": "^[a-z]{2}(?:-[A-Z]{2})?$",
+      "title": "Language",
+      "type": "string"
+    },
+    "metadata": {
+      "$ref": "#/$defs/KnowledgeMetadataV1"
+    },
+    "reference_records": {
+      "anyOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/ReferenceRecordV1"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Reference Records"
+    },
+    "relationships": {
+      "items": {
+        "$ref": "#/$defs/RelationshipV1"
+      },
+      "title": "Relationships",
+      "type": "array"
+    },
+    "retrieval": {
+      "$ref": "#/$defs/KnowledgeRetrievalV1"
+    },
+    "schema_version": {
+      "const": "1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "approved",
+        "draft",
+        "needs_review",
+        "deprecated"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "table": {
+      "$ref": "#/$defs/TableDefinitionV1"
+    },
+    "usable_for_sql_generation": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Usable For Sql Generation"
+    }
+  },
+  "required": [
+    "schema_version",
+    "catalog_version",
+    "document_id",
+    "document_version",
+    "document_type",
+    "status",
+    "language",
+    "table",
+    "relationships",
+    "business_rules",
+    "common_filters",
+    "common_outputs",
+    "metadata",
+    "retrieval"
+  ],
+  "title": "TableSchemaDocumentSourceV1",
+  "type": "object"
+}

@@ -1,0 +1,70 @@
+{
+  "canonical_hash": {
+    "excluded": [
+      "payload",
+      "timestamps",
+      "operational_metadata",
+      "vector",
+      "model",
+      "dimensions",
+      "ingestion_date"
+    ],
+    "format": "sha256:<lowercase hex>",
+    "preserve": [
+      "case",
+      "internal_spaces",
+      "paraphrase_order",
+      "metric_order",
+      "dimension_order",
+      "absence_vs_empty"
+    ],
+    "steps": [
+      "Unicode NFC",
+      "CRLF and CR to LF",
+      "remove trailing whitespace per line",
+      "outer strip",
+      "UTF-8",
+      "SHA-256"
+    ]
+  },
+  "envelope_inheritance": {
+    "conflict_code": "ENVELOPE_FIELD_CONFLICT",
+    "effective_value": "document value when present, otherwise envelope value",
+    "fields": [
+      "schema_version",
+      "catalog_version",
+      "module",
+      "language"
+    ]
+  },
+  "semantic_text": {
+    "allowed": [
+      "module",
+      "document_type",
+      "intent_id",
+      "title",
+      "canonical_question",
+      "paraphrases",
+      "business_goal",
+      "analysis_type",
+      "entity",
+      "metrics",
+      "dimensions",
+      "required_fields",
+      "keywords",
+      "retrieval.semantic_disambiguators"
+    ],
+    "example_input": "¿Cuánto se vendió por cliente?",
+    "example_output": "Módulo: example.sales. Intención: ventas por cliente. Métrica: total.",
+    "forbidden": [
+      "complete_sql",
+      "timestamps",
+      "hashes",
+      "technical_metadata",
+      "complete_payload",
+      "vectors"
+    ],
+    "template": "query-example-es-v1"
+  },
+  "version": "1.0.0"
+}

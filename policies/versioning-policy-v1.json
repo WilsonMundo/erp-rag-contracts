@@ -1,0 +1,37 @@
+{
+  "compatibility": {
+    "catalog_version": "complete catalog release",
+    "contract_version": "package API",
+    "document_version": "logical document revision",
+    "ingestion_schema_version": "future Milvus representation",
+    "schema_version": "contract format",
+    "text_template_version": "semantic text template"
+  },
+  "document_version": {
+    "increment_for": [
+      "sql",
+      "meaning",
+      "tables",
+      "joins",
+      "metrics",
+      "dimensions",
+      "decisive_rules"
+    ],
+    "regression_code": "DOCUMENT_VERSION_REGRESSION",
+    "starts_at": 1
+  },
+  "examples": {
+    "invalid": "2 -> 1 replacing the current revision",
+    "valid": "1 -> 2 after SQL meaning changes"
+  },
+  "identity": {
+    "logical_document_id": "document_id",
+    "revision_id": "document_id:document_version"
+  },
+  "semver": {
+    "major": "incompatible_or_new_required_fields",
+    "minor": "compatible_optional_fields",
+    "patch": "clarification_without_validity_change"
+  },
+  "version": "1.0.0"
+}

@@ -1,0 +1,42 @@
+{
+  "capabilities": [
+    "retrieval_eligible",
+    "embedding_eligible",
+    "sql_generation_eligible",
+    "physical_metadata_complete"
+  ],
+  "incomplete_physical_metadata": {
+    "blocks_embedding": false,
+    "blocks_retrieval": false,
+    "reason": "PHYSICAL_METADATA_INCOMPLETE"
+  },
+  "never_mutate_status": true,
+  "parameter_policy": {
+    "declared_not_used": "PARAMETER_UNUSED",
+    "used_not_declared": "PARAMETER_UNDECLARED"
+  },
+  "required_checks": [
+    "valid_source_contract",
+    "valid_normalized_contract",
+    "valid_semantic_text",
+    "valid_hash",
+    "non_empty_sql",
+    "no_unresolved_placeholders",
+    "consistent_parameters",
+    "resolved_sql_objects",
+    "unique_declared_aliases",
+    "consistent_joins",
+    "resolved_columns",
+    "documented_sql_functions",
+    "compatible_eligible_knowledge",
+    "no_identity_conflicts",
+    "no_contract_blocks"
+  ],
+  "status_gate": {
+    "approved": "continue_technical_evaluation",
+    "deprecated": false,
+    "draft": false,
+    "needs_review": false
+  },
+  "version": "1.0.0"
+}
