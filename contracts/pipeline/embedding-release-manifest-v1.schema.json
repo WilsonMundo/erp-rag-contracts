@@ -1,0 +1,112 @@
+{
+  "$id": "urn:erp-rag-contracts:schema:embedding-release-manifest:v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Contrato normativo embedding-release-manifest versión 1.",
+  "properties": {
+    "artifacts_generated": {
+      "minimum": 0,
+      "title": "Artifacts Generated",
+      "type": "integer"
+    },
+    "cache_hits": {
+      "minimum": 0,
+      "title": "Cache Hits",
+      "type": "integer"
+    },
+    "cache_misses": {
+      "minimum": 0,
+      "title": "Cache Misses",
+      "type": "integer"
+    },
+    "catalog_records_sha256": {
+      "pattern": "^sha256:[0-9a-f]{64}$",
+      "title": "Catalog Records Sha256",
+      "type": "string"
+    },
+    "contract_version": {
+      "pattern": "^(?:0|[1-9]\\d*)\\.(?:0|[1-9]\\d*)\\.(?:0|[1-9]\\d*)$",
+      "title": "Contract Version",
+      "type": "string"
+    },
+    "embedding_artifacts_sha256": {
+      "pattern": "^sha256:[0-9a-f]{64}$",
+      "title": "Embedding Artifacts Sha256",
+      "type": "string"
+    },
+    "embedding_dimensions": {
+      "anyOf": [
+        {
+          "exclusiveMinimum": 0,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Embedding Dimensions"
+    },
+    "embedding_eligible": {
+      "minimum": 0,
+      "title": "Embedding Eligible",
+      "type": "integer"
+    },
+    "embedding_ineligible": {
+      "minimum": 0,
+      "title": "Embedding Ineligible",
+      "type": "integer"
+    },
+    "embedding_model": {
+      "minLength": 1,
+      "title": "Embedding Model",
+      "type": "string"
+    },
+    "embedding_provider": {
+      "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+      "title": "Embedding Provider",
+      "type": "string"
+    },
+    "normalized_records": {
+      "minimum": 0,
+      "title": "Normalized Records",
+      "type": "integer"
+    },
+    "normalized_release": {
+      "minLength": 1,
+      "title": "Normalized Release",
+      "type": "string"
+    },
+    "package_version": {
+      "pattern": "^(?:0|[1-9]\\d*)\\.(?:0|[1-9]\\d*)\\.(?:0|[1-9]\\d*)$",
+      "title": "Package Version",
+      "type": "string"
+    },
+    "result": {
+      "enum": [
+        "valid",
+        "invalid"
+      ],
+      "title": "Result",
+      "type": "string"
+    }
+  },
+  "required": [
+    "contract_version",
+    "package_version",
+    "normalized_release",
+    "catalog_records_sha256",
+    "embedding_provider",
+    "embedding_model",
+    "normalized_records",
+    "embedding_eligible",
+    "embedding_ineligible",
+    "artifacts_generated",
+    "cache_hits",
+    "cache_misses",
+    "embedding_artifacts_sha256",
+    "result"
+  ],
+  "title": "EmbeddingReleaseManifestV1",
+  "type": "object"
+}

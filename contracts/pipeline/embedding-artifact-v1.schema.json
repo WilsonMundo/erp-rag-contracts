@@ -27,10 +27,20 @@
       "title": "Embedding Model",
       "type": "string"
     },
+    "embedding_provider": {
+      "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+      "title": "Embedding Provider",
+      "type": "string"
+    },
     "generated_at_epoch_ms": {
       "minimum": 0,
       "title": "Generated At Epoch Ms",
       "type": "integer"
+    },
+    "schema_version": {
+      "const": "1.0",
+      "title": "Schema Version",
+      "type": "string"
     },
     "vector": {
       "items": {
@@ -41,9 +51,11 @@
     }
   },
   "required": [
+    "schema_version",
     "document_id",
     "document_version",
     "content_hash",
+    "embedding_provider",
     "embedding_model",
     "embedding_dimensions",
     "vector",

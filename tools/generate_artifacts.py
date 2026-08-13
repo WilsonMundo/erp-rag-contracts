@@ -11,6 +11,7 @@ from pydantic import TypeAdapter
 
 from erp_rag_contracts.models.contracts import (
     EmbeddingArtifactV1,
+    EmbeddingReleaseManifestV1,
     FunctionalKnowledgeManifestV1,
     FunctionalQueryManifestV1,
     MilvusIngestionRecordV1,
@@ -91,6 +92,10 @@ SCHEMAS: dict[str, tuple[Any, str]] = {
     "contracts/pipeline/embedding-artifact-v1.schema.json": (
         EmbeddingArtifactV1,
         "embedding-artifact",
+    ),
+    "contracts/pipeline/embedding-release-manifest-v1.schema.json": (
+        EmbeddingReleaseManifestV1,
+        "embedding-release-manifest",
     ),
     "contracts/pipeline/milvus-ingestion-record-v1.schema.json": (
         MilvusIngestionRecordV1,
@@ -343,7 +348,7 @@ def main() -> None:
     dump(
         "contract-manifest.json",
         {
-            "contract_version": "1.0.0",
+            "contract_version": "2.0.0",
             "package": "erp-rag-contracts",
             "json_schema_version": "2020-12",
             "published_on": "2026-08-11",

@@ -1,5 +1,5 @@
 {
-  "contract_version": "1.0.0",
+  "contract_version": "2.0.0",
   "contracts": [
     {
       "compatibility": "1.x",
@@ -37,9 +37,17 @@
       "compatibility": "1.x",
       "id": "urn:erp-rag-contracts:schema:embedding-artifact:v1",
       "path": "contracts/pipeline/embedding-artifact-v1.schema.json",
-      "sha256": "173ee38276ac6679bec077a5974392434167cb0d63f4c121430cc78a85ac63dc",
+      "sha256": "e618606c666c84ad80a08e780f11c3e2b39436676019b8ec5c70b599225d1971",
       "status": "stable",
       "type": "embedding-artifact"
+    },
+    {
+      "compatibility": "1.x",
+      "id": "urn:erp-rag-contracts:schema:embedding-release-manifest:v1",
+      "path": "contracts/pipeline/embedding-release-manifest-v1.schema.json",
+      "sha256": "364cee7cd67670f97b5a624102de071e4894dd1dab1195209f02bf3b78fbd498",
+      "status": "stable",
+      "type": "embedding-release-manifest"
     },
     {
       "compatibility": "1.x",

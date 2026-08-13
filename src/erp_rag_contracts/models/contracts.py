@@ -625,9 +625,11 @@ class SQLObjectRegistryV1(StrictModel):
 
 
 class EmbeddingArtifactV1(StrictModel):
+    schema_version: ReviewerSchemaVersion
     document_id: str
     document_version: int = Field(gt=0)
     content_hash: SemanticHash
+    embedding_provider: Identifier
     embedding_model: str
     embedding_dimensions: int = Field(gt=0)
     vector: list[float]
@@ -639,6 +641,35 @@ class EmbeddingArtifactV1(StrictModel):
             math.isfinite(x) for x in self.vector
         ):
             raise ValueError("vector must match dimensions and contain finite values")
+        return self
+
+
+class EmbeddingReleaseManifestV1(StrictModel):
+    contract_version: SemVer
+    package_version: SemVer
+    normalized_release: str = Field(min_length=1)
+    catalog_records_sha256: ReleaseFileHash
+    embedding_provider: Identifier
+    embedding_model: str = Field(min_length=1)
+    embedding_dimensions: int | None = Field(default=None, gt=0)
+    normalized_records: int = Field(ge=0)
+    embedding_eligible: int = Field(ge=0)
+    embedding_ineligible: int = Field(ge=0)
+    artifacts_generated: int = Field(ge=0)
+    cache_hits: int = Field(ge=0)
+    cache_misses: int = Field(ge=0)
+    embedding_artifacts_sha256: ReleaseFileHash
+    result: Literal["valid", "invalid"]
+
+    @model_validator(mode="after")
+    def coherent(self) -> EmbeddingReleaseManifestV1:
+        if self.embedding_eligible + self.embedding_ineligible != self.normalized_records:
+            raise ValueError("eligible and ineligible counts must cover normalized records")
+        if self.result == "valid" and (
+            self.artifacts_generated != self.embedding_eligible
+            or self.cache_hits + self.cache_misses != self.artifacts_generated
+        ):
+            raise ValueError("valid manifests must account for every eligible artifact")
         return self
 
 

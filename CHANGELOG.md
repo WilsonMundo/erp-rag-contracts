@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.0.0
+
+- `EmbeddingArtifactV1` exige `schema_version` y `embedding_provider`.
+- Se incorpora `EmbeddingReleaseManifestV1` para trazabilidad de releases de embeddings.
+
 ## 1.0.0 - línea base previa a publicación
 
 - Modela ReviewerSourceV1 y ReviewerEffectiveV1 con objetos anidados estrictos.
