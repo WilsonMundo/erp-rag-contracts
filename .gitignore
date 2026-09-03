@@ -6,6 +6,7 @@ __pycache__/
 *.egg-info/
 build/
 dist/
+node_modules/
 
 # Releases generadas por los flujos de revisión y normalización
 /validated-release/

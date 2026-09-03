@@ -1,0 +1,64 @@
+{
+  "available_actions": [
+    {
+      "action_id": "reports.saved.create",
+      "kind": "create_saved_report",
+      "label": "Agregar al menú como reporte recurrente",
+      "requires_confirmation": true,
+      "source_execution_id": "exec-100",
+      "source_result_id": "result-100"
+    }
+  ],
+  "contract_version": "2.0",
+  "conversation_id": "conv-100",
+  "message": "Se encontraron 25 vendedores.",
+  "presentation": {
+    "capabilities": {
+      "allow_export": true,
+      "allow_filtering": true,
+      "allow_grouping": true,
+      "allow_sorting": true,
+      "export_formats": [
+        "xlsx",
+        "pdf"
+      ]
+    },
+    "columns": [
+      {
+        "caption": "Vendedor",
+        "data_type": "string",
+        "field": "seller_name"
+      },
+      {
+        "caption": "Ventas",
+        "data_type": "decimal",
+        "field": "total_sales",
+        "format": {
+          "currency": "GTQ",
+          "type": "currency"
+        }
+      }
+    ],
+    "kind": "data_grid",
+    "title": "Ventas por vendedor"
+  },
+  "request_id": "req-100",
+  "result": {
+    "data": {
+      "mode": "inline",
+      "rows": [
+        {
+          "seller_name": "Ana López",
+          "total_sales": 15400.5
+        }
+      ],
+      "total_count": 25
+    },
+    "execution_id": "exec-100",
+    "kind": "data_view",
+    "result_id": "result-100"
+  },
+  "status": "completed",
+  "turn_id": "turn-100",
+  "unknown": true
+}

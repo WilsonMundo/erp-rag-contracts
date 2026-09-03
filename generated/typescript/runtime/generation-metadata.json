@@ -1,0 +1,19 @@
+{
+  "contract_package": "erp-rag-contracts",
+  "contract_package_version": "2.0.0",
+  "generator": "json-schema-to-typescript",
+  "generator_version": "16.0.0",
+  "schemas": [
+    {
+      "name": "chat-turn-request-v2",
+      "path": "contracts/runtime/chat-turn-request-v2.schema.json",
+      "sha256": "965aa25092642c870586985ddedc3d07a28f02f77a4b08bd53cb7089c611bcb3"
+    },
+    {
+      "name": "chat-turn-response-v2",
+      "path": "contracts/runtime/chat-turn-response-v2.schema.json",
+      "sha256": "05e6b4f0dc47aa4231b9c37e407cb5f2d63b417d701b634ff1a4af3854290329"
+    }
+  ],
+  "index_sha256": "78cb1574bc6b5b23eb5d29e9be61f129c732ac5ae801079bfe794a2342efa226"
+}

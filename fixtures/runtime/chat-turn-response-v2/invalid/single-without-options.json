@@ -1,0 +1,23 @@
+{
+  "action": {
+    "clarification_id": "clar-selection",
+    "field": "entity",
+    "kind": "clarification",
+    "question": "Selecciona la entidad.",
+    "response_spec": {
+      "entity": {
+        "entity_type": "branch",
+        "search_owner": "dotnet"
+      },
+      "required": true,
+      "type": "entity_selection"
+    }
+  },
+  "contract_version": "2.0",
+  "conversation_id": "conv-selection",
+  "message": "Selecciona la entidad.",
+  "request_id": "req-selection",
+  "state_revision": 1,
+  "status": "needs_clarification",
+  "turn_id": "turn-selection"
+}

@@ -1,10 +1,18 @@
 # erp-rag-contracts
 
-Paquete independiente y versionado que define los contratos oficiales para entregar conocimiento de módulos ERP a un sistema RAG. La versión inicial es `1.0.0` y JSON Schema Draft 2020-12 es la fuente normativa; los modelos Pydantic v2 son la implementación de referencia.
+Paquete independiente y versionado que define los contratos oficiales del asistente ERP. Incluye tanto conocimiento RAG como los contratos runtime compartidos por rag-api, ApiHub y Angular. JSON Schema Draft 2020-12 es la fuente normativa; los modelos y DTO de cada consumidor deben demostrar paridad con los schemas publicados.
 
 ## Frontera
 
-Este repositorio solo define, documenta, versiona y prueba contratos. No valida catálogos productivos, normaliza entregas reales, genera `semantic_text`, calcula embeddings, genera o ejecuta SQL, ni conecta con ERP, OpenAI o Milvus. Tampoco contiene LangGraph. El flujo futuro es:
+Este repositorio define, documenta, versiona y prueba contratos. Es la fuente única tanto de los contratos de conocimiento RAG como de los envelopes runtime; no ejecuta SQL ni conecta con ERP, OpenAI o Milvus y tampoco contiene LangGraph.
+
+```text
+contracts/source, contracts/normalized, contracts/pipeline (RAG existentes)
+contracts/runtime (chat, drafts y entity sets compartidos)
+```
+
+La distribución para Python, .NET y TypeScript se define en
+[`docs/runtime-contract-distribution.md`](docs/runtime-contract-distribution.md).
 
 ```text
 módulo conforme al contrato
@@ -71,6 +79,9 @@ ruff check .
 mypy src
 pytest
 python -m build
+npm ci
+npm run generate:typescript
+npm run check:typescript-fixtures
 ```
 
 Compatibilidad externa de solo lectura:

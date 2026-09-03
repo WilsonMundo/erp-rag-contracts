@@ -1,0 +1,1 @@
+{"set_ref":"customer_set","entity_type":"customer","selection_mode":"multiple","member_refs":["customer_1"],"parameter_slots":["customer_1","customer_2","customer_3"],"binding_source":"binding_value","minimum_selections":1,"maximum_selections":3,"required":true}

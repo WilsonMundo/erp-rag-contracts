@@ -1,0 +1,2403 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:erp-rag-contracts:schema:chat-turn-response:v2",
+  "title": "ChatTurnResponseV2",
+  "description": "Contrato general de salida utilizado por Python/LangGraph y .NET. Representa respuestas finales, aclaraciones, confirmaciones, solicitudes de ejecución, correcciones, denegaciones, solicitudes no soportadas y errores.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_version",
+    "request_id",
+    "conversation_id",
+    "turn_id",
+    "status",
+    "message"
+  ],
+  "properties": {
+    "contract_version": {
+      "type": "string",
+      "const": "2.0"
+    },
+    "request_id": {
+      "$ref": "#/$defs/opaqueIdentifier"
+    },
+    "conversation_id": {
+      "$ref": "#/$defs/opaqueIdentifier"
+    },
+    "turn_id": {
+      "$ref": "#/$defs/opaqueIdentifier"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "completed",
+        "needs_clarification",
+        "awaiting_confirmation",
+        "awaiting_execution",
+        "needs_correction",
+        "denied",
+        "unsupported",
+        "failed"
+      ]
+    },
+    "message": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 10000
+    },
+    "action": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/clarificationAction"
+        },
+        {
+          "$ref": "#/$defs/confirmationAction"
+        },
+        {
+          "$ref": "#/$defs/queryExecutionAction"
+        },
+        {
+          "$ref": "#/$defs/skillExecutionAction"
+        },
+        {
+          "$ref": "#/$defs/attachmentProcessingAction"
+        },
+        {
+          "$ref": "#/$defs/analyticsExecutionAction"
+        }
+      ]
+    },
+    "result": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/dataViewResult"
+        },
+        {
+          "$ref": "#/$defs/reportDocumentResult"
+        },
+        {
+          "$ref": "#/$defs/narrativeResult"
+        },
+        {
+          "$ref": "#/$defs/operationSummaryResult"
+        },
+        {
+          "$ref": "#/$defs/fileResult"
+        }
+      ]
+    },
+    "presentation": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/textPresentation"
+        },
+        {
+          "$ref": "#/$defs/dataGridPresentation"
+        },
+        {
+          "$ref": "#/$defs/chartPresentation"
+        },
+        {
+          "$ref": "#/$defs/dataGridWithChartPresentation"
+        },
+        {
+          "$ref": "#/$defs/devexpressReportViewerPresentation"
+        },
+        {
+          "$ref": "#/$defs/operationResultPresentation"
+        }
+      ]
+    },
+    "available_actions": {
+      "type": "array",
+      "maxItems": 20,
+      "items": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/createSavedReportAvailableAction"
+          },
+          {
+            "$ref": "#/$defs/replaceAttachmentAvailableAction"
+          }
+        ]
+      }
+    },
+    "error": {
+      "$ref": "#/$defs/errorDetail"
+    },
+    "state_revision": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "diagnostics": {
+      "$ref": "#/$defs/diagnostics"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "completed"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "required": [
+          "result",
+          "presentation"
+        ],
+        "properties": {
+          "action": false
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "needs_clarification"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "required": [
+          "action",
+          "state_revision"
+        ],
+        "properties": {
+          "action": {
+            "$ref": "#/$defs/clarificationAction"
+          },
+          "result": false,
+          "presentation": false
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "awaiting_confirmation"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "required": [
+          "action",
+          "state_revision"
+        ],
+        "properties": {
+          "action": {
+            "$ref": "#/$defs/confirmationAction"
+          },
+          "result": false,
+          "presentation": false
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "awaiting_execution"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "required": [
+          "action"
+        ],
+        "properties": {
+          "action": {
+            "oneOf": [
+              {
+                "$ref": "#/$defs/queryExecutionAction"
+              },
+              {
+                "$ref": "#/$defs/skillExecutionAction"
+              },
+              {
+                "$ref": "#/$defs/attachmentProcessingAction"
+              },
+              {
+                "$ref": "#/$defs/analyticsExecutionAction"
+              }
+            ]
+          },
+          "result": false
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "needs_correction"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "required": [
+          "result",
+          "presentation"
+        ],
+        "properties": {
+          "action": false,
+          "result": {
+            "$ref": "#/$defs/operationSummaryResult"
+          },
+          "presentation": {
+            "$ref": "#/$defs/operationResultPresentation"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "denied"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "required": [
+          "error"
+        ],
+        "properties": {
+          "action": false,
+          "result": false,
+          "presentation": false,
+          "error": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/errorDetail"
+              },
+              {
+                "properties": {
+                  "code": {
+                    "const": "AUTHORIZATION_DENIED"
+                  },
+                  "retryable": {
+                    "const": false
+                  }
+                },
+                "required": [
+                  "code",
+                  "retryable"
+                ]
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "failed"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "required": [
+          "error"
+        ],
+        "properties": {
+          "action": false
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "result": {
+            "properties": {
+              "kind": {
+                "const": "narrative"
+              }
+            },
+            "required": [
+              "kind"
+            ]
+          }
+        },
+        "required": [
+          "result"
+        ]
+      },
+      "then": {
+        "properties": {
+          "presentation": {
+            "$ref": "#/$defs/textPresentation"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "result": {
+            "properties": {
+              "kind": {
+                "const": "data_view"
+              }
+            },
+            "required": [
+              "kind"
+            ]
+          }
+        },
+        "required": [
+          "result"
+        ]
+      },
+      "then": {
+        "properties": {
+          "presentation": {
+            "oneOf": [
+              {
+                "$ref": "#/$defs/dataGridPresentation"
+              },
+              {
+                "$ref": "#/$defs/chartPresentation"
+              },
+              {
+                "$ref": "#/$defs/dataGridWithChartPresentation"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "result": {
+            "properties": {
+              "kind": {
+                "const": "report_document"
+              }
+            },
+            "required": [
+              "kind"
+            ]
+          }
+        },
+        "required": [
+          "result"
+        ]
+      },
+      "then": {
+        "properties": {
+          "presentation": {
+            "$ref": "#/$defs/devexpressReportViewerPresentation"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "result": {
+            "properties": {
+              "kind": {
+                "enum": [
+                  "operation_summary",
+                  "file"
+                ]
+              }
+            },
+            "required": [
+              "kind"
+            ]
+          }
+        },
+        "required": [
+          "result"
+        ]
+      },
+      "then": {
+        "properties": {
+          "presentation": {
+            "oneOf": [
+              {
+                "$ref": "#/$defs/operationResultPresentation"
+              },
+              {
+                "$ref": "#/$defs/textPresentation"
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "opaqueIdentifier": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+    },
+    "semanticVersion": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+(?:\\.[0-9]+)?$"
+    },
+    "jsonObject": {
+      "type": "object",
+      "x-dynamic-map": true,
+      "additionalProperties": true
+    },
+    "parameterValue": {
+      "type": [
+        "string",
+        "number",
+        "integer",
+        "boolean",
+        "null",
+        "object",
+        "array"
+      ]
+    },
+    "typedParameter": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "data_type",
+        "value"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120,
+          "pattern": "^[A-Za-z_][A-Za-z0-9_]*$"
+        },
+        "data_type": {
+          "type": "string",
+          "enum": [
+            "string",
+            "int",
+            "long",
+            "decimal",
+            "boolean",
+            "date",
+            "datetime",
+            "datetime2",
+            "guid",
+            "json"
+          ]
+        },
+        "value": {
+          "$ref": "#/$defs/parameterValue"
+        }
+      }
+    },
+    "capabilityRequirements": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "capabilities",
+        "resource"
+      ],
+      "properties": {
+        "capabilities": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 160,
+            "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$"
+          }
+        },
+        "resource": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        },
+        "scope_binding_required": {
+          "type": "boolean",
+          "default": true
+        }
+      }
+    },
+    "executionPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "read_only",
+        "maximum_rows",
+        "timeout_seconds"
+      ],
+      "properties": {
+        "read_only": {
+          "type": "boolean"
+        },
+        "maximum_rows": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100000
+        },
+        "timeout_seconds": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 600
+        }
+      }
+    },
+    "expectedColumn": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "data_type"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        },
+        "data_type": {
+          "type": "string",
+          "enum": [
+            "string",
+            "integer",
+            "decimal",
+            "boolean",
+            "date",
+            "datetime",
+            "guid"
+          ]
+        },
+        "role": {
+          "type": "string",
+          "enum": [
+            "identifier",
+            "category",
+            "measure",
+            "time",
+            "label",
+            "metadata"
+          ]
+        }
+      }
+    },
+    "expectedResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind"
+      ],
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": [
+            "data_view",
+            "report_document",
+            "operation_summary",
+            "file"
+          ]
+        },
+        "shape": {
+          "type": "string",
+          "enum": [
+            "tabular",
+            "time_series",
+            "metrics",
+            "financial_statement",
+            "operation_summary",
+            "file"
+          ]
+        },
+        "columns": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/expectedColumn"
+          }
+        }
+      }
+    },
+    "continuation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mode"
+      ],
+      "properties": {
+        "mode": {
+          "type": "string",
+          "enum": [
+            "render_only",
+            "narrative",
+            "python_analysis"
+          ]
+        },
+        "result_payload": {
+          "type": "string",
+          "enum": [
+            "metadata_only",
+            "aggregates_and_preview",
+            "bounded_dataset"
+          ]
+        },
+        "maximum_preview_rows": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "maximum_rows": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100000
+        },
+        "analysis_operation": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        }
+      }
+    },
+    "clarificationOption": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "label"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/opaqueIdentifier"
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        },
+        "description": {
+          "type": "string",
+          "maxLength": 1000
+        }
+      }
+    },
+    "entitySelectionResponseSpec": {
+      "title": "EntitySelectionResponseSpec",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "required", "entity", "options"],
+      "properties": {
+        "type": {"const": "entity_selection"},
+        "required": {"type": "boolean"},
+        "allow_free_text": {"type": "boolean"},
+        "entity": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["entity_type", "search_owner"],
+          "properties": {
+            "entity_type": {"type": "string", "minLength": 1, "maxLength": 80},
+            "search_owner": {"type": "string", "const": "dotnet"},
+            "minimum_search_length": {"type": "integer", "minimum": 1, "maximum": 10}
+          }
+        },
+        "options": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 10,
+          "items": {"$ref": "#/$defs/clarificationOption"}
+        }
+      }
+    },
+    "entityMultiSelectionResponseSpec": {
+      "title": "EntityMultiSelectionResponseSpec",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "required", "entity", "maximum_selections"],
+      "properties": {
+        "type": {"const": "entity_multi_selection"},
+        "required": {"type": "boolean"},
+        "allow_free_text": {"type": "boolean"},
+        "entity": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["entity_type", "search_owner"],
+          "properties": {
+            "entity_type": {"type": "string", "minLength": 1, "maxLength": 80},
+            "search_owner": {"const": "dotnet"},
+            "minimum_search_length": {"type": "integer", "minimum": 1, "maximum": 10}
+          }
+        },
+        "minimum_selections": {"type": "integer", "minimum": 1, "maximum": 10, "default": 1},
+        "maximum_selections": {"type": "integer", "minimum": 1, "maximum": 10},
+        "options": {
+          "type": "array",
+          "maxItems": 100,
+          "items": {"$ref": "#/$defs/clarificationOption"}
+        },
+        "selected_entity_ids": {
+          "type": "array",
+          "maxItems": 10,
+          "uniqueItems": true,
+          "items": {"$ref": "#/$defs/opaqueIdentifier"}
+        }
+      }
+    },
+    "clarificationResponseSpec": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "required"
+          ],
+          "properties": {
+            "type": {
+              "const": "text"
+            },
+            "required": {
+              "type": "boolean"
+            },
+            "allow_free_text": {
+              "type": "boolean"
+            },
+            "validation": {
+              "$ref": "#/$defs/jsonObject"
+            }
+          }
+        },
+        {
+          "$ref": "#/$defs/entitySelectionResponseSpec"
+        },
+        {
+          "$ref": "#/$defs/entityMultiSelectionResponseSpec"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "required",
+            "options"
+          ],
+          "properties": {
+            "type": {
+              "const": "single_choice"
+            },
+            "required": {
+              "type": "boolean"
+            },
+            "allow_free_text": {
+              "type": "boolean"
+            },
+            "options": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "$ref": "#/$defs/clarificationOption"
+              }
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "required",
+            "options"
+          ],
+          "properties": {
+            "type": {
+              "const": "multiple_choice"
+            },
+            "required": {
+              "type": "boolean"
+            },
+            "allow_free_text": {
+              "type": "boolean"
+            },
+            "options": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "$ref": "#/$defs/clarificationOption"
+              }
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "required"
+          ],
+          "properties": {
+            "type": {
+              "const": "date"
+            },
+            "required": {
+              "type": "boolean"
+            },
+            "allow_free_text": {
+              "type": "boolean"
+            },
+            "validation": {
+              "$ref": "#/$defs/jsonObject"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "required"
+          ],
+          "properties": {
+            "type": {
+              "const": "date_range"
+            },
+            "required": {
+              "type": "boolean"
+            },
+            "allow_free_text": {
+              "type": "boolean"
+            },
+            "presets": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/clarificationOption"
+              }
+            },
+            "validation": {
+              "$ref": "#/$defs/jsonObject"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "required"
+          ],
+          "properties": {
+            "type": {
+              "const": "number"
+            },
+            "required": {
+              "type": "boolean"
+            },
+            "allow_free_text": {
+              "type": "boolean"
+            },
+            "validation": {
+              "$ref": "#/$defs/jsonObject"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "required"
+          ],
+          "properties": {
+            "type": {
+              "const": "boolean"
+            },
+            "required": {
+              "type": "boolean"
+            },
+            "default": {
+              "type": "boolean"
+            }
+          }
+        }
+      ]
+    },
+    "clarificationAction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "clarification_id",
+        "field",
+        "question",
+        "response_spec"
+      ],
+      "properties": {
+        "kind": {
+          "const": "clarification"
+        },
+        "clarification_id": {
+          "$ref": "#/$defs/opaqueIdentifier"
+        },
+        "field": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120,
+          "pattern": "^[a-z][a-z0-9_]*$"
+        },
+        "reason_code": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "question": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 5000
+        },
+        "response_spec": {
+          "$ref": "#/$defs/clarificationResponseSpec"
+        }
+      }
+    },
+    "confirmationAction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "confirmation_id",
+        "operation",
+        "summary",
+        "impact",
+        "response_spec",
+        "expires_at"
+      ],
+      "properties": {
+        "kind": {
+          "const": "confirmation"
+        },
+        "confirmation_id": {
+          "$ref": "#/$defs/opaqueIdentifier"
+        },
+        "operation": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "action_id",
+            "label",
+            "prepared_operation_id"
+          ],
+          "properties": {
+            "action_id": {
+              "type": "string",
+              "minLength": 3,
+              "maxLength": 160
+            },
+            "label": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 500
+            },
+            "prepared_operation_id": {
+              "$ref": "#/$defs/opaqueIdentifier"
+            }
+          }
+        },
+        "summary": {
+          "$ref": "#/$defs/jsonObject"
+        },
+        "impact": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "level",
+            "sends_external_message",
+            "creates_data",
+            "updates_data",
+            "deletes_data"
+          ],
+          "properties": {
+            "level": {
+              "type": "string",
+              "enum": [
+                "low",
+                "medium",
+                "high"
+              ]
+            },
+            "sends_external_message": {
+              "type": "boolean"
+            },
+            "creates_data": {
+              "type": "boolean"
+            },
+            "updates_data": {
+              "type": "boolean"
+            },
+            "deletes_data": {
+              "type": "boolean"
+            }
+          }
+        },
+        "warnings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/messageItem"
+          }
+        },
+        "response_spec": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "required",
+            "require_explicit_acceptance",
+            "options"
+          ],
+          "properties": {
+            "type": {
+              "const": "confirmation"
+            },
+            "required": {
+              "const": true
+            },
+            "require_explicit_acceptance": {
+              "const": true
+            },
+            "options": {
+              "type": "array",
+              "minItems": 2,
+              "maxItems": 2,
+              "prefixItems": [
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "id",
+                    "label"
+                  ],
+                  "properties": {
+                    "id": {
+                      "const": "confirm"
+                    },
+                    "label": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "id",
+                    "label"
+                  ],
+                  "properties": {
+                    "id": {
+                      "const": "cancel"
+                    },
+                    "label": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                }
+              ],
+              "items": false
+            }
+          }
+        },
+        "expires_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "queryExecutionAction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "execution_id",
+        "query",
+        "requirements",
+        "execution_policy",
+        "expected_result",
+        "presentation",
+        "continuation"
+      ],
+      "properties": {
+        "kind": {
+          "const": "query_execution"
+        },
+        "execution_id": {
+          "$ref": "#/$defs/opaqueIdentifier"
+        },
+        "query": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "dialect",
+            "statement",
+            "parameters"
+          ],
+          "properties": {
+            "dialect": {
+              "const": "sqlserver"
+            },
+            "statement": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100000
+            },
+            "parameters": {
+              "type": "array",
+              "maxItems": 200,
+              "items": {
+                "$ref": "#/$defs/typedParameter"
+              }
+            }
+          }
+        },
+        "requirements": {
+          "$ref": "#/$defs/capabilityRequirements"
+        },
+        "execution_policy": {
+          "$ref": "#/$defs/executionPolicy"
+        },
+        "expected_result": {
+          "$ref": "#/$defs/expectedResult"
+        },
+        "presentation": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/dataGridPresentation"
+            },
+            {
+              "$ref": "#/$defs/chartPresentation"
+            },
+            {
+              "$ref": "#/$defs/dataGridWithChartPresentation"
+            },
+            {
+              "$ref": "#/$defs/devexpressReportViewerPresentation"
+            }
+          ]
+        },
+        "continuation": {
+          "$ref": "#/$defs/continuation"
+        }
+      }
+    },
+    "skillExecutionAction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "execution_id",
+        "skill_id",
+        "skill_version",
+        "parameters",
+        "requirements",
+        "expected_result",
+        "presentation",
+        "continuation"
+      ],
+      "properties": {
+        "kind": {
+          "const": "skill_execution"
+        },
+        "execution_id": {
+          "$ref": "#/$defs/opaqueIdentifier"
+        },
+        "skill_id": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 160,
+          "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$"
+        },
+        "skill_version": {
+          "$ref": "#/$defs/semanticVersion"
+        },
+        "parameters": {
+          "$ref": "#/$defs/jsonObject"
+        },
+        "requirements": {
+          "$ref": "#/$defs/capabilityRequirements"
+        },
+        "expected_result": {
+          "$ref": "#/$defs/expectedResult"
+        },
+        "presentation": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/dataGridPresentation"
+            },
+            {
+              "$ref": "#/$defs/chartPresentation"
+            },
+            {
+              "$ref": "#/$defs/dataGridWithChartPresentation"
+            },
+            {
+              "$ref": "#/$defs/devexpressReportViewerPresentation"
+            },
+            {
+              "$ref": "#/$defs/operationResultPresentation"
+            }
+          ]
+        },
+        "continuation": {
+          "$ref": "#/$defs/continuation"
+        }
+      }
+    },
+    "attachmentBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "attachment_id",
+        "role"
+      ],
+      "properties": {
+        "attachment_id": {
+          "$ref": "#/$defs/opaqueIdentifier"
+        },
+        "role": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80,
+          "pattern": "^[a-z][a-z0-9_]*$"
+        }
+      }
+    },
+    "attachmentProcessingAction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "execution_id",
+        "operation",
+        "attachments",
+        "processing",
+        "requirements",
+        "expected_result",
+        "presentation",
+        "continuation"
+      ],
+      "properties": {
+        "kind": {
+          "const": "attachment_processing"
+        },
+        "execution_id": {
+          "$ref": "#/$defs/opaqueIdentifier"
+        },
+        "operation": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 200
+        },
+        "attachments": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 20,
+          "items": {
+            "$ref": "#/$defs/attachmentBinding"
+          }
+        },
+        "processing": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "mode",
+            "expected_entity",
+            "all_or_nothing"
+          ],
+          "properties": {
+            "mode": {
+              "type": "string",
+              "enum": [
+                "structured_import_validation",
+                "document_data_extraction",
+                "image_data_extraction",
+                "document_classification",
+                "attachment_preview",
+                "corrected_file_validation"
+              ]
+            },
+            "expected_entity": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 160
+            },
+            "all_or_nothing": {
+              "type": "boolean"
+            }
+          }
+        },
+        "requirements": {
+          "$ref": "#/$defs/capabilityRequirements"
+        },
+        "expected_result": {
+          "$ref": "#/$defs/expectedResult"
+        },
+        "presentation": {
+          "$ref": "#/$defs/operationResultPresentation"
+        },
+        "continuation": {
+          "$ref": "#/$defs/continuation"
+        }
+      }
+    },
+    "analyticsExecutionAction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "execution_id",
+        "analytics",
+        "data_request",
+        "requirements",
+        "execution_policy",
+        "expected_result",
+        "presentation",
+        "continuation"
+      ],
+      "properties": {
+        "kind": {
+          "const": "analytics_execution"
+        },
+        "execution_id": {
+          "$ref": "#/$defs/opaqueIdentifier"
+        },
+        "analytics": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "operation_id",
+            "operation_version",
+            "parameters"
+          ],
+          "properties": {
+            "operation_id": {
+              "type": "string",
+              "minLength": 3,
+              "maxLength": 160
+            },
+            "operation_version": {
+              "$ref": "#/$defs/semanticVersion"
+            },
+            "parameters": {
+              "$ref": "#/$defs/jsonObject"
+            }
+          }
+        },
+        "data_request": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "dataset_id",
+            "required_fields"
+          ],
+          "properties": {
+            "kind": {
+              "const": "query_execution"
+            },
+            "dataset_id": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 160
+            },
+            "required_fields": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "$ref": "#/$defs/expectedColumn"
+              }
+            },
+            "period": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "start_date",
+                "end_date_exclusive"
+              ],
+              "properties": {
+                "start_date": {
+                  "type": "string",
+                  "format": "date"
+                },
+                "end_date_exclusive": {
+                  "type": "string",
+                  "format": "date"
+                }
+              }
+            },
+            "granularity": {
+              "type": "string",
+              "enum": [
+                "day",
+                "week",
+                "month",
+                "quarter",
+                "year"
+              ]
+            },
+            "filters": {
+              "$ref": "#/$defs/jsonObject"
+            }
+          }
+        },
+        "requirements": {
+          "$ref": "#/$defs/capabilityRequirements"
+        },
+        "execution_policy": {
+          "$ref": "#/$defs/executionPolicy"
+        },
+        "expected_result": {
+          "$ref": "#/$defs/expectedResult"
+        },
+        "presentation": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/dataGridPresentation"
+            },
+            {
+              "$ref": "#/$defs/chartPresentation"
+            },
+            {
+              "$ref": "#/$defs/dataGridWithChartPresentation"
+            }
+          ]
+        },
+        "continuation": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/continuation"
+            },
+            {
+              "properties": {
+                "mode": {
+                  "const": "python_analysis"
+                },
+                "result_payload": {
+                  "const": "bounded_dataset"
+                }
+              },
+              "required": [
+                "mode",
+                "result_payload"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "dataViewResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "result_id",
+        "data"
+      ],
+      "properties": {
+        "kind": {
+          "const": "data_view"
+        },
+        "result_id": {
+          "$ref": "#/$defs/opaqueIdentifier"
+        },
+        "execution_id": {
+          "$ref": "#/$defs/opaqueIdentifier"
+        },
+        "data": {
+          "oneOf": [
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "mode",
+                "rows",
+                "total_count"
+              ],
+              "properties": {
+                "mode": {
+                  "const": "inline"
+                },
+                "rows": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "x-dynamic-map": true,
+                    "additionalProperties": true
+                  }
+                },
+                "total_count": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              }
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "mode",
+                "total_count"
+              ],
+              "properties": {
+                "mode": {
+                  "const": "remote"
+                },
+                "total_count": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              }
+            }
+          ]
+        },
+        "summary": {
+          "$ref": "#/$defs/jsonObject"
+        },
+        "narrative": {
+          "type": "string",
+          "maxLength": 20000
+        }
+      }
+    },
+    "reportDocumentResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "report_id",
+        "report_reference"
+      ],
+      "properties": {
+        "kind": {
+          "const": "report_document"
+        },
+        "report_id": {
+          "$ref": "#/$defs/opaqueIdentifier"
+        },
+        "report_reference": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "execution_id": {
+          "$ref": "#/$defs/opaqueIdentifier"
+        }
+      }
+    },
+    "narrativeResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "content"
+      ],
+      "properties": {
+        "kind": {
+          "const": "narrative"
+        },
+        "content": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 50000
+        }
+      }
+    },
+    "issueItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "code",
+        "message"
+      ],
+      "properties": {
+        "row_number": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "column": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 160
+        },
+        "value": {},
+        "code": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        },
+        "message": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 5000
+        }
+      }
+    },
+    "operationSummaryResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "operation",
+        "summary"
+      ],
+      "properties": {
+        "kind": {
+          "const": "operation_summary"
+        },
+        "operation": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "execution_id": {
+          "$ref": "#/$defs/opaqueIdentifier"
+        },
+        "summary": {
+          "$ref": "#/$defs/jsonObject"
+        },
+        "issues": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/issueItem"
+          }
+        }
+      }
+    },
+    "fileResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "file_id",
+        "name",
+        "mime_type"
+      ],
+      "properties": {
+        "kind": {
+          "const": "file"
+        },
+        "file_id": {
+          "$ref": "#/$defs/opaqueIdentifier"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 255
+        },
+        "mime_type": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 255
+        }
+      }
+    },
+    "columnFormat": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "currency",
+            "number",
+            "percent",
+            "date",
+            "datetime",
+            "text"
+          ]
+        },
+        "currency": {
+          "type": "string",
+          "pattern": "^[A-Z]{3}$"
+        },
+        "precision": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10
+        }
+      }
+    },
+    "presentationColumn": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "field",
+        "caption",
+        "data_type"
+      ],
+      "properties": {
+        "field": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        },
+        "caption": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        },
+        "data_type": {
+          "type": "string",
+          "enum": [
+            "string",
+            "integer",
+            "decimal",
+            "boolean",
+            "date",
+            "datetime"
+          ]
+        },
+        "format": {
+          "$ref": "#/$defs/columnFormat"
+        },
+        "visible": {
+          "type": "boolean"
+        },
+        "width": {
+          "type": "integer",
+          "minimum": 20,
+          "maximum": 2000
+        }
+      }
+    },
+    "presentationCapabilities": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "allow_sorting": {
+          "type": "boolean"
+        },
+        "allow_filtering": {
+          "type": "boolean"
+        },
+        "allow_grouping": {
+          "type": "boolean"
+        },
+        "allow_column_chooser": {
+          "type": "boolean"
+        },
+        "allow_search": {
+          "type": "boolean"
+        },
+        "allow_paging": {
+          "type": "boolean"
+        },
+        "allow_print": {
+          "type": "boolean"
+        },
+        "allow_export": {
+          "type": "boolean"
+        },
+        "export_formats": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "enum": [
+              "xlsx",
+              "pdf",
+              "png",
+              "csv"
+            ]
+          }
+        }
+      }
+    },
+    "chartSeries": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "field",
+        "label"
+      ],
+      "properties": {
+        "field": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        }
+      }
+    },
+    "chartDefinition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "category_field",
+        "series"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "bar",
+            "column",
+            "line",
+            "area",
+            "pie",
+            "donut"
+          ]
+        },
+        "category_field": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        },
+        "series": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/chartSeries"
+          }
+        }
+      }
+    },
+    "textPresentation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind"
+      ],
+      "properties": {
+        "kind": {
+          "const": "text"
+        },
+        "title": {
+          "type": "string",
+          "maxLength": 500
+        }
+      }
+    },
+    "dataGridPresentation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "title"
+      ],
+      "properties": {
+        "kind": {
+          "const": "data_grid"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        },
+        "columns": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/presentationColumn"
+          }
+        },
+        "remote_operations": {
+          "type": "boolean"
+        },
+        "capabilities": {
+          "$ref": "#/$defs/presentationCapabilities"
+        }
+      }
+    },
+    "chartPresentation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "title",
+        "chart"
+      ],
+      "properties": {
+        "kind": {
+          "const": "chart"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        },
+        "chart": {
+          "$ref": "#/$defs/chartDefinition"
+        },
+        "capabilities": {
+          "$ref": "#/$defs/presentationCapabilities"
+        }
+      }
+    },
+    "dataGridWithChartPresentation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "title",
+        "chart"
+      ],
+      "properties": {
+        "kind": {
+          "const": "data_grid_with_chart"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        },
+        "columns": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/presentationColumn"
+          }
+        },
+        "grid": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "columns": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/presentationColumn"
+              }
+            }
+          }
+        },
+        "chart": {
+          "$ref": "#/$defs/chartDefinition"
+        },
+        "remote_operations": {
+          "type": "boolean"
+        },
+        "capabilities": {
+          "$ref": "#/$defs/presentationCapabilities"
+        }
+      }
+    },
+    "devexpressReportViewerPresentation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "title"
+      ],
+      "properties": {
+        "kind": {
+          "const": "devexpress_report_viewer"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        },
+        "capabilities": {
+          "$ref": "#/$defs/presentationCapabilities"
+        }
+      }
+    },
+    "operationResultPresentation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "title"
+      ],
+      "properties": {
+        "kind": {
+          "const": "operation_result"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        },
+        "sections": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "enum": [
+              "summary",
+              "issues",
+              "file"
+            ]
+          }
+        },
+        "grid": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "columns": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/presentationColumn"
+              }
+            }
+          }
+        },
+        "capabilities": {
+          "$ref": "#/$defs/presentationCapabilities"
+        }
+      }
+    },
+    "parameterDefinition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "label",
+        "data_type",
+        "required"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        },
+        "data_type": {
+          "type": "string",
+          "enum": [
+            "string",
+            "number",
+            "integer",
+            "boolean",
+            "date",
+            "date_range",
+            "entity_selection"
+          ]
+        },
+        "required": {
+          "type": "boolean"
+        }
+      }
+    },
+    "createSavedReportAvailableAction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "action_id",
+        "label",
+        "source_execution_id",
+        "source_result_id",
+        "requires_confirmation"
+      ],
+      "properties": {
+        "kind": {
+          "const": "create_saved_report"
+        },
+        "action_id": {
+          "const": "reports.saved.create"
+        },
+        "label": {
+          "type": "string",
+          "const": "Agregar al menú como reporte recurrente"
+        },
+        "source_execution_id": {
+          "$ref": "#/$defs/opaqueIdentifier"
+        },
+        "source_result_id": {
+          "$ref": "#/$defs/opaqueIdentifier"
+        },
+        "requires_confirmation": {
+          "const": true
+        },
+        "defaults": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 500
+            },
+            "menu_group": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 200
+            },
+            "presentation_kind": {
+              "type": "string",
+              "enum": [
+                "data_grid",
+                "data_grid_with_chart"
+              ]
+            }
+          }
+        },
+        "parameter_definitions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/parameterDefinition"
+          }
+        }
+      }
+    },
+    "replaceAttachmentAvailableAction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "action_id",
+        "label",
+        "source_execution_id",
+        "accepted_mime_types"
+      ],
+      "properties": {
+        "kind": {
+          "const": "replace_attachment"
+        },
+        "action_id": {
+          "const": "attachments.replace"
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        },
+        "source_execution_id": {
+          "$ref": "#/$defs/opaqueIdentifier"
+        },
+        "accepted_mime_types": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 255
+          }
+        }
+      }
+    },
+    "messageItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "code",
+        "message"
+      ],
+      "properties": {
+        "code": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        },
+        "message": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 5000
+        }
+      }
+    },
+    "errorDetail": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "code",
+        "severity",
+        "retryable"
+      ],
+      "properties": {
+        "code": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        },
+        "severity": {
+          "type": "string",
+          "enum": [
+            "info",
+            "warning",
+            "error",
+            "critical"
+          ]
+        },
+        "retryable": {
+          "type": "boolean"
+        },
+        "correlation_id": {
+          "$ref": "#/$defs/opaqueIdentifier"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/messageItem"
+          }
+        }
+      }
+    },
+    "diagnostics": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "graph_run_id": {
+          "$ref": "#/$defs/opaqueIdentifier"
+        },
+        "retrieval_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "warnings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/messageItem"
+          }
+        }
+      }
+    }
+  },
+  "examples": [
+    {
+      "contract_version": "2.0",
+      "request_id": "req-100",
+      "conversation_id": "conv-100",
+      "turn_id": "turn-100",
+      "status": "completed",
+      "message": "Se encontraron 25 vendedores.",
+      "result": {
+        "kind": "data_view",
+        "result_id": "result-100",
+        "execution_id": "exec-100",
+        "data": {
+          "mode": "inline",
+          "rows": [
+            {
+              "seller_name": "Ana López",
+              "total_sales": 15400.5
+            }
+          ],
+          "total_count": 25
+        }
+      },
+      "presentation": {
+        "kind": "data_grid",
+        "title": "Ventas por vendedor",
+        "columns": [
+          {
+            "field": "seller_name",
+            "caption": "Vendedor",
+            "data_type": "string"
+          },
+          {
+            "field": "total_sales",
+            "caption": "Ventas",
+            "data_type": "decimal",
+            "format": {
+              "type": "currency",
+              "currency": "GTQ"
+            }
+          }
+        ],
+        "capabilities": {
+          "allow_sorting": true,
+          "allow_filtering": true,
+          "allow_grouping": true,
+          "allow_export": true,
+          "export_formats": [
+            "xlsx",
+            "pdf"
+          ]
+        }
+      },
+      "available_actions": [
+        {
+          "kind": "create_saved_report",
+          "action_id": "reports.saved.create",
+          "label": "Agregar al menú como reporte recurrente",
+          "source_execution_id": "exec-100",
+          "source_result_id": "result-100",
+          "requires_confirmation": true
+        }
+      ]
+    },
+    {
+      "contract_version": "2.0",
+      "request_id": "req-200",
+      "conversation_id": "conv-200",
+      "turn_id": "turn-200",
+      "status": "needs_clarification",
+      "message": "Necesito conocer el período del reporte.",
+      "action": {
+        "kind": "clarification",
+        "clarification_id": "clar-200",
+        "field": "date_range",
+        "reason_code": "MISSING_REQUIRED_FIELD",
+        "question": "¿Qué período deseas consultar?",
+        "response_spec": {
+          "type": "date_range",
+          "required": true,
+          "allow_free_text": true,
+          "presets": [
+            {
+              "id": "current_month",
+              "label": "Mes actual"
+            },
+            {
+              "id": "previous_month",
+              "label": "Mes anterior"
+            }
+          ],
+          "validation": {
+            "end_date_exclusive": true
+          }
+        }
+      },
+      "state_revision": 3
+    },
+    {
+      "contract_version": "2.0",
+      "request_id": "req-300",
+      "conversation_id": "conv-300",
+      "turn_id": "turn-300",
+      "status": "denied",
+      "message": "No tienes autorización para consultar esta información.",
+      "error": {
+        "code": "AUTHORIZATION_DENIED",
+        "severity": "error",
+        "retryable": false
+      }
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "contract_version": "2.0",
+  "conversation_id": "conv-selection",
+  "expected_state_revision": 1,
+  "input": {
+    "clarification_response": {
+      "clarification_id": "clar-selection",
+      "field": "entity",
+      "value": {
+        "entity_ids": [],
+        "entity_type": "branch",
+        "kind": "entity_multi_selection"
+      }
+    },
+    "type": "clarification_response"
+  },
+  "request_id": "req-selection",
+  "runtime_context": {
+    "current_datetime": "2026-09-02T12:00:00-06:00",
+    "locale": "es-GT",
+    "timezone": "America/Guatemala"
+  },
+  "turn_id": "turn-selection"
+}

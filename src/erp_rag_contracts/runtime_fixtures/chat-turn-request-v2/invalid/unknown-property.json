@@ -1,0 +1,47 @@
+{
+  "contract_version": "2.0",
+  "conversation_id": "conv-001",
+  "input": {
+    "contents": [
+      {
+        "kind": "text",
+        "text": "Importa estos artículos"
+      },
+      {
+        "access": {
+          "expires_at": "2026-07-30T01:00:00-06:00",
+          "mode": "signed_url",
+          "url": "https://backend.example.com/files/temporary/att-001"
+        },
+        "attachment_id": "att-001",
+        "kind": "attachment",
+        "mime_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "original_name": "articulos.xlsx",
+        "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+        "size_bytes": 24580
+      }
+    ],
+    "invocation": {
+      "action_id": "catalog.products.import",
+      "action_version": "1.0",
+      "attachment_bindings": [
+        {
+          "attachment_id": "att-001",
+          "role": "source_file"
+        }
+      ],
+      "invocation_id": "inv-001",
+      "parameters": {},
+      "source": "command_palette"
+    },
+    "type": "user_message"
+  },
+  "request_id": "req-001",
+  "runtime_context": {
+    "current_datetime": "2026-07-30T00:18:00-06:00",
+    "locale": "es-GT",
+    "timezone": "America/Guatemala"
+  },
+  "turn_id": "turn-001",
+  "unknown": true
+}

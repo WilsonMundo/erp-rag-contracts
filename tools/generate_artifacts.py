@@ -4,6 +4,8 @@ from __future__ import annotations
 
 import hashlib
 import json
+import subprocess
+from copy import deepcopy
 from pathlib import Path
 from typing import Any
 
@@ -30,6 +32,7 @@ from erp_rag_contracts.models.contracts import (
     TableFamilyDocumentSourceV1,
     TableSchemaDocumentSourceV1,
 )
+from erp_rag_contracts.models.runtime import EntitySetReferenceV1, QuerySqlDraftV3
 
 ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_URI = "https://json-schema.org/draft/2020-12/schema"
@@ -102,6 +105,16 @@ SCHEMAS: dict[str, tuple[Any, str]] = {
         "milvus-ingestion-record",
     ),
 }
+RUNTIME_SCHEMAS: dict[str, tuple[Any | None, str, str]] = {
+    "contracts/runtime/chat-turn-request-v2.schema.json": (None, "chat-turn-request", "2"),
+    "contracts/runtime/chat-turn-response-v2.schema.json": (None, "chat-turn-response", "2"),
+    "contracts/runtime/query-sql-draft-v3.schema.json": (QuerySqlDraftV3, "query-sql-draft", "3"),
+    "contracts/runtime/entity-set-reference-v1.schema.json": (
+        EntitySetReferenceV1,
+        "entity-set-reference",
+        "1",
+    ),
+}
 
 
 def dump(relative: str, value: Any) -> None:
@@ -120,6 +133,189 @@ def schema_for(model: Any, slug: str) -> dict[str, Any]:
     schema["$id"] = f"urn:erp-rag-contracts:schema:{slug}:v1"
     schema["description"] = f"Contrato normativo {slug} versión 1."
     return schema
+
+
+def runtime_schema_for(model: Any, slug: str, version: str) -> dict[str, Any]:
+    schema = TypeAdapter(model).json_schema(mode="validation")
+    schema["$schema"] = SCHEMA_URI
+    schema["$id"] = f"urn:erp-rag-contracts:schema:{slug}:v{version}"
+    schema["description"] = f"Contrato normativo runtime {slug} versión {version}."
+    return schema
+
+
+def generate_chat_runtime_fixtures() -> None:
+    request_schema = json.loads(
+        (ROOT / "contracts/runtime/chat-turn-request-v2.schema.json").read_text(encoding="utf-8")
+    )
+    response_schema = json.loads(
+        (ROOT / "contracts/runtime/chat-turn-response-v2.schema.json").read_text(encoding="utf-8")
+    )
+    user_message = deepcopy(request_schema["examples"][0])
+    clarification_base = {
+        "contract_version": "2.0",
+        "request_id": "req-selection",
+        "conversation_id": "conv-selection",
+        "turn_id": "turn-selection",
+        "expected_state_revision": 1,
+        "runtime_context": {
+            "current_datetime": "2026-09-02T12:00:00-06:00",
+            "timezone": "America/Guatemala",
+            "locale": "es-GT",
+        },
+        "input": {
+            "type": "clarification_response",
+            "clarification_response": {
+                "clarification_id": "clar-selection",
+                "field": "entity",
+                "value": {},
+            },
+        },
+    }
+
+    def request_with_value(value: dict[str, Any]) -> dict[str, Any]:
+        fixture = deepcopy(clarification_base)
+        fixture["input"]["clarification_response"]["value"] = value
+        return fixture
+
+    multi_ids = [str(index) for index in range(1, 11)]
+    valid_requests = {
+        "user-message.json": user_message,
+        "entity-selection.json": request_with_value(
+            {"kind": "entity_selection", "entity_type": "branch", "entity_id": "17"}
+        ),
+        "entity-multi-selection-one.json": request_with_value(
+            {"kind": "entity_multi_selection", "entity_type": "branch", "entity_ids": ["17"]}
+        ),
+        "entity-multi-selection-ten.json": request_with_value(
+            {"kind": "entity_multi_selection", "entity_type": "branch", "entity_ids": multi_ids}
+        ),
+    }
+    invalid_requests = {
+        "entity-ids-empty.json": request_with_value(
+            {"kind": "entity_multi_selection", "entity_type": "branch", "entity_ids": []}
+        ),
+        "entity-ids-eleven.json": request_with_value(
+            {
+                "kind": "entity_multi_selection",
+                "entity_type": "branch",
+                "entity_ids": [*multi_ids, "11"],
+            }
+        ),
+        "entity-ids-duplicated.json": request_with_value(
+            {
+                "kind": "entity_multi_selection",
+                "entity_type": "branch",
+                "entity_ids": ["17", "17"],
+            }
+        ),
+        "unknown-property.json": {**deepcopy(user_message), "unknown": True},
+        "previous-contract-version.json": {**deepcopy(user_message), "contract_version": "1.0"},
+    }
+    for name, value in valid_requests.items():
+        dump(f"fixtures/runtime/chat-turn-request-v2/valid/{name}", value)
+    for name, value in invalid_requests.items():
+        dump(f"fixtures/runtime/chat-turn-request-v2/invalid/{name}", value)
+
+    normal_response = deepcopy(response_schema["examples"][0])
+
+    def selection_response(response_spec: dict[str, Any]) -> dict[str, Any]:
+        return {
+            "contract_version": "2.0",
+            "request_id": "req-selection",
+            "conversation_id": "conv-selection",
+            "turn_id": "turn-selection",
+            "status": "needs_clarification",
+            "message": "Selecciona la entidad.",
+            "state_revision": 1,
+            "action": {
+                "kind": "clarification",
+                "clarification_id": "clar-selection",
+                "field": "entity",
+                "question": "Selecciona la entidad.",
+                "response_spec": response_spec,
+            },
+        }
+
+    entity = {"entity_type": "branch", "search_owner": "dotnet"}
+    valid_responses = {
+        "normal.json": normal_response,
+        "entity-selection.json": selection_response(
+            {
+                "type": "entity_selection",
+                "required": True,
+                "allow_free_text": False,
+                "entity": entity,
+                "options": [{"id": "17", "label": "Edison"}],
+            }
+        ),
+        "entity-multi-selection.json": selection_response(
+            {
+                "type": "entity_multi_selection",
+                "required": True,
+                "allow_free_text": False,
+                "entity": entity,
+                "minimum_selections": 1,
+                "maximum_selections": 10,
+                "options": [],
+                "selected_entity_ids": ["17"],
+            }
+        ),
+        "entity-multi-selection-ten.json": selection_response(
+            {
+                "type": "entity_multi_selection",
+                "required": True,
+                "allow_free_text": False,
+                "entity": entity,
+                "minimum_selections": 1,
+                "maximum_selections": 10,
+                "options": [],
+                "selected_entity_ids": multi_ids,
+            }
+        ),
+    }
+    invalid_responses = {
+        "single-without-options.json": selection_response(
+            {"type": "entity_selection", "required": True, "entity": entity}
+        ),
+        "multiple-with-single-type.json": selection_response(
+            {
+                "type": "entity_selection",
+                "required": True,
+                "entity": entity,
+                "entity_ids": ["17", "21"],
+                "options": [{"id": "17", "label": "Edison"}],
+            }
+        ),
+        "unknown-property.json": {**deepcopy(normal_response), "unknown": True},
+    }
+    for name, value in valid_responses.items():
+        dump(f"fixtures/runtime/chat-turn-response-v2/valid/{name}", value)
+    for name, value in invalid_responses.items():
+        dump(f"fixtures/runtime/chat-turn-response-v2/invalid/{name}", value)
+
+    invalid_entity_set = {
+        "set_ref": "branches",
+        "entity_type": "branch",
+        "selection_mode": "multiple",
+        "member_refs": [],
+        "parameter_slots": ["branch_id_1", "branch_id_2"],
+        "binding_source": "sql_type",
+        "minimum_selections": 1,
+        "maximum_selections": 2,
+        "required": True,
+    }
+    dump(
+        "fixtures/runtime/contract-parity/invalid/invalid-binding-source.json",
+        invalid_entity_set,
+    )
+
+    expectations = {
+        **{f"chat-turn-request-v2/invalid/{name}": "SCHEMA_REJECTED" for name in invalid_requests},
+        **{
+            f"chat-turn-response-v2/invalid/{name}": "SCHEMA_REJECTED" for name in invalid_responses
+        },
+    }
+    dump("fixtures/runtime/invalid-expectations.json", expectations)
 
 
 QUERY = {
@@ -250,6 +446,22 @@ FAMILY = {
 def main() -> None:
     for path, (model, slug) in sorted(SCHEMAS.items()):
         dump(path, schema_for(model, slug))
+    for path, (model, slug, version) in sorted(RUNTIME_SCHEMAS.items()):
+        if model is not None:
+            dump(path, runtime_schema_for(model, slug, version))
+    package_schema_directory = ROOT / "src" / "erp_rag_contracts" / "runtime_schemas"
+    package_schema_directory.mkdir(parents=True, exist_ok=True)
+    for path in RUNTIME_SCHEMAS:
+        source = ROOT / path
+        (package_schema_directory / source.name).write_bytes(source.read_bytes())
+    generate_chat_runtime_fixtures()
+    package_fixture_directory = ROOT / "src" / "erp_rag_contracts" / "runtime_fixtures"
+    for source in (ROOT / "fixtures" / "runtime").rglob("*.json"):
+        relative = source.relative_to(ROOT / "fixtures" / "runtime")
+        target = package_fixture_directory / relative
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_bytes(source.read_bytes())
+    subprocess.run(["node", "tools/generate-typescript-contracts.mjs"], cwd=ROOT, check=True)
     manifest = {
         "contract_version": "1.0.0",
         "schema_version": "1.0.0",
@@ -345,6 +557,19 @@ def main() -> None:
                 "sha256": hashlib.sha256(data).hexdigest(),
             }
         )
+    for path, (_, slug, version) in sorted(RUNTIME_SCHEMAS.items()):
+        data = (ROOT / path).read_bytes()
+        parsed = json.loads(data)
+        entries.append(
+            {
+                "id": parsed["$id"],
+                "path": path,
+                "type": slug,
+                "status": "stable",
+                "compatibility": f"{version}.x",
+                "sha256": hashlib.sha256(data).hexdigest(),
+            }
+        )
     dump(
         "contract-manifest.json",
         {
@@ -353,6 +578,21 @@ def main() -> None:
             "json_schema_version": "2020-12",
             "published_on": "2026-08-11",
             "contracts": entries,
+            "runtime_fixtures": [
+                {
+                    "path": path.relative_to(ROOT).as_posix(),
+                    "sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
+                }
+                for path in sorted((ROOT / "fixtures" / "runtime").rglob("*.json"))
+            ],
+            "generated_artifacts": [
+                {
+                    "path": path.relative_to(ROOT).as_posix(),
+                    "sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
+                }
+                for path in sorted((ROOT / "generated" / "typescript" / "runtime").glob("*"))
+                if path.is_file()
+            ],
             "policies": sorted(
                 p.relative_to(ROOT).as_posix() for p in (ROOT / "policies").glob("*.json")
             ),

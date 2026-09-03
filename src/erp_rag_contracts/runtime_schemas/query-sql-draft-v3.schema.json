@@ -1,0 +1,406 @@
+{
+  "$defs": {
+    "EntityReferenceV1": {
+      "additionalProperties": false,
+      "properties": {
+        "dependencies": {
+          "anyOf": [
+            {
+              "items": {
+                "pattern": "^[a-z][a-z0-9_]{0,79}$",
+                "type": "string"
+              },
+              "maxItems": 10,
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Dependencies"
+        },
+        "entity_type": {
+          "enum": [
+            "branch",
+            "customer",
+            "product",
+            "supplier",
+            "seller",
+            "document"
+          ],
+          "title": "Entity Type",
+          "type": "string"
+        },
+        "hints": {
+          "anyOf": [
+            {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Hints"
+        },
+        "mention": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Mention",
+          "type": "string"
+        },
+        "parameter": {
+          "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,127}$",
+          "title": "Parameter",
+          "type": "string"
+        },
+        "ref": {
+          "pattern": "^[a-z][a-z0-9_]{0,79}$",
+          "title": "Ref",
+          "type": "string"
+        },
+        "required": {
+          "default": true,
+          "title": "Required",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "ref",
+        "entity_type",
+        "mention",
+        "parameter"
+      ],
+      "title": "EntityReferenceV1",
+      "type": "object"
+    },
+    "EntitySetReferenceV1": {
+      "additionalProperties": false,
+      "properties": {
+        "binding_source": {
+          "enum": [
+            "entity_id",
+            "binding_value"
+          ],
+          "title": "Binding Source",
+          "type": "string"
+        },
+        "entity_type": {
+          "enum": [
+            "branch",
+            "customer",
+            "product",
+            "supplier",
+            "seller",
+            "document"
+          ],
+          "title": "Entity Type",
+          "type": "string"
+        },
+        "maximum_selections": {
+          "maximum": 10,
+          "minimum": 1,
+          "title": "Maximum Selections",
+          "type": "integer"
+        },
+        "member_refs": {
+          "items": {
+            "pattern": "^[a-z][a-z0-9_]{0,79}$",
+            "type": "string"
+          },
+          "maxItems": 10,
+          "title": "Member Refs",
+          "type": "array"
+        },
+        "minimum_selections": {
+          "default": 1,
+          "maximum": 10,
+          "minimum": 1,
+          "title": "Minimum Selections",
+          "type": "integer"
+        },
+        "parameter_slots": {
+          "items": {
+            "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,127}$",
+            "type": "string"
+          },
+          "maxItems": 10,
+          "minItems": 1,
+          "title": "Parameter Slots",
+          "type": "array"
+        },
+        "required": {
+          "default": true,
+          "title": "Required",
+          "type": "boolean"
+        },
+        "selection_mode": {
+          "enum": [
+            "single",
+            "multiple"
+          ],
+          "title": "Selection Mode",
+          "type": "string"
+        },
+        "set_ref": {
+          "pattern": "^[a-z][a-z0-9_]{0,79}$",
+          "title": "Set Ref",
+          "type": "string"
+        }
+      },
+      "required": [
+        "set_ref",
+        "entity_type",
+        "selection_mode",
+        "parameter_slots",
+        "binding_source",
+        "maximum_selections"
+      ],
+      "title": "EntitySetReferenceV1",
+      "type": "object"
+    },
+    "ProposedResultSemanticsV1": {
+      "additionalProperties": false,
+      "properties": {
+        "columns": {
+          "items": {
+            "$ref": "#/$defs/ProposedSemanticColumnV1"
+          },
+          "maxItems": 100,
+          "title": "Columns",
+          "type": "array"
+        },
+        "shape": {
+          "enum": [
+            "scalar",
+            "detail",
+            "grouped_aggregate",
+            "ranking",
+            "comparison",
+            "distribution",
+            "trend"
+          ],
+          "title": "Shape",
+          "type": "string"
+        },
+        "version": {
+          "const": "1.0",
+          "default": "1.0",
+          "title": "Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "shape",
+        "columns"
+      ],
+      "title": "ProposedResultSemanticsV1",
+      "type": "object"
+    },
+    "ProposedSemanticColumnV1": {
+      "additionalProperties": false,
+      "properties": {
+        "aggregation": {
+          "enum": [
+            "none",
+            "sum",
+            "count",
+            "avg",
+            "min",
+            "max",
+            "unknown"
+          ],
+          "title": "Aggregation",
+          "type": "string"
+        },
+        "key": {
+          "maxLength": 160,
+          "minLength": 1,
+          "title": "Key",
+          "type": "string"
+        },
+        "ordinal": {
+          "maximum": 99,
+          "minimum": 0,
+          "title": "Ordinal",
+          "type": "integer"
+        },
+        "role": {
+          "enum": [
+            "identifier",
+            "dimension",
+            "measure",
+            "unknown"
+          ],
+          "title": "Role",
+          "type": "string"
+        },
+        "semantic_type": {
+          "enum": [
+            "identifier",
+            "category",
+            "number",
+            "currency",
+            "date",
+            "datetime",
+            "unknown"
+          ],
+          "title": "Semantic Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "ordinal",
+        "key",
+        "role",
+        "semantic_type",
+        "aggregation"
+      ],
+      "title": "ProposedSemanticColumnV1",
+      "type": "object"
+    },
+    "QueryParameterDraftV1": {
+      "additionalProperties": false,
+      "properties": {
+        "max_length": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Max Length"
+        },
+        "name": {
+          "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,127}$",
+          "title": "Name",
+          "type": "string"
+        },
+        "nullable": {
+          "title": "Nullable",
+          "type": "boolean"
+        },
+        "precision": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Precision"
+        },
+        "scale": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Scale"
+        },
+        "sql_type": {
+          "enum": [
+            "bit",
+            "tinyint",
+            "smallint",
+            "int",
+            "bigint",
+            "decimal",
+            "date",
+            "datetime2",
+            "uniqueidentifier",
+            "nvarchar"
+          ],
+          "title": "Sql Type",
+          "type": "string"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "integer"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Value"
+        }
+      },
+      "required": [
+        "name",
+        "sql_type",
+        "nullable",
+        "value"
+      ],
+      "title": "QueryParameterDraftV1",
+      "type": "object"
+    }
+  },
+  "$id": "urn:erp-rag-contracts:schema:query-sql-draft:v3",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Contrato normativo runtime query-sql-draft versión 3.",
+  "properties": {
+    "entity_references": {
+      "items": {
+        "$ref": "#/$defs/EntityReferenceV1"
+      },
+      "maxItems": 25,
+      "title": "Entity References",
+      "type": "array"
+    },
+    "entity_sets": {
+      "items": {
+        "$ref": "#/$defs/EntitySetReferenceV1"
+      },
+      "maxItems": 10,
+      "title": "Entity Sets",
+      "type": "array"
+    },
+    "parameters": {
+      "items": {
+        "$ref": "#/$defs/QueryParameterDraftV1"
+      },
+      "maxItems": 200,
+      "title": "Parameters",
+      "type": "array"
+    },
+    "proposed_result_semantics": {
+      "$ref": "#/$defs/ProposedResultSemanticsV1"
+    },
+    "sql": {
+      "maxLength": 100000,
+      "minLength": 1,
+      "title": "Sql",
+      "type": "string"
+    }
+  },
+  "required": [
+    "sql",
+    "parameters",
+    "proposed_result_semantics",
+    "entity_references",
+    "entity_sets"
+  ],
+  "title": "QuerySqlDraftV3",
+  "type": "object"
+}

@@ -1,0 +1,10 @@
+{
+  "chat-turn-request-v2/invalid/entity-ids-duplicated.json": "SCHEMA_REJECTED",
+  "chat-turn-request-v2/invalid/entity-ids-eleven.json": "SCHEMA_REJECTED",
+  "chat-turn-request-v2/invalid/entity-ids-empty.json": "SCHEMA_REJECTED",
+  "chat-turn-request-v2/invalid/previous-contract-version.json": "SCHEMA_REJECTED",
+  "chat-turn-request-v2/invalid/unknown-property.json": "SCHEMA_REJECTED",
+  "chat-turn-response-v2/invalid/multiple-with-single-type.json": "SCHEMA_REJECTED",
+  "chat-turn-response-v2/invalid/single-without-options.json": "SCHEMA_REJECTED",
+  "chat-turn-response-v2/invalid/unknown-property.json": "SCHEMA_REJECTED"
+}

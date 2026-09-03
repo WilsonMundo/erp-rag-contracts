@@ -1,0 +1,39 @@
+{
+  "action": {
+    "clarification_id": "clar-selection",
+    "field": "entity",
+    "kind": "clarification",
+    "question": "Selecciona la entidad.",
+    "response_spec": {
+      "allow_free_text": false,
+      "entity": {
+        "entity_type": "branch",
+        "search_owner": "dotnet"
+      },
+      "maximum_selections": 10,
+      "minimum_selections": 1,
+      "options": [],
+      "required": true,
+      "selected_entity_ids": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10"
+      ],
+      "type": "entity_multi_selection"
+    }
+  },
+  "contract_version": "2.0",
+  "conversation_id": "conv-selection",
+  "message": "Selecciona la entidad.",
+  "request_id": "req-selection",
+  "state_revision": 1,
+  "status": "needs_clarification",
+  "turn_id": "turn-selection"
+}

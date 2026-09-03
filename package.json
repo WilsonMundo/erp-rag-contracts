@@ -1,0 +1,12 @@
+{
+  "name": "erp-rag-contracts-tooling",
+  "private": true,
+  "scripts": {
+    "generate:typescript": "node tools/generate-typescript-contracts.mjs",
+    "check:typescript-fixtures": "node tools/check-typescript-fixtures.mjs"
+  },
+  "devDependencies": {
+    "json-schema-to-typescript": "16.0.0",
+    "typescript": "7.0.2"
+  }
+}

@@ -128,7 +128,11 @@ def test_every_schema_is_draft_2020_12_and_recursively_strict() -> None:
             node = stack.pop()
             if isinstance(node, dict):
                 if node.get("type") == "object":
-                    assert node.get("additionalProperties") is False, path
+                    assert (
+                        node.get("additionalProperties") is False
+                        or node.get("x-dynamic-map") is True
+                        or isinstance(node.get("additionalProperties"), dict)
+                    ), path
                 stack.extend(node.values())
             elif isinstance(node, list):
                 stack.extend(node)
@@ -139,9 +143,25 @@ def test_manifest_hashes_and_generation_are_deterministic() -> None:
     for entry in manifest["contracts"]:  # type: ignore[index]
         content = (ROOT / entry["path"]).read_bytes()
         assert hashlib.sha256(content).hexdigest() == entry["sha256"]
-    before = (ROOT / "contract-manifest.json").read_bytes()
+    for entry in manifest["runtime_fixtures"]:  # type: ignore[index]
+        content = (ROOT / entry["path"]).read_bytes()
+        assert hashlib.sha256(content).hexdigest() == entry["sha256"]
+    for entry in manifest["generated_artifacts"]:  # type: ignore[index]
+        content = (ROOT / entry["path"]).read_bytes()
+        assert hashlib.sha256(content).hexdigest() == entry["sha256"]
+    generated_paths = sorted(
+        {
+            ROOT / "contract-manifest.json",
+            *(ROOT / "contracts" / "runtime").glob("*.schema.json"),
+            *(ROOT / "fixtures" / "runtime").rglob("*.json"),
+            *(ROOT / "src" / "erp_rag_contracts" / "runtime_schemas").glob("*.json"),
+            *(ROOT / "src" / "erp_rag_contracts" / "runtime_fixtures").rglob("*.json"),
+            *(ROOT / "generated" / "typescript" / "runtime").glob("*"),
+        }
+    )
+    before = {path: path.read_bytes() for path in generated_paths}
     subprocess.run([sys.executable, "tools/generate_artifacts.py"], cwd=ROOT, check=True)
-    assert (ROOT / "contract-manifest.json").read_bytes() == before
+    assert {path: path.read_bytes() for path in generated_paths} == before
 
 
 def test_stable_reason_codes() -> None:
