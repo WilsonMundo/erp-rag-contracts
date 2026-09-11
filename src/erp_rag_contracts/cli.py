@@ -17,20 +17,26 @@ from pydantic import TypeAdapter, ValidationError
 
 from .hashing import release_file_hash, semantic_content_hash
 from .models.contracts import (
+    FunctionSchemaDocumentSourceV1,
     NormalizedCatalogRecordV1,
     QueryExampleCatalogV1,
     QueryExampleDocumentEffectiveV1,
     TableFamilyDocumentSourceV1,
     TableSchemaDocumentSourceV1,
+    ViewSchemaDocumentSourceV1,
 )
 from .normalization import normalize_document
 
 MODELS = {
+    "function_schema": FunctionSchemaDocumentSourceV1,
     "query_example": QueryExampleDocumentEffectiveV1,
     "table_schema": TableSchemaDocumentSourceV1,
+    "view_schema": ViewSchemaDocumentSourceV1,
     "table_family": TableFamilyDocumentSourceV1,
 }
 REVIEWER_MODELS = {
+    "function_schema": "FunctionSchemaDocumentSourceV1",
+    "view_schema": "ViewSchemaDocumentSourceV1",
     "query_example": "ValidatedQueryExampleV1",
     "table_schema": "ValidatedTableSchemaV1",
     "table_family": "ValidatedTableFamilyV1",
@@ -111,7 +117,7 @@ def _discover(release: Path) -> tuple[list[dict[str, Any]], int]:
                     "conflicts": conflicts,
                 }
             )
-    for folder in ("tables", "families"):
+    for folder in ("tables", "families", "views", "functions"):
         for path in sorted((release / "sql-knowledge" / folder).glob("*.json")):
             source_files += 1
             document = _json(path)

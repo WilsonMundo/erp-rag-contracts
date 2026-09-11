@@ -16,13 +16,16 @@ from erp_rag_contracts.models.contracts import (
     EmbeddingReleaseManifestV1,
     FunctionalKnowledgeManifestV1,
     FunctionalQueryManifestV1,
+    FunctionSchemaDocumentSourceV1,
     MilvusIngestionRecordV1,
     ModuleCatalogPackageSourceV1,
     ModuleManifestSourceV1,
     NormalizedCatalogRecordV1,
+    NormalizedFunctionSchemaV1,
     NormalizedQueryExampleV1,
     NormalizedTableFamilyV1,
     NormalizedTableSchemaV1,
+    NormalizedViewSchemaV1,
     QueryExampleCatalogV1,
     QueryExampleDocumentEffectiveV1,
     QueryExampleDocumentSourceV1,
@@ -31,12 +34,37 @@ from erp_rag_contracts.models.contracts import (
     SQLObjectRegistryV1,
     TableFamilyDocumentSourceV1,
     TableSchemaDocumentSourceV1,
+    ViewSchemaDocumentSourceV1,
 )
-from erp_rag_contracts.models.runtime import EntitySetReferenceV1, QuerySqlDraftV3
+from erp_rag_contracts.models.runtime import (
+    ChartDefinitionV2,
+    EntityResolutionRequestV2,
+    EntityResolutionResultV2,
+    ProposedPresentationV1,
+    QuerySemanticPlanV1,
+    QuerySqlDraftV5,
+    ResolvedQueryContextV1,
+)
 
 ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_URI = "https://json-schema.org/draft/2020-12/schema"
 SCHEMAS: dict[str, tuple[Any, str]] = {
+    "contracts/source/function-schema-document-v1.schema.json": (
+        FunctionSchemaDocumentSourceV1,
+        "reviewer-function-source",
+    ),
+    "contracts/normalized/normalized-function-schema-v1.schema.json": (
+        NormalizedFunctionSchemaV1,
+        "normalized-function",
+    ),
+    "contracts/source/view-schema-document-v1.schema.json": (
+        ViewSchemaDocumentSourceV1,
+        "reviewer-view-source",
+    ),
+    "contracts/normalized/normalized-view-schema-v1.schema.json": (
+        NormalizedViewSchemaV1,
+        "normalized-view",
+    ),
     "contracts/source/query-example-document-v1.schema.json": (
         QueryExampleDocumentSourceV1,
         "reviewer-query-source",
@@ -108,11 +136,36 @@ SCHEMAS: dict[str, tuple[Any, str]] = {
 RUNTIME_SCHEMAS: dict[str, tuple[Any | None, str, str]] = {
     "contracts/runtime/chat-turn-request-v2.schema.json": (None, "chat-turn-request", "2"),
     "contracts/runtime/chat-turn-response-v2.schema.json": (None, "chat-turn-response", "2"),
-    "contracts/runtime/query-sql-draft-v3.schema.json": (QuerySqlDraftV3, "query-sql-draft", "3"),
-    "contracts/runtime/entity-set-reference-v1.schema.json": (
-        EntitySetReferenceV1,
-        "entity-set-reference",
+    "contracts/runtime/query-sql-draft-v5.schema.json": (QuerySqlDraftV5, "query-sql-draft", "5"),
+    "contracts/runtime/query-semantic-plan-v1.schema.json": (
+        QuerySemanticPlanV1,
+        "query-semantic-plan",
         "1",
+    ),
+    "contracts/runtime/entity-resolution-request-v2.schema.json": (
+        EntityResolutionRequestV2,
+        "entity-resolution-request",
+        "2",
+    ),
+    "contracts/runtime/entity-resolution-result-v2.schema.json": (
+        EntityResolutionResultV2,
+        "entity-resolution-result",
+        "2",
+    ),
+    "contracts/runtime/resolved-query-context-v1.schema.json": (
+        ResolvedQueryContextV1,
+        "resolved-query-context",
+        "1",
+    ),
+    "contracts/runtime/proposed-presentation-v1.schema.json": (
+        ProposedPresentationV1,
+        "proposed-presentation",
+        "1",
+    ),
+    "contracts/runtime/chart-definition-v2.schema.json": (
+        ChartDefinitionV2,
+        "chart-definition",
+        "2",
     ),
 }
 
@@ -293,22 +346,6 @@ def generate_chat_runtime_fixtures() -> None:
     for name, value in invalid_responses.items():
         dump(f"fixtures/runtime/chat-turn-response-v2/invalid/{name}", value)
 
-    invalid_entity_set = {
-        "set_ref": "branches",
-        "entity_type": "branch",
-        "selection_mode": "multiple",
-        "member_refs": [],
-        "parameter_slots": ["branch_id_1", "branch_id_2"],
-        "binding_source": "sql_type",
-        "minimum_selections": 1,
-        "maximum_selections": 2,
-        "required": True,
-    }
-    dump(
-        "fixtures/runtime/contract-parity/invalid/invalid-binding-source.json",
-        invalid_entity_set,
-    )
-
     expectations = {
         **{f"chat-turn-request-v2/invalid/{name}": "SCHEMA_REJECTED" for name in invalid_requests},
         **{
@@ -324,7 +361,7 @@ QUERY = {
     "document_type": "query_example",
     "status": "draft",
     "module": "ventas",
-    "schema_version": "1.0",
+    "schema_version": "2.0",
     "catalog_version": "2026.08",
     "language": "es",
     "intent_id": "sales",
@@ -360,7 +397,7 @@ QUERY = {
 }
 
 TABLE = {
-    "schema_version": "1.0",
+    "schema_version": "2.0",
     "catalog_version": "2026.08",
     "document_id": "erp.table.example.v1",
     "document_version": 1,
@@ -409,7 +446,7 @@ TABLE = {
 }
 
 FAMILY = {
-    "schema_version": "1.0",
+    "schema_version": "2.0",
     "catalog_version": "2026.08",
     "document_id": "erp.table_family.example.v1",
     "document_version": 1,

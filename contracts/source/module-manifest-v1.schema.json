@@ -11,7 +11,9 @@
           "enum": [
             "query_example",
             "table_schema",
-            "table_family"
+            "table_family",
+            "view_schema",
+            "function_schema"
           ],
           "title": "Document Type",
           "type": "string"

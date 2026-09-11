@@ -1,0 +1,332 @@
+{
+  "$defs": {
+    "ChartAxisV1": {
+      "additionalProperties": false,
+      "properties": {
+        "category": {
+          "$ref": "#/$defs/ChartCategoryAxisV1"
+        },
+        "value": {
+          "$ref": "#/$defs/ChartValueAxisV1"
+        }
+      },
+      "required": [
+        "category",
+        "value"
+      ],
+      "title": "ChartAxisV1",
+      "type": "object"
+    },
+    "ChartCategoryAxisV1": {
+      "additionalProperties": false,
+      "properties": {
+        "label_format": {
+          "enum": [
+            "auto",
+            "date",
+            "month_short",
+            "month_year",
+            "category"
+          ],
+          "title": "Label Format",
+          "type": "string"
+        },
+        "title": {
+          "anyOf": [
+            {
+              "maxLength": 200,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Title"
+        }
+      },
+      "required": [
+        "title",
+        "label_format"
+      ],
+      "title": "ChartCategoryAxisV1",
+      "type": "object"
+    },
+    "ChartDefinitionV2": {
+      "additionalProperties": false,
+      "properties": {
+        "axis": {
+          "$ref": "#/$defs/ChartAxisV1"
+        },
+        "category_field": {
+          "maxLength": 160,
+          "minLength": 1,
+          "title": "Category Field",
+          "type": "string"
+        },
+        "chart_definition_version": {
+          "const": "2.0",
+          "title": "Chart Definition Version",
+          "type": "string"
+        },
+        "limit": {
+          "$ref": "#/$defs/ChartLimitV1"
+        },
+        "measure_fields": {
+          "items": {
+            "maxLength": 160,
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 8,
+          "minItems": 1,
+          "title": "Measure Fields",
+          "type": "array"
+        },
+        "orientation": {
+          "anyOf": [
+            {
+              "enum": [
+                "horizontal",
+                "vertical"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Orientation"
+        },
+        "series_group_field": {
+          "anyOf": [
+            {
+              "maxLength": 160,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Series Group Field"
+        },
+        "series_mode": {
+          "enum": [
+            "fields",
+            "grouped"
+          ],
+          "title": "Series Mode",
+          "type": "string"
+        },
+        "sort": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ChartSortV1"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "stacking": {
+          "enum": [
+            "none",
+            "normal",
+            "percent"
+          ],
+          "title": "Stacking",
+          "type": "string"
+        },
+        "title": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        },
+        "type": {
+          "enum": [
+            "bar",
+            "column",
+            "line",
+            "area",
+            "pie",
+            "donut"
+          ],
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "chart_definition_version",
+        "type",
+        "orientation",
+        "series_mode",
+        "category_field",
+        "measure_fields",
+        "series_group_field",
+        "stacking",
+        "sort",
+        "axis",
+        "limit",
+        "title"
+      ],
+      "title": "ChartDefinitionV2",
+      "type": "object"
+    },
+    "ChartLimitV1": {
+      "additionalProperties": false,
+      "properties": {
+        "max_categories": {
+          "maximum": 500,
+          "minimum": 1,
+          "title": "Max Categories",
+          "type": "integer"
+        },
+        "max_series": {
+          "maximum": 100,
+          "minimum": 1,
+          "title": "Max Series",
+          "type": "integer"
+        },
+        "overflow": {
+          "const": "degrade",
+          "title": "Overflow",
+          "type": "string"
+        }
+      },
+      "required": [
+        "max_categories",
+        "max_series",
+        "overflow"
+      ],
+      "title": "ChartLimitV1",
+      "type": "object"
+    },
+    "ChartSortV1": {
+      "additionalProperties": false,
+      "properties": {
+        "direction": {
+          "enum": [
+            "ascending",
+            "descending"
+          ],
+          "title": "Direction",
+          "type": "string"
+        },
+        "field": {
+          "maxLength": 160,
+          "minLength": 1,
+          "title": "Field",
+          "type": "string"
+        },
+        "nulls": {
+          "enum": [
+            "first",
+            "last"
+          ],
+          "title": "Nulls",
+          "type": "string"
+        }
+      },
+      "required": [
+        "field",
+        "direction",
+        "nulls"
+      ],
+      "title": "ChartSortV1",
+      "type": "object"
+    },
+    "ChartValueAxisV1": {
+      "additionalProperties": false,
+      "properties": {
+        "format": {
+          "enum": [
+            "auto",
+            "number",
+            "integer",
+            "currency",
+            "percent"
+          ],
+          "title": "Format",
+          "type": "string"
+        },
+        "scale": {
+          "enum": [
+            "linear",
+            "logarithmic"
+          ],
+          "title": "Scale",
+          "type": "string"
+        },
+        "title": {
+          "anyOf": [
+            {
+              "maxLength": 200,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Title"
+        },
+        "zero_baseline": {
+          "enum": [
+            "required",
+            "optional",
+            "suppressed"
+          ],
+          "title": "Zero Baseline",
+          "type": "string"
+        }
+      },
+      "required": [
+        "title",
+        "scale",
+        "format",
+        "zero_baseline"
+      ],
+      "title": "ChartValueAxisV1",
+      "type": "object"
+    }
+  },
+  "$id": "urn:erp-rag-contracts:schema:proposed-presentation:v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Contrato normativo runtime proposed-presentation versión 1.",
+  "properties": {
+    "chart": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ChartDefinitionV2"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "kind": {
+      "enum": [
+        "data_grid",
+        "chart",
+        "data_grid_with_chart"
+      ],
+      "title": "Kind",
+      "type": "string"
+    },
+    "presentation_plan_version": {
+      "const": "1.0",
+      "title": "Presentation Plan Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "presentation_plan_version",
+    "kind",
+    "chart"
+  ],
+  "title": "ProposedPresentationV1",
+  "type": "object"
+}

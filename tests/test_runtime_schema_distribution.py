@@ -10,8 +10,13 @@ from erp_rag_contracts.runtime_schemas import runtime_schema_path
 EXPECTED = {
     ("chat-turn-request", "2"): "urn:erp-rag-contracts:schema:chat-turn-request:v2",
     ("chat-turn-response", "2"): "urn:erp-rag-contracts:schema:chat-turn-response:v2",
-    ("query-sql-draft", "3"): "urn:erp-rag-contracts:schema:query-sql-draft:v3",
-    ("entity-set-reference", "1"): "urn:erp-rag-contracts:schema:entity-set-reference:v1",
+    ("query-sql-draft", "5"): "urn:erp-rag-contracts:schema:query-sql-draft:v5",
+    ("query-semantic-plan", "1"): "urn:erp-rag-contracts:schema:query-semantic-plan:v1",
+    ("resolved-query-context", "1"): "urn:erp-rag-contracts:schema:resolved-query-context:v1",
+    ("entity-resolution-request", "2"): (
+        "urn:erp-rag-contracts:schema:entity-resolution-request:v2"
+    ),
+    ("entity-resolution-result", "2"): ("urn:erp-rag-contracts:schema:entity-resolution-result:v2"),
 }
 
 
@@ -56,7 +61,7 @@ def test_built_wheel_contains_and_resolves_runtime_schemas(tmp_path: Path) -> No
         "import json; "
         "from erp_rag_contracts.runtime_schemas import runtime_schema_path; "
         "from erp_rag_contracts.runtime_fixtures import runtime_fixture_path; "
-        "c=runtime_schema_path('query-sql-draft','3'); "
+        "c=runtime_schema_path('query-sql-draft','5'); "
         "p=c.__enter__(); schema_id=json.loads(p.read_text())['$id']; c.__exit__(None,None,None); "
         "f=runtime_fixture_path('chat-turn-request-v2/valid/user-message.json'); "
         "q=f.__enter__(); version=json.loads(q.read_text())['contract_version']; "
@@ -71,4 +76,4 @@ def test_built_wheel_contains_and_resolves_runtime_schemas(tmp_path: Path) -> No
         capture_output=True,
         text=True,
     )
-    assert completed.stdout.strip() == EXPECTED[("query-sql-draft", "3")] + "|2.0"
+    assert completed.stdout.strip() == EXPECTED[("query-sql-draft", "5")] + "|2.0"

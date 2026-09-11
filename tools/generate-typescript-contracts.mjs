@@ -9,6 +9,7 @@ const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const DEFAULT_OUTPUT = join(ROOT, 'generated', 'typescript', 'runtime');
 const REQUEST_SCHEMA = join(ROOT, 'contracts', 'runtime', 'chat-turn-request-v2.schema.json');
 const RESPONSE_SCHEMA = join(ROOT, 'contracts', 'runtime', 'chat-turn-response-v2.schema.json');
+const CHART_V2_SCHEMA = join(ROOT, 'contracts', 'runtime', 'chart-definition-v2.schema.json');
 const OUTPUT_ARGUMENT = process.argv.indexOf('--output');
 const outputDirectory =
   OUTPUT_ARGUMENT === -1 ? DEFAULT_OUTPUT : resolve(process.argv[OUTPUT_ARGUMENT + 1]);
@@ -19,6 +20,7 @@ const stableJson = (value) => `${JSON.stringify(value, null, 2)}\n`;
 
 const requestSchema = await readJson(REQUEST_SCHEMA);
 const responseSchema = await readJson(RESPONSE_SCHEMA);
+const chartV2Schema = await readJson(CHART_V2_SCHEMA);
 const project = (value, title) => ({ ...structuredClone(value), title });
 
 const requestProjection = {
@@ -55,10 +57,12 @@ const requestTypes = await compile(
   compilerOptions,
 );
 const responseTypes = await compile(responseSchema, 'ChatTurnResponseV2', compilerOptions);
+const chartV2Types = await compile(chartV2Schema, 'ChartDefinitionV2', compilerOptions);
 const index = [
   '// Generated from canonical JSON Schemas. Do not edit.',
   requestTypes.trim(),
   responseTypes.trim(),
+  chartV2Types.trim(),
   '',
 ].join('\n\n');
 
@@ -80,6 +84,7 @@ const schemaMetadata = [];
 for (const [name, path] of [
   ['chat-turn-request-v2', REQUEST_SCHEMA],
   ['chat-turn-response-v2', RESPONSE_SCHEMA],
+  ['chart-definition-v2', CHART_V2_SCHEMA],
 ]) {
   const bytes = await readFile(path);
   schemaMetadata.push({

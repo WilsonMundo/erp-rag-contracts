@@ -1,0 +1,268 @@
+{
+  "$defs": {
+    "EntityResolutionCandidateV2": {
+      "additionalProperties": false,
+      "properties": {
+        "binding_kind": {
+          "enum": [
+            "entity_id",
+            "binding_value"
+          ],
+          "title": "Binding Kind",
+          "type": "string"
+        },
+        "binding_value": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Binding Value"
+        },
+        "display_text": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Display Text",
+          "type": "string"
+        },
+        "entity_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Entity Id",
+          "type": "string"
+        },
+        "max_length": {
+          "anyOf": [
+            {
+              "maximum": 4000,
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Max Length"
+        },
+        "sql_type": {
+          "enum": [
+            "tinyint",
+            "smallint",
+            "int",
+            "bigint",
+            "uniqueidentifier",
+            "nvarchar"
+          ],
+          "title": "Sql Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "entity_id",
+        "display_text",
+        "binding_kind",
+        "sql_type"
+      ],
+      "title": "EntityResolutionCandidateV2",
+      "type": "object"
+    },
+    "EntityResolutionItemV2": {
+      "additionalProperties": false,
+      "properties": {
+        "binding_kind": {
+          "anyOf": [
+            {
+              "enum": [
+                "entity_id",
+                "binding_value"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Binding Kind"
+        },
+        "binding_value": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Binding Value"
+        },
+        "candidates": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/EntityResolutionCandidateV2"
+              },
+              "maxItems": 10,
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Candidates"
+        },
+        "display_text": {
+          "anyOf": [
+            {
+              "maxLength": 500,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Display Text"
+        },
+        "entity_id": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Entity Id"
+        },
+        "entity_type": {
+          "enum": [
+            "branch",
+            "customer",
+            "product",
+            "supplier",
+            "seller",
+            "document",
+            "classification_level"
+          ],
+          "title": "Entity Type",
+          "type": "string"
+        },
+        "error_code": {
+          "anyOf": [
+            {
+              "maxLength": 160,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Error Code"
+        },
+        "max_length": {
+          "anyOf": [
+            {
+              "maximum": 4000,
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Max Length"
+        },
+        "ref": {
+          "pattern": "^[a-z][a-z0-9_]{0,79}$",
+          "title": "Ref",
+          "type": "string"
+        },
+        "sql_type": {
+          "anyOf": [
+            {
+              "enum": [
+                "tinyint",
+                "smallint",
+                "int",
+                "bigint",
+                "uniqueidentifier",
+                "nvarchar"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Sql Type"
+        },
+        "status": {
+          "enum": [
+            "resolved",
+            "ambiguous",
+            "not_found",
+            "unsupported_entity_type",
+            "resolver_unavailable",
+            "invalid_request",
+            "authorization_denied"
+          ],
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "ref",
+        "entity_type",
+        "status"
+      ],
+      "title": "EntityResolutionItemV2",
+      "type": "object"
+    }
+  },
+  "$id": "urn:erp-rag-contracts:schema:entity-resolution-result:v2",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Contrato normativo runtime entity-resolution-result versión 2.",
+  "properties": {
+    "contract_version": {
+      "const": "2.0",
+      "default": "2.0",
+      "title": "Contract Version",
+      "type": "string"
+    },
+    "results": {
+      "items": {
+        "$ref": "#/$defs/EntityResolutionItemV2"
+      },
+      "maxItems": 25,
+      "minItems": 1,
+      "title": "Results",
+      "type": "array"
+    }
+  },
+  "required": [
+    "results"
+  ],
+  "title": "EntityResolutionResultV2",
+  "type": "object"
+}

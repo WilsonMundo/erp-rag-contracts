@@ -20,6 +20,14 @@
       "title": "Dependencies",
       "type": "array"
     },
+    "function_schemas": {
+      "items": {
+        "pattern": "^(?![A-Za-z]:)(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))[A-Za-z0-9_.-]+(?:/[A-Za-z0-9_.-]+)*$",
+        "type": "string"
+      },
+      "title": "Function Schemas",
+      "type": "array"
+    },
     "language": {
       "pattern": "^[a-z]{2}(?:-[A-Z]{2})?$",
       "title": "Language",
@@ -61,6 +69,14 @@
         "type": "string"
       },
       "title": "Table Schemas",
+      "type": "array"
+    },
+    "view_schemas": {
+      "items": {
+        "pattern": "^(?![A-Za-z]:)(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))[A-Za-z0-9_.-]+(?:/[A-Za-z0-9_.-]+)*$",
+        "type": "string"
+      },
+      "title": "View Schemas",
       "type": "array"
     }
   },

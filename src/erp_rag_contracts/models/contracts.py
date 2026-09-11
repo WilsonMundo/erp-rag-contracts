@@ -18,14 +18,16 @@ Identifier = Annotated[str, StringConstraints(pattern=r"^[a-z][a-z0-9]*(?:[._-][
 SemVer = Annotated[
     str, StringConstraints(pattern=r"^(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)$")
 ]
-ReviewerSchemaVersion = Literal["1.0"]
+ReviewerSchemaVersion = Literal["2.0"]
 CatalogVersion = Annotated[str, StringConstraints(pattern=r"^\d{4}\.\d{2}$")]
 SemanticHash = Annotated[str, StringConstraints(pattern=r"^sha256:[0-9a-f]{64}$")]
 FileHash = Annotated[str, StringConstraints(pattern=r"^[0-9a-f]{64}$")]
 ReleaseFileHash = SemanticHash
 Language = Annotated[str, StringConstraints(pattern=r"^[a-z]{2}(?:-[A-Z]{2})?$")]
 Status: TypeAlias = Literal["approved", "draft", "needs_review", "deprecated"]
-DocumentType: TypeAlias = Literal["query_example", "table_schema", "table_family"]
+DocumentType: TypeAlias = Literal[
+    "query_example", "table_schema", "table_family", "view_schema", "function_schema"
+]
 JsonScalar: TypeAlias = str | int | float | bool | None
 
 
@@ -66,6 +68,7 @@ class RequiredFieldV1(StrictModel):
     type: str
     required: bool
     clarification_prompt: str
+    default_value: JsonScalar = None
 
 
 class OptionalFieldV1(StrictModel):
@@ -73,6 +76,7 @@ class OptionalFieldV1(StrictModel):
     type: str
     description: str | None = None
     required: bool | None = None
+    clarification_prompt: str | None = None
     default: JsonScalar = None
     minimum: int | float | None = None
     maximum: int | float | None = None
@@ -158,8 +162,20 @@ class SourceExampleV1(StrictModel):
     date_range: DateRangeV1 | None = None
     base_period: DateRangeV1 | None = None
     comparison_period: DateRangeV1 | None = None
+    current_date_range: DateRangeV1 | None = None
+    previous_date_range: DateRangeV1 | None = None
     period_1: DateRangeV1 | None = None
     period_2: DateRangeV1 | None = None
+    period_1_range: DateRangeV1 | None = None
+    period_2_range: DateRangeV1 | None = None
+    nivel_clasificacion: int | None = Field(default=None, ge=1, le=10)
+    branch_id: int | None = Field(default=None, gt=0)
+    source_branch_id: int | None = Field(default=None, gt=0)
+    destination_branch_id: int | None = Field(default=None, gt=0)
+    classification_name: str | None = Field(default=None, min_length=1)
+    days_threshold: int | None = Field(default=None, gt=0)
+    solo_criticos: bool | None = Field(default=None, strict=True)
+    as_of_date: str | None = Field(default=None, pattern=r"^\d{4}-\d{2}-\d{2}$")
     customer_code: str | None = None
     product_code: str | None = None
     top_n: int | None = None
@@ -378,6 +394,119 @@ class TableSchemaDocumentSourceV1(StrictModel):
     usable_for_sql_generation: bool | None = None
 
 
+class ViewColumnV1(StrictModel):
+    name: str = Field(min_length=1)
+    sql_type: str = Field(pattern=r"\S")
+    nullable: bool = Field(strict=True)
+    description: str
+    business_terms: list[str]
+    verification_status: Status
+
+
+class ViewDependencyV1(StrictModel):
+    physical_schema: str = Field(alias="schema", min_length=1)
+    name: str = Field(min_length=1)
+    object_kind: Literal["table", "view", "function"]
+
+
+class ViewDefinitionV1(StrictModel):
+    physical_schema: str = Field(alias="schema", min_length=1)
+    name: str = Field(min_length=1)
+    canonical_name: str
+    alias: str
+    description: str
+    grain: str
+    modules: list[str] = Field(min_length=1)
+    logical_key: list[str]
+    columns: list[ViewColumnV1] = Field(min_length=1)
+    dependencies: list[ViewDependencyV1]
+    used_for: list[str]
+
+
+class ViewBusinessRuleV1(TableBusinessRuleV1):
+    notes: list[str] | str = Field(default_factory=list)
+
+
+class ViewSchemaDocumentSourceV1(StrictModel):
+    schema_version: ReviewerSchemaVersion
+    catalog_version: CatalogVersion
+    document_id: str
+    document_version: int = Field(gt=0)
+    document_type: Literal["view_schema"]
+    status: Status
+    language: Language
+    view: ViewDefinitionV1
+    relationships: list[RelationshipV1]
+    business_rules: list[ViewBusinessRuleV1]
+    common_filters: list[str]
+    common_outputs: list[str]
+    metadata: KnowledgeMetadataV1
+    retrieval: KnowledgeRetrievalV1
+    usable_for_sql_generation: bool | None = None
+
+
+class FunctionParameterV1(StrictModel):
+    position: int = Field(gt=0, strict=True)
+    name: str = Field(pattern=r"^[A-Za-z_][A-Za-z0-9_]*$")
+    sql_type: str = Field(pattern=r"\S")
+    required: bool = Field(strict=True)
+    description: str
+    business_terms: list[str]
+    verification_status: Status
+
+
+class FunctionReturnV1(StrictModel):
+    sql_type: str = Field(pattern=r"\S")
+    nullable: bool = Field(strict=True)
+    description: str
+    verification_status: Status
+
+
+class FunctionDefinitionV1(StrictModel):
+    physical_schema: str = Field(alias="schema", min_length=1)
+    name: str = Field(min_length=1)
+    canonical_name: str
+    kind: Literal["scalar"]
+    description: str
+    modules: list[str] = Field(min_length=1)
+    parameters: list[FunctionParameterV1]
+    returns: FunctionReturnV1
+    null_behavior: str
+    dependencies: list[ViewDependencyV1]
+    used_for: list[str]
+    performance_notes: list[str] = Field(default_factory=list)
+
+    @model_validator(mode="after")
+    def valid_signature(self) -> FunctionDefinitionV1:
+        if [p.position for p in self.parameters] != list(range(1, len(self.parameters) + 1)):
+            raise ValueError("parameter positions must be consecutive and ordered from 1")
+        names = [p.name.lower() for p in self.parameters]
+        if len(names) != len(set(names)):
+            raise ValueError("parameter names must be unique ignoring case")
+        return self
+
+
+class FunctionUsageExampleV1(StrictModel):
+    description: str
+    sql_expression: str = Field(pattern=r"\S")
+
+
+class FunctionSchemaDocumentSourceV1(StrictModel):
+    schema_version: ReviewerSchemaVersion
+    catalog_version: CatalogVersion
+    document_id: str
+    document_version: int = Field(gt=0)
+    document_type: Literal["function_schema"]
+    status: Status
+    language: Language
+    function: FunctionDefinitionV1
+    business_rules: list[ViewBusinessRuleV1]
+    usage_examples: list[FunctionUsageExampleV1]
+    metadata: KnowledgeMetadataV1
+    retrieval: KnowledgeRetrievalV1
+    usable_for_sql_generation: bool | None = None
+
+
 class FamilyKnownMappingV1(StrictModel):
     table_name: str
     business_name: str
@@ -410,11 +539,19 @@ class TableFamilyDocumentSourceV1(StrictModel):
 
 
 SourceDocument: TypeAlias = Annotated[
-    QueryExampleDocumentSourceV1 | TableSchemaDocumentSourceV1 | TableFamilyDocumentSourceV1,
+    QueryExampleDocumentSourceV1
+    | TableSchemaDocumentSourceV1
+    | TableFamilyDocumentSourceV1
+    | ViewSchemaDocumentSourceV1
+    | FunctionSchemaDocumentSourceV1,
     Field(discriminator="document_type"),
 ]
 EffectiveReviewerDocumentV1: TypeAlias = Annotated[
-    QueryExampleDocumentEffectiveV1 | TableSchemaDocumentSourceV1 | TableFamilyDocumentSourceV1,
+    QueryExampleDocumentEffectiveV1
+    | TableSchemaDocumentSourceV1
+    | TableFamilyDocumentSourceV1
+    | ViewSchemaDocumentSourceV1
+    | FunctionSchemaDocumentSourceV1,
     Field(discriminator="document_type"),
 ]
 
@@ -428,7 +565,7 @@ class SourceValidationErrorV1(StrictModel):
 class SourceManifestEntryV1(StrictModel):
     file: str
     document_id: str
-    document_type: Literal["table_schema", "table_family"]
+    document_type: Literal["table_schema", "table_family", "view_schema", "function_schema"]
     status: Status
     sha256: FileHash
     validation_errors: list[SourceValidationErrorV1]
@@ -456,9 +593,9 @@ class ReleaseCountsV1(StrictModel):
 
 
 class ReleaseManifestV1(StrictModel):
-    schema_version: ReviewerSchemaVersion = "1.0"
+    schema_version: ReviewerSchemaVersion = "2.0"
     release_version: CatalogVersion
-    contract_version: ReviewerSchemaVersion = "1.0"
+    contract_version: ReviewerSchemaVersion = "2.0"
     build_date: str | None = None
     source: str
     result: Literal["valid", "invalid"]
@@ -490,7 +627,7 @@ class FunctionalQueryManifestV1(StrictModel):
 class FunctionalKnowledgeManifestEntryV1(StrictModel):
     document_id: str
     document_version: int
-    document_type: Literal["table_schema", "table_family"]
+    document_type: Literal["table_schema", "table_family", "view_schema", "function_schema"]
     status: Status
     usable_for_sql_generation: bool
     path: RelativePath
@@ -527,6 +664,8 @@ class ModuleCatalogPackageSourceV1(StrictModel):
     language: Language
     manifest: RelativePath
     query_examples: list[RelativePath] = Field(default_factory=list)
+    function_schemas: list[RelativePath] = Field(default_factory=list)
+    view_schemas: list[RelativePath] = Field(default_factory=list)
     table_schemas: list[RelativePath] = Field(default_factory=list)
     table_families: list[RelativePath] = Field(default_factory=list)
     dependencies: list[str] = Field(default_factory=list)
@@ -593,6 +732,18 @@ class NormalizedTableSchemaV1(NormalizedBaseV1):
     source: TableSchemaDocumentSourceV1
 
 
+class NormalizedViewSchemaV1(NormalizedBaseV1):
+    document_type: Literal["view_schema"]
+    object_kind: Literal["view"] = "view"
+    source: ViewSchemaDocumentSourceV1
+
+
+class NormalizedFunctionSchemaV1(NormalizedBaseV1):
+    document_type: Literal["function_schema"]
+    object_kind: Literal["function"] = "function"
+    source: FunctionSchemaDocumentSourceV1
+
+
 class NormalizedTableFamilyV1(NormalizedBaseV1):
     document_type: Literal["table_family"]
     source: TableFamilyDocumentSourceV1
@@ -601,7 +752,11 @@ class NormalizedTableFamilyV1(NormalizedBaseV1):
 NormalizedQueryV1 = NormalizedQueryExampleV1
 NormalizedTableV1 = NormalizedTableSchemaV1
 NormalizedCatalogRecordV1: TypeAlias = Annotated[
-    NormalizedQueryExampleV1 | NormalizedTableSchemaV1 | NormalizedTableFamilyV1,
+    NormalizedQueryExampleV1
+    | NormalizedTableSchemaV1
+    | NormalizedTableFamilyV1
+    | NormalizedViewSchemaV1
+    | NormalizedFunctionSchemaV1,
     Field(discriminator="document_type"),
 ]
 

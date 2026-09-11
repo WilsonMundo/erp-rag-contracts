@@ -1,5 +1,20 @@
 # Changelog
 
+## Sin publicar - funciones escalares
+
+- Agrega FunctionSchemaDocumentSourceV1 y NormalizedFunctionSchemaV1.
+- Integra function_schema en manifiestos, paquetes y auditoria contractual.
+- Firma ordenada, retorno, reglas, ejemplos y notas opcionales de rendimiento.
+- Los consumidores deben actualizar sus discriminadores antes de recibir funciones.
+
+
+## Sin publicar ? soporte de vistas
+
+- A?ade `ViewSchemaDocumentSourceV1` y `NormalizedViewSchemaV1`, sus schemas y pruebas de paridad.
+- Integra `view_schema` en manifiestos, paquetes y auditor?a de compatibilidad.
+- `source_files` es informativo; las reglas permiten omitir `sql_expression`.
+- Los consumidores deben reconocer el nuevo discriminador antes de recibir vistas.
+
 ## 2.0.0
 
 - `EmbeddingArtifactV1` exige `schema_version` y `embedding_provider`.

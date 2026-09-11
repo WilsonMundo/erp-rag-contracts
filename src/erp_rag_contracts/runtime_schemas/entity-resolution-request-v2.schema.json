@@ -1,0 +1,94 @@
+{
+  "$defs": {
+    "EntityResolutionReferenceV2": {
+      "additionalProperties": false,
+      "properties": {
+        "entity_type": {
+          "enum": [
+            "branch",
+            "customer",
+            "product",
+            "supplier",
+            "seller",
+            "document",
+            "classification_level"
+          ],
+          "title": "Entity Type",
+          "type": "string"
+        },
+        "mention": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Mention",
+          "type": "string"
+        },
+        "ref": {
+          "pattern": "^[a-z][a-z0-9_]{0,79}$",
+          "title": "Ref",
+          "type": "string"
+        }
+      },
+      "required": [
+        "ref",
+        "entity_type",
+        "mention"
+      ],
+      "title": "EntityResolutionReferenceV2",
+      "type": "object"
+    }
+  },
+  "$id": "urn:erp-rag-contracts:schema:entity-resolution-request:v2",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Contrato normativo runtime entity-resolution-request versión 2.",
+  "properties": {
+    "contract_version": {
+      "const": "2.0",
+      "default": "2.0",
+      "title": "Contract Version",
+      "type": "string"
+    },
+    "conversation_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Conversation Id",
+      "type": "string"
+    },
+    "entities": {
+      "items": {
+        "$ref": "#/$defs/EntityResolutionReferenceV2"
+      },
+      "maxItems": 25,
+      "minItems": 1,
+      "title": "Entities",
+      "type": "array"
+    },
+    "request_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Request Id",
+      "type": "string"
+    },
+    "resolution_context_handle": {
+      "maxLength": 4096,
+      "minLength": 1,
+      "title": "Resolution Context Handle",
+      "type": "string"
+    },
+    "turn_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Turn Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "resolution_context_handle",
+    "request_id",
+    "conversation_id",
+    "turn_id",
+    "entities"
+  ],
+  "title": "EntityResolutionRequestV2",
+  "type": "object"
+}

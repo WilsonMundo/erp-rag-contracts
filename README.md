@@ -34,7 +34,7 @@ Para crear un módulo nuevo:
 4. Incremente `catalog_version` para identificar una entrega completa, conforme a la política SemVer.
 5. Registre el archivo autoritativo en el manifiesto usando una ruta relativa segura y su hash.
 
-Los nombres SQL sin esquema usan `dbo`. `lookup_key` es insensible a mayúsculas y se almacena en minúsculas, mientras `original_name` conserva la escritura original. En v1 solo `table` puede ser físicamente resoluble; alias, CTE, temporales y derivadas no son tablas físicas, y vistas, sinónimos y funciones quedan para contratos futuros.
+Los nombres SQL sin esquema usan `dbo`. `lookup_key` es insensible a mayúsculas y se almacena en minúsculas, mientras `original_name` conserva la escritura original. El registro admite tablas y vistas. Consulte [view_schema](docs/view-schema-v1.md). La resolucion de funciones y sinonimos queda fuera de este cambio.
 
 ## Dialectos y etapas contractuales
 

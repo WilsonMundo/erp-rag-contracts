@@ -1,0 +1,179 @@
+{
+  "$defs": {
+    "MetricMentionV1": {
+      "additionalProperties": false,
+      "properties": {
+        "concept": {
+          "pattern": "^[a-z][a-z0-9_]{0,79}$",
+          "title": "Concept",
+          "type": "string"
+        },
+        "mention": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Mention",
+          "type": "string"
+        }
+      },
+      "required": [
+        "mention",
+        "concept"
+      ],
+      "title": "MetricMentionV1",
+      "type": "object"
+    },
+    "SemanticEntityReferenceV1": {
+      "additionalProperties": false,
+      "properties": {
+        "entity_type": {
+          "anyOf": [
+            {
+              "enum": [
+                "branch",
+                "customer",
+                "product",
+                "supplier",
+                "seller",
+                "document",
+                "classification_level"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Entity Type"
+        },
+        "mention": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Mention",
+          "type": "string"
+        },
+        "ref": {
+          "pattern": "^[a-z][a-z0-9_]{0,79}$",
+          "title": "Ref",
+          "type": "string"
+        },
+        "required": {
+          "default": true,
+          "title": "Required",
+          "type": "boolean"
+        },
+        "type_resolution": {
+          "enum": [
+            "explicit",
+            "clarified",
+            "unknown"
+          ],
+          "title": "Type Resolution",
+          "type": "string"
+        }
+      },
+      "required": [
+        "ref",
+        "entity_type",
+        "mention",
+        "type_resolution"
+      ],
+      "title": "SemanticEntityReferenceV1",
+      "type": "object"
+    },
+    "SemanticMentionV1": {
+      "additionalProperties": false,
+      "properties": {
+        "concept": {
+          "anyOf": [
+            {
+              "pattern": "^[a-z][a-z0-9_]{0,79}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Concept"
+        },
+        "mention": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Mention",
+          "type": "string"
+        }
+      },
+      "required": [
+        "mention"
+      ],
+      "title": "SemanticMentionV1",
+      "type": "object"
+    }
+  },
+  "$id": "urn:erp-rag-contracts:schema:query-semantic-plan:v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Contrato normativo runtime query-semantic-plan versión 1.",
+  "properties": {
+    "entity_references": {
+      "items": {
+        "$ref": "#/$defs/SemanticEntityReferenceV1"
+      },
+      "maxItems": 25,
+      "title": "Entity References",
+      "type": "array"
+    },
+    "filters": {
+      "items": {
+        "$ref": "#/$defs/SemanticMentionV1"
+      },
+      "maxItems": 30,
+      "title": "Filters",
+      "type": "array"
+    },
+    "grouping_mentions": {
+      "items": {
+        "$ref": "#/$defs/SemanticMentionV1"
+      },
+      "maxItems": 20,
+      "title": "Grouping Mentions",
+      "type": "array"
+    },
+    "metric_mentions": {
+      "items": {
+        "$ref": "#/$defs/MetricMentionV1"
+      },
+      "maxItems": 20,
+      "title": "Metric Mentions",
+      "type": "array"
+    },
+    "temporal_expression": {
+      "anyOf": [
+        {
+          "maxLength": 1000,
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Temporal Expression"
+    },
+    "version": {
+      "const": "1.0",
+      "default": "1.0",
+      "title": "Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "metric_mentions",
+    "entity_references",
+    "temporal_expression",
+    "grouping_mentions",
+    "filters"
+  ],
+  "title": "QuerySemanticPlanV1",
+  "type": "object"
+}

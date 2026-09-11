@@ -1066,7 +1066,7 @@
           "$ref": "#/$defs/KnowledgeRetrievalV1"
         },
         "schema_version": {
-          "const": "1.0",
+          "const": "2.0",
           "title": "Schema Version",
           "type": "string"
         },
@@ -1173,7 +1173,7 @@
       "$ref": "#/$defs/ProvenanceV1"
     },
     "schema_version": {
-      "const": "1.0",
+      "const": "2.0",
       "title": "Schema Version",
       "type": "string"
     },

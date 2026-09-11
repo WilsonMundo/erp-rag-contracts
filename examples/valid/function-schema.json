@@ -1,0 +1,202 @@
+{
+  "schema_version": "2.0",
+  "catalog_version": "2026.09",
+  "document_id": "erp.function.fniacalculavalorventa.v1",
+  "document_type": "function_schema",
+  "document_version": 3,
+  "language": "es",
+  "status": "approved",
+  "usable_for_sql_generation": true,
+  "function": {
+    "schema": "dbo",
+    "name": "fnIACalculaValorVenta",
+    "canonical_name": "fniacalculavalorventa",
+    "kind": "scalar",
+    "description": "Calcula el importe de una línea aplicando descuento porcentual o absoluto y redondeo configurable.",
+    "modules": [
+      "compras",
+      "ventas",
+      "inventarios",
+      "devoluciones"
+    ],
+    "parameters": [
+      {
+        "position": 1,
+        "name": "FlagDesc",
+        "sql_type": "bit",
+        "required": true,
+        "description": "1 aplica descuento porcentual; 0 aplica descuento absoluto. NULL ejecuta la rama absoluta.",
+        "business_terms": [
+          "tipo de descuento",
+          "descuento porcentual",
+          "descuento absoluto"
+        ],
+        "verification_status": "approved"
+      },
+      {
+        "position": 2,
+        "name": "Desc",
+        "sql_type": "numeric(28,10)",
+        "required": true,
+        "description": "Porcentaje o importe de descuento según FlagDesc. Si Cant < 0 y FlagDesc = 0, la función invierte su signo.",
+        "business_terms": [
+          "descuento"
+        ],
+        "verification_status": "approved"
+      },
+      {
+        "position": 3,
+        "name": "Prec",
+        "sql_type": "numeric(28,10)",
+        "required": true,
+        "description": "Precio unitario utilizado en el cálculo.",
+        "business_terms": [
+          "precio unitario",
+          "precio"
+        ],
+        "verification_status": "approved"
+      },
+      {
+        "position": 4,
+        "name": "Cant",
+        "sql_type": "numeric(28,10)",
+        "required": true,
+        "description": "Cantidad con el signo requerido por el cálculo. La función no determina automáticamente el sentido del movimiento.",
+        "business_terms": [
+          "cantidad",
+          "cantidad con signo"
+        ],
+        "verification_status": "approved"
+      }
+    ],
+    "returns": {
+      "sql_type": "numeric(28,10)",
+      "nullable": true,
+      "description": "Importe calculado después del descuento y redondeo. Puede devolver NULL.",
+      "verification_status": "approved"
+    },
+    "null_behavior": "Desc, Prec o Cant NULL pueden propagar NULL. FlagDesc NULL ejecuta la rama absoluta y no activa la inversión de signo de Desc.",
+    "dependencies": [
+      {
+        "schema": "dbo",
+        "name": "Configuracion",
+        "object_kind": "table"
+      }
+    ],
+    "used_for": [
+      "calcular importes de líneas con descuento",
+      "reutilizar la lógica de cálculo monetario en consultas y vistas",
+      "mantener el redondeo configurado en idConfiguracion = 26"
+    ],
+    "performance_notes": [
+      "Es una función escalar que consulta dbo.Configuracion durante su ejecución; en alto volumen debe revisarse el plan de ejecución.",
+      "El costo real depende de la versión de SQL Server, nivel de compatibilidad y posibilidad de inlining."
+    ]
+  },
+  "business_rules": [
+    {
+      "rule_id": "descuento_porcentual",
+      "rule_type": "calculation_rule",
+      "name": "Descuento porcentual",
+      "severity": "mandatory",
+      "condition": "FlagDesc = 1",
+      "description": "Aplica Desc como porcentaje sobre Prec * Cant y redondea con la precisión configurada.",
+      "sql_expression": "Round((@Prec * @Cant) * (100 - @Desc) / 100, @DigitosPrecio)",
+      "verification_status": "approved"
+    },
+    {
+      "rule_id": "descuento_absoluto",
+      "rule_type": "calculation_rule",
+      "name": "Descuento absoluto",
+      "severity": "mandatory",
+      "condition": "FlagDesc = 0",
+      "description": "Si Cant es negativa, invierte el signo de Desc antes de restarlo a Prec * Cant.",
+      "sql_expression": "Round((@Prec * @Cant) - Case When @Cant < 0 Then @Desc * -1 Else @Desc End, @DigitosPrecio)",
+      "verification_status": "approved"
+    },
+    {
+      "rule_id": "flag_desc_null_uses_absolute_branch",
+      "rule_type": "null_behavior_rule",
+      "name": "FlagDesc NULL utiliza la rama absoluta",
+      "severity": "mandatory",
+      "condition": "FlagDesc Is Null",
+      "description": "FlagDesc NULL no cumple @FlagDesc = 1 y ejecuta la rama absoluta; tampoco activa @FlagDesc = 0 para invertir Desc.",
+      "verification_status": "approved"
+    },
+    {
+      "rule_id": "null_operand_propagation",
+      "rule_type": "null_behavior_rule",
+      "name": "Propagación de NULL",
+      "severity": "mandatory",
+      "condition": "Desc, Prec o Cant es NULL",
+      "description": "La función no sustituye NULL en los operandos y las operaciones aritméticas pueden propagar NULL al retorno.",
+      "verification_status": "approved"
+    },
+    {
+      "rule_id": "redondeo_configurable",
+      "rule_type": "configuration_rule",
+      "name": "Precisión de redondeo",
+      "severity": "mandatory",
+      "condition": "En cada ejecución de la función.",
+      "description": "Obtiene los decimales de Configuracion.Valor para idConfiguracion = 26. Si no existe, es NULL o no es convertible a Int, utiliza 2.",
+      "sql_expression": "IsNull(Try_Convert(Int, c.Valor), 2)",
+      "verification_status": "approved"
+    },
+    {
+      "rule_id": "configuracion_26_single_row",
+      "rule_type": "cardinality_rule",
+      "name": "Configuración 26 debe aportar una sola fila efectiva",
+      "severity": "mandatory",
+      "condition": "Al consultar dbo.Configuracion con idConfiguracion = 26.",
+      "description": "La función presupone como máximo una fila efectiva para idConfiguracion = 26.",
+      "verification_status": "approved"
+    },
+    {
+      "rule_id": "cantidad_signo_proporcionado_por_llamador",
+      "rule_type": "usage_rule",
+      "name": "El llamador define el signo de la cantidad",
+      "severity": "mandatory",
+      "condition": "Al invocar la función.",
+      "description": "La función no consulta TransaccionInv ni determina el sentido del movimiento; Cant debe llegar con el signo requerido.",
+      "verification_status": "approved"
+    }
+  ],
+  "usage_examples": [
+    {
+      "description": "Calcular el importe usando directamente los campos del detalle.",
+      "sql_expression": "dbo.fnIACalculaValorVenta(mia.FlagDescPorc, mia.Descuento, mia.Precio, mia.Cantidad + mia.CantidadTeorica)"
+    },
+    {
+      "description": "Calcular valor cuando el análisis requiere invertir explícitamente el signo de la cantidad.",
+      "sql_expression": "dbo.fnIACalculaValorVenta(mia.FlagDescPorc, mia.Descuento, mia.Precio, (mia.Cantidad + mia.CantidadTeorica) * -1)"
+    }
+  ],
+  "metadata": {
+    "normalized_at": "2026-09-09",
+    "normalized_by": "catalog-normalization",
+    "source": "erp_function_catalog",
+    "source_files": [
+      "fnIACalculaValorVenta.sql"
+    ],
+    "review_notes": [
+      "Firma y comportamiento validados contra la implementación SQL proporcionada.",
+      "Se documentó FlagDesc NULL, propagación de NULL, descuento absoluto con inversión de signo y fallback de 2 decimales.",
+      "El llamador es responsable de proporcionar Cant con el signo correcto.",
+      "Los módulos declarados se conservaron del contrato original; su consumo efectivo puede auditarse mediante referencias del código ERP.",
+      "Versión 3: se eliminó sql_expression de las reglas flag_desc_null_uses_absolute_branch, configuracion_26_single_row y cantidad_signo_proporcionado_por_llamador."
+    ]
+  },
+  "retrieval": {
+    "keywords": [
+      "importe de línea",
+      "descuento porcentual",
+      "descuento absoluto",
+      "redondeo configurable",
+      "cantidad con signo",
+      "fnIACalculaValorVenta"
+    ],
+    "semantic_text": "Tipo: función escalar ERP\nFunción: dbo.fnIACalculaValorVenta\nPropósito: Calcular el importe de una línea aplicando descuento porcentual o absoluto y redondeo configurable.\nParámetros en orden: FlagDesc bit; Desc numeric(28,10); Prec numeric(28,10); Cant numeric(28,10).\nRetorno: numeric(28,10), puede ser NULL.\nReglas:\n- FlagDesc = 1 aplica descuento porcentual.\n- FlagDesc = 0 aplica descuento absoluto.\n- Si Cant < 0 y FlagDesc = 0, el signo de Desc se invierte.\n- FlagDesc NULL ejecuta la rama absoluta y no invierte el signo de Desc.\n- Desc, Prec o Cant NULL pueden propagar NULL.\n- Los decimales se obtienen de dbo.Configuracion.Valor para idConfiguracion = 26 mediante Try_Convert(Int, Valor).\n- Si la configuración no existe, es NULL o no es convertible a Int, se utilizan 2 decimales.\n- El llamador debe proporcionar Cant con el signo requerido.\nDependencia: dbo.Configuracion.",
+    "content_hash": "sha256:bf7181d5744524ba668fd33f4eb04bf404978294ad71403e91790d1f581a1dd1",
+    "text_template_version": "erp-function-schema-es-v1"
+  }
+}

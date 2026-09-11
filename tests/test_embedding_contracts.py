@@ -12,7 +12,7 @@ HASH = "sha256:" + "a" * 64
 
 def artifact(**changes: object) -> EmbeddingArtifactV1:
     values: dict[str, object] = {
-        "schema_version": "1.0",
+        "schema_version": "2.0",
         "document_id": "ventas.query.total.v1",
         "document_version": 1,
         "content_hash": HASH,
@@ -28,7 +28,7 @@ def artifact(**changes: object) -> EmbeddingArtifactV1:
 
 def test_embedding_artifact_requires_schema_and_provider() -> None:
     value = artifact()
-    assert value.schema_version == "1.0"
+    assert value.schema_version == "2.0"
     assert value.embedding_provider == "openai"
 
 

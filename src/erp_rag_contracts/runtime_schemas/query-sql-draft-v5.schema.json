@@ -1,0 +1,793 @@
+{
+  "$defs": {
+    "BitParameterDraftV2": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,127}$",
+          "title": "Name",
+          "type": "string"
+        },
+        "nullable": {
+          "title": "Nullable",
+          "type": "boolean"
+        },
+        "sql_type": {
+          "const": "bit",
+          "title": "Sql Type",
+          "type": "string"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Value"
+        }
+      },
+      "required": [
+        "name",
+        "nullable",
+        "sql_type",
+        "value"
+      ],
+      "title": "BitParameterDraftV2",
+      "type": "object"
+    },
+    "ChartAxisV1": {
+      "additionalProperties": false,
+      "properties": {
+        "category": {
+          "$ref": "#/$defs/ChartCategoryAxisV1"
+        },
+        "value": {
+          "$ref": "#/$defs/ChartValueAxisV1"
+        }
+      },
+      "required": [
+        "category",
+        "value"
+      ],
+      "title": "ChartAxisV1",
+      "type": "object"
+    },
+    "ChartCategoryAxisV1": {
+      "additionalProperties": false,
+      "properties": {
+        "label_format": {
+          "enum": [
+            "auto",
+            "date",
+            "month_short",
+            "month_year",
+            "category"
+          ],
+          "title": "Label Format",
+          "type": "string"
+        },
+        "title": {
+          "anyOf": [
+            {
+              "maxLength": 200,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Title"
+        }
+      },
+      "required": [
+        "title",
+        "label_format"
+      ],
+      "title": "ChartCategoryAxisV1",
+      "type": "object"
+    },
+    "ChartDefinitionV2": {
+      "additionalProperties": false,
+      "properties": {
+        "axis": {
+          "$ref": "#/$defs/ChartAxisV1"
+        },
+        "category_field": {
+          "maxLength": 160,
+          "minLength": 1,
+          "title": "Category Field",
+          "type": "string"
+        },
+        "chart_definition_version": {
+          "const": "2.0",
+          "title": "Chart Definition Version",
+          "type": "string"
+        },
+        "limit": {
+          "$ref": "#/$defs/ChartLimitV1"
+        },
+        "measure_fields": {
+          "items": {
+            "maxLength": 160,
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 8,
+          "minItems": 1,
+          "title": "Measure Fields",
+          "type": "array"
+        },
+        "orientation": {
+          "anyOf": [
+            {
+              "enum": [
+                "horizontal",
+                "vertical"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Orientation"
+        },
+        "series_group_field": {
+          "anyOf": [
+            {
+              "maxLength": 160,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Series Group Field"
+        },
+        "series_mode": {
+          "enum": [
+            "fields",
+            "grouped"
+          ],
+          "title": "Series Mode",
+          "type": "string"
+        },
+        "sort": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ChartSortV1"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "stacking": {
+          "enum": [
+            "none",
+            "normal",
+            "percent"
+          ],
+          "title": "Stacking",
+          "type": "string"
+        },
+        "title": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        },
+        "type": {
+          "enum": [
+            "bar",
+            "column",
+            "line",
+            "area",
+            "pie",
+            "donut"
+          ],
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "chart_definition_version",
+        "type",
+        "orientation",
+        "series_mode",
+        "category_field",
+        "measure_fields",
+        "series_group_field",
+        "stacking",
+        "sort",
+        "axis",
+        "limit",
+        "title"
+      ],
+      "title": "ChartDefinitionV2",
+      "type": "object"
+    },
+    "ChartLimitV1": {
+      "additionalProperties": false,
+      "properties": {
+        "max_categories": {
+          "maximum": 500,
+          "minimum": 1,
+          "title": "Max Categories",
+          "type": "integer"
+        },
+        "max_series": {
+          "maximum": 100,
+          "minimum": 1,
+          "title": "Max Series",
+          "type": "integer"
+        },
+        "overflow": {
+          "const": "degrade",
+          "title": "Overflow",
+          "type": "string"
+        }
+      },
+      "required": [
+        "max_categories",
+        "max_series",
+        "overflow"
+      ],
+      "title": "ChartLimitV1",
+      "type": "object"
+    },
+    "ChartSortV1": {
+      "additionalProperties": false,
+      "properties": {
+        "direction": {
+          "enum": [
+            "ascending",
+            "descending"
+          ],
+          "title": "Direction",
+          "type": "string"
+        },
+        "field": {
+          "maxLength": 160,
+          "minLength": 1,
+          "title": "Field",
+          "type": "string"
+        },
+        "nulls": {
+          "enum": [
+            "first",
+            "last"
+          ],
+          "title": "Nulls",
+          "type": "string"
+        }
+      },
+      "required": [
+        "field",
+        "direction",
+        "nulls"
+      ],
+      "title": "ChartSortV1",
+      "type": "object"
+    },
+    "ChartValueAxisV1": {
+      "additionalProperties": false,
+      "properties": {
+        "format": {
+          "enum": [
+            "auto",
+            "number",
+            "integer",
+            "currency",
+            "percent"
+          ],
+          "title": "Format",
+          "type": "string"
+        },
+        "scale": {
+          "enum": [
+            "linear",
+            "logarithmic"
+          ],
+          "title": "Scale",
+          "type": "string"
+        },
+        "title": {
+          "anyOf": [
+            {
+              "maxLength": 200,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Title"
+        },
+        "zero_baseline": {
+          "enum": [
+            "required",
+            "optional",
+            "suppressed"
+          ],
+          "title": "Zero Baseline",
+          "type": "string"
+        }
+      },
+      "required": [
+        "title",
+        "scale",
+        "format",
+        "zero_baseline"
+      ],
+      "title": "ChartValueAxisV1",
+      "type": "object"
+    },
+    "DateParameterDraftV2": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,127}$",
+          "title": "Name",
+          "type": "string"
+        },
+        "nullable": {
+          "title": "Nullable",
+          "type": "boolean"
+        },
+        "sql_type": {
+          "const": "date",
+          "title": "Sql Type",
+          "type": "string"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Value"
+        }
+      },
+      "required": [
+        "name",
+        "nullable",
+        "sql_type",
+        "value"
+      ],
+      "title": "DateParameterDraftV2",
+      "type": "object"
+    },
+    "DateTimeParameterDraftV2": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,127}$",
+          "title": "Name",
+          "type": "string"
+        },
+        "nullable": {
+          "title": "Nullable",
+          "type": "boolean"
+        },
+        "sql_type": {
+          "const": "datetime2",
+          "title": "Sql Type",
+          "type": "string"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Value"
+        }
+      },
+      "required": [
+        "name",
+        "nullable",
+        "sql_type",
+        "value"
+      ],
+      "title": "DateTimeParameterDraftV2",
+      "type": "object"
+    },
+    "DecimalParameterDraftV2": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,127}$",
+          "title": "Name",
+          "type": "string"
+        },
+        "nullable": {
+          "title": "Nullable",
+          "type": "boolean"
+        },
+        "precision": {
+          "maximum": 38,
+          "minimum": 1,
+          "title": "Precision",
+          "type": "integer"
+        },
+        "scale": {
+          "maximum": 38,
+          "minimum": 0,
+          "title": "Scale",
+          "type": "integer"
+        },
+        "sql_type": {
+          "const": "decimal",
+          "title": "Sql Type",
+          "type": "string"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "pattern": "^-?(0|[1-9][0-9]*)(\\.[0-9]+)?$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Value"
+        }
+      },
+      "required": [
+        "name",
+        "nullable",
+        "sql_type",
+        "precision",
+        "scale",
+        "value"
+      ],
+      "title": "DecimalParameterDraftV2",
+      "type": "object"
+    },
+    "IntegerParameterDraftV2": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,127}$",
+          "title": "Name",
+          "type": "string"
+        },
+        "nullable": {
+          "title": "Nullable",
+          "type": "boolean"
+        },
+        "sql_type": {
+          "enum": [
+            "tinyint",
+            "smallint",
+            "int",
+            "bigint"
+          ],
+          "title": "Sql Type",
+          "type": "string"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Value"
+        }
+      },
+      "required": [
+        "name",
+        "nullable",
+        "sql_type",
+        "value"
+      ],
+      "title": "IntegerParameterDraftV2",
+      "type": "object"
+    },
+    "NVarCharParameterDraftV2": {
+      "additionalProperties": false,
+      "properties": {
+        "max_length": {
+          "maximum": 4000,
+          "minimum": 1,
+          "title": "Max Length",
+          "type": "integer"
+        },
+        "name": {
+          "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,127}$",
+          "title": "Name",
+          "type": "string"
+        },
+        "nullable": {
+          "title": "Nullable",
+          "type": "boolean"
+        },
+        "sql_type": {
+          "const": "nvarchar",
+          "title": "Sql Type",
+          "type": "string"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Value"
+        }
+      },
+      "required": [
+        "name",
+        "nullable",
+        "sql_type",
+        "max_length",
+        "value"
+      ],
+      "title": "NVarCharParameterDraftV2",
+      "type": "object"
+    },
+    "ProposedPresentationV1": {
+      "additionalProperties": false,
+      "properties": {
+        "chart": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ChartDefinitionV2"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "kind": {
+          "enum": [
+            "data_grid",
+            "chart",
+            "data_grid_with_chart"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "presentation_plan_version": {
+          "const": "1.0",
+          "title": "Presentation Plan Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "presentation_plan_version",
+        "kind",
+        "chart"
+      ],
+      "title": "ProposedPresentationV1",
+      "type": "object"
+    },
+    "ProposedResultSemanticsV1": {
+      "additionalProperties": false,
+      "properties": {
+        "columns": {
+          "items": {
+            "$ref": "#/$defs/ProposedSemanticColumnV1"
+          },
+          "maxItems": 100,
+          "title": "Columns",
+          "type": "array"
+        },
+        "shape": {
+          "enum": [
+            "scalar",
+            "detail",
+            "grouped_aggregate",
+            "ranking",
+            "comparison",
+            "distribution",
+            "trend"
+          ],
+          "title": "Shape",
+          "type": "string"
+        },
+        "version": {
+          "const": "1.0",
+          "default": "1.0",
+          "title": "Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "shape",
+        "columns"
+      ],
+      "title": "ProposedResultSemanticsV1",
+      "type": "object"
+    },
+    "ProposedSemanticColumnV1": {
+      "additionalProperties": false,
+      "properties": {
+        "aggregation": {
+          "enum": [
+            "none",
+            "sum",
+            "count",
+            "avg",
+            "min",
+            "max",
+            "unknown"
+          ],
+          "title": "Aggregation",
+          "type": "string"
+        },
+        "key": {
+          "maxLength": 160,
+          "minLength": 1,
+          "title": "Key",
+          "type": "string"
+        },
+        "ordinal": {
+          "maximum": 99,
+          "minimum": 0,
+          "title": "Ordinal",
+          "type": "integer"
+        },
+        "role": {
+          "enum": [
+            "identifier",
+            "dimension",
+            "measure",
+            "unknown"
+          ],
+          "title": "Role",
+          "type": "string"
+        },
+        "semantic_type": {
+          "enum": [
+            "identifier",
+            "category",
+            "number",
+            "currency",
+            "date",
+            "datetime",
+            "unknown"
+          ],
+          "title": "Semantic Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "ordinal",
+        "key",
+        "role",
+        "semantic_type",
+        "aggregation"
+      ],
+      "title": "ProposedSemanticColumnV1",
+      "type": "object"
+    },
+    "UniqueIdentifierParameterDraftV2": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,127}$",
+          "title": "Name",
+          "type": "string"
+        },
+        "nullable": {
+          "title": "Nullable",
+          "type": "boolean"
+        },
+        "sql_type": {
+          "const": "uniqueidentifier",
+          "title": "Sql Type",
+          "type": "string"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Value"
+        }
+      },
+      "required": [
+        "name",
+        "nullable",
+        "sql_type",
+        "value"
+      ],
+      "title": "UniqueIdentifierParameterDraftV2",
+      "type": "object"
+    }
+  },
+  "$id": "urn:erp-rag-contracts:schema:query-sql-draft:v5",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Contrato normativo runtime query-sql-draft versión 5.",
+  "properties": {
+    "parameters": {
+      "items": {
+        "anyOf": [
+          {
+            "$ref": "#/$defs/BitParameterDraftV2"
+          },
+          {
+            "$ref": "#/$defs/IntegerParameterDraftV2"
+          },
+          {
+            "$ref": "#/$defs/DecimalParameterDraftV2"
+          },
+          {
+            "$ref": "#/$defs/DateParameterDraftV2"
+          },
+          {
+            "$ref": "#/$defs/DateTimeParameterDraftV2"
+          },
+          {
+            "$ref": "#/$defs/UniqueIdentifierParameterDraftV2"
+          },
+          {
+            "$ref": "#/$defs/NVarCharParameterDraftV2"
+          }
+        ]
+      },
+      "maxItems": 200,
+      "title": "Parameters",
+      "type": "array"
+    },
+    "proposed_presentation": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ProposedPresentationV1"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "proposed_result_semantics": {
+      "$ref": "#/$defs/ProposedResultSemanticsV1"
+    },
+    "query_sql_draft_version": {
+      "const": "5.0",
+      "title": "Query Sql Draft Version",
+      "type": "string"
+    },
+    "sql": {
+      "maxLength": 100000,
+      "minLength": 1,
+      "title": "Sql",
+      "type": "string"
+    }
+  },
+  "required": [
+    "query_sql_draft_version",
+    "sql",
+    "parameters",
+    "proposed_result_semantics",
+    "proposed_presentation"
+  ],
+  "title": "QuerySqlDraftV5",
+  "type": "object"
+}

@@ -35,7 +35,7 @@ def test_separate_hash_representations() -> None:
 def test_query_normalization_is_deterministic_and_lossless() -> None:
     raw = load("examples/valid/query-example-inherits-envelope.json")
     envelope = {
-        "schema_version": "1.0",
+        "schema_version": "2.0",
         "catalog_version": "2026.08",
         "module": "ventas",
         "language": "es",

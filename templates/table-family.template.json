@@ -32,6 +32,6 @@
     "semantic_text": "Familia de ejemplo",
     "text_template_version": "family-es-v1"
   },
-  "schema_version": "1.0",
+  "schema_version": "2.0",
   "status": "draft"
 }

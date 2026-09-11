@@ -1,0 +1,816 @@
+{
+  "$defs": {
+    "FunctionDefinitionV1": {
+      "additionalProperties": false,
+      "properties": {
+        "canonical_name": {
+          "title": "Canonical Name",
+          "type": "string"
+        },
+        "dependencies": {
+          "items": {
+            "$ref": "#/$defs/ViewDependencyV1"
+          },
+          "title": "Dependencies",
+          "type": "array"
+        },
+        "description": {
+          "title": "Description",
+          "type": "string"
+        },
+        "kind": {
+          "const": "scalar",
+          "title": "Kind",
+          "type": "string"
+        },
+        "modules": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Modules",
+          "type": "array"
+        },
+        "name": {
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "null_behavior": {
+          "title": "Null Behavior",
+          "type": "string"
+        },
+        "parameters": {
+          "items": {
+            "$ref": "#/$defs/FunctionParameterV1"
+          },
+          "title": "Parameters",
+          "type": "array"
+        },
+        "performance_notes": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Performance Notes",
+          "type": "array"
+        },
+        "returns": {
+          "$ref": "#/$defs/FunctionReturnV1"
+        },
+        "schema": {
+          "minLength": 1,
+          "title": "Schema",
+          "type": "string"
+        },
+        "used_for": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Used For",
+          "type": "array"
+        }
+      },
+      "required": [
+        "schema",
+        "name",
+        "canonical_name",
+        "kind",
+        "description",
+        "modules",
+        "parameters",
+        "returns",
+        "null_behavior",
+        "dependencies",
+        "used_for"
+      ],
+      "title": "FunctionDefinitionV1",
+      "type": "object"
+    },
+    "FunctionParameterV1": {
+      "additionalProperties": false,
+      "properties": {
+        "business_terms": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Business Terms",
+          "type": "array"
+        },
+        "description": {
+          "title": "Description",
+          "type": "string"
+        },
+        "name": {
+          "pattern": "^[A-Za-z_][A-Za-z0-9_]*$",
+          "title": "Name",
+          "type": "string"
+        },
+        "position": {
+          "exclusiveMinimum": 0,
+          "title": "Position",
+          "type": "integer"
+        },
+        "required": {
+          "title": "Required",
+          "type": "boolean"
+        },
+        "sql_type": {
+          "pattern": "\\S",
+          "title": "Sql Type",
+          "type": "string"
+        },
+        "verification_status": {
+          "enum": [
+            "approved",
+            "draft",
+            "needs_review",
+            "deprecated"
+          ],
+          "title": "Verification Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "position",
+        "name",
+        "sql_type",
+        "required",
+        "description",
+        "business_terms",
+        "verification_status"
+      ],
+      "title": "FunctionParameterV1",
+      "type": "object"
+    },
+    "FunctionReturnV1": {
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "title": "Description",
+          "type": "string"
+        },
+        "nullable": {
+          "title": "Nullable",
+          "type": "boolean"
+        },
+        "sql_type": {
+          "pattern": "\\S",
+          "title": "Sql Type",
+          "type": "string"
+        },
+        "verification_status": {
+          "enum": [
+            "approved",
+            "draft",
+            "needs_review",
+            "deprecated"
+          ],
+          "title": "Verification Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "sql_type",
+        "nullable",
+        "description",
+        "verification_status"
+      ],
+      "title": "FunctionReturnV1",
+      "type": "object"
+    },
+    "FunctionUsageExampleV1": {
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "title": "Description",
+          "type": "string"
+        },
+        "sql_expression": {
+          "pattern": "\\S",
+          "title": "Sql Expression",
+          "type": "string"
+        }
+      },
+      "required": [
+        "description",
+        "sql_expression"
+      ],
+      "title": "FunctionUsageExampleV1",
+      "type": "object"
+    },
+    "KnowledgeMetadataV1": {
+      "additionalProperties": false,
+      "properties": {
+        "normalized_at": {
+          "title": "Normalized At",
+          "type": "string"
+        },
+        "normalized_by": {
+          "title": "Normalized By",
+          "type": "string"
+        },
+        "review_notes": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Review Notes",
+          "type": "array"
+        },
+        "source": {
+          "title": "Source",
+          "type": "string"
+        },
+        "source_files": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Source Files",
+          "type": "array"
+        }
+      },
+      "required": [
+        "normalized_at",
+        "normalized_by",
+        "source",
+        "source_files",
+        "review_notes"
+      ],
+      "title": "KnowledgeMetadataV1",
+      "type": "object"
+    },
+    "KnowledgeRetrievalV1": {
+      "additionalProperties": false,
+      "properties": {
+        "content_hash": {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "title": "Content Hash",
+          "type": "string"
+        },
+        "keywords": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Keywords",
+          "type": "array"
+        },
+        "semantic_text": {
+          "title": "Semantic Text",
+          "type": "string"
+        },
+        "text_template_version": {
+          "title": "Text Template Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "keywords",
+        "semantic_text",
+        "content_hash",
+        "text_template_version"
+      ],
+      "title": "KnowledgeRetrievalV1",
+      "type": "object"
+    },
+    "RuleValuesV1": {
+      "additionalProperties": false,
+      "properties": {
+        "0": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "0"
+        },
+        "1": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "1"
+        },
+        "10": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "10"
+        },
+        "11": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "11"
+        },
+        "12": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "12"
+        },
+        "13": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "13"
+        },
+        "2": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "2"
+        },
+        "3": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "3"
+        },
+        "4": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "4"
+        },
+        "5": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "5"
+        },
+        "6": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "6"
+        },
+        "7": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "7"
+        },
+        "8": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "8"
+        },
+        "9": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "9"
+        }
+      },
+      "title": "RuleValuesV1",
+      "type": "object"
+    },
+    "ViewBusinessRuleV1": {
+      "additionalProperties": false,
+      "properties": {
+        "applies_to_modules": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Applies To Modules"
+        },
+        "condition": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Condition"
+        },
+        "description": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Description"
+        },
+        "exceptions": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Exceptions"
+        },
+        "expression_sql": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Expression Sql"
+        },
+        "fields_involved": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Fields Involved"
+        },
+        "name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Name"
+        },
+        "notes": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Notes"
+        },
+        "related_transaction_ids": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "integer"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Related Transaction Ids"
+        },
+        "rule_id": {
+          "title": "Rule Id",
+          "type": "string"
+        },
+        "rule_type": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Rule Type"
+        },
+        "severity": {
+          "title": "Severity",
+          "type": "string"
+        },
+        "source": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source"
+        },
+        "sql_expression": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Sql Expression"
+        },
+        "tables_involved": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Tables Involved"
+        },
+        "type": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Type"
+        },
+        "values": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/RuleValuesV1"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "verification_status": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Verification Status"
+        }
+      },
+      "required": [
+        "rule_id",
+        "severity"
+      ],
+      "title": "ViewBusinessRuleV1",
+      "type": "object"
+    },
+    "ViewDependencyV1": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "object_kind": {
+          "enum": [
+            "table",
+            "view",
+            "function"
+          ],
+          "title": "Object Kind",
+          "type": "string"
+        },
+        "schema": {
+          "minLength": 1,
+          "title": "Schema",
+          "type": "string"
+        }
+      },
+      "required": [
+        "schema",
+        "name",
+        "object_kind"
+      ],
+      "title": "ViewDependencyV1",
+      "type": "object"
+    }
+  },
+  "$id": "urn:erp-rag-contracts:schema:reviewer-function-source:v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Contrato normativo reviewer-function-source versión 1.",
+  "properties": {
+    "business_rules": {
+      "items": {
+        "$ref": "#/$defs/ViewBusinessRuleV1"
+      },
+      "title": "Business Rules",
+      "type": "array"
+    },
+    "catalog_version": {
+      "pattern": "^\\d{4}\\.\\d{2}$",
+      "title": "Catalog Version",
+      "type": "string"
+    },
+    "document_id": {
+      "title": "Document Id",
+      "type": "string"
+    },
+    "document_type": {
+      "const": "function_schema",
+      "title": "Document Type",
+      "type": "string"
+    },
+    "document_version": {
+      "exclusiveMinimum": 0,
+      "title": "Document Version",
+      "type": "integer"
+    },
+    "function": {
+      "$ref": "#/$defs/FunctionDefinitionV1"
+    },
+    "language": {
+      "pattern": "^[a-z]{2}(?:-[A-Z]{2})?$",
+      "title": "Language",
+      "type": "string"
+    },
+    "metadata": {
+      "$ref": "#/$defs/KnowledgeMetadataV1"
+    },
+    "retrieval": {
+      "$ref": "#/$defs/KnowledgeRetrievalV1"
+    },
+    "schema_version": {
+      "const": "2.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "approved",
+        "draft",
+        "needs_review",
+        "deprecated"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "usable_for_sql_generation": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Usable For Sql Generation"
+    },
+    "usage_examples": {
+      "items": {
+        "$ref": "#/$defs/FunctionUsageExampleV1"
+      },
+      "title": "Usage Examples",
+      "type": "array"
+    }
+  },
+  "required": [
+    "schema_version",
+    "catalog_version",
+    "document_id",
+    "document_version",
+    "document_type",
+    "status",
+    "language",
+    "function",
+    "business_rules",
+    "usage_examples",
+    "metadata",
+    "retrieval"
+  ],
+  "title": "FunctionSchemaDocumentSourceV1",
+  "type": "object"
+}

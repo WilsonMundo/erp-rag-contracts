@@ -13,7 +13,12 @@
       "name": "chat-turn-response-v2",
       "path": "contracts/runtime/chat-turn-response-v2.schema.json",
       "sha256": "05e6b4f0dc47aa4231b9c37e407cb5f2d63b417d701b634ff1a4af3854290329"
+    },
+    {
+      "name": "chart-definition-v2",
+      "path": "contracts/runtime/chart-definition-v2.schema.json",
+      "sha256": "3eac3f918dc412dcbb38f8f58747f899c788160c9bb0352c9f0046eb26be30b7"
     }
   ],
-  "index_sha256": "78cb1574bc6b5b23eb5d29e9be61f129c732ac5ae801079bfe794a2342efa226"
+  "index_sha256": "760c7fc4c9add051aacff9bf6390e465a4545b30ae40e8f20b50e5928c3f26a0"
 }

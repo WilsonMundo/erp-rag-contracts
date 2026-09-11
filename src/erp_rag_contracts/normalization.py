@@ -9,11 +9,14 @@ from .conformance import effective_envelope
 from .hashing import semantic_content_hash, source_file_sha256
 from .models.contracts import (
     EligibilityCapabilitiesV1,
+    FunctionSchemaDocumentSourceV1,
     NormalizedCatalogRecordV1,
+    NormalizedFunctionSchemaV1,
     NormalizedJoinV1,
     NormalizedQueryExampleV1,
     NormalizedTableFamilyV1,
     NormalizedTableSchemaV1,
+    NormalizedViewSchemaV1,
     ProvenanceV1,
     QueryExampleDocumentEffectiveV1,
     SqlAnalysisAliasV1,
@@ -21,6 +24,7 @@ from .models.contracts import (
     SqlObjectAnalysisV1,
     TableFamilyDocumentSourceV1,
     TableSchemaDocumentSourceV1,
+    ViewSchemaDocumentSourceV1,
 )
 
 POLICY_VERSION = "1.0.0"
@@ -207,6 +211,75 @@ def normalize_document(
             capabilities=capabilities,
             provenance=provenance,
             source=table_source,
+        )
+    if dtype == "function_schema":
+        function_source = FunctionSchemaDocumentSourceV1.model_validate(effective)
+        semantic = function_source.retrieval.semantic_text
+        calculated_hash = semantic_content_hash(semantic)
+        sql_ok = (
+            bool(semantic.strip())
+            and all(
+                p.verification_status == "approved" for p in function_source.function.parameters
+            )
+            and function_source.function.returns.verification_status == "approved"
+        )
+        if function_source.retrieval.content_hash != calculated_hash:
+            divergences.append("DERIVED_CONTENT_HASH_DIVERGENCE")
+            sql_ok = False
+        return NormalizedFunctionSchemaV1(
+            contract_version="1.0.0",
+            schema_version=function_source.schema_version,
+            catalog_version=function_source.catalog_version,
+            document_id=function_source.document_id,
+            document_version=function_source.document_version,
+            document_type="function_schema",
+            module=function_source.function.modules[0],
+            modules=function_source.function.modules,
+            status=function_source.status,
+            language=function_source.language,
+            title=function_source.function.canonical_name,
+            semantic_text=semantic,
+            content_hash=calculated_hash,
+            sql_object_analysis=None,
+            capabilities=_capabilities(function_source.status, sql_ok, True),
+            provenance=provenance,
+            source=function_source,
+        )
+    if dtype == "view_schema":
+        view_source = ViewSchemaDocumentSourceV1.model_validate(effective)
+        semantic = view_source.retrieval.semantic_text
+        calculated_hash = semantic_content_hash(semantic)
+        columns = view_source.view.columns
+        names = [column.name.lower() for column in columns]
+        physical_complete = len(names) == len(set(names)) and all(
+            name.lower() in names for name in view_source.view.logical_key
+        )
+        sql_ok = (
+            physical_complete
+            and bool(semantic.strip())
+            and all(column.verification_status == "approved" for column in columns)
+            and view_source.retrieval.content_hash == calculated_hash
+        )
+        if view_source.retrieval.content_hash != calculated_hash:
+            divergences.append("DERIVED_CONTENT_HASH_DIVERGENCE")
+        return NormalizedViewSchemaV1(
+            contract_version="1.0.0",
+            schema_version=view_source.schema_version,
+            catalog_version=view_source.catalog_version,
+            document_id=view_source.document_id,
+            document_version=view_source.document_version,
+            document_type="view_schema",
+            module=view_source.view.modules[0],
+            modules=view_source.view.modules,
+            status=view_source.status,
+            language=view_source.language,
+            title=view_source.view.canonical_name,
+            semantic_text=semantic,
+            content_hash=calculated_hash,
+            sql_object_analysis=None,
+            capabilities=_capabilities(view_source.status, sql_ok, physical_complete),
+            provenance=provenance,
+            source=view_source,
         )
     family_source = TableFamilyDocumentSourceV1.model_validate(effective)
     family_semantic = family_source.retrieval.semantic_text

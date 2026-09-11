@@ -5,9 +5,242 @@ import pytest
 from jsonschema import Draft202012Validator, FormatChecker
 from pydantic import TypeAdapter, ValidationError
 
-from erp_rag_contracts.models.runtime import EntitySetReferenceV1, QuerySqlDraftV3
+from erp_rag_contracts.models.runtime import (
+    ChartDefinitionV2,
+    ProposedPresentationV1,
+    QueryParameterDraftV2,
+    QuerySemanticPlanV1,
+    QuerySqlDraftV5,
+    ResolvedQueryContextV1,
+)
+
+
+def test_semantic_plan_and_resolved_context_preserve_authoritative_branch_binding() -> None:
+    plan = QuerySemanticPlanV1.model_validate(
+        {
+            "metric_mentions": [{"mention": "ventas", "concept": "sales"}],
+            "entity_references": [
+                {
+                    "ref": "branch_1",
+                    "entity_type": "branch",
+                    "mention": "edison",
+                    "type_resolution": "explicit",
+                }
+            ],
+            "temporal_expression": "julio de 2026",
+            "grouping_mentions": [],
+            "filters": [],
+        }
+    )
+    context = ResolvedQueryContextV1.model_validate(
+        {
+            "semantic_plan": plan.model_dump(mode="json"),
+            "temporal": {
+                "status": "resolved",
+                "start": "2026-07-01T00:00:00-06:00",
+                "end_exclusive": "2026-08-01T00:00:00-06:00",
+                "timezone": "America/Guatemala",
+                "bindings": [
+                    {
+                        "name": "start_date",
+                        "sql_type": "datetime2",
+                        "value": "2026-07-01T00:00:00-06:00",
+                    }
+                ],
+            },
+            "entities": [
+                {
+                    "ref": "branch_1",
+                    "entity_type": "branch",
+                    "mention": "edison",
+                    "type_resolution": "explicit",
+                    "status": "resolved",
+                    "entity_id": "26",
+                    "display_text": "EDISON",
+                    "binding": {
+                        "name": "branch_1_id",
+                        "kind": "entity_id",
+                        "sql_type": "bigint",
+                        "value": 26,
+                    },
+                }
+            ],
+        }
+    )
+
+    assert context.entities[0].binding.value == 26
+
+
+def test_semantic_plan_accepts_classification_level_reference() -> None:
+    plan = QuerySemanticPlanV1.model_validate(
+        {
+            "metric_mentions": [{"mention": "ventas", "concept": "sales"}],
+            "entity_references": [
+                {
+                    "ref": "classification_level_1",
+                    "entity_type": "classification_level",
+                    "mention": "categoría de producto",
+                    "type_resolution": "explicit",
+                }
+            ],
+            "temporal_expression": "agosto",
+            "grouping_mentions": [
+                {"mention": "categoría de producto", "concept": "product_classification"}
+            ],
+            "filters": [],
+        }
+    )
+
+    assert plan.entity_references[0].entity_type == "classification_level"
+
+
+def test_query_sql_draft_v5_has_no_entity_resolution_fields() -> None:
+    draft = QuerySqlDraftV5.model_validate(
+        {
+            "query_sql_draft_version": "5.0",
+            "sql": "SELECT 1 AS Total",
+            "parameters": [],
+            "proposed_result_semantics": {"shape": "scalar", "columns": []},
+            "proposed_presentation": None,
+        }
+    )
+
+    assert "entity_references" not in draft.model_dump(mode="json")
+    with pytest.raises(ValidationError):
+        QuerySqlDraftV5.model_validate(draft.model_dump(mode="json") | {"entity_references": []})
+
+
+def _chart(**overrides: object) -> dict[str, object]:
+    chart: dict[str, object] = {
+        "chart_definition_version": "2.0",
+        "type": "bar",
+        "orientation": "horizontal",
+        "series_mode": "fields",
+        "category_field": "Cliente",
+        "measure_fields": ["MontoTotalVendido"],
+        "series_group_field": None,
+        "stacking": "none",
+        "sort": {"field": "MontoTotalVendido", "direction": "descending", "nulls": "last"},
+        "axis": {
+            "category": {"title": None, "label_format": "category"},
+            "value": {
+                "title": None,
+                "scale": "linear",
+                "format": "currency",
+                "zero_baseline": "required",
+            },
+        },
+        "limit": {"max_categories": 10, "max_series": 1, "overflow": "degrade"},
+        "title": "Clientes con mayores ventas",
+    }
+    chart.update(overrides)
+    return chart
+
+
+def test_chart_definition_v2_accepts_fields_and_grouped_modes() -> None:
+    ChartDefinitionV2.model_validate(_chart())
+    ChartDefinitionV2.model_validate(
+        _chart(
+            type="line",
+            orientation=None,
+            series_mode="grouped",
+            category_field="Mes",
+            measure_fields=["VentaNeta"],
+            series_group_field="Anio",
+            sort={"field": "Mes", "direction": "ascending", "nulls": "last"},
+        )
+    )
+
+
+def test_chart_definition_v2_rejects_grouped_multiple_measures() -> None:
+    with pytest.raises(ValueError):
+        ChartDefinitionV2.model_validate(
+            _chart(
+                series_mode="grouped",
+                measure_fields=["VentaNeta", "Devoluciones"],
+                series_group_field="Anio",
+            )
+        )
+
+
+def test_query_sql_draft_v5_embeds_versioned_presentation() -> None:
+    presentation = ProposedPresentationV1.model_validate(
+        {
+            "presentation_plan_version": "1.0",
+            "kind": "data_grid_with_chart",
+            "chart": _chart(),
+        }
+    )
+    draft = QuerySqlDraftV5(
+        query_sql_draft_version="5.0",
+        sql="SELECT Cliente, SUM(Total) AS MontoTotalVendido",
+        parameters=[],
+        proposed_result_semantics={
+            "version": "1.0",
+            "shape": "ranking",
+            "columns": [
+                {
+                    "ordinal": 0,
+                    "key": "Cliente",
+                    "role": "dimension",
+                    "semantic_type": "category",
+                    "aggregation": "none",
+                },
+                {
+                    "ordinal": 1,
+                    "key": "MontoTotalVendido",
+                    "role": "measure",
+                    "semantic_type": "currency",
+                    "aggregation": "sum",
+                },
+            ],
+        },
+        proposed_presentation=presentation,
+    )
+    assert draft.proposed_presentation.chart is not None
+
+
+def test_query_parameter_draft_v2_requires_nvarchar_max_length() -> None:
+    adapter = TypeAdapter(QueryParameterDraftV2)
+
+    with pytest.raises(ValidationError):
+        adapter.validate_python(
+            {"name": "branch_id", "sql_type": "nvarchar", "nullable": True, "value": None}
+        )
+
+    parameter = adapter.validate_python(
+        {
+            "name": "branch_id",
+            "sql_type": "nvarchar",
+            "nullable": True,
+            "max_length": 40,
+            "value": None,
+        }
+    )
+    assert parameter.max_length == 40
+
+
+def test_query_parameter_draft_v2_requires_decimal_shape() -> None:
+    adapter = TypeAdapter(QueryParameterDraftV2)
+
+    with pytest.raises(ValidationError):
+        adapter.validate_python(
+            {"name": "amount", "sql_type": "decimal", "nullable": False, "value": "1.00"}
+        )
+    with pytest.raises(ValidationError):
+        adapter.validate_python(
+            {
+                "name": "amount",
+                "sql_type": "decimal",
+                "nullable": False,
+                "precision": 2,
+                "scale": 3,
+                "value": "1.00",
+            }
+        )
+
+
 from erp_rag_contracts.runtime_validation import (
-    validate_first_runtime_capability,
     validate_query_sql_draft_invariants,
 )
 
@@ -18,64 +251,36 @@ def load(relative: str) -> object:
     return json.loads((ROOT / relative).read_text(encoding="utf-8"))
 
 
-@pytest.mark.parametrize("name", ["single.json", "multiple.json", "manual-empty.json"])
-def test_entity_set_contract_parity_valid(name: str) -> None:
-    payload = load(f"fixtures/runtime/contract-parity/valid/{name}")
-    schema = load("contracts/runtime/entity-set-reference-v1.schema.json")
-    Draft202012Validator(schema).validate(payload)
-    TypeAdapter(EntitySetReferenceV1).validate_python(payload)
+def test_query_sql_draft_v5_schema_requires_nvarchar_length() -> None:
+    schema = load("contracts/runtime/query-sql-draft-v5.schema.json")
+    assert isinstance(schema, dict)
+    definitions = schema["$defs"]
+    assert isinstance(definitions, dict)
+    nvarchar = definitions["NVarCharParameterDraftV2"]
+    assert isinstance(nvarchar, dict)
+    assert "max_length" in nvarchar["required"]
+    assert nvarchar["additionalProperties"] is False
+    serialized = json.dumps(schema)
+    assert '"discriminator"' not in serialized
+    assert '"oneOf"' not in serialized
+    assert '"anyOf"' in serialized
 
 
-@pytest.mark.parametrize(
-    "name",
-    [
-        "single-two-slots.json",
-        "multiple-one-slot.json",
-        "maximum-exceeds-slots.json",
-        "invalid-binding-source.json",
-    ],
-)
-def test_entity_set_contract_parity_invalid(name: str) -> None:
-    payload = load(f"fixtures/runtime/contract-parity/invalid/{name}")
-    schema = load("contracts/runtime/entity-set-reference-v1.schema.json")
-    assert list(Draft202012Validator(schema).iter_errors(payload)) or _pydantic_rejects(payload)
-
-
-def _pydantic_rejects(payload: object) -> bool:
-    try:
-        TypeAdapter(EntitySetReferenceV1).validate_python(payload)
-    except ValidationError:
-        return True
-    return False
-
-
-def test_reference_and_first_capability_validators() -> None:
-    draft = QuerySqlDraftV3.model_validate(
-        load("fixtures/runtime/first-runtime-capability/valid/branch-multiple-ten-slots.json")
+def test_v5_invariant_validator_rejects_duplicate_parameters() -> None:
+    draft = QuerySqlDraftV5.model_validate(
+        {
+            "query_sql_draft_version": "5.0",
+            "sql": "SELECT @limit AS Total",
+            "parameters": [
+                {"name": "limit", "sql_type": "int", "nullable": False, "value": 10},
+                {"name": "limit", "sql_type": "int", "nullable": False, "value": 20},
+            ],
+            "proposed_result_semantics": {"shape": "scalar", "columns": []},
+            "proposed_presentation": None,
+        }
     )
-    assert validate_query_sql_draft_invariants(draft) == ()
-    assert validate_first_runtime_capability(draft) == ()
 
-
-def test_reference_validator_reports_relational_violations() -> None:
-    payload = load("fixtures/runtime/first-runtime-capability/valid/branch-multiple-ten-slots.json")
-    assert isinstance(payload, dict)
-    payload["entity_sets"][0]["member_refs"] = ["missing_ref"]
-    payload["entity_sets"][0]["parameter_slots"][9] = "missing_parameter"
-    draft = QuerySqlDraftV3.model_validate(payload)
-    codes = {item.code for item in validate_query_sql_draft_invariants(draft)}
-    assert {"MEMBER_REF_NOT_FOUND", "PARAMETER_SLOT_NOT_FOUND"} <= codes
-
-
-@pytest.mark.parametrize(
-    "name,code",
-    [("customer.json", "ENTITY_TYPE_UNSUPPORTED"), ("two-sets.json", "MAX_ENTITY_SETS_EXCEEDED")],
-)
-def test_first_capability_rejects_out_of_scope(name: str, code: str) -> None:
-    draft = QuerySqlDraftV3.model_validate(
-        load(f"fixtures/runtime/first-runtime-capability/invalid/{name}")
-    )
-    assert code in {item.code for item in validate_first_runtime_capability(draft)}
+    assert validate_query_sql_draft_invariants(draft)[0].code == "PARAMETER_DUPLICATED"
 
 
 @pytest.mark.parametrize(

@@ -1,0 +1,283 @@
+{
+  "schema_version": "2.0",
+  "catalog_version": "2026.09",
+  "document_id": "erp.view.clasificacionarticulovalor.v1",
+  "document_type": "view_schema",
+  "document_version": 5,
+  "language": "es",
+  "status": "approved",
+  "usable_for_sql_generation": true,
+  "view": {
+    "schema": "dbo",
+    "name": "vwIAClasificacionArticuloValor",
+    "canonical_name": "clasificacionarticulovalor",
+    "alias": "cv",
+    "description": "Unifica los valores y nombres descriptivos de las diez dimensiones independientes de clasificación y agrupación de artículos (Tabla1 a Tabla10). El significado empresarial de cada NivelClasificacion es dinámico por instalación y debe resolverse mediante vwIAClasificacionArticuloMeta.",
+    "grain": "Una fila única por combinación (NivelClasificacion, IdClasificacion).",
+    "modules": [
+      "compras",
+      "ventas",
+      "inventarios"
+    ],
+    "logical_key": [
+      "NivelClasificacion",
+      "IdClasificacion"
+    ],
+    "columns": [
+      {
+        "name": "NivelClasificacion",
+        "sql_type": "tinyint",
+        "nullable": false,
+        "description": "Dimensión o nivel de clasificación del 1 al 10. No tiene un significado empresarial fijo; su correspondencia concreta con conceptos como Marca, Línea, Familia, Color, Talla u otros debe resolverse mediante vwIAClasificacionArticuloMeta.",
+        "business_terms": [
+          "nivel de clasificación",
+          "código de nivel clasificador",
+          "dimensión de clasificación",
+          "nivel de agrupador"
+        ],
+        "verification_status": "approved"
+      },
+      {
+        "name": "IdClasificacion",
+        "sql_type": "bigint",
+        "nullable": false,
+        "description": "Identificador del valor dentro de su NivelClasificacion. No es globalmente único entre niveles; su identidad lógica completa requiere NivelClasificacion + IdClasificacion.",
+        "business_terms": [
+          "id clasificación",
+          "código de clasificación",
+          "id agrupador"
+        ],
+        "verification_status": "approved"
+      },
+      {
+        "name": "DescripcionClasificacion",
+        "sql_type": "varchar(100)",
+        "nullable": false,
+        "description": "Nombre descriptivo del valor clasificador o agrupador asignado dentro del nivel.",
+        "business_terms": [
+          "descripción clasificación",
+          "nombre clasificación",
+          "valor clasificador",
+          "descripción agrupador"
+        ],
+        "verification_status": "approved"
+      }
+    ],
+    "dependencies": [
+      {
+        "schema": "dbo",
+        "name": "Tabla1",
+        "object_kind": "table"
+      },
+      {
+        "schema": "dbo",
+        "name": "Tabla2",
+        "object_kind": "table"
+      },
+      {
+        "schema": "dbo",
+        "name": "Tabla3",
+        "object_kind": "table"
+      },
+      {
+        "schema": "dbo",
+        "name": "Tabla4",
+        "object_kind": "table"
+      },
+      {
+        "schema": "dbo",
+        "name": "Tabla5",
+        "object_kind": "table"
+      },
+      {
+        "schema": "dbo",
+        "name": "Tabla6",
+        "object_kind": "table"
+      },
+      {
+        "schema": "dbo",
+        "name": "Tabla7",
+        "object_kind": "table"
+      },
+      {
+        "schema": "dbo",
+        "name": "Tabla8",
+        "object_kind": "table"
+      },
+      {
+        "schema": "dbo",
+        "name": "Tabla9",
+        "object_kind": "table"
+      },
+      {
+        "schema": "dbo",
+        "name": "Tabla10",
+        "object_kind": "table"
+      }
+    ],
+    "used_for": [
+      "unir con vwIAArticuloClasificacion mediante NivelClasificacion e IdClasificacion",
+      "obtener el nombre descriptivo de valores en cualquiera de las diez dimensiones clasificadoras y agrupadoras",
+      "agrupar reportes de ventas, compras e inventarios por clasificación dinámica de producto",
+      "resolver la descripción de una clasificación dinámica sin consultar directamente Tabla1 a Tabla10",
+      "preservar la semántica compuesta NivelClasificacion + IdClasificacion en consultas generadas",
+      "permitir agrupaciones dinámicas por Marca, Línea, Familia, Color, Talla u otros nombres configurados sin hard-codear niveles"
+    ]
+  },
+  "relationships": [
+    {
+      "relationship_id": "clasificacion_valor_to_articulo_clasificacion_01",
+      "relationship_type": "one_to_many",
+      "join_type": "INNER",
+      "target_table": "vwIAArticuloClasificacion",
+      "target_resolution": "resolved",
+      "local_columns": [
+        "NivelClasificacion",
+        "IdClasificacion"
+      ],
+      "target_columns": [
+        "NivelClasificacion",
+        "IdClasificacion"
+      ],
+      "join_expression": "cv.NivelClasificacion = ac.NivelClasificacion AND cv.IdClasificacion = ac.IdClasificacion",
+      "purpose": "Vincular la descripción del clasificador o agrupador con los artículos asignados a dicho valor en esa dimensión específica.",
+      "modules": [
+        "inventarios",
+        "ventas",
+        "compras"
+      ],
+      "verification_status": "approved"
+    },
+    {
+      "relationship_id": "clasificacion_valor_to_meta_01",
+      "relationship_type": "many_to_one",
+      "join_type": "INNER",
+      "target_table": "vwIAClasificacionArticuloMeta",
+      "target_resolution": "resolved",
+      "local_columns": [
+        "NivelClasificacion"
+      ],
+      "target_columns": [
+        "NivelClasificacion"
+      ],
+      "join_expression": "cv.NivelClasificacion = m.NivelClasificacion",
+      "purpose": "Resolver el nombre semántico configurado del nivel de clasificación y evitar asumir correspondencias fijas entre el número de nivel y conceptos como Marca, Línea, Familia, Color o Talla.",
+      "modules": [
+        "inventarios",
+        "ventas",
+        "compras"
+      ],
+      "verification_status": "approved"
+    }
+  ],
+  "business_rules": [
+    {
+      "rule_id": "rule_join_clasificacion_compuesta",
+      "rule_type": "relationship_rule",
+      "name": "Unión obligatoria por clave compuesta con asignación de artículos",
+      "severity": "mandatory",
+      "condition": "Al relacionar vwIAClasificacionArticuloValor con vwIAArticuloClasificacion.",
+      "description": "La unión requiere obligatoriamente igualar tanto NivelClasificacion como IdClasificacion; unir únicamente por IdClasificacion produce colisiones cruzadas entre dimensiones distintas.",
+      "sql_expression": "cv.NivelClasificacion = ac.NivelClasificacion AND cv.IdClasificacion = ac.IdClasificacion",
+      "fields_involved": [
+        "NivelClasificacion",
+        "IdClasificacion"
+      ],
+      "tables_involved": [
+        "vwIAClasificacionArticuloValor",
+        "vwIAArticuloClasificacion"
+      ],
+      "verification_status": "approved"
+    },
+    {
+      "rule_id": "rule_no_hardcode_nivel_clasificacion",
+      "rule_type": "semantic_rule",
+      "name": "No asumir significado fijo del nivel de clasificación",
+      "severity": "mandatory",
+      "condition": "Cuando el usuario solicite Marca, Línea, Familia, Color, Talla u otra clasificación por nombre.",
+      "description": "NivelClasificacion es dinámico por instalación. Debe resolverse mediante vwIAClasificacionArticuloMeta filtrando por NombreClasificacion y utilizando el NivelClasificacion obtenido. Nunca se debe asumir que un número fijo corresponde a una clasificación determinada.",
+      "sql_expression": "m.NombreClasificacion = @classification_name",
+      "fields_involved": [
+        "NivelClasificacion"
+      ],
+      "tables_involved": [
+        "vwIAClasificacionArticuloValor",
+        "vwIAClasificacionArticuloMeta"
+      ],
+      "verification_status": "approved"
+    },
+    {
+      "rule_id": "rule_identidad_clasificacion_compuesta",
+      "rule_type": "key_rule",
+      "name": "Identidad lógica compuesta del valor clasificador",
+      "severity": "mandatory",
+      "condition": "Al identificar, filtrar, agrupar o relacionar valores de clasificación.",
+      "description": "IdClasificacion no es suficiente como identidad global. La identidad correcta del valor requiere la combinación NivelClasificacion + IdClasificacion definida en logical_key.",
+      "fields_involved": [
+        "NivelClasificacion",
+        "IdClasificacion"
+      ],
+      "tables_involved": [
+        "vwIAClasificacionArticuloValor"
+      ],
+      "verification_status": "approved"
+    },
+    {
+      "rule_id": "rule_preferir_vistas_canonicas",
+      "rule_type": "generation_rule",
+      "name": "Preferir vistas canónicas sobre tablas Tabla1 a Tabla10",
+      "severity": "recommended",
+      "condition": "Al generar SQL analítico por clasificaciones de artículos.",
+      "description": "Para consultas analíticas y generación SQL se deben preferir vwIAClasificacionArticuloValor, vwIAArticuloClasificacion y vwIAClasificacionArticuloMeta sobre acceso directo a Tabla1 a Tabla10.",
+      "fields_involved": [
+        "NivelClasificacion",
+        "IdClasificacion",
+        "DescripcionClasificacion"
+      ],
+      "tables_involved": [
+        "vwIAClasificacionArticuloValor",
+        "vwIAArticuloClasificacion",
+        "vwIAClasificacionArticuloMeta"
+      ],
+      "verification_status": "approved"
+    }
+  ],
+  "common_filters": [
+    "NivelClasificacion",
+    "IdClasificacion"
+  ],
+  "common_outputs": [
+    "NivelClasificacion",
+    "IdClasificacion",
+    "DescripcionClasificacion"
+  ],
+  "metadata": {
+    "normalized_at": "2026-09-09",
+    "normalized_by": "catalog-normalization",
+    "review_notes": [
+      "Actualizado a v5: sql_expression se reserva para expresiones SQL reales; se corrigió la resolución dinámica de NombreClasificacion; se eliminó sql_expression de las reglas de identidad compuesta y preferencia de vistas canónicas por no representar SQL ejecutable."
+    ],
+    "source": "erp_view_catalog",
+    "source_files": [
+      "vwIAClasificacionArticuloValor.sql"
+    ]
+  },
+  "retrieval": {
+    "keywords": [
+      "clasificación de artículos",
+      "agrupadores de artículos",
+      "dimensiones de clasificación",
+      "niveles de clasificación",
+      "descripción clasificación",
+      "clasificador dinámico",
+      "marca línea familia dinámica",
+      "resolver nivel clasificación",
+      "vwIAClasificacionArticuloValor",
+      "vwIAClasificacionArticuloMeta",
+      "vwIAArticuloClasificacion"
+    ],
+    "semantic_text": "Tipo: esquema de vista ERP\nVista: vwIAClasificacionArticuloValor\nAlias: cv\nMódulos: compras, ventas, inventarios\nPropósito: Unifica los valores y nombres descriptivos de las diez dimensiones independientes de clasificación y agrupación de artículos (Tabla1 a Tabla10).\nGrano: Una fila única por combinación (NivelClasificacion, IdClasificacion).\nClave lógica: NivelClasificacion, IdClasificacion\nColumnas disponibles:\n- NivelClasificacion (tinyint): Nivel dinámico del 1 al 10; su significado empresarial debe resolverse mediante vwIAClasificacionArticuloMeta.\n- IdClasificacion (bigint): Identificador del valor dentro de su nivel; no es globalmente único entre niveles.\n- DescripcionClasificacion (varchar(100)): Nombre descriptivo del valor clasificador o agrupador.\nRelaciones:\n- vwIAArticuloClasificacion: cv.NivelClasificacion = ac.NivelClasificacion AND cv.IdClasificacion = ac.IdClasificacion\n- vwIAClasificacionArticuloMeta: cv.NivelClasificacion = m.NivelClasificacion\nReglas obligatorias:\n- Nunca unir únicamente por IdClasificacion; usar siempre NivelClasificacion + IdClasificacion.\n- NivelClasificacion no tiene un significado empresarial fijo.\n- Para interpretar Marca, Línea, Familia, Color, Talla u otro nombre configurado, filtrar vwIAClasificacionArticuloMeta por NombreClasificacion y utilizar el NivelClasificacion resuelto.\n- Preferir las vistas canónicas de clasificación sobre acceso directo a Tabla1 a Tabla10 para SQL analítico.",
+    "content_hash": "sha256:7637746122fe24e95c020efda77bf6758cd5ebe604b44c71f0b3d833407c2588",
+    "text_template_version": "erp-view-schema-es-v1"
+  }
+}

@@ -386,6 +386,18 @@
     "OptionalFieldV1": {
       "additionalProperties": false,
       "properties": {
+        "clarification_prompt": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Clarification Prompt"
+        },
         "default": {
           "anyOf": [
             {
@@ -751,7 +763,7 @@
           "$ref": "#/$defs/QueryRetrievalV1"
         },
         "schema_version": {
-          "const": "1.0",
+          "const": "2.0",
           "title": "Schema Version",
           "type": "string"
         },
@@ -980,6 +992,27 @@
           "title": "Clarification Prompt",
           "type": "string"
         },
+        "default_value": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "integer"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Default Value"
+        },
         "name": {
           "title": "Name",
           "type": "string"
@@ -1005,6 +1038,19 @@
     "SourceExampleV1": {
       "additionalProperties": false,
       "properties": {
+        "as_of_date": {
+          "anyOf": [
+            {
+              "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "As Of Date"
+        },
         "base_period": {
           "anyOf": [
             {
@@ -1016,7 +1062,44 @@
           ],
           "default": null
         },
+        "branch_id": {
+          "anyOf": [
+            {
+              "exclusiveMinimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Branch Id"
+        },
+        "classification_name": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Classification Name"
+        },
         "comparison_period": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/DateRangeV1"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "current_date_range": {
           "anyOf": [
             {
               "$ref": "#/$defs/DateRangeV1"
@@ -1050,6 +1133,46 @@
           ],
           "default": null
         },
+        "days_threshold": {
+          "anyOf": [
+            {
+              "exclusiveMinimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Days Threshold"
+        },
+        "destination_branch_id": {
+          "anyOf": [
+            {
+              "exclusiveMinimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Destination Branch Id"
+        },
+        "nivel_clasificacion": {
+          "anyOf": [
+            {
+              "maximum": 10,
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Nivel Clasificacion"
+        },
         "period_1": {
           "anyOf": [
             {
@@ -1061,7 +1184,40 @@
           ],
           "default": null
         },
+        "period_1_range": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/DateRangeV1"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
         "period_2": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/DateRangeV1"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "period_2_range": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/DateRangeV1"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "previous_date_range": {
           "anyOf": [
             {
               "$ref": "#/$defs/DateRangeV1"
@@ -1087,6 +1243,31 @@
         "question": {
           "title": "Question",
           "type": "string"
+        },
+        "solo_criticos": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Solo Criticos"
+        },
+        "source_branch_id": {
+          "anyOf": [
+            {
+              "exclusiveMinimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source Branch Id"
         },
         "top_n": {
           "anyOf": [
@@ -1319,7 +1500,7 @@
       "$ref": "#/$defs/ProvenanceV1"
     },
     "schema_version": {
-      "const": "1.0",
+      "const": "2.0",
       "title": "Schema Version",
       "type": "string"
     },

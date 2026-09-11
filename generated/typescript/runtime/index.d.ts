@@ -1181,3 +1181,79 @@ export interface Diagnostics {
   warnings?: MessageItem[];
 }
 
+export type LabelFormat = 'auto' | 'date' | 'month_short' | 'month_year' | 'category';
+export type Title = string | null;
+export type Format = 'auto' | 'number' | 'integer' | 'currency' | 'percent';
+export type Scale = 'linear' | 'logarithmic';
+export type Title1 = string | null;
+export type ZeroBaseline = 'required' | 'optional' | 'suppressed';
+export type CategoryField = string;
+export type ChartDefinitionVersion = '2.0';
+export type MaxCategories = number;
+export type MaxSeries = number;
+export type Overflow = 'degrade';
+/**
+ * @minItems 1
+ * @maxItems 8
+ */
+export type MeasureFields =
+  | [string]
+  | [string, string]
+  | [string, string, string]
+  | [string, string, string, string]
+  | [string, string, string, string, string]
+  | [string, string, string, string, string, string]
+  | [string, string, string, string, string, string, string]
+  | [string, string, string, string, string, string, string, string];
+export type Orientation = ('horizontal' | 'vertical') | null;
+export type SeriesGroupField = string | null;
+export type SeriesMode = 'fields' | 'grouped';
+export type Direction = 'ascending' | 'descending';
+export type Field = string;
+export type Nulls = 'first' | 'last';
+export type Stacking = 'none' | 'normal' | 'percent';
+export type Title2 = string;
+export type Type = 'bar' | 'column' | 'line' | 'area' | 'pie' | 'donut';
+
+/**
+ * Contrato normativo runtime chart-definition versión 2.
+ */
+export interface ChartDefinitionV2 {
+  axis: ChartAxisV1;
+  category_field: CategoryField;
+  chart_definition_version: ChartDefinitionVersion;
+  limit: ChartLimitV1;
+  measure_fields: MeasureFields;
+  orientation: Orientation;
+  series_group_field: SeriesGroupField;
+  series_mode: SeriesMode;
+  sort: ChartSortV1 | null;
+  stacking: Stacking;
+  title: Title2;
+  type: Type;
+}
+export interface ChartAxisV1 {
+  category: ChartCategoryAxisV1;
+  value: ChartValueAxisV1;
+}
+export interface ChartCategoryAxisV1 {
+  label_format: LabelFormat;
+  title: Title;
+}
+export interface ChartValueAxisV1 {
+  format: Format;
+  scale: Scale;
+  title: Title1;
+  zero_baseline: ZeroBaseline;
+}
+export interface ChartLimitV1 {
+  max_categories: MaxCategories;
+  max_series: MaxSeries;
+  overflow: Overflow;
+}
+export interface ChartSortV1 {
+  direction: Direction;
+  field: Field;
+  nulls: Nulls;
+}
+
