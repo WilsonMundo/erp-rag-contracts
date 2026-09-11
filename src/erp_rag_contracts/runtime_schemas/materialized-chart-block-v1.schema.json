@@ -1,0 +1,88 @@
+{
+  "$defs": {
+    "MaterializedChartSeriesV1": {
+      "additionalProperties": false,
+      "properties": {
+        "field": {
+          "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,127}$",
+          "title": "Field",
+          "type": "string"
+        },
+        "label": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Label",
+          "type": "string"
+        },
+        "type": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "field",
+        "type",
+        "label"
+      ],
+      "title": "MaterializedChartSeriesV1",
+      "type": "object"
+    }
+  },
+  "$id": "urn:erp-rag-contracts:schema:materialized-chart-block:v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Contrato normativo runtime materialized-chart-block versión 1.",
+  "properties": {
+    "block_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+      "title": "Block Id",
+      "type": "string"
+    },
+    "block_version": {
+      "const": "1.0",
+      "title": "Block Version",
+      "type": "string"
+    },
+    "category_field": {
+      "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,127}$",
+      "title": "Category Field",
+      "type": "string"
+    },
+    "family": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+      "title": "Family",
+      "type": "string"
+    },
+    "kind": {
+      "const": "chart",
+      "title": "Kind",
+      "type": "string"
+    },
+    "series": {
+      "items": {
+        "$ref": "#/$defs/MaterializedChartSeriesV1"
+      },
+      "minItems": 1,
+      "title": "Series",
+      "type": "array"
+    },
+    "title": {
+      "maxLength": 500,
+      "minLength": 1,
+      "title": "Title",
+      "type": "string"
+    }
+  },
+  "required": [
+    "block_version",
+    "block_id",
+    "kind",
+    "title",
+    "family",
+    "category_field",
+    "series"
+  ],
+  "title": "MaterializedChartBlockV1",
+  "type": "object"
+}

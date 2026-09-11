@@ -1,0 +1,69 @@
+{
+  "$id": "urn:erp-rag-contracts:schema:import-stream-event:v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Contrato normativo runtime import-stream-event versión 1.",
+  "properties": {
+    "event_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+      "title": "Event Id",
+      "type": "string"
+    },
+    "event_version": {
+      "const": "1.0",
+      "title": "Event Version",
+      "type": "string"
+    },
+    "import_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+      "title": "Import Id",
+      "type": "string"
+    },
+    "payload": {
+      "additionalProperties": true,
+      "title": "Payload",
+      "type": "object",
+      "x-dynamic-map": true
+    },
+    "preflight_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+      "title": "Preflight Id",
+      "type": "string"
+    },
+    "sequence": {
+      "minimum": 0,
+      "title": "Sequence",
+      "type": "integer"
+    },
+    "timestamp": {
+      "format": "date-time",
+      "title": "Timestamp",
+      "type": "string"
+    },
+    "type": {
+      "enum": [
+        "import.started",
+        "import.preflight.completed",
+        "import.awaiting_confirmation",
+        "import.execution.started",
+        "import.progress",
+        "import.completed",
+        "import.failed"
+      ],
+      "title": "Type",
+      "type": "string"
+    }
+  },
+  "required": [
+    "event_id",
+    "sequence",
+    "timestamp",
+    "event_version",
+    "import_id",
+    "preflight_id",
+    "type",
+    "payload"
+  ],
+  "title": "ImportStreamEventV1",
+  "type": "object"
+}

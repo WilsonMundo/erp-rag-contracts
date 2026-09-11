@@ -1,0 +1,77 @@
+{
+  "$id": "urn:erp-rag-contracts:schema:proposed-semantic-column:v2",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Contrato normativo runtime proposed-semantic-column versión 2.",
+  "properties": {
+    "aggregation": {
+      "enum": [
+        "none",
+        "sum",
+        "count",
+        "avg",
+        "min",
+        "max",
+        "unknown"
+      ],
+      "title": "Aggregation",
+      "type": "string"
+    },
+    "key": {
+      "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,127}$",
+      "title": "Key",
+      "type": "string"
+    },
+    "ordinal": {
+      "maximum": 199,
+      "minimum": 0,
+      "title": "Ordinal",
+      "type": "integer"
+    },
+    "presentation_support": {
+      "default": false,
+      "title": "Presentation Support",
+      "type": "boolean"
+    },
+    "proposed_semantic_column_version": {
+      "const": "2.0",
+      "title": "Proposed Semantic Column Version",
+      "type": "string"
+    },
+    "role": {
+      "enum": [
+        "identifier",
+        "dimension",
+        "measure",
+        "unknown"
+      ],
+      "title": "Role",
+      "type": "string"
+    },
+    "semantic_type": {
+      "enum": [
+        "identifier",
+        "category",
+        "number",
+        "currency",
+        "percent",
+        "date",
+        "datetime",
+        "boolean",
+        "unknown"
+      ],
+      "title": "Semantic Type",
+      "type": "string"
+    }
+  },
+  "required": [
+    "proposed_semantic_column_version",
+    "ordinal",
+    "key",
+    "role",
+    "semantic_type",
+    "aggregation"
+  ],
+  "title": "ProposedSemanticColumnV2",
+  "type": "object"
+}

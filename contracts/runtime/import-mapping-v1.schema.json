@@ -1,0 +1,69 @@
+{
+  "$defs": {
+    "ImportMappingEntryV1": {
+      "additionalProperties": false,
+      "properties": {
+        "required": {
+          "title": "Required",
+          "type": "boolean"
+        },
+        "source_column": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Source Column",
+          "type": "string"
+        },
+        "target_field": {
+          "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,127}$",
+          "title": "Target Field",
+          "type": "string"
+        }
+      },
+      "required": [
+        "source_column",
+        "target_field",
+        "required"
+      ],
+      "title": "ImportMappingEntryV1",
+      "type": "object"
+    }
+  },
+  "$id": "urn:erp-rag-contracts:schema:import-mapping:v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Contrato normativo runtime import-mapping versión 1.",
+  "properties": {
+    "entries": {
+      "items": {
+        "$ref": "#/$defs/ImportMappingEntryV1"
+      },
+      "maxItems": 500,
+      "minItems": 1,
+      "title": "Entries",
+      "type": "array"
+    },
+    "import_mapping_version": {
+      "const": "1.0",
+      "title": "Import Mapping Version",
+      "type": "string"
+    },
+    "mapping_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+      "title": "Mapping Id",
+      "type": "string"
+    },
+    "version": {
+      "minimum": 1,
+      "title": "Version",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "import_mapping_version",
+    "mapping_id",
+    "version",
+    "entries"
+  ],
+  "title": "ImportMappingV1",
+  "type": "object"
+}

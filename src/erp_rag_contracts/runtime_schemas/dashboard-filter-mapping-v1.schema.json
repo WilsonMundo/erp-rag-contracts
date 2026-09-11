@@ -1,0 +1,34 @@
+{
+  "$id": "urn:erp-rag-contracts:schema:dashboard-filter-mapping:v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Contrato normativo runtime dashboard-filter-mapping versión 1.",
+  "properties": {
+    "dashboard_filter_mapping_version": {
+      "const": "1.0",
+      "title": "Dashboard Filter Mapping Version",
+      "type": "string"
+    },
+    "source_path": {
+      "enum": [
+        "value",
+        "start",
+        "end_exclusive"
+      ],
+      "title": "Source Path",
+      "type": "string"
+    },
+    "target_parameter": {
+      "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,127}$",
+      "title": "Target Parameter",
+      "type": "string"
+    }
+  },
+  "required": [
+    "dashboard_filter_mapping_version",
+    "source_path",
+    "target_parameter"
+  ],
+  "title": "DashboardFilterMappingV1",
+  "type": "object"
+}

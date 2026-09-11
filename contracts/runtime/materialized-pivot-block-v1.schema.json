@@ -1,0 +1,93 @@
+{
+  "$defs": {
+    "MaterializedPivotValueV1": {
+      "additionalProperties": false,
+      "properties": {
+        "aggregation": {
+          "enum": [
+            "sum",
+            "avg",
+            "min",
+            "max",
+            "count"
+          ],
+          "title": "Aggregation",
+          "type": "string"
+        },
+        "field": {
+          "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,127}$",
+          "title": "Field",
+          "type": "string"
+        }
+      },
+      "required": [
+        "field",
+        "aggregation"
+      ],
+      "title": "MaterializedPivotValueV1",
+      "type": "object"
+    }
+  },
+  "$id": "urn:erp-rag-contracts:schema:materialized-pivot-block:v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Contrato normativo runtime materialized-pivot-block versión 1.",
+  "properties": {
+    "block_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+      "title": "Block Id",
+      "type": "string"
+    },
+    "block_version": {
+      "const": "1.0",
+      "title": "Block Version",
+      "type": "string"
+    },
+    "columns": {
+      "items": {
+        "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,127}$",
+        "type": "string"
+      },
+      "title": "Columns",
+      "type": "array"
+    },
+    "kind": {
+      "const": "pivot_grid",
+      "title": "Kind",
+      "type": "string"
+    },
+    "rows": {
+      "items": {
+        "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,127}$",
+        "type": "string"
+      },
+      "title": "Rows",
+      "type": "array"
+    },
+    "title": {
+      "maxLength": 500,
+      "minLength": 1,
+      "title": "Title",
+      "type": "string"
+    },
+    "values": {
+      "items": {
+        "$ref": "#/$defs/MaterializedPivotValueV1"
+      },
+      "minItems": 1,
+      "title": "Values",
+      "type": "array"
+    }
+  },
+  "required": [
+    "block_version",
+    "block_id",
+    "kind",
+    "title",
+    "rows",
+    "columns",
+    "values"
+  ],
+  "title": "MaterializedPivotBlockV1",
+  "type": "object"
+}

@@ -1,0 +1,52 @@
+{
+  "$id": "urn:erp-rag-contracts:schema:import-operation:v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Contrato normativo runtime import-operation versión 1.",
+  "properties": {
+    "action_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+      "title": "Action Id",
+      "type": "string"
+    },
+    "entity": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+      "title": "Entity",
+      "type": "string"
+    },
+    "import_operation_version": {
+      "const": "1.0",
+      "title": "Import Operation Version",
+      "type": "string"
+    },
+    "operation": {
+      "const": "import",
+      "title": "Operation",
+      "type": "string"
+    },
+    "policy_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+      "title": "Policy Id",
+      "type": "string"
+    },
+    "write_mode": {
+      "enum": [
+        "create",
+        "update",
+        "upsert"
+      ],
+      "title": "Write Mode",
+      "type": "string"
+    }
+  },
+  "required": [
+    "import_operation_version",
+    "action_id",
+    "entity",
+    "operation",
+    "write_mode",
+    "policy_id"
+  ],
+  "title": "ImportOperationV1",
+  "type": "object"
+}

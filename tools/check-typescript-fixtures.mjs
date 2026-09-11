@@ -24,17 +24,50 @@ const responses = await Promise.all(
   ),
 );
 const valueOf = (request) => request.input.clarification_response.value;
+const pr01Fixtures = await Promise.all(
+  [
+    'query-presentation',
+    'business-references',
+    'query-artifact',
+    'dashboard',
+    'import',
+    'stream-history',
+  ].map((family) => readJson(`fixtures/runtime/pr01-${family}/valid/minimum.json`)),
+);
 const source = `import type {
+  AssistantClientStreamEventV2,
   ChatTurnResponseV2,
+  DashboardDefinitionV1,
   EntityMultiSelectionClarificationValueV2,
   EntitySelectionClarificationValueV2,
+  ImportPreflightV1,
+  QueryArtifactV1,
+  QuerySqlDraftV6,
+  ResolvedBusinessReferenceContextV1,
 } from './index.js';
 
 const requestSingle: EntitySelectionClarificationValueV2 = ${literal(valueOf(requestSingle))};
 const requestMultiOne: EntityMultiSelectionClarificationValueV2 = ${literal(valueOf(requestMultiOne))};
 const requestMultiTen: EntityMultiSelectionClarificationValueV2 = ${literal(valueOf(requestMultiTen))};
 const responses: ChatTurnResponseV2[] = ${literal(responses)};
-void [requestSingle, requestMultiOne, requestMultiTen, responses];
+const queryDraft: QuerySqlDraftV6 = ${literal(pr01Fixtures[0])};
+const businessReferences: ResolvedBusinessReferenceContextV1 = ${literal(pr01Fixtures[1])};
+const queryArtifact: QueryArtifactV1 = ${literal(pr01Fixtures[2])};
+const dashboard: DashboardDefinitionV1 = ${literal(pr01Fixtures[3])};
+const importPreflight: ImportPreflightV1 = ${literal(pr01Fixtures[4])};
+const streamEvent: AssistantClientStreamEventV2 = ${literal(pr01Fixtures[5])};
+void [
+  requestSingle,
+  requestMultiOne,
+  requestMultiTen,
+  responses,
+  queryDraft,
+  businessReferences,
+  queryArtifact,
+  dashboard,
+  importPreflight,
+  streamEvent,
+];
 `;
 
 await writeFile(CHECK_FILE, source, 'utf8');

@@ -1,0 +1,120 @@
+{
+  "$id": "urn:erp-rag-contracts:schema:query-artifact-parameter:v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Contrato normativo runtime query-artifact-parameter versión 1.",
+  "properties": {
+    "max_length": {
+      "anyOf": [
+        {
+          "maximum": 4000,
+          "minimum": 1,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Max Length"
+    },
+    "name": {
+      "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,127}$",
+      "title": "Name",
+      "type": "string"
+    },
+    "nullable": {
+      "title": "Nullable",
+      "type": "boolean"
+    },
+    "precision": {
+      "anyOf": [
+        {
+          "maximum": 38,
+          "minimum": 1,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Precision"
+    },
+    "query_artifact_parameter_version": {
+      "const": "1.0",
+      "title": "Query Artifact Parameter Version",
+      "type": "string"
+    },
+    "rebindable": {
+      "title": "Rebindable",
+      "type": "boolean"
+    },
+    "scale": {
+      "anyOf": [
+        {
+          "maximum": 38,
+          "minimum": 0,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Scale"
+    },
+    "semantic_role": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+      "title": "Semantic Role",
+      "type": "string"
+    },
+    "sql_type": {
+      "enum": [
+        "bit",
+        "tinyint",
+        "smallint",
+        "int",
+        "bigint",
+        "decimal",
+        "date",
+        "datetime2",
+        "uniqueidentifier",
+        "nvarchar"
+      ],
+      "title": "Sql Type",
+      "type": "string"
+    },
+    "value": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "integer"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Value"
+    }
+  },
+  "required": [
+    "query_artifact_parameter_version",
+    "name",
+    "sql_type",
+    "semantic_role",
+    "rebindable",
+    "nullable"
+  ],
+  "title": "QueryArtifactParameterV1",
+  "type": "object"
+}

@@ -1,0 +1,109 @@
+{
+  "$defs": {
+    "MaterializedScopeV1": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "enum": [
+            "all_matches",
+            "top_n",
+            "sample"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "label": {
+          "anyOf": [
+            {
+              "maxLength": 500,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Label"
+        }
+      },
+      "required": [
+        "kind"
+      ],
+      "title": "MaterializedScopeV1",
+      "type": "object"
+    }
+  },
+  "$id": "urn:erp-rag-contracts:schema:materialized-kpi-block:v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Contrato normativo runtime materialized-kpi-block versión 1.",
+  "properties": {
+    "block_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+      "title": "Block Id",
+      "type": "string"
+    },
+    "block_version": {
+      "const": "1.0",
+      "title": "Block Version",
+      "type": "string"
+    },
+    "format": {
+      "enum": [
+        "auto",
+        "number",
+        "integer",
+        "currency",
+        "percent"
+      ],
+      "title": "Format",
+      "type": "string"
+    },
+    "kind": {
+      "const": "kpi",
+      "title": "Kind",
+      "type": "string"
+    },
+    "scope": {
+      "$ref": "#/$defs/MaterializedScopeV1"
+    },
+    "title": {
+      "maxLength": 500,
+      "minLength": 1,
+      "title": "Title",
+      "type": "string"
+    },
+    "value": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "integer"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Value"
+    }
+  },
+  "required": [
+    "block_version",
+    "block_id",
+    "kind",
+    "title",
+    "value",
+    "format",
+    "scope"
+  ],
+  "title": "MaterializedKpiBlockV1",
+  "type": "object"
+}

@@ -1,0 +1,233 @@
+{
+  "$defs": {
+    "AllMatchesSelectionV1": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "all_matches",
+          "title": "Kind",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind"
+      ],
+      "title": "AllMatchesSelectionV1",
+      "type": "object"
+    },
+    "ProposedSemanticColumnV2": {
+      "additionalProperties": false,
+      "properties": {
+        "aggregation": {
+          "enum": [
+            "none",
+            "sum",
+            "count",
+            "avg",
+            "min",
+            "max",
+            "unknown"
+          ],
+          "title": "Aggregation",
+          "type": "string"
+        },
+        "key": {
+          "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,127}$",
+          "title": "Key",
+          "type": "string"
+        },
+        "ordinal": {
+          "maximum": 199,
+          "minimum": 0,
+          "title": "Ordinal",
+          "type": "integer"
+        },
+        "presentation_support": {
+          "default": false,
+          "title": "Presentation Support",
+          "type": "boolean"
+        },
+        "proposed_semantic_column_version": {
+          "const": "2.0",
+          "title": "Proposed Semantic Column Version",
+          "type": "string"
+        },
+        "role": {
+          "enum": [
+            "identifier",
+            "dimension",
+            "measure",
+            "unknown"
+          ],
+          "title": "Role",
+          "type": "string"
+        },
+        "semantic_type": {
+          "enum": [
+            "identifier",
+            "category",
+            "number",
+            "currency",
+            "percent",
+            "date",
+            "datetime",
+            "boolean",
+            "unknown"
+          ],
+          "title": "Semantic Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "proposed_semantic_column_version",
+        "ordinal",
+        "key",
+        "role",
+        "semantic_type",
+        "aggregation"
+      ],
+      "title": "ProposedSemanticColumnV2",
+      "type": "object"
+    },
+    "ResultSetSemanticsV1": {
+      "additionalProperties": false,
+      "properties": {
+        "result_set_semantics_version": {
+          "const": "1.0",
+          "title": "Result Set Semantics Version",
+          "type": "string"
+        },
+        "selection": {
+          "discriminator": {
+            "mapping": {
+              "all_matches": "#/$defs/AllMatchesSelectionV1",
+              "sample": "#/$defs/SampleSelectionV1",
+              "top_n": "#/$defs/TopNSelectionV1"
+            },
+            "propertyName": "kind"
+          },
+          "oneOf": [
+            {
+              "$ref": "#/$defs/AllMatchesSelectionV1"
+            },
+            {
+              "$ref": "#/$defs/TopNSelectionV1"
+            },
+            {
+              "$ref": "#/$defs/SampleSelectionV1"
+            }
+          ],
+          "title": "Selection"
+        }
+      },
+      "required": [
+        "result_set_semantics_version",
+        "selection"
+      ],
+      "title": "ResultSetSemanticsV1",
+      "type": "object"
+    },
+    "SampleSelectionV1": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "sample",
+          "title": "Kind",
+          "type": "string"
+        },
+        "limit": {
+          "maximum": 500,
+          "minimum": 1,
+          "title": "Limit",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "kind",
+        "limit"
+      ],
+      "title": "SampleSelectionV1",
+      "type": "object"
+    },
+    "TopNSelectionV1": {
+      "additionalProperties": false,
+      "properties": {
+        "direction": {
+          "enum": [
+            "ascending",
+            "descending"
+          ],
+          "title": "Direction",
+          "type": "string"
+        },
+        "kind": {
+          "const": "top_n",
+          "title": "Kind",
+          "type": "string"
+        },
+        "limit": {
+          "maximum": 500,
+          "minimum": 1,
+          "title": "Limit",
+          "type": "integer"
+        },
+        "order_field": {
+          "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,127}$",
+          "title": "Order Field",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "limit",
+        "order_field",
+        "direction"
+      ],
+      "title": "TopNSelectionV1",
+      "type": "object"
+    }
+  },
+  "$id": "urn:erp-rag-contracts:schema:proposed-result-semantics:v2",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Contrato normativo runtime proposed-result-semantics versión 2.",
+  "properties": {
+    "columns": {
+      "items": {
+        "$ref": "#/$defs/ProposedSemanticColumnV2"
+      },
+      "maxItems": 200,
+      "title": "Columns",
+      "type": "array"
+    },
+    "result_set": {
+      "$ref": "#/$defs/ResultSetSemanticsV1"
+    },
+    "shape": {
+      "enum": [
+        "scalar",
+        "detail",
+        "grouped_aggregate",
+        "ranking",
+        "comparison",
+        "distribution",
+        "trend"
+      ],
+      "title": "Shape",
+      "type": "string"
+    },
+    "version": {
+      "const": "2.0",
+      "title": "Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "version",
+    "shape",
+    "result_set",
+    "columns"
+  ],
+  "title": "ProposedResultSemanticsV2",
+  "type": "object"
+}

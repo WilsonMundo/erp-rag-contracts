@@ -1,0 +1,100 @@
+{
+  "$defs": {
+    "AllMatchesSelectionV1": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "all_matches",
+          "title": "Kind",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind"
+      ],
+      "title": "AllMatchesSelectionV1",
+      "type": "object"
+    },
+    "SampleSelectionV1": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "sample",
+          "title": "Kind",
+          "type": "string"
+        },
+        "limit": {
+          "maximum": 500,
+          "minimum": 1,
+          "title": "Limit",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "kind",
+        "limit"
+      ],
+      "title": "SampleSelectionV1",
+      "type": "object"
+    },
+    "TopNSelectionV1": {
+      "additionalProperties": false,
+      "properties": {
+        "direction": {
+          "enum": [
+            "ascending",
+            "descending"
+          ],
+          "title": "Direction",
+          "type": "string"
+        },
+        "kind": {
+          "const": "top_n",
+          "title": "Kind",
+          "type": "string"
+        },
+        "limit": {
+          "maximum": 500,
+          "minimum": 1,
+          "title": "Limit",
+          "type": "integer"
+        },
+        "order_field": {
+          "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,127}$",
+          "title": "Order Field",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "limit",
+        "order_field",
+        "direction"
+      ],
+      "title": "TopNSelectionV1",
+      "type": "object"
+    }
+  },
+  "$id": "urn:erp-rag-contracts:schema:result-set-selection:v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "Contrato normativo runtime result-set-selection versión 1.",
+  "discriminator": {
+    "mapping": {
+      "all_matches": "#/$defs/AllMatchesSelectionV1",
+      "sample": "#/$defs/SampleSelectionV1",
+      "top_n": "#/$defs/TopNSelectionV1"
+    },
+    "propertyName": "kind"
+  },
+  "oneOf": [
+    {
+      "$ref": "#/$defs/AllMatchesSelectionV1"
+    },
+    {
+      "$ref": "#/$defs/TopNSelectionV1"
+    },
+    {
+      "$ref": "#/$defs/SampleSelectionV1"
+    }
+  ]
+}

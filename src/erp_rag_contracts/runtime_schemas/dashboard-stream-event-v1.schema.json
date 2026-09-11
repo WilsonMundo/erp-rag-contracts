@@ -1,0 +1,76 @@
+{
+  "$id": "urn:erp-rag-contracts:schema:dashboard-stream-event:v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Contrato normativo runtime dashboard-stream-event versión 1.",
+  "properties": {
+    "dashboard_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+      "title": "Dashboard Id",
+      "type": "string"
+    },
+    "event_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+      "title": "Event Id",
+      "type": "string"
+    },
+    "event_version": {
+      "const": "1.0",
+      "title": "Event Version",
+      "type": "string"
+    },
+    "payload": {
+      "additionalProperties": true,
+      "title": "Payload",
+      "type": "object",
+      "x-dynamic-map": true
+    },
+    "sequence": {
+      "minimum": 0,
+      "title": "Sequence",
+      "type": "integer"
+    },
+    "timestamp": {
+      "format": "date-time",
+      "title": "Timestamp",
+      "type": "string"
+    },
+    "type": {
+      "enum": [
+        "dashboard.started",
+        "dashboard.plan.updated",
+        "dashboard.widget.started",
+        "dashboard.widget.result",
+        "dashboard.widget.degraded",
+        "dashboard.widget.failed",
+        "dashboard.completed"
+      ],
+      "title": "Type",
+      "type": "string"
+    },
+    "widget_id": {
+      "anyOf": [
+        {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Widget Id"
+    }
+  },
+  "required": [
+    "event_id",
+    "sequence",
+    "timestamp",
+    "event_version",
+    "dashboard_id",
+    "type",
+    "payload"
+  ],
+  "title": "DashboardStreamEventV1",
+  "type": "object"
+}

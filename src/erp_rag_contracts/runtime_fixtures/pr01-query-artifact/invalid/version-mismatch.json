@@ -1,0 +1,86 @@
+{
+  "ast_fingerprint": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "capability_profile": "devextreme-26",
+  "catalog_sha256": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "parameters": [
+    {
+      "name": "period_start",
+      "nullable": false,
+      "query_artifact_parameter_version": "1.0",
+      "rebindable": true,
+      "semantic_role": "period_start",
+      "sql_type": "datetime2",
+      "value": "2026-09-01T00:00:00-06:00"
+    },
+    {
+      "name": "period_end",
+      "nullable": false,
+      "query_artifact_parameter_version": "1.0",
+      "rebindable": true,
+      "semantic_role": "period_end_exclusive",
+      "sql_type": "datetime2",
+      "value": "2026-10-01T00:00:00-06:00"
+    }
+  ],
+  "presentation_plan": {
+    "blocks": [
+      {
+        "block_id": "sales_kpi",
+        "block_version": "1.0",
+        "format": "currency",
+        "kind": "kpi",
+        "title": "Ventas",
+        "value": {
+          "aggregation": "sum",
+          "field": "VentaTotal",
+          "scope": "result_set",
+          "source": "result_aggregate"
+        }
+      }
+    ],
+    "capability_profile": "devextreme-26",
+    "layout": {
+      "columns": null,
+      "mode": "flow",
+      "presentation_layout_version": "1.0"
+    },
+    "presentation_plan_version": "2.0",
+    "title": "Top 10 ventas"
+  },
+  "query_artifact_id": "artifact-001",
+  "query_artifact_version": "0.0",
+  "requery": {
+    "available": true,
+    "mode": "rebind_parameters",
+    "rebindable_parameters": [
+      "period_start",
+      "period_end"
+    ],
+    "requery_capability_version": "1.0"
+  },
+  "semantics": {
+    "columns": [
+      {
+        "aggregation": "sum",
+        "key": "VentaTotal",
+        "ordinal": 0,
+        "presentation_support": false,
+        "proposed_semantic_column_version": "2.0",
+        "role": "measure",
+        "semantic_type": "currency"
+      }
+    ],
+    "result_set": {
+      "result_set_semantics_version": "1.0",
+      "selection": {
+        "direction": "descending",
+        "kind": "top_n",
+        "limit": 10,
+        "order_field": "VentaTotal"
+      }
+    },
+    "shape": "ranking",
+    "version": "2.0"
+  },
+  "sql": "SELECT VentaTotal FROM dbo.Ventas WHERE Fecha >= @period_start AND Fecha < @period_end"
+}

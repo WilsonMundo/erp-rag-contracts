@@ -1,0 +1,87 @@
+{
+  "$id": "urn:erp-rag-contracts:schema:resolved-business-reference:v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Contrato normativo runtime resolved-business-reference versión 1.",
+  "properties": {
+    "label": {
+      "maxLength": 500,
+      "minLength": 1,
+      "title": "Label",
+      "type": "string"
+    },
+    "reference_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+      "title": "Reference Id",
+      "type": "string"
+    },
+    "reference_type": {
+      "enum": [
+        "target",
+        "goal",
+        "budget",
+        "threshold"
+      ],
+      "title": "Reference Type",
+      "type": "string"
+    },
+    "resolved_at": {
+      "format": "date-time",
+      "title": "Resolved At",
+      "type": "string"
+    },
+    "resolved_business_reference_version": {
+      "const": "1.0",
+      "title": "Resolved Business Reference Version",
+      "type": "string"
+    },
+    "semantic_type": {
+      "enum": [
+        "number",
+        "currency",
+        "percent",
+        "date",
+        "datetime"
+      ],
+      "title": "Semantic Type",
+      "type": "string"
+    },
+    "source_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+      "title": "Source Id",
+      "type": "string"
+    },
+    "value": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "integer"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Value"
+    }
+  },
+  "required": [
+    "resolved_business_reference_version",
+    "reference_id",
+    "reference_type",
+    "label",
+    "value",
+    "semantic_type",
+    "source_id",
+    "resolved_at"
+  ],
+  "title": "ResolvedBusinessReferenceV1",
+  "type": "object"
+}

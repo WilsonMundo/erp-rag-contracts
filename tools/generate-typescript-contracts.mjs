@@ -10,6 +10,61 @@ const DEFAULT_OUTPUT = join(ROOT, 'generated', 'typescript', 'runtime');
 const REQUEST_SCHEMA = join(ROOT, 'contracts', 'runtime', 'chat-turn-request-v2.schema.json');
 const RESPONSE_SCHEMA = join(ROOT, 'contracts', 'runtime', 'chat-turn-response-v2.schema.json');
 const CHART_V2_SCHEMA = join(ROOT, 'contracts', 'runtime', 'chart-definition-v2.schema.json');
+const PR01_SCHEMAS = [
+  ['intent-classification-v2', 'IntentClassificationV2'],
+  ['presentation-preference-v1', 'PresentationPreferenceV1'],
+  ['query-sql-draft-v6', 'QuerySqlDraftV6'],
+  ['proposed-result-semantics-v2', 'ProposedResultSemanticsV2'],
+  ['result-set-semantics-v1', 'ResultSetSemanticsV1'],
+  ['result-set-selection-v1', 'ResultSetSelectionV1'],
+  ['proposed-semantic-column-v2', 'ProposedSemanticColumnV2'],
+  ['value-reference-v1', 'ValueReferenceV1'],
+  ['resolved-business-reference-context-v1', 'ResolvedBusinessReferenceContextV1'],
+  ['resolved-business-reference-v1', 'ResolvedBusinessReferenceV1'],
+  ['presentation-plan-v2', 'PresentationPlanV2'],
+  ['presentation-block-v2', 'PresentationBlockV2'],
+  ['kpi-block-v1', 'KpiBlockV1'],
+  ['data-grid-block-v1', 'DataGridBlockV1'],
+  ['pivot-grid-block-v1', 'PivotGridBlockV1'],
+  ['chart-block-v1', 'ChartBlockV1'],
+  ['gauge-block-v1', 'GaugeBlockV1'],
+  ['presentation-layout-v1', 'PresentationLayoutV1'],
+  ['presentation-block-resolution-v1', 'PresentationBlockResolutionV1'],
+  ['materialized-presentation-v2', 'MaterializedPresentationV2'],
+  ['materialized-kpi-block-v1', 'MaterializedKpiBlockV1'],
+  ['materialized-grid-block-v1', 'MaterializedGridBlockV1'],
+  ['materialized-pivot-block-v1', 'MaterializedPivotBlockV1'],
+  ['materialized-chart-block-v1', 'MaterializedChartBlockV1'],
+  ['materialized-gauge-block-v1', 'MaterializedGaugeBlockV1'],
+  ['query-result-v2', 'QueryResultV2'],
+  ['assistant-client-stream-event-v2', 'AssistantClientStreamEventV2'],
+  ['assistant-historical-result-v2', 'AssistantHistoricalResultV2'],
+  ['assistant-historical-requery-result-v2', 'AssistantHistoricalRequeryResultV2'],
+  ['query-artifact-v1', 'QueryArtifactV1'],
+  ['query-artifact-parameter-v1', 'QueryArtifactParameterV1'],
+  ['requery-capability-v1', 'RequeryCapabilityV1'],
+  ['dashboard-definition-v1', 'DashboardDefinitionV1'],
+  ['dashboard-widget-v1', 'DashboardWidgetV1'],
+  ['dashboard-filter-v1', 'DashboardFilterV1'],
+  ['dashboard-filter-binding-v1', 'DashboardFilterBindingV1'],
+  ['dashboard-filter-mapping-v1', 'DashboardFilterMappingV1'],
+  ['dashboard-stream-event-v1', 'DashboardStreamEventV1'],
+  ['dashboard-result-v1', 'DashboardResultV1'],
+  ['import-operation-v1', 'ImportOperationV1'],
+  ['import-preflight-v1', 'ImportPreflightV1'],
+  ['import-mapping-v1', 'ImportMappingV1'],
+  ['import-preview-v1', 'ImportPreviewV1'],
+  ['import-execution-request-v1', 'ImportExecutionRequestV1'],
+  ['import-result-v1', 'ImportResultV1'],
+  ['import-issue-v1', 'ImportIssueV1'],
+  ['import-stream-event-v1', 'ImportStreamEventV1'],
+  ['presentation-capability-profile-v1', 'PresentationCapabilityProfileV1'],
+  ['import-capability-descriptor-v1', 'ImportCapabilityDescriptorV1'],
+].map(([slug, typeName]) => [
+  slug,
+  typeName,
+  join(ROOT, 'contracts', 'runtime', `${slug}.schema.json`),
+]);
 const OUTPUT_ARGUMENT = process.argv.indexOf('--output');
 const outputDirectory =
   OUTPUT_ARGUMENT === -1 ? DEFAULT_OUTPUT : resolve(process.argv[OUTPUT_ARGUMENT + 1]);
@@ -21,6 +76,9 @@ const stableJson = (value) => `${JSON.stringify(value, null, 2)}\n`;
 const requestSchema = await readJson(REQUEST_SCHEMA);
 const responseSchema = await readJson(RESPONSE_SCHEMA);
 const chartV2Schema = await readJson(CHART_V2_SCHEMA);
+const pr01Schemas = await Promise.all(
+  PR01_SCHEMAS.map(async ([slug, typeName, path]) => [slug, typeName, path, await readJson(path)]),
+);
 const project = (value, title) => ({ ...structuredClone(value), title });
 
 const requestProjection = {
@@ -51,6 +109,25 @@ const compilerOptions = {
   style: { printWidth: 100, semi: true, singleQuote: true, tabWidth: 2, useTabs: false },
   unknownAny: false,
 };
+const pr01Definitions = {};
+for (const [, typeName, , schema] of pr01Schemas) {
+  for (const [name, definition] of Object.entries(schema.$defs ?? {})) {
+    const existing = pr01Definitions[name];
+    if (existing && JSON.stringify(existing) !== JSON.stringify(definition)) {
+      throw new Error(`Conflicting JSON Schema definition: ${name}`);
+    }
+    pr01Definitions[name] = definition;
+  }
+  const { $schema, $id, description, $defs, ...rootDefinition } = schema;
+  void [$schema, $id, description, $defs];
+  pr01Definitions[typeName] = { ...rootDefinition, title: typeName };
+}
+const pr01Projection = {
+  $schema: 'https://json-schema.org/draft/2020-12/schema',
+  title: 'RuntimeContractsPr01',
+  oneOf: PR01_SCHEMAS.map(([, typeName]) => ({ $ref: `#/$defs/${typeName}` })),
+  $defs: pr01Definitions,
+};
 const requestTypes = await compile(
   requestProjection,
   'RequestClarificationValueV2',
@@ -58,11 +135,17 @@ const requestTypes = await compile(
 );
 const responseTypes = await compile(responseSchema, 'ChatTurnResponseV2', compilerOptions);
 const chartV2Types = await compile(chartV2Schema, 'ChartDefinitionV2', compilerOptions);
+const pr01Types = await compile(pr01Projection, 'RuntimeContractsPr01', compilerOptions);
+const pr01ContractTypes = pr01Types.replace(
+  /export type RuntimeContractsPr01 =[\s\S]*?;\r?\n/,
+  '',
+);
 const index = [
   '// Generated from canonical JSON Schemas. Do not edit.',
   requestTypes.trim(),
   responseTypes.trim(),
   chartV2Types.trim(),
+  pr01ContractTypes.trim(),
   '',
 ].join('\n\n');
 
@@ -85,6 +168,7 @@ for (const [name, path] of [
   ['chat-turn-request-v2', REQUEST_SCHEMA],
   ['chat-turn-response-v2', RESPONSE_SCHEMA],
   ['chart-definition-v2', CHART_V2_SCHEMA],
+  ...PR01_SCHEMAS.map(([slug, , schemaPath]) => [slug, schemaPath]),
 ]) {
   const bytes = await readFile(path);
   schemaMetadata.push({

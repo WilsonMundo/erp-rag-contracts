@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.1.0
+
+- Publica la familia contractual completa de PR-01 para query/presentation V2/V6,
+  referencias empresariales, Query Artifacts, dashboards, importaciones y stream/history.
+- Genera y verifica representaciones Python, TypeScript y C# sin migrar consumidores V1/V5.
+
 ## Sin publicar - funciones escalares
 
 - Agrega FunctionSchemaDocumentSourceV1 y NormalizedFunctionSchemaV1.

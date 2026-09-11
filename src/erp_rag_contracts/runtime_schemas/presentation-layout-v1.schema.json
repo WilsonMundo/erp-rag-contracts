@@ -1,0 +1,41 @@
+{
+  "$id": "urn:erp-rag-contracts:schema:presentation-layout:v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Contrato normativo runtime presentation-layout versión 1.",
+  "properties": {
+    "columns": {
+      "anyOf": [
+        {
+          "maximum": 12,
+          "minimum": 1,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Columns"
+    },
+    "mode": {
+      "enum": [
+        "flow",
+        "grid"
+      ],
+      "title": "Mode",
+      "type": "string"
+    },
+    "presentation_layout_version": {
+      "const": "1.0",
+      "title": "Presentation Layout Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "presentation_layout_version",
+    "mode"
+  ],
+  "title": "PresentationLayoutV1",
+  "type": "object"
+}

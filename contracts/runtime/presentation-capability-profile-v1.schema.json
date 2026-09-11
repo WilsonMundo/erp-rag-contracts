@@ -1,0 +1,95 @@
+{
+  "$id": "urn:erp-rag-contracts:schema:presentation-capability-profile:v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Contrato normativo runtime presentation-capability-profile versión 1.",
+  "properties": {
+    "aggregations": {
+      "items": {
+        "enum": [
+          "sum",
+          "avg",
+          "min",
+          "max",
+          "count"
+        ],
+        "type": "string"
+      },
+      "title": "Aggregations",
+      "type": "array"
+    },
+    "block_kinds": {
+      "items": {
+        "enum": [
+          "kpi",
+          "data_grid",
+          "pivot_grid",
+          "chart",
+          "gauge"
+        ],
+        "type": "string"
+      },
+      "maxItems": 5,
+      "minItems": 1,
+      "title": "Block Kinds",
+      "type": "array"
+    },
+    "chart_families": {
+      "items": {
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+        "type": "string"
+      },
+      "title": "Chart Families",
+      "type": "array"
+    },
+    "chart_series_types": {
+      "items": {
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+        "type": "string"
+      },
+      "title": "Chart Series Types",
+      "type": "array"
+    },
+    "max_blocks": {
+      "maximum": 100,
+      "minimum": 1,
+      "title": "Max Blocks",
+      "type": "integer"
+    },
+    "max_chart_categories": {
+      "maximum": 10000,
+      "minimum": 1,
+      "title": "Max Chart Categories",
+      "type": "integer"
+    },
+    "max_chart_series": {
+      "maximum": 1000,
+      "minimum": 1,
+      "title": "Max Chart Series",
+      "type": "integer"
+    },
+    "presentation_capability_profile_version": {
+      "const": "1.0",
+      "title": "Presentation Capability Profile Version",
+      "type": "string"
+    },
+    "profile_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+      "title": "Profile Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "presentation_capability_profile_version",
+    "profile_id",
+    "block_kinds",
+    "chart_families",
+    "chart_series_types",
+    "aggregations",
+    "max_blocks",
+    "max_chart_categories",
+    "max_chart_series"
+  ],
+  "title": "PresentationCapabilityProfileV1",
+  "type": "object"
+}

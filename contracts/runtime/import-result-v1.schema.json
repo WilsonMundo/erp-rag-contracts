@@ -1,0 +1,187 @@
+{
+  "$defs": {
+    "ImportCountSummaryV1": {
+      "additionalProperties": false,
+      "properties": {
+        "created": {
+          "minimum": 0,
+          "title": "Created",
+          "type": "integer"
+        },
+        "failed": {
+          "minimum": 0,
+          "title": "Failed",
+          "type": "integer"
+        },
+        "received": {
+          "minimum": 0,
+          "title": "Received",
+          "type": "integer"
+        },
+        "skipped": {
+          "minimum": 0,
+          "title": "Skipped",
+          "type": "integer"
+        },
+        "updated": {
+          "minimum": 0,
+          "title": "Updated",
+          "type": "integer"
+        },
+        "valid": {
+          "minimum": 0,
+          "title": "Valid",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "received",
+        "valid",
+        "created",
+        "updated",
+        "skipped",
+        "failed"
+      ],
+      "title": "ImportCountSummaryV1",
+      "type": "object"
+    },
+    "ImportIssueV1": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+          "title": "Code",
+          "type": "string"
+        },
+        "import_issue_version": {
+          "const": "1.0",
+          "title": "Import Issue Version",
+          "type": "string"
+        },
+        "message": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Message",
+          "type": "string"
+        },
+        "row": {
+          "anyOf": [
+            {
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Row"
+        },
+        "severity": {
+          "enum": [
+            "warning",
+            "error"
+          ],
+          "title": "Severity",
+          "type": "string"
+        },
+        "source_column": {
+          "anyOf": [
+            {
+              "maxLength": 500,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source Column"
+        },
+        "target_field": {
+          "anyOf": [
+            {
+              "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,127}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Target Field"
+        }
+      },
+      "required": [
+        "import_issue_version",
+        "code",
+        "severity",
+        "message"
+      ],
+      "title": "ImportIssueV1",
+      "type": "object"
+    }
+  },
+  "$id": "urn:erp-rag-contracts:schema:import-result:v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Contrato normativo runtime import-result versión 1.",
+  "properties": {
+    "attachment_sha256": {
+      "pattern": "^sha256:[0-9a-f]{64}$",
+      "title": "Attachment Sha256",
+      "type": "string"
+    },
+    "import_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+      "title": "Import Id",
+      "type": "string"
+    },
+    "import_result_version": {
+      "const": "1.0",
+      "title": "Import Result Version",
+      "type": "string"
+    },
+    "issues": {
+      "items": {
+        "$ref": "#/$defs/ImportIssueV1"
+      },
+      "maxItems": 1000,
+      "title": "Issues",
+      "type": "array"
+    },
+    "preflight_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+      "title": "Preflight Id",
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "validated",
+        "awaiting_confirmation",
+        "processing",
+        "completed",
+        "completed_with_errors",
+        "failed",
+        "cancelled"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "summary": {
+      "$ref": "#/$defs/ImportCountSummaryV1"
+    }
+  },
+  "required": [
+    "import_result_version",
+    "import_id",
+    "preflight_id",
+    "attachment_sha256",
+    "status",
+    "summary",
+    "issues"
+  ],
+  "title": "ImportResultV1",
+  "type": "object"
+}

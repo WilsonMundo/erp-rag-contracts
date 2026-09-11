@@ -1,0 +1,70 @@
+{
+  "$id": "urn:erp-rag-contracts:schema:presentation-block-resolution:v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Contrato normativo runtime presentation-block-resolution versión 1.",
+  "properties": {
+    "block_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+      "title": "Block Id",
+      "type": "string"
+    },
+    "code": {
+      "anyOf": [
+        {
+          "enum": [
+            "BLOCK_FIELD_NOT_FOUND",
+            "BLOCK_TYPE_INCOMPATIBLE",
+            "BLOCK_AGGREGATION_UNSUPPORTED",
+            "BLOCK_CAPABILITY_UNSUPPORTED",
+            "BLOCK_CARDINALITY_EXCEEDED",
+            "BLOCK_TRUNCATED_RESULT_UNSAFE",
+            "BLOCK_REFERENCE_MISSING",
+            "BLOCK_SCOPE_INVALID",
+            "BLOCK_SCHEMA_INVALID"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Code"
+    },
+    "message": {
+      "anyOf": [
+        {
+          "maxLength": 500,
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Message"
+    },
+    "presentation_block_resolution_version": {
+      "const": "1.0",
+      "title": "Presentation Block Resolution Version",
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "materialized",
+        "degraded"
+      ],
+      "title": "Status",
+      "type": "string"
+    }
+  },
+  "required": [
+    "presentation_block_resolution_version",
+    "block_id",
+    "status"
+  ],
+  "title": "PresentationBlockResolutionV1",
+  "type": "object"
+}

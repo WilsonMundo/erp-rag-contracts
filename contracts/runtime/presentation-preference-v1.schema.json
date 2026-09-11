@@ -1,0 +1,44 @@
+{
+  "$id": "urn:erp-rag-contracts:schema:presentation-preference:v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Contrato normativo runtime presentation-preference versión 1.",
+  "properties": {
+    "mode": {
+      "enum": [
+        "auto",
+        "include",
+        "only"
+      ],
+      "title": "Mode",
+      "type": "string"
+    },
+    "presentation_preference_version": {
+      "const": "1.0",
+      "title": "Presentation Preference Version",
+      "type": "string"
+    },
+    "required": {
+      "items": {
+        "enum": [
+          "kpi",
+          "data_grid",
+          "pivot_grid",
+          "chart",
+          "gauge"
+        ],
+        "type": "string"
+      },
+      "maxItems": 5,
+      "title": "Required",
+      "type": "array"
+    }
+  },
+  "required": [
+    "presentation_preference_version",
+    "mode",
+    "required"
+  ],
+  "title": "PresentationPreferenceV1",
+  "type": "object"
+}

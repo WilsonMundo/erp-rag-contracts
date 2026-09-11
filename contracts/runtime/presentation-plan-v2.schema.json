@@ -1,0 +1,712 @@
+{
+  "$defs": {
+    "ChartBlockV1": {
+      "additionalProperties": false,
+      "properties": {
+        "block_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+          "title": "Block Id",
+          "type": "string"
+        },
+        "block_version": {
+          "const": "1.0",
+          "title": "Block Version",
+          "type": "string"
+        },
+        "category_field": {
+          "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,127}$",
+          "title": "Category Field",
+          "type": "string"
+        },
+        "family": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+          "title": "Family",
+          "type": "string"
+        },
+        "kind": {
+          "const": "chart",
+          "title": "Kind",
+          "type": "string"
+        },
+        "series": {
+          "items": {
+            "$ref": "#/$defs/ChartSeriesV2"
+          },
+          "maxItems": 20,
+          "minItems": 1,
+          "title": "Series",
+          "type": "array"
+        },
+        "title": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        }
+      },
+      "required": [
+        "block_version",
+        "block_id",
+        "kind",
+        "title",
+        "family",
+        "category_field",
+        "series"
+      ],
+      "title": "ChartBlockV1",
+      "type": "object"
+    },
+    "ChartSeriesV2": {
+      "additionalProperties": false,
+      "properties": {
+        "aggregation": {
+          "default": "none",
+          "enum": [
+            "none",
+            "sum",
+            "avg",
+            "min",
+            "max",
+            "count"
+          ],
+          "title": "Aggregation",
+          "type": "string"
+        },
+        "field": {
+          "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,127}$",
+          "title": "Field",
+          "type": "string"
+        },
+        "label": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Label",
+          "type": "string"
+        },
+        "type": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "field",
+        "type",
+        "label"
+      ],
+      "title": "ChartSeriesV2",
+      "type": "object"
+    },
+    "DataGridBlockV1": {
+      "additionalProperties": false,
+      "properties": {
+        "block_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+          "title": "Block Id",
+          "type": "string"
+        },
+        "block_version": {
+          "const": "1.0",
+          "title": "Block Version",
+          "type": "string"
+        },
+        "fields": {
+          "items": {
+            "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,127}$",
+            "type": "string"
+          },
+          "maxItems": 100,
+          "minItems": 1,
+          "title": "Fields",
+          "type": "array"
+        },
+        "kind": {
+          "const": "data_grid",
+          "title": "Kind",
+          "type": "string"
+        },
+        "title": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        }
+      },
+      "required": [
+        "block_version",
+        "block_id",
+        "kind",
+        "title",
+        "fields"
+      ],
+      "title": "DataGridBlockV1",
+      "type": "object"
+    },
+    "FieldValueReferenceV1": {
+      "additionalProperties": false,
+      "properties": {
+        "field": {
+          "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,127}$",
+          "title": "Field",
+          "type": "string"
+        },
+        "source": {
+          "const": "field",
+          "title": "Source",
+          "type": "string"
+        }
+      },
+      "required": [
+        "source",
+        "field"
+      ],
+      "title": "FieldValueReferenceV1",
+      "type": "object"
+    },
+    "GaugeBlockV1": {
+      "additionalProperties": false,
+      "properties": {
+        "block_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+          "title": "Block Id",
+          "type": "string"
+        },
+        "block_version": {
+          "const": "1.0",
+          "title": "Block Version",
+          "type": "string"
+        },
+        "kind": {
+          "const": "gauge",
+          "title": "Kind",
+          "type": "string"
+        },
+        "maximum": {
+          "anyOf": [
+            {
+              "discriminator": {
+                "mapping": {
+                  "field": "#/$defs/FieldValueReferenceV1",
+                  "resolved_reference": "#/$defs/ResolvedReferenceValueReferenceV1",
+                  "result_aggregate": "#/$defs/ResultAggregateValueReferenceV1"
+                },
+                "propertyName": "source"
+              },
+              "oneOf": [
+                {
+                  "$ref": "#/$defs/FieldValueReferenceV1"
+                },
+                {
+                  "$ref": "#/$defs/ResultAggregateValueReferenceV1"
+                },
+                {
+                  "$ref": "#/$defs/ResolvedReferenceValueReferenceV1"
+                }
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Maximum"
+        },
+        "minimum": {
+          "anyOf": [
+            {
+              "discriminator": {
+                "mapping": {
+                  "field": "#/$defs/FieldValueReferenceV1",
+                  "resolved_reference": "#/$defs/ResolvedReferenceValueReferenceV1",
+                  "result_aggregate": "#/$defs/ResultAggregateValueReferenceV1"
+                },
+                "propertyName": "source"
+              },
+              "oneOf": [
+                {
+                  "$ref": "#/$defs/FieldValueReferenceV1"
+                },
+                {
+                  "$ref": "#/$defs/ResultAggregateValueReferenceV1"
+                },
+                {
+                  "$ref": "#/$defs/ResolvedReferenceValueReferenceV1"
+                }
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Minimum"
+        },
+        "ranges": {
+          "items": {
+            "$ref": "#/$defs/GaugeRangeV1"
+          },
+          "maxItems": 20,
+          "title": "Ranges",
+          "type": "array"
+        },
+        "target": {
+          "anyOf": [
+            {
+              "discriminator": {
+                "mapping": {
+                  "field": "#/$defs/FieldValueReferenceV1",
+                  "resolved_reference": "#/$defs/ResolvedReferenceValueReferenceV1",
+                  "result_aggregate": "#/$defs/ResultAggregateValueReferenceV1"
+                },
+                "propertyName": "source"
+              },
+              "oneOf": [
+                {
+                  "$ref": "#/$defs/FieldValueReferenceV1"
+                },
+                {
+                  "$ref": "#/$defs/ResultAggregateValueReferenceV1"
+                },
+                {
+                  "$ref": "#/$defs/ResolvedReferenceValueReferenceV1"
+                }
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Target"
+        },
+        "title": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        },
+        "value": {
+          "discriminator": {
+            "mapping": {
+              "field": "#/$defs/FieldValueReferenceV1",
+              "resolved_reference": "#/$defs/ResolvedReferenceValueReferenceV1",
+              "result_aggregate": "#/$defs/ResultAggregateValueReferenceV1"
+            },
+            "propertyName": "source"
+          },
+          "oneOf": [
+            {
+              "$ref": "#/$defs/FieldValueReferenceV1"
+            },
+            {
+              "$ref": "#/$defs/ResultAggregateValueReferenceV1"
+            },
+            {
+              "$ref": "#/$defs/ResolvedReferenceValueReferenceV1"
+            }
+          ],
+          "title": "Value"
+        }
+      },
+      "required": [
+        "block_version",
+        "block_id",
+        "kind",
+        "title",
+        "value"
+      ],
+      "title": "GaugeBlockV1",
+      "type": "object"
+    },
+    "GaugeRangeV1": {
+      "additionalProperties": false,
+      "properties": {
+        "end": {
+          "discriminator": {
+            "mapping": {
+              "field": "#/$defs/FieldValueReferenceV1",
+              "resolved_reference": "#/$defs/ResolvedReferenceValueReferenceV1",
+              "result_aggregate": "#/$defs/ResultAggregateValueReferenceV1"
+            },
+            "propertyName": "source"
+          },
+          "oneOf": [
+            {
+              "$ref": "#/$defs/FieldValueReferenceV1"
+            },
+            {
+              "$ref": "#/$defs/ResultAggregateValueReferenceV1"
+            },
+            {
+              "$ref": "#/$defs/ResolvedReferenceValueReferenceV1"
+            }
+          ],
+          "title": "End"
+        },
+        "label": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Label",
+          "type": "string"
+        },
+        "start": {
+          "discriminator": {
+            "mapping": {
+              "field": "#/$defs/FieldValueReferenceV1",
+              "resolved_reference": "#/$defs/ResolvedReferenceValueReferenceV1",
+              "result_aggregate": "#/$defs/ResultAggregateValueReferenceV1"
+            },
+            "propertyName": "source"
+          },
+          "oneOf": [
+            {
+              "$ref": "#/$defs/FieldValueReferenceV1"
+            },
+            {
+              "$ref": "#/$defs/ResultAggregateValueReferenceV1"
+            },
+            {
+              "$ref": "#/$defs/ResolvedReferenceValueReferenceV1"
+            }
+          ],
+          "title": "Start"
+        }
+      },
+      "required": [
+        "start",
+        "end",
+        "label"
+      ],
+      "title": "GaugeRangeV1",
+      "type": "object"
+    },
+    "KpiBlockV1": {
+      "additionalProperties": false,
+      "properties": {
+        "block_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+          "title": "Block Id",
+          "type": "string"
+        },
+        "block_version": {
+          "const": "1.0",
+          "title": "Block Version",
+          "type": "string"
+        },
+        "format": {
+          "default": "auto",
+          "enum": [
+            "auto",
+            "number",
+            "integer",
+            "currency",
+            "percent"
+          ],
+          "title": "Format",
+          "type": "string"
+        },
+        "kind": {
+          "const": "kpi",
+          "title": "Kind",
+          "type": "string"
+        },
+        "title": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        },
+        "value": {
+          "discriminator": {
+            "mapping": {
+              "field": "#/$defs/FieldValueReferenceV1",
+              "resolved_reference": "#/$defs/ResolvedReferenceValueReferenceV1",
+              "result_aggregate": "#/$defs/ResultAggregateValueReferenceV1"
+            },
+            "propertyName": "source"
+          },
+          "oneOf": [
+            {
+              "$ref": "#/$defs/FieldValueReferenceV1"
+            },
+            {
+              "$ref": "#/$defs/ResultAggregateValueReferenceV1"
+            },
+            {
+              "$ref": "#/$defs/ResolvedReferenceValueReferenceV1"
+            }
+          ],
+          "title": "Value"
+        }
+      },
+      "required": [
+        "block_version",
+        "block_id",
+        "kind",
+        "title",
+        "value"
+      ],
+      "title": "KpiBlockV1",
+      "type": "object"
+    },
+    "PivotGridBlockV1": {
+      "additionalProperties": false,
+      "properties": {
+        "block_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+          "title": "Block Id",
+          "type": "string"
+        },
+        "block_version": {
+          "const": "1.0",
+          "title": "Block Version",
+          "type": "string"
+        },
+        "columns": {
+          "items": {
+            "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,127}$",
+            "type": "string"
+          },
+          "maxItems": 20,
+          "title": "Columns",
+          "type": "array"
+        },
+        "kind": {
+          "const": "pivot_grid",
+          "title": "Kind",
+          "type": "string"
+        },
+        "rows": {
+          "items": {
+            "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,127}$",
+            "type": "string"
+          },
+          "maxItems": 20,
+          "minItems": 1,
+          "title": "Rows",
+          "type": "array"
+        },
+        "title": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        },
+        "values": {
+          "items": {
+            "$ref": "#/$defs/PivotValueV1"
+          },
+          "maxItems": 20,
+          "minItems": 1,
+          "title": "Values",
+          "type": "array"
+        }
+      },
+      "required": [
+        "block_version",
+        "block_id",
+        "kind",
+        "title",
+        "rows",
+        "columns",
+        "values"
+      ],
+      "title": "PivotGridBlockV1",
+      "type": "object"
+    },
+    "PivotValueV1": {
+      "additionalProperties": false,
+      "properties": {
+        "aggregation": {
+          "enum": [
+            "sum",
+            "avg",
+            "min",
+            "max",
+            "count"
+          ],
+          "title": "Aggregation",
+          "type": "string"
+        },
+        "field": {
+          "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,127}$",
+          "title": "Field",
+          "type": "string"
+        }
+      },
+      "required": [
+        "field",
+        "aggregation"
+      ],
+      "title": "PivotValueV1",
+      "type": "object"
+    },
+    "PresentationLayoutV1": {
+      "additionalProperties": false,
+      "properties": {
+        "columns": {
+          "anyOf": [
+            {
+              "maximum": 12,
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Columns"
+        },
+        "mode": {
+          "enum": [
+            "flow",
+            "grid"
+          ],
+          "title": "Mode",
+          "type": "string"
+        },
+        "presentation_layout_version": {
+          "const": "1.0",
+          "title": "Presentation Layout Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "presentation_layout_version",
+        "mode"
+      ],
+      "title": "PresentationLayoutV1",
+      "type": "object"
+    },
+    "ResolvedReferenceValueReferenceV1": {
+      "additionalProperties": false,
+      "properties": {
+        "reference_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+          "title": "Reference Id",
+          "type": "string"
+        },
+        "source": {
+          "const": "resolved_reference",
+          "title": "Source",
+          "type": "string"
+        }
+      },
+      "required": [
+        "source",
+        "reference_id"
+      ],
+      "title": "ResolvedReferenceValueReferenceV1",
+      "type": "object"
+    },
+    "ResultAggregateValueReferenceV1": {
+      "additionalProperties": false,
+      "properties": {
+        "aggregation": {
+          "enum": [
+            "sum",
+            "avg",
+            "min",
+            "max",
+            "count"
+          ],
+          "title": "Aggregation",
+          "type": "string"
+        },
+        "field": {
+          "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,127}$",
+          "title": "Field",
+          "type": "string"
+        },
+        "scope": {
+          "const": "result_set",
+          "title": "Scope",
+          "type": "string"
+        },
+        "source": {
+          "const": "result_aggregate",
+          "title": "Source",
+          "type": "string"
+        }
+      },
+      "required": [
+        "source",
+        "scope",
+        "field",
+        "aggregation"
+      ],
+      "title": "ResultAggregateValueReferenceV1",
+      "type": "object"
+    }
+  },
+  "$id": "urn:erp-rag-contracts:schema:presentation-plan:v2",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Contrato normativo runtime presentation-plan versión 2.",
+  "properties": {
+    "blocks": {
+      "items": {
+        "discriminator": {
+          "mapping": {
+            "chart": "#/$defs/ChartBlockV1",
+            "data_grid": "#/$defs/DataGridBlockV1",
+            "gauge": "#/$defs/GaugeBlockV1",
+            "kpi": "#/$defs/KpiBlockV1",
+            "pivot_grid": "#/$defs/PivotGridBlockV1"
+          },
+          "propertyName": "kind"
+        },
+        "oneOf": [
+          {
+            "$ref": "#/$defs/KpiBlockV1"
+          },
+          {
+            "$ref": "#/$defs/DataGridBlockV1"
+          },
+          {
+            "$ref": "#/$defs/PivotGridBlockV1"
+          },
+          {
+            "$ref": "#/$defs/ChartBlockV1"
+          },
+          {
+            "$ref": "#/$defs/GaugeBlockV1"
+          }
+        ]
+      },
+      "maxItems": 20,
+      "minItems": 1,
+      "title": "Blocks",
+      "type": "array"
+    },
+    "capability_profile": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+      "title": "Capability Profile",
+      "type": "string"
+    },
+    "layout": {
+      "$ref": "#/$defs/PresentationLayoutV1"
+    },
+    "presentation_plan_version": {
+      "const": "2.0",
+      "title": "Presentation Plan Version",
+      "type": "string"
+    },
+    "title": {
+      "maxLength": 500,
+      "minLength": 1,
+      "title": "Title",
+      "type": "string"
+    }
+  },
+  "required": [
+    "presentation_plan_version",
+    "title",
+    "capability_profile",
+    "blocks",
+    "layout"
+  ],
+  "title": "PresentationPlanV2",
+  "type": "object"
+}

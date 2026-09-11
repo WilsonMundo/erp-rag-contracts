@@ -1,0 +1,61 @@
+{
+  "parameters": [
+    {
+      "name": "limit",
+      "nullable": false,
+      "sql_type": "int",
+      "value": 10
+    }
+  ],
+  "presentation_plan": {
+    "blocks": [
+      {
+        "block_id": "sales_kpi",
+        "block_version": "1.0",
+        "format": "currency",
+        "kind": "kpi",
+        "title": "Ventas",
+        "value": {
+          "aggregation": "sum",
+          "field": "VentaTotal",
+          "scope": "result_set",
+          "source": "result_aggregate"
+        }
+      }
+    ],
+    "capability_profile": "devextreme-26",
+    "layout": {
+      "columns": null,
+      "mode": "flow",
+      "presentation_layout_version": "1.0"
+    },
+    "presentation_plan_version": "2.0",
+    "title": "Top 10 ventas"
+  },
+  "proposed_result_semantics": {
+    "columns": [
+      {
+        "aggregation": "sum",
+        "key": "VentaTotal",
+        "ordinal": 0,
+        "presentation_support": false,
+        "proposed_semantic_column_version": "2.0",
+        "role": "measure",
+        "semantic_type": "currency"
+      }
+    ],
+    "result_set": {
+      "result_set_semantics_version": "1.0",
+      "selection": {
+        "direction": "descending",
+        "kind": "top_n",
+        "limit": 10,
+        "order_field": "VentaTotal"
+      }
+    },
+    "shape": "ranking",
+    "version": "2.0"
+  },
+  "query_sql_draft_version": "6.0",
+  "sql": "SELECT TOP (@limit) VentaTotal FROM dbo.Ventas ORDER BY VentaTotal DESC"
+}

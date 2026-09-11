@@ -1,0 +1,1288 @@
+{
+  "$defs": {
+    "AllMatchesSelectionV1": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "all_matches",
+          "title": "Kind",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind"
+      ],
+      "title": "AllMatchesSelectionV1",
+      "type": "object"
+    },
+    "MaterializedChartBlockV1": {
+      "additionalProperties": false,
+      "properties": {
+        "block_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+          "title": "Block Id",
+          "type": "string"
+        },
+        "block_version": {
+          "const": "1.0",
+          "title": "Block Version",
+          "type": "string"
+        },
+        "category_field": {
+          "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,127}$",
+          "title": "Category Field",
+          "type": "string"
+        },
+        "family": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+          "title": "Family",
+          "type": "string"
+        },
+        "kind": {
+          "const": "chart",
+          "title": "Kind",
+          "type": "string"
+        },
+        "series": {
+          "items": {
+            "$ref": "#/$defs/MaterializedChartSeriesV1"
+          },
+          "minItems": 1,
+          "title": "Series",
+          "type": "array"
+        },
+        "title": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        }
+      },
+      "required": [
+        "block_version",
+        "block_id",
+        "kind",
+        "title",
+        "family",
+        "category_field",
+        "series"
+      ],
+      "title": "MaterializedChartBlockV1",
+      "type": "object"
+    },
+    "MaterializedChartSeriesV1": {
+      "additionalProperties": false,
+      "properties": {
+        "field": {
+          "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,127}$",
+          "title": "Field",
+          "type": "string"
+        },
+        "label": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Label",
+          "type": "string"
+        },
+        "type": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "field",
+        "type",
+        "label"
+      ],
+      "title": "MaterializedChartSeriesV1",
+      "type": "object"
+    },
+    "MaterializedGaugeBlockV1": {
+      "additionalProperties": false,
+      "properties": {
+        "block_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+          "title": "Block Id",
+          "type": "string"
+        },
+        "block_version": {
+          "const": "1.0",
+          "title": "Block Version",
+          "type": "string"
+        },
+        "kind": {
+          "const": "gauge",
+          "title": "Kind",
+          "type": "string"
+        },
+        "maximum": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "integer"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Maximum"
+        },
+        "minimum": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "integer"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Minimum"
+        },
+        "ranges": {
+          "items": {
+            "$ref": "#/$defs/MaterializedGaugeRangeV1"
+          },
+          "title": "Ranges",
+          "type": "array"
+        },
+        "target": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "integer"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Target"
+        },
+        "title": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "integer"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Value"
+        }
+      },
+      "required": [
+        "block_version",
+        "block_id",
+        "kind",
+        "title",
+        "value"
+      ],
+      "title": "MaterializedGaugeBlockV1",
+      "type": "object"
+    },
+    "MaterializedGaugeRangeV1": {
+      "additionalProperties": false,
+      "properties": {
+        "end": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "integer"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "End"
+        },
+        "label": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Label",
+          "type": "string"
+        },
+        "start": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "integer"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Start"
+        }
+      },
+      "required": [
+        "start",
+        "end",
+        "label"
+      ],
+      "title": "MaterializedGaugeRangeV1",
+      "type": "object"
+    },
+    "MaterializedGridBlockV1": {
+      "additionalProperties": false,
+      "properties": {
+        "block_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+          "title": "Block Id",
+          "type": "string"
+        },
+        "block_version": {
+          "const": "1.0",
+          "title": "Block Version",
+          "type": "string"
+        },
+        "fields": {
+          "items": {
+            "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,127}$",
+            "type": "string"
+          },
+          "maxItems": 100,
+          "minItems": 1,
+          "title": "Fields",
+          "type": "array"
+        },
+        "kind": {
+          "const": "data_grid",
+          "title": "Kind",
+          "type": "string"
+        },
+        "title": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        }
+      },
+      "required": [
+        "block_version",
+        "block_id",
+        "kind",
+        "title",
+        "fields"
+      ],
+      "title": "MaterializedGridBlockV1",
+      "type": "object"
+    },
+    "MaterializedKpiBlockV1": {
+      "additionalProperties": false,
+      "properties": {
+        "block_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+          "title": "Block Id",
+          "type": "string"
+        },
+        "block_version": {
+          "const": "1.0",
+          "title": "Block Version",
+          "type": "string"
+        },
+        "format": {
+          "enum": [
+            "auto",
+            "number",
+            "integer",
+            "currency",
+            "percent"
+          ],
+          "title": "Format",
+          "type": "string"
+        },
+        "kind": {
+          "const": "kpi",
+          "title": "Kind",
+          "type": "string"
+        },
+        "scope": {
+          "$ref": "#/$defs/MaterializedScopeV1"
+        },
+        "title": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "integer"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Value"
+        }
+      },
+      "required": [
+        "block_version",
+        "block_id",
+        "kind",
+        "title",
+        "value",
+        "format",
+        "scope"
+      ],
+      "title": "MaterializedKpiBlockV1",
+      "type": "object"
+    },
+    "MaterializedPivotBlockV1": {
+      "additionalProperties": false,
+      "properties": {
+        "block_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+          "title": "Block Id",
+          "type": "string"
+        },
+        "block_version": {
+          "const": "1.0",
+          "title": "Block Version",
+          "type": "string"
+        },
+        "columns": {
+          "items": {
+            "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,127}$",
+            "type": "string"
+          },
+          "title": "Columns",
+          "type": "array"
+        },
+        "kind": {
+          "const": "pivot_grid",
+          "title": "Kind",
+          "type": "string"
+        },
+        "rows": {
+          "items": {
+            "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,127}$",
+            "type": "string"
+          },
+          "title": "Rows",
+          "type": "array"
+        },
+        "title": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        },
+        "values": {
+          "items": {
+            "$ref": "#/$defs/MaterializedPivotValueV1"
+          },
+          "minItems": 1,
+          "title": "Values",
+          "type": "array"
+        }
+      },
+      "required": [
+        "block_version",
+        "block_id",
+        "kind",
+        "title",
+        "rows",
+        "columns",
+        "values"
+      ],
+      "title": "MaterializedPivotBlockV1",
+      "type": "object"
+    },
+    "MaterializedPivotValueV1": {
+      "additionalProperties": false,
+      "properties": {
+        "aggregation": {
+          "enum": [
+            "sum",
+            "avg",
+            "min",
+            "max",
+            "count"
+          ],
+          "title": "Aggregation",
+          "type": "string"
+        },
+        "field": {
+          "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,127}$",
+          "title": "Field",
+          "type": "string"
+        }
+      },
+      "required": [
+        "field",
+        "aggregation"
+      ],
+      "title": "MaterializedPivotValueV1",
+      "type": "object"
+    },
+    "MaterializedPresentationV2": {
+      "additionalProperties": false,
+      "properties": {
+        "blocks": {
+          "items": {
+            "discriminator": {
+              "mapping": {
+                "chart": "#/$defs/MaterializedChartBlockV1",
+                "data_grid": "#/$defs/MaterializedGridBlockV1",
+                "gauge": "#/$defs/MaterializedGaugeBlockV1",
+                "kpi": "#/$defs/MaterializedKpiBlockV1",
+                "pivot_grid": "#/$defs/MaterializedPivotBlockV1"
+              },
+              "propertyName": "kind"
+            },
+            "oneOf": [
+              {
+                "$ref": "#/$defs/MaterializedKpiBlockV1"
+              },
+              {
+                "$ref": "#/$defs/MaterializedGridBlockV1"
+              },
+              {
+                "$ref": "#/$defs/MaterializedPivotBlockV1"
+              },
+              {
+                "$ref": "#/$defs/MaterializedChartBlockV1"
+              },
+              {
+                "$ref": "#/$defs/MaterializedGaugeBlockV1"
+              }
+            ]
+          },
+          "maxItems": 20,
+          "title": "Blocks",
+          "type": "array"
+        },
+        "capability_profile": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+          "title": "Capability Profile",
+          "type": "string"
+        },
+        "layout": {
+          "$ref": "#/$defs/PresentationLayoutV1"
+        },
+        "materialized_presentation_version": {
+          "const": "2.0",
+          "title": "Materialized Presentation Version",
+          "type": "string"
+        },
+        "resolutions": {
+          "items": {
+            "$ref": "#/$defs/PresentationBlockResolutionV1"
+          },
+          "maxItems": 20,
+          "minItems": 1,
+          "title": "Resolutions",
+          "type": "array"
+        },
+        "title": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        }
+      },
+      "required": [
+        "materialized_presentation_version",
+        "title",
+        "capability_profile",
+        "blocks",
+        "resolutions",
+        "layout"
+      ],
+      "title": "MaterializedPresentationV2",
+      "type": "object"
+    },
+    "MaterializedScopeV1": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "enum": [
+            "all_matches",
+            "top_n",
+            "sample"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "label": {
+          "anyOf": [
+            {
+              "maxLength": 500,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Label"
+        }
+      },
+      "required": [
+        "kind"
+      ],
+      "title": "MaterializedScopeV1",
+      "type": "object"
+    },
+    "PresentationBlockResolutionV1": {
+      "additionalProperties": false,
+      "properties": {
+        "block_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+          "title": "Block Id",
+          "type": "string"
+        },
+        "code": {
+          "anyOf": [
+            {
+              "enum": [
+                "BLOCK_FIELD_NOT_FOUND",
+                "BLOCK_TYPE_INCOMPATIBLE",
+                "BLOCK_AGGREGATION_UNSUPPORTED",
+                "BLOCK_CAPABILITY_UNSUPPORTED",
+                "BLOCK_CARDINALITY_EXCEEDED",
+                "BLOCK_TRUNCATED_RESULT_UNSAFE",
+                "BLOCK_REFERENCE_MISSING",
+                "BLOCK_SCOPE_INVALID",
+                "BLOCK_SCHEMA_INVALID"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Code"
+        },
+        "message": {
+          "anyOf": [
+            {
+              "maxLength": 500,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Message"
+        },
+        "presentation_block_resolution_version": {
+          "const": "1.0",
+          "title": "Presentation Block Resolution Version",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "materialized",
+            "degraded"
+          ],
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "presentation_block_resolution_version",
+        "block_id",
+        "status"
+      ],
+      "title": "PresentationBlockResolutionV1",
+      "type": "object"
+    },
+    "PresentationLayoutV1": {
+      "additionalProperties": false,
+      "properties": {
+        "columns": {
+          "anyOf": [
+            {
+              "maximum": 12,
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Columns"
+        },
+        "mode": {
+          "enum": [
+            "flow",
+            "grid"
+          ],
+          "title": "Mode",
+          "type": "string"
+        },
+        "presentation_layout_version": {
+          "const": "1.0",
+          "title": "Presentation Layout Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "presentation_layout_version",
+        "mode"
+      ],
+      "title": "PresentationLayoutV1",
+      "type": "object"
+    },
+    "ProposedResultSemanticsV2": {
+      "additionalProperties": false,
+      "properties": {
+        "columns": {
+          "items": {
+            "$ref": "#/$defs/ProposedSemanticColumnV2"
+          },
+          "maxItems": 200,
+          "title": "Columns",
+          "type": "array"
+        },
+        "result_set": {
+          "$ref": "#/$defs/ResultSetSemanticsV1"
+        },
+        "shape": {
+          "enum": [
+            "scalar",
+            "detail",
+            "grouped_aggregate",
+            "ranking",
+            "comparison",
+            "distribution",
+            "trend"
+          ],
+          "title": "Shape",
+          "type": "string"
+        },
+        "version": {
+          "const": "2.0",
+          "title": "Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "version",
+        "shape",
+        "result_set",
+        "columns"
+      ],
+      "title": "ProposedResultSemanticsV2",
+      "type": "object"
+    },
+    "ProposedSemanticColumnV2": {
+      "additionalProperties": false,
+      "properties": {
+        "aggregation": {
+          "enum": [
+            "none",
+            "sum",
+            "count",
+            "avg",
+            "min",
+            "max",
+            "unknown"
+          ],
+          "title": "Aggregation",
+          "type": "string"
+        },
+        "key": {
+          "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,127}$",
+          "title": "Key",
+          "type": "string"
+        },
+        "ordinal": {
+          "maximum": 199,
+          "minimum": 0,
+          "title": "Ordinal",
+          "type": "integer"
+        },
+        "presentation_support": {
+          "default": false,
+          "title": "Presentation Support",
+          "type": "boolean"
+        },
+        "proposed_semantic_column_version": {
+          "const": "2.0",
+          "title": "Proposed Semantic Column Version",
+          "type": "string"
+        },
+        "role": {
+          "enum": [
+            "identifier",
+            "dimension",
+            "measure",
+            "unknown"
+          ],
+          "title": "Role",
+          "type": "string"
+        },
+        "semantic_type": {
+          "enum": [
+            "identifier",
+            "category",
+            "number",
+            "currency",
+            "percent",
+            "date",
+            "datetime",
+            "boolean",
+            "unknown"
+          ],
+          "title": "Semantic Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "proposed_semantic_column_version",
+        "ordinal",
+        "key",
+        "role",
+        "semantic_type",
+        "aggregation"
+      ],
+      "title": "ProposedSemanticColumnV2",
+      "type": "object"
+    },
+    "QueryAppliedFilterV2": {
+      "additionalProperties": false,
+      "properties": {
+        "display": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Display",
+          "type": "string"
+        },
+        "end_exclusive": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "End Exclusive"
+        },
+        "key": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+          "title": "Key",
+          "type": "string"
+        },
+        "label": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Label",
+          "type": "string"
+        },
+        "start": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Start"
+        },
+        "type": {
+          "enum": [
+            "scalar",
+            "date_range",
+            "integer"
+          ],
+          "title": "Type",
+          "type": "string"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "integer"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Value"
+        }
+      },
+      "required": [
+        "key",
+        "label",
+        "type",
+        "display"
+      ],
+      "title": "QueryAppliedFilterV2",
+      "type": "object"
+    },
+    "QueryResultColumnV2": {
+      "additionalProperties": false,
+      "properties": {
+        "aggregation": {
+          "enum": [
+            "none",
+            "sum",
+            "count",
+            "avg",
+            "min",
+            "max",
+            "unknown"
+          ],
+          "title": "Aggregation",
+          "type": "string"
+        },
+        "format": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/QueryResultFormatV2"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "key": {
+          "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,127}$",
+          "title": "Key",
+          "type": "string"
+        },
+        "nullable": {
+          "title": "Nullable",
+          "type": "boolean"
+        },
+        "semantic_type": {
+          "enum": [
+            "unknown",
+            "identifier",
+            "category",
+            "number",
+            "currency",
+            "percent",
+            "date",
+            "datetime",
+            "boolean"
+          ],
+          "title": "Semantic Type",
+          "type": "string"
+        },
+        "title": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        },
+        "type": {
+          "enum": [
+            "string",
+            "boolean",
+            "date",
+            "datetime",
+            "integer",
+            "bigint",
+            "decimal",
+            "number",
+            "guid"
+          ],
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "key",
+        "title",
+        "type",
+        "semantic_type",
+        "aggregation",
+        "nullable"
+      ],
+      "title": "QueryResultColumnV2",
+      "type": "object"
+    },
+    "QueryResultExecutionV2": {
+      "additionalProperties": false,
+      "properties": {
+        "ast_fingerprint": {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "title": "Ast Fingerprint",
+          "type": "string"
+        },
+        "catalog_sha256": {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "title": "Catalog Sha256",
+          "type": "string"
+        },
+        "duration_ms": {
+          "minimum": 0,
+          "title": "Duration Ms",
+          "type": "integer"
+        },
+        "truncated": {
+          "title": "Truncated",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "duration_ms",
+        "ast_fingerprint",
+        "catalog_sha256",
+        "truncated"
+      ],
+      "title": "QueryResultExecutionV2",
+      "type": "object"
+    },
+    "QueryResultFormatV2": {
+      "additionalProperties": false,
+      "properties": {
+        "currency": {
+          "anyOf": [
+            {
+              "pattern": "^[A-Z]{3}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Currency"
+        },
+        "style": {
+          "enum": [
+            "currency",
+            "decimal",
+            "percent",
+            "date",
+            "datetime"
+          ],
+          "title": "Style",
+          "type": "string"
+        }
+      },
+      "required": [
+        "style"
+      ],
+      "title": "QueryResultFormatV2",
+      "type": "object"
+    },
+    "QueryResultV2": {
+      "additionalProperties": false,
+      "properties": {
+        "applied_filters": {
+          "items": {
+            "$ref": "#/$defs/QueryAppliedFilterV2"
+          },
+          "maxItems": 100,
+          "title": "Applied Filters",
+          "type": "array"
+        },
+        "columns": {
+          "items": {
+            "$ref": "#/$defs/QueryResultColumnV2"
+          },
+          "maxItems": 200,
+          "title": "Columns",
+          "type": "array"
+        },
+        "execution": {
+          "$ref": "#/$defs/QueryResultExecutionV2"
+        },
+        "presentation": {
+          "$ref": "#/$defs/MaterializedPresentationV2"
+        },
+        "query_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+          "title": "Query Id",
+          "type": "string"
+        },
+        "query_result_version": {
+          "const": "2.0",
+          "title": "Query Result Version",
+          "type": "string"
+        },
+        "result_fingerprint": {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "title": "Result Fingerprint",
+          "type": "string"
+        },
+        "result_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+          "title": "Result Id",
+          "type": "string"
+        },
+        "row_count": {
+          "minimum": 0,
+          "title": "Row Count",
+          "type": "integer"
+        },
+        "rows": {
+          "items": {
+            "additionalProperties": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "type": "object"
+          },
+          "maxItems": 500,
+          "title": "Rows",
+          "type": "array"
+        },
+        "semantics": {
+          "$ref": "#/$defs/ProposedResultSemanticsV2"
+        },
+        "status": {
+          "const": "completed",
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "query_result_version",
+        "query_id",
+        "result_id",
+        "result_fingerprint",
+        "status",
+        "semantics",
+        "columns",
+        "rows",
+        "row_count",
+        "applied_filters",
+        "presentation",
+        "execution"
+      ],
+      "title": "QueryResultV2",
+      "type": "object"
+    },
+    "ResultSetSemanticsV1": {
+      "additionalProperties": false,
+      "properties": {
+        "result_set_semantics_version": {
+          "const": "1.0",
+          "title": "Result Set Semantics Version",
+          "type": "string"
+        },
+        "selection": {
+          "discriminator": {
+            "mapping": {
+              "all_matches": "#/$defs/AllMatchesSelectionV1",
+              "sample": "#/$defs/SampleSelectionV1",
+              "top_n": "#/$defs/TopNSelectionV1"
+            },
+            "propertyName": "kind"
+          },
+          "oneOf": [
+            {
+              "$ref": "#/$defs/AllMatchesSelectionV1"
+            },
+            {
+              "$ref": "#/$defs/TopNSelectionV1"
+            },
+            {
+              "$ref": "#/$defs/SampleSelectionV1"
+            }
+          ],
+          "title": "Selection"
+        }
+      },
+      "required": [
+        "result_set_semantics_version",
+        "selection"
+      ],
+      "title": "ResultSetSemanticsV1",
+      "type": "object"
+    },
+    "SampleSelectionV1": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "sample",
+          "title": "Kind",
+          "type": "string"
+        },
+        "limit": {
+          "maximum": 500,
+          "minimum": 1,
+          "title": "Limit",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "kind",
+        "limit"
+      ],
+      "title": "SampleSelectionV1",
+      "type": "object"
+    },
+    "TopNSelectionV1": {
+      "additionalProperties": false,
+      "properties": {
+        "direction": {
+          "enum": [
+            "ascending",
+            "descending"
+          ],
+          "title": "Direction",
+          "type": "string"
+        },
+        "kind": {
+          "const": "top_n",
+          "title": "Kind",
+          "type": "string"
+        },
+        "limit": {
+          "maximum": 500,
+          "minimum": 1,
+          "title": "Limit",
+          "type": "integer"
+        },
+        "order_field": {
+          "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,127}$",
+          "title": "Order Field",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "limit",
+        "order_field",
+        "direction"
+      ],
+      "title": "TopNSelectionV1",
+      "type": "object"
+    }
+  },
+  "$id": "urn:erp-rag-contracts:schema:assistant-historical-requery-result:v2",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Contrato normativo runtime assistant-historical-requery-result versión 2.",
+  "properties": {
+    "historical_requery_result_version": {
+      "const": "2.0",
+      "title": "Historical Requery Result Version",
+      "type": "string"
+    },
+    "query_artifact_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+      "title": "Query Artifact Id",
+      "type": "string"
+    },
+    "query_execution_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+      "title": "Query Execution Id",
+      "type": "string"
+    },
+    "result": {
+      "$ref": "#/$defs/QueryResultV2"
+    }
+  },
+  "required": [
+    "historical_requery_result_version",
+    "query_execution_id",
+    "query_artifact_id",
+    "result"
+  ],
+  "title": "AssistantHistoricalRequeryResultV2",
+  "type": "object"
+}

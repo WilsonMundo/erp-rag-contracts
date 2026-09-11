@@ -1,0 +1,146 @@
+{
+  "$defs": {
+    "DashboardFilterBindingV1": {
+      "additionalProperties": false,
+      "properties": {
+        "dashboard_filter_binding_version": {
+          "const": "1.0",
+          "title": "Dashboard Filter Binding Version",
+          "type": "string"
+        },
+        "filter_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+          "title": "Filter Id",
+          "type": "string"
+        },
+        "mappings": {
+          "items": {
+            "$ref": "#/$defs/DashboardFilterMappingV1"
+          },
+          "maxItems": 10,
+          "minItems": 1,
+          "title": "Mappings",
+          "type": "array"
+        }
+      },
+      "required": [
+        "dashboard_filter_binding_version",
+        "filter_id",
+        "mappings"
+      ],
+      "title": "DashboardFilterBindingV1",
+      "type": "object"
+    },
+    "DashboardFilterMappingV1": {
+      "additionalProperties": false,
+      "properties": {
+        "dashboard_filter_mapping_version": {
+          "const": "1.0",
+          "title": "Dashboard Filter Mapping Version",
+          "type": "string"
+        },
+        "source_path": {
+          "enum": [
+            "value",
+            "start",
+            "end_exclusive"
+          ],
+          "title": "Source Path",
+          "type": "string"
+        },
+        "target_parameter": {
+          "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,127}$",
+          "title": "Target Parameter",
+          "type": "string"
+        }
+      },
+      "required": [
+        "dashboard_filter_mapping_version",
+        "source_path",
+        "target_parameter"
+      ],
+      "title": "DashboardFilterMappingV1",
+      "type": "object"
+    },
+    "DashboardWidgetLayoutV1": {
+      "additionalProperties": false,
+      "properties": {
+        "h": {
+          "minimum": 1,
+          "title": "H",
+          "type": "integer"
+        },
+        "w": {
+          "minimum": 1,
+          "title": "W",
+          "type": "integer"
+        },
+        "x": {
+          "minimum": 0,
+          "title": "X",
+          "type": "integer"
+        },
+        "y": {
+          "minimum": 0,
+          "title": "Y",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "x",
+        "y",
+        "w",
+        "h"
+      ],
+      "title": "DashboardWidgetLayoutV1",
+      "type": "object"
+    }
+  },
+  "$id": "urn:erp-rag-contracts:schema:dashboard-widget:v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Contrato normativo runtime dashboard-widget versión 1.",
+  "properties": {
+    "block_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+      "title": "Block Id",
+      "type": "string"
+    },
+    "dashboard_widget_version": {
+      "const": "1.0",
+      "title": "Dashboard Widget Version",
+      "type": "string"
+    },
+    "filter_bindings": {
+      "items": {
+        "$ref": "#/$defs/DashboardFilterBindingV1"
+      },
+      "maxItems": 20,
+      "title": "Filter Bindings",
+      "type": "array"
+    },
+    "layout": {
+      "$ref": "#/$defs/DashboardWidgetLayoutV1"
+    },
+    "query_artifact_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+      "title": "Query Artifact Id",
+      "type": "string"
+    },
+    "widget_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+      "title": "Widget Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "dashboard_widget_version",
+    "widget_id",
+    "query_artifact_id",
+    "block_id",
+    "layout",
+    "filter_bindings"
+  ],
+  "title": "DashboardWidgetV1",
+  "type": "object"
+}

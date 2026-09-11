@@ -1,0 +1,13 @@
+{
+  "conversation_id": "conversation-001",
+  "event_id": "event-001",
+  "event_version": "0.0",
+  "payload": {
+    "result_id": "result-001"
+  },
+  "request_id": "request-001",
+  "sequence": 0,
+  "timestamp": "2026-09-11T10:00:00-06:00",
+  "turn_id": "turn-001",
+  "type": "query.result"
+}

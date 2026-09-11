@@ -1,0 +1,80 @@
+{
+  "$id": "urn:erp-rag-contracts:schema:import-issue:v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Contrato normativo runtime import-issue versión 1.",
+  "properties": {
+    "code": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+      "title": "Code",
+      "type": "string"
+    },
+    "import_issue_version": {
+      "const": "1.0",
+      "title": "Import Issue Version",
+      "type": "string"
+    },
+    "message": {
+      "maxLength": 500,
+      "minLength": 1,
+      "title": "Message",
+      "type": "string"
+    },
+    "row": {
+      "anyOf": [
+        {
+          "minimum": 1,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Row"
+    },
+    "severity": {
+      "enum": [
+        "warning",
+        "error"
+      ],
+      "title": "Severity",
+      "type": "string"
+    },
+    "source_column": {
+      "anyOf": [
+        {
+          "maxLength": 500,
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Source Column"
+    },
+    "target_field": {
+      "anyOf": [
+        {
+          "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,127}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Target Field"
+    }
+  },
+  "required": [
+    "import_issue_version",
+    "code",
+    "severity",
+    "message"
+  ],
+  "title": "ImportIssueV1",
+  "type": "object"
+}

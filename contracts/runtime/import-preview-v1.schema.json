@@ -1,0 +1,88 @@
+{
+  "$defs": {
+    "ImportPreviewRowV1": {
+      "additionalProperties": false,
+      "properties": {
+        "row": {
+          "minimum": 1,
+          "title": "Row",
+          "type": "integer"
+        },
+        "valid": {
+          "title": "Valid",
+          "type": "boolean"
+        },
+        "values": {
+          "additionalProperties": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "integer"
+              },
+              {
+                "type": "number"
+              },
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "title": "Values",
+          "type": "object"
+        }
+      },
+      "required": [
+        "row",
+        "values",
+        "valid"
+      ],
+      "title": "ImportPreviewRowV1",
+      "type": "object"
+    }
+  },
+  "$id": "urn:erp-rag-contracts:schema:import-preview:v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Contrato normativo runtime import-preview versión 1.",
+  "properties": {
+    "columns": {
+      "items": {
+        "maxLength": 500,
+        "minLength": 1,
+        "type": "string"
+      },
+      "title": "Columns",
+      "type": "array"
+    },
+    "import_preview_version": {
+      "const": "1.0",
+      "title": "Import Preview Version",
+      "type": "string"
+    },
+    "rows": {
+      "items": {
+        "$ref": "#/$defs/ImportPreviewRowV1"
+      },
+      "maxItems": 100,
+      "title": "Rows",
+      "type": "array"
+    },
+    "truncated": {
+      "title": "Truncated",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "import_preview_version",
+    "columns",
+    "rows",
+    "truncated"
+  ],
+  "title": "ImportPreviewV1",
+  "type": "object"
+}

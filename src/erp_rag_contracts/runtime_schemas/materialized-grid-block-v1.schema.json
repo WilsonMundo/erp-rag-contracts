@@ -1,0 +1,48 @@
+{
+  "$id": "urn:erp-rag-contracts:schema:materialized-grid-block:v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Contrato normativo runtime materialized-grid-block versión 1.",
+  "properties": {
+    "block_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+      "title": "Block Id",
+      "type": "string"
+    },
+    "block_version": {
+      "const": "1.0",
+      "title": "Block Version",
+      "type": "string"
+    },
+    "fields": {
+      "items": {
+        "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,127}$",
+        "type": "string"
+      },
+      "maxItems": 100,
+      "minItems": 1,
+      "title": "Fields",
+      "type": "array"
+    },
+    "kind": {
+      "const": "data_grid",
+      "title": "Kind",
+      "type": "string"
+    },
+    "title": {
+      "maxLength": 500,
+      "minLength": 1,
+      "title": "Title",
+      "type": "string"
+    }
+  },
+  "required": [
+    "block_version",
+    "block_id",
+    "kind",
+    "title",
+    "fields"
+  ],
+  "title": "MaterializedGridBlockV1",
+  "type": "object"
+}

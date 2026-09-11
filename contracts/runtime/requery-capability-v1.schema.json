@@ -1,0 +1,42 @@
+{
+  "$id": "urn:erp-rag-contracts:schema:requery-capability:v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Contrato normativo runtime requery-capability versión 1.",
+  "properties": {
+    "available": {
+      "title": "Available",
+      "type": "boolean"
+    },
+    "mode": {
+      "enum": [
+        "none",
+        "same_parameters",
+        "rebind_parameters"
+      ],
+      "title": "Mode",
+      "type": "string"
+    },
+    "rebindable_parameters": {
+      "items": {
+        "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,127}$",
+        "type": "string"
+      },
+      "title": "Rebindable Parameters",
+      "type": "array"
+    },
+    "requery_capability_version": {
+      "const": "1.0",
+      "title": "Requery Capability Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "requery_capability_version",
+    "available",
+    "mode",
+    "rebindable_parameters"
+  ],
+  "title": "RequeryCapabilityV1",
+  "type": "object"
+}

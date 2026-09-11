@@ -11,6 +11,7 @@ from typing import Any
 
 from pydantic import TypeAdapter
 
+from erp_rag_contracts.models import runtime_v2
 from erp_rag_contracts.models.contracts import (
     EmbeddingArtifactV1,
     EmbeddingReleaseManifestV1,
@@ -45,6 +46,7 @@ from erp_rag_contracts.models.runtime import (
     QuerySqlDraftV5,
     ResolvedQueryContextV1,
 )
+from erp_rag_contracts.version import __version__ as package_version
 
 ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_URI = "https://json-schema.org/draft/2020-12/schema"
@@ -168,6 +170,77 @@ RUNTIME_SCHEMAS: dict[str, tuple[Any | None, str, str]] = {
         "2",
     ),
 }
+
+RUNTIME_V2_SCHEMA_MODELS: tuple[tuple[str, Any, str], ...] = (
+    ("intent-classification-v2", runtime_v2.IntentClassificationV2, "2"),
+    ("presentation-preference-v1", runtime_v2.PresentationPreferenceV1, "1"),
+    ("query-sql-draft-v6", runtime_v2.QuerySqlDraftV6, "6"),
+    ("proposed-result-semantics-v2", runtime_v2.ProposedResultSemanticsV2, "2"),
+    ("result-set-semantics-v1", runtime_v2.ResultSetSemanticsV1, "1"),
+    ("result-set-selection-v1", runtime_v2.ResultSetSelectionV1, "1"),
+    ("proposed-semantic-column-v2", runtime_v2.ProposedSemanticColumnV2, "2"),
+    ("value-reference-v1", runtime_v2.ValueReferenceV1, "1"),
+    (
+        "resolved-business-reference-context-v1",
+        runtime_v2.ResolvedBusinessReferenceContextV1,
+        "1",
+    ),
+    ("resolved-business-reference-v1", runtime_v2.ResolvedBusinessReferenceV1, "1"),
+    ("presentation-plan-v2", runtime_v2.PresentationPlanV2, "2"),
+    ("presentation-block-v2", runtime_v2.PresentationBlockV2, "2"),
+    ("kpi-block-v1", runtime_v2.KpiBlockV1, "1"),
+    ("data-grid-block-v1", runtime_v2.DataGridBlockV1, "1"),
+    ("pivot-grid-block-v1", runtime_v2.PivotGridBlockV1, "1"),
+    ("chart-block-v1", runtime_v2.ChartBlockV1, "1"),
+    ("gauge-block-v1", runtime_v2.GaugeBlockV1, "1"),
+    ("presentation-layout-v1", runtime_v2.PresentationLayoutV1, "1"),
+    ("presentation-block-resolution-v1", runtime_v2.PresentationBlockResolutionV1, "1"),
+    ("materialized-presentation-v2", runtime_v2.MaterializedPresentationV2, "2"),
+    ("materialized-kpi-block-v1", runtime_v2.MaterializedKpiBlockV1, "1"),
+    ("materialized-grid-block-v1", runtime_v2.MaterializedGridBlockV1, "1"),
+    ("materialized-pivot-block-v1", runtime_v2.MaterializedPivotBlockV1, "1"),
+    ("materialized-chart-block-v1", runtime_v2.MaterializedChartBlockV1, "1"),
+    ("materialized-gauge-block-v1", runtime_v2.MaterializedGaugeBlockV1, "1"),
+    ("query-result-v2", runtime_v2.QueryResultV2, "2"),
+    ("assistant-client-stream-event-v2", runtime_v2.AssistantClientStreamEventV2, "2"),
+    ("assistant-historical-result-v2", runtime_v2.AssistantHistoricalResultV2, "2"),
+    (
+        "assistant-historical-requery-result-v2",
+        runtime_v2.AssistantHistoricalRequeryResultV2,
+        "2",
+    ),
+    ("query-artifact-v1", runtime_v2.QueryArtifactV1, "1"),
+    ("query-artifact-parameter-v1", runtime_v2.QueryArtifactParameterV1, "1"),
+    ("requery-capability-v1", runtime_v2.RequeryCapabilityV1, "1"),
+    ("dashboard-definition-v1", runtime_v2.DashboardDefinitionV1, "1"),
+    ("dashboard-widget-v1", runtime_v2.DashboardWidgetV1, "1"),
+    ("dashboard-filter-v1", runtime_v2.DashboardFilterV1, "1"),
+    ("dashboard-filter-binding-v1", runtime_v2.DashboardFilterBindingV1, "1"),
+    ("dashboard-filter-mapping-v1", runtime_v2.DashboardFilterMappingV1, "1"),
+    ("dashboard-stream-event-v1", runtime_v2.DashboardStreamEventV1, "1"),
+    ("dashboard-result-v1", runtime_v2.DashboardResultV1, "1"),
+    ("import-operation-v1", runtime_v2.ImportOperationV1, "1"),
+    ("import-preflight-v1", runtime_v2.ImportPreflightV1, "1"),
+    ("import-mapping-v1", runtime_v2.ImportMappingV1, "1"),
+    ("import-preview-v1", runtime_v2.ImportPreviewV1, "1"),
+    ("import-execution-request-v1", runtime_v2.ImportExecutionRequestV1, "1"),
+    ("import-result-v1", runtime_v2.ImportResultV1, "1"),
+    ("import-issue-v1", runtime_v2.ImportIssueV1, "1"),
+    ("import-stream-event-v1", runtime_v2.ImportStreamEventV1, "1"),
+    (
+        "presentation-capability-profile-v1",
+        runtime_v2.PresentationCapabilityProfileV1,
+        "1",
+    ),
+    ("import-capability-descriptor-v1", runtime_v2.ImportCapabilityDescriptorV1, "1"),
+)
+
+RUNTIME_SCHEMAS.update(
+    {
+        f"contracts/runtime/{slug}.schema.json": (model, slug.removesuffix(f"-v{version}"), version)
+        for slug, model, version in RUNTIME_V2_SCHEMA_MODELS
+    }
+)
 
 
 def dump(relative: str, value: Any) -> None:
@@ -355,6 +428,217 @@ def generate_chat_runtime_fixtures() -> None:
     dump("fixtures/runtime/invalid-expectations.json", expectations)
 
 
+def generate_pr01_runtime_fixtures() -> None:
+    sha = "sha256:" + "a" * 64
+    semantics = {
+        "version": "2.0",
+        "shape": "ranking",
+        "result_set": {
+            "result_set_semantics_version": "1.0",
+            "selection": {
+                "kind": "top_n",
+                "limit": 10,
+                "order_field": "VentaTotal",
+                "direction": "descending",
+            },
+        },
+        "columns": [
+            {
+                "proposed_semantic_column_version": "2.0",
+                "ordinal": 0,
+                "key": "VentaTotal",
+                "role": "measure",
+                "semantic_type": "currency",
+                "aggregation": "sum",
+                "presentation_support": False,
+            }
+        ],
+    }
+    layout = {"presentation_layout_version": "1.0", "mode": "flow", "columns": None}
+    plan = {
+        "presentation_plan_version": "2.0",
+        "title": "Top 10 ventas",
+        "capability_profile": "devextreme-26",
+        "blocks": [
+            {
+                "block_version": "1.0",
+                "block_id": "sales_kpi",
+                "kind": "kpi",
+                "title": "Ventas",
+                "value": {
+                    "source": "result_aggregate",
+                    "scope": "result_set",
+                    "field": "VentaTotal",
+                    "aggregation": "sum",
+                },
+                "format": "currency",
+            }
+        ],
+        "layout": layout,
+    }
+    query_draft = {
+        "query_sql_draft_version": "6.0",
+        "sql": "SELECT TOP (@limit) VentaTotal FROM dbo.Ventas ORDER BY VentaTotal DESC",
+        "parameters": [{"name": "limit", "sql_type": "int", "nullable": False, "value": 10}],
+        "proposed_result_semantics": semantics,
+        "presentation_plan": plan,
+    }
+    business_references = {
+        "resolved_business_reference_context_version": "1.0",
+        "references": [
+            {
+                "resolved_business_reference_version": "1.0",
+                "reference_id": "sales_monthly_target",
+                "reference_type": "target",
+                "label": "Meta mensual",
+                "value": 100000,
+                "semantic_type": "currency",
+                "source_id": "authorized-target-2026-09",
+                "resolved_at": "2026-09-11T10:00:00-06:00",
+            }
+        ],
+    }
+    artifact = {
+        "query_artifact_version": "1.0",
+        "query_artifact_id": "artifact-001",
+        "sql": "SELECT VentaTotal FROM dbo.Ventas WHERE Fecha >= @period_start AND Fecha < @period_end",
+        "parameters": [
+            {
+                "query_artifact_parameter_version": "1.0",
+                "name": "period_start",
+                "sql_type": "datetime2",
+                "semantic_role": "period_start",
+                "rebindable": True,
+                "nullable": False,
+                "value": "2026-09-01T00:00:00-06:00",
+            },
+            {
+                "query_artifact_parameter_version": "1.0",
+                "name": "period_end",
+                "sql_type": "datetime2",
+                "semantic_role": "period_end_exclusive",
+                "rebindable": True,
+                "nullable": False,
+                "value": "2026-10-01T00:00:00-06:00",
+            },
+        ],
+        "semantics": semantics,
+        "presentation_plan": plan,
+        "ast_fingerprint": sha,
+        "catalog_sha256": sha,
+        "capability_profile": "devextreme-26",
+        "requery": {
+            "requery_capability_version": "1.0",
+            "available": True,
+            "mode": "rebind_parameters",
+            "rebindable_parameters": ["period_start", "period_end"],
+        },
+    }
+    dashboard = {
+        "dashboard_definition_version": "1.0",
+        "dashboard_id": "dashboard-sales",
+        "title": "Ventas",
+        "status": "draft",
+        "global_filters": [
+            {
+                "dashboard_filter_version": "1.0",
+                "filter_id": "period",
+                "type": "date_range",
+                "label": "Período",
+                "required": True,
+            }
+        ],
+        "widgets": [
+            {
+                "dashboard_widget_version": "1.0",
+                "widget_id": "sales_total",
+                "query_artifact_id": "artifact-001",
+                "block_id": "sales_kpi",
+                "layout": {"x": 0, "y": 0, "w": 3, "h": 2},
+                "filter_bindings": [
+                    {
+                        "dashboard_filter_binding_version": "1.0",
+                        "filter_id": "period",
+                        "mappings": [
+                            {
+                                "dashboard_filter_mapping_version": "1.0",
+                                "source_path": "start",
+                                "target_parameter": "period_start",
+                            },
+                            {
+                                "dashboard_filter_mapping_version": "1.0",
+                                "source_path": "end_exclusive",
+                                "target_parameter": "period_end",
+                            },
+                        ],
+                    }
+                ],
+            }
+        ],
+        "grid_layout": {"columns": 12, "row_height": 80},
+    }
+    operation = {
+        "import_operation_version": "1.0",
+        "action_id": "catalog.products.import",
+        "entity": "product",
+        "operation": "import",
+        "write_mode": "upsert",
+        "policy_id": "catalog.products.import.v1",
+    }
+    preflight = {
+        "import_preflight_version": "1.0",
+        "preflight_id": "preflight-001",
+        "attachment_sha256": sha,
+        "operation": operation,
+        "mapping": {
+            "import_mapping_version": "1.0",
+            "mapping_id": "mapping-001",
+            "version": 1,
+            "entries": [{"source_column": "Código", "target_field": "Codigo", "required": True}],
+        },
+        "preview": {
+            "import_preview_version": "1.0",
+            "columns": ["Código"],
+            "rows": [{"row": 2, "values": {"Código": "P-001"}, "valid": True}],
+            "truncated": False,
+        },
+        "issues": [],
+        "status": "awaiting_confirmation",
+    }
+    stream_event = {
+        "event_id": "event-001",
+        "sequence": 0,
+        "timestamp": "2026-09-11T10:00:00-06:00",
+        "event_version": "2.0",
+        "request_id": "request-001",
+        "conversation_id": "conversation-001",
+        "turn_id": "turn-001",
+        "type": "query.result",
+        "payload": {"result_id": "result-001"},
+    }
+    families = {
+        "query-presentation": ("query-sql-draft-v6", query_draft),
+        "business-references": (
+            "resolved-business-reference-context-v1",
+            business_references,
+        ),
+        "query-artifact": ("query-artifact-v1", artifact),
+        "dashboard": ("dashboard-definition-v1", dashboard),
+        "import": ("import-preflight-v1", preflight),
+        "stream-history": ("assistant-client-stream-event-v2", stream_event),
+    }
+    for family, (schema_name, valid) in families.items():
+        dump(f"fixtures/runtime/pr01-{family}/valid/minimum.json", valid)
+        invalid = deepcopy(valid)
+        version_key = next(key for key in invalid if key.endswith("version"))
+        invalid[version_key] = "0.0"
+        dump(f"fixtures/runtime/pr01-{family}/invalid/version-mismatch.json", invalid)
+        dump(
+            f"fixtures/runtime/pr01-{family}/fixture-metadata.json",
+            {"schema": schema_name},
+        )
+
+
 QUERY = {
     "document_id": "example.query.sales",
     "document_version": 1,
@@ -492,6 +776,7 @@ def main() -> None:
         source = ROOT / path
         (package_schema_directory / source.name).write_bytes(source.read_bytes())
     generate_chat_runtime_fixtures()
+    generate_pr01_runtime_fixtures()
     package_fixture_directory = ROOT / "src" / "erp_rag_contracts" / "runtime_fixtures"
     for source in (ROOT / "fixtures" / "runtime").rglob("*.json"):
         relative = source.relative_to(ROOT / "fixtures" / "runtime")
@@ -610,7 +895,7 @@ def main() -> None:
     dump(
         "contract-manifest.json",
         {
-            "contract_version": "2.0.0",
+            "contract_version": package_version,
             "package": "erp-rag-contracts",
             "json_schema_version": "2020-12",
             "published_on": "2026-08-11",

@@ -1,0 +1,336 @@
+{
+  "$defs": {
+    "ImportIssueV1": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+          "title": "Code",
+          "type": "string"
+        },
+        "import_issue_version": {
+          "const": "1.0",
+          "title": "Import Issue Version",
+          "type": "string"
+        },
+        "message": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Message",
+          "type": "string"
+        },
+        "row": {
+          "anyOf": [
+            {
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Row"
+        },
+        "severity": {
+          "enum": [
+            "warning",
+            "error"
+          ],
+          "title": "Severity",
+          "type": "string"
+        },
+        "source_column": {
+          "anyOf": [
+            {
+              "maxLength": 500,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source Column"
+        },
+        "target_field": {
+          "anyOf": [
+            {
+              "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,127}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Target Field"
+        }
+      },
+      "required": [
+        "import_issue_version",
+        "code",
+        "severity",
+        "message"
+      ],
+      "title": "ImportIssueV1",
+      "type": "object"
+    },
+    "ImportMappingEntryV1": {
+      "additionalProperties": false,
+      "properties": {
+        "required": {
+          "title": "Required",
+          "type": "boolean"
+        },
+        "source_column": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Source Column",
+          "type": "string"
+        },
+        "target_field": {
+          "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,127}$",
+          "title": "Target Field",
+          "type": "string"
+        }
+      },
+      "required": [
+        "source_column",
+        "target_field",
+        "required"
+      ],
+      "title": "ImportMappingEntryV1",
+      "type": "object"
+    },
+    "ImportMappingV1": {
+      "additionalProperties": false,
+      "properties": {
+        "entries": {
+          "items": {
+            "$ref": "#/$defs/ImportMappingEntryV1"
+          },
+          "maxItems": 500,
+          "minItems": 1,
+          "title": "Entries",
+          "type": "array"
+        },
+        "import_mapping_version": {
+          "const": "1.0",
+          "title": "Import Mapping Version",
+          "type": "string"
+        },
+        "mapping_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+          "title": "Mapping Id",
+          "type": "string"
+        },
+        "version": {
+          "minimum": 1,
+          "title": "Version",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "import_mapping_version",
+        "mapping_id",
+        "version",
+        "entries"
+      ],
+      "title": "ImportMappingV1",
+      "type": "object"
+    },
+    "ImportOperationV1": {
+      "additionalProperties": false,
+      "properties": {
+        "action_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+          "title": "Action Id",
+          "type": "string"
+        },
+        "entity": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+          "title": "Entity",
+          "type": "string"
+        },
+        "import_operation_version": {
+          "const": "1.0",
+          "title": "Import Operation Version",
+          "type": "string"
+        },
+        "operation": {
+          "const": "import",
+          "title": "Operation",
+          "type": "string"
+        },
+        "policy_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+          "title": "Policy Id",
+          "type": "string"
+        },
+        "write_mode": {
+          "enum": [
+            "create",
+            "update",
+            "upsert"
+          ],
+          "title": "Write Mode",
+          "type": "string"
+        }
+      },
+      "required": [
+        "import_operation_version",
+        "action_id",
+        "entity",
+        "operation",
+        "write_mode",
+        "policy_id"
+      ],
+      "title": "ImportOperationV1",
+      "type": "object"
+    },
+    "ImportPreviewRowV1": {
+      "additionalProperties": false,
+      "properties": {
+        "row": {
+          "minimum": 1,
+          "title": "Row",
+          "type": "integer"
+        },
+        "valid": {
+          "title": "Valid",
+          "type": "boolean"
+        },
+        "values": {
+          "additionalProperties": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "integer"
+              },
+              {
+                "type": "number"
+              },
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "title": "Values",
+          "type": "object"
+        }
+      },
+      "required": [
+        "row",
+        "values",
+        "valid"
+      ],
+      "title": "ImportPreviewRowV1",
+      "type": "object"
+    },
+    "ImportPreviewV1": {
+      "additionalProperties": false,
+      "properties": {
+        "columns": {
+          "items": {
+            "maxLength": 500,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Columns",
+          "type": "array"
+        },
+        "import_preview_version": {
+          "const": "1.0",
+          "title": "Import Preview Version",
+          "type": "string"
+        },
+        "rows": {
+          "items": {
+            "$ref": "#/$defs/ImportPreviewRowV1"
+          },
+          "maxItems": 100,
+          "title": "Rows",
+          "type": "array"
+        },
+        "truncated": {
+          "title": "Truncated",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "import_preview_version",
+        "columns",
+        "rows",
+        "truncated"
+      ],
+      "title": "ImportPreviewV1",
+      "type": "object"
+    }
+  },
+  "$id": "urn:erp-rag-contracts:schema:import-preflight:v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Contrato normativo runtime import-preflight versión 1.",
+  "properties": {
+    "attachment_sha256": {
+      "pattern": "^sha256:[0-9a-f]{64}$",
+      "title": "Attachment Sha256",
+      "type": "string"
+    },
+    "import_preflight_version": {
+      "const": "1.0",
+      "title": "Import Preflight Version",
+      "type": "string"
+    },
+    "issues": {
+      "items": {
+        "$ref": "#/$defs/ImportIssueV1"
+      },
+      "maxItems": 1000,
+      "title": "Issues",
+      "type": "array"
+    },
+    "mapping": {
+      "$ref": "#/$defs/ImportMappingV1"
+    },
+    "operation": {
+      "$ref": "#/$defs/ImportOperationV1"
+    },
+    "preflight_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+      "title": "Preflight Id",
+      "type": "string"
+    },
+    "preview": {
+      "$ref": "#/$defs/ImportPreviewV1"
+    },
+    "status": {
+      "enum": [
+        "validated",
+        "awaiting_confirmation",
+        "failed"
+      ],
+      "title": "Status",
+      "type": "string"
+    }
+  },
+  "required": [
+    "import_preflight_version",
+    "preflight_id",
+    "attachment_sha256",
+    "operation",
+    "mapping",
+    "preview",
+    "issues",
+    "status"
+  ],
+  "title": "ImportPreflightV1",
+  "type": "object"
+}

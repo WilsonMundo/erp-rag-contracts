@@ -1,0 +1,172 @@
+{
+  "$defs": {
+    "PresentationPreferenceV1": {
+      "additionalProperties": false,
+      "properties": {
+        "mode": {
+          "enum": [
+            "auto",
+            "include",
+            "only"
+          ],
+          "title": "Mode",
+          "type": "string"
+        },
+        "presentation_preference_version": {
+          "const": "1.0",
+          "title": "Presentation Preference Version",
+          "type": "string"
+        },
+        "required": {
+          "items": {
+            "enum": [
+              "kpi",
+              "data_grid",
+              "pivot_grid",
+              "chart",
+              "gauge"
+            ],
+            "type": "string"
+          },
+          "maxItems": 5,
+          "title": "Required",
+          "type": "array"
+        }
+      },
+      "required": [
+        "presentation_preference_version",
+        "mode",
+        "required"
+      ],
+      "title": "PresentationPreferenceV1",
+      "type": "object"
+    }
+  },
+  "$id": "urn:erp-rag-contracts:schema:intent-classification:v2",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Contrato normativo runtime intent-classification versión 2.",
+  "properties": {
+    "analysis_intent": {
+      "anyOf": [
+        {
+          "enum": [
+            "none",
+            "identify_highest",
+            "identify_lowest",
+            "compare",
+            "describe_distribution",
+            "analyze_trend"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Analysis Intent"
+    },
+    "confidence": {
+      "maximum": 1,
+      "minimum": 0,
+      "title": "Confidence",
+      "type": "number"
+    },
+    "intent": {
+      "enum": [
+        "chat",
+        "query",
+        "skill",
+        "attachment",
+        "analytics",
+        "deny",
+        "unsupported",
+        "clarification"
+      ],
+      "title": "Intent",
+      "type": "string"
+    },
+    "intent_classification_version": {
+      "const": "2.0",
+      "title": "Intent Classification Version",
+      "type": "string"
+    },
+    "is_erp_related": {
+      "title": "Is Erp Related",
+      "type": "boolean"
+    },
+    "missing_information": {
+      "items": {
+        "enum": [
+          "query_type",
+          "period",
+          "metric",
+          "filters",
+          "grouping",
+          "entity",
+          "operation",
+          "attachment_purpose"
+        ],
+        "type": "string"
+      },
+      "maxItems": 20,
+      "title": "Missing Information",
+      "type": "array"
+    },
+    "presentation_preference": {
+      "$ref": "#/$defs/PresentationPreferenceV1"
+    },
+    "reason": {
+      "enum": [
+        "erp_general",
+        "erp_data_query",
+        "erp_operation",
+        "erp_attachment",
+        "erp_analytics",
+        "out_of_domain",
+        "erp_unsupported",
+        "ambiguous"
+      ],
+      "title": "Reason",
+      "type": "string"
+    },
+    "requires_clarification": {
+      "title": "Requires Clarification",
+      "type": "boolean"
+    },
+    "task_kind": {
+      "anyOf": [
+        {
+          "enum": [
+            "scalar",
+            "detail",
+            "grouped_aggregate",
+            "ranking",
+            "comparison",
+            "distribution",
+            "trend"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Task Kind"
+    }
+  },
+  "required": [
+    "intent_classification_version",
+    "intent",
+    "reason",
+    "is_erp_related",
+    "confidence",
+    "requires_clarification",
+    "missing_information",
+    "presentation_preference"
+  ],
+  "title": "IntentClassificationV2",
+  "type": "object"
+}

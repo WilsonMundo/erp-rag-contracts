@@ -1,0 +1,51 @@
+{
+  "dashboard_definition_version": "0.0",
+  "dashboard_id": "dashboard-sales",
+  "global_filters": [
+    {
+      "dashboard_filter_version": "1.0",
+      "filter_id": "period",
+      "label": "Período",
+      "required": true,
+      "type": "date_range"
+    }
+  ],
+  "grid_layout": {
+    "columns": 12,
+    "row_height": 80
+  },
+  "status": "draft",
+  "title": "Ventas",
+  "widgets": [
+    {
+      "block_id": "sales_kpi",
+      "dashboard_widget_version": "1.0",
+      "filter_bindings": [
+        {
+          "dashboard_filter_binding_version": "1.0",
+          "filter_id": "period",
+          "mappings": [
+            {
+              "dashboard_filter_mapping_version": "1.0",
+              "source_path": "start",
+              "target_parameter": "period_start"
+            },
+            {
+              "dashboard_filter_mapping_version": "1.0",
+              "source_path": "end_exclusive",
+              "target_parameter": "period_end"
+            }
+          ]
+        }
+      ],
+      "layout": {
+        "h": 2,
+        "w": 3,
+        "x": 0,
+        "y": 0
+      },
+      "query_artifact_id": "artifact-001",
+      "widget_id": "sales_total"
+    }
+  ]
+}

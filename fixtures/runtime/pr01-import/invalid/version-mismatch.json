@@ -1,0 +1,43 @@
+{
+  "attachment_sha256": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "import_preflight_version": "0.0",
+  "issues": [],
+  "mapping": {
+    "entries": [
+      {
+        "required": true,
+        "source_column": "Código",
+        "target_field": "Codigo"
+      }
+    ],
+    "import_mapping_version": "1.0",
+    "mapping_id": "mapping-001",
+    "version": 1
+  },
+  "operation": {
+    "action_id": "catalog.products.import",
+    "entity": "product",
+    "import_operation_version": "1.0",
+    "operation": "import",
+    "policy_id": "catalog.products.import.v1",
+    "write_mode": "upsert"
+  },
+  "preflight_id": "preflight-001",
+  "preview": {
+    "columns": [
+      "Código"
+    ],
+    "import_preview_version": "1.0",
+    "rows": [
+      {
+        "row": 2,
+        "valid": true,
+        "values": {
+          "Código": "P-001"
+        }
+      }
+    ],
+    "truncated": false
+  },
+  "status": "awaiting_confirmation"
+}

@@ -1,6 +1,6 @@
 {
   "contract_package": "erp-rag-contracts",
-  "contract_package_version": "2.0.0",
+  "contract_package_version": "2.1.0",
   "generator": "json-schema-to-typescript",
   "generator_version": "16.0.0",
   "schemas": [
@@ -18,7 +18,252 @@
       "name": "chart-definition-v2",
       "path": "contracts/runtime/chart-definition-v2.schema.json",
       "sha256": "3eac3f918dc412dcbb38f8f58747f899c788160c9bb0352c9f0046eb26be30b7"
+    },
+    {
+      "name": "intent-classification-v2",
+      "path": "contracts/runtime/intent-classification-v2.schema.json",
+      "sha256": "501bb0e50d80833e53ce9e1e0a13be58b898ee6fb473b752733138e1fb9427a1"
+    },
+    {
+      "name": "presentation-preference-v1",
+      "path": "contracts/runtime/presentation-preference-v1.schema.json",
+      "sha256": "0cf5442fb3a56d5d2f8d3703b5634be0a1fb6a7cf0ff2ed78bc6c41980fed6ae"
+    },
+    {
+      "name": "query-sql-draft-v6",
+      "path": "contracts/runtime/query-sql-draft-v6.schema.json",
+      "sha256": "9858a9017e04dc88d86665126e5ed65529d11ce0a95e74a0a8b25ea6424351cd"
+    },
+    {
+      "name": "proposed-result-semantics-v2",
+      "path": "contracts/runtime/proposed-result-semantics-v2.schema.json",
+      "sha256": "e53f9fb88839357a676c09cb3918fc82ea21d485c72c03c32dda214607974248"
+    },
+    {
+      "name": "result-set-semantics-v1",
+      "path": "contracts/runtime/result-set-semantics-v1.schema.json",
+      "sha256": "467e5d4401ee2c5f26c7a40adf2801f42cb636aa71b92fd998846666831642ec"
+    },
+    {
+      "name": "result-set-selection-v1",
+      "path": "contracts/runtime/result-set-selection-v1.schema.json",
+      "sha256": "6017aa4513c2395522233d628ca428e501b0f24d9acd0b1f8ea450b4e6806415"
+    },
+    {
+      "name": "proposed-semantic-column-v2",
+      "path": "contracts/runtime/proposed-semantic-column-v2.schema.json",
+      "sha256": "ea4d8a10c52fd4b79ba4ecf6b0a2f6929bc32c062bf092e73c92cc86f883c091"
+    },
+    {
+      "name": "value-reference-v1",
+      "path": "contracts/runtime/value-reference-v1.schema.json",
+      "sha256": "46ea18c4272e0aad1de900b7fb46493629aab6887750c170806beb4caae308f4"
+    },
+    {
+      "name": "resolved-business-reference-context-v1",
+      "path": "contracts/runtime/resolved-business-reference-context-v1.schema.json",
+      "sha256": "a17d15e460b695ac6d5579d16789238c2ef8a8f1dd84979b982e3f68c147416f"
+    },
+    {
+      "name": "resolved-business-reference-v1",
+      "path": "contracts/runtime/resolved-business-reference-v1.schema.json",
+      "sha256": "70a281e5ba2b02c44ede42c5c54b5f00a1e5d8e9da5b47f21c614e631f9c6265"
+    },
+    {
+      "name": "presentation-plan-v2",
+      "path": "contracts/runtime/presentation-plan-v2.schema.json",
+      "sha256": "29c30b1e1b70c7b31162d66bbe6089475e5f59fd03df8e3b396e2db8a5ff0c90"
+    },
+    {
+      "name": "presentation-block-v2",
+      "path": "contracts/runtime/presentation-block-v2.schema.json",
+      "sha256": "34f21a121c5b268916e396037d741b2c1fd0d6f5652d22d43eb839aff0c11631"
+    },
+    {
+      "name": "kpi-block-v1",
+      "path": "contracts/runtime/kpi-block-v1.schema.json",
+      "sha256": "66feeeef77aeb8971958537c3db93156c875dbf7bd7f112aea3a32b5bd851e8a"
+    },
+    {
+      "name": "data-grid-block-v1",
+      "path": "contracts/runtime/data-grid-block-v1.schema.json",
+      "sha256": "308ba15354f1bfdb7173771517dd73d9710eee72983dc02d92a5ef420320ccd7"
+    },
+    {
+      "name": "pivot-grid-block-v1",
+      "path": "contracts/runtime/pivot-grid-block-v1.schema.json",
+      "sha256": "964fa21ea9c760ed055ff22cbf9432ee9f8e7454080d0ba9b0718bd258376fc4"
+    },
+    {
+      "name": "chart-block-v1",
+      "path": "contracts/runtime/chart-block-v1.schema.json",
+      "sha256": "2263c171b5599ed130299076f3ca601d423c2a05f84563224d72874647c6f153"
+    },
+    {
+      "name": "gauge-block-v1",
+      "path": "contracts/runtime/gauge-block-v1.schema.json",
+      "sha256": "0e57ccedfa4677603de61800a2cc956cb64e251690164d8459e40c4643a72ab8"
+    },
+    {
+      "name": "presentation-layout-v1",
+      "path": "contracts/runtime/presentation-layout-v1.schema.json",
+      "sha256": "52a2b207741999858b2aabb407e2e70cc051707917b6fd478c938bb4ad358d09"
+    },
+    {
+      "name": "presentation-block-resolution-v1",
+      "path": "contracts/runtime/presentation-block-resolution-v1.schema.json",
+      "sha256": "24077e531917499251d1e040a798304ab2d1a60cfd7f5aaaa3270b61f12bcf76"
+    },
+    {
+      "name": "materialized-presentation-v2",
+      "path": "contracts/runtime/materialized-presentation-v2.schema.json",
+      "sha256": "d7b17cc39881d778025b2b9fbec047371091fac63ff3c4933b476bf7558482d3"
+    },
+    {
+      "name": "materialized-kpi-block-v1",
+      "path": "contracts/runtime/materialized-kpi-block-v1.schema.json",
+      "sha256": "f81af98136fd4d55aceaf9e9a12957d785df1b8fb05c91206702598feed95f5a"
+    },
+    {
+      "name": "materialized-grid-block-v1",
+      "path": "contracts/runtime/materialized-grid-block-v1.schema.json",
+      "sha256": "856d139e4a9095afe03efe3c5b02989e87d61102267078a2676f3afcf01128ba"
+    },
+    {
+      "name": "materialized-pivot-block-v1",
+      "path": "contracts/runtime/materialized-pivot-block-v1.schema.json",
+      "sha256": "3f6f739b67e256d15aa82339165a983dc176dc15ba6062a5ce8d58227774d8b4"
+    },
+    {
+      "name": "materialized-chart-block-v1",
+      "path": "contracts/runtime/materialized-chart-block-v1.schema.json",
+      "sha256": "e355dc55411d4c1c590986c6a526dad71e0380eeb80af9d7e0c9b66e50aa996e"
+    },
+    {
+      "name": "materialized-gauge-block-v1",
+      "path": "contracts/runtime/materialized-gauge-block-v1.schema.json",
+      "sha256": "ade2705dd407b0f14a6358a1f561aa6fcfdc299a896b9da4f96804861923a5f4"
+    },
+    {
+      "name": "query-result-v2",
+      "path": "contracts/runtime/query-result-v2.schema.json",
+      "sha256": "0e3b4cb5a84b93c91beb557d3ce7b64392ee5a5a52a44f2a8ddbc3d3d6e664c0"
+    },
+    {
+      "name": "assistant-client-stream-event-v2",
+      "path": "contracts/runtime/assistant-client-stream-event-v2.schema.json",
+      "sha256": "8a7defa00db2ecbc14274ea49b60e5c75663290678fbe02e7c61d588cf2d35aa"
+    },
+    {
+      "name": "assistant-historical-result-v2",
+      "path": "contracts/runtime/assistant-historical-result-v2.schema.json",
+      "sha256": "5cf96ed67d1d669d594a2c8da94a983798839d854625814b69190490198551d4"
+    },
+    {
+      "name": "assistant-historical-requery-result-v2",
+      "path": "contracts/runtime/assistant-historical-requery-result-v2.schema.json",
+      "sha256": "397c3fb562b1b4e78464b00e91839ca28eb69ad62f5998d71ea90105a5f1bd6b"
+    },
+    {
+      "name": "query-artifact-v1",
+      "path": "contracts/runtime/query-artifact-v1.schema.json",
+      "sha256": "158d607abd3d41fd1142b2a7f61e4c5b1b1daf8979fc0a6ff99127e1e4714d1f"
+    },
+    {
+      "name": "query-artifact-parameter-v1",
+      "path": "contracts/runtime/query-artifact-parameter-v1.schema.json",
+      "sha256": "c3c41e5ac4f6564621ce1f7e4976407dac257f6128d39529fa2004b709802e37"
+    },
+    {
+      "name": "requery-capability-v1",
+      "path": "contracts/runtime/requery-capability-v1.schema.json",
+      "sha256": "10f19fd26bfe02d45c3a8c65d729e278da33d8636b7ae1915fabbfd9d3d57ace"
+    },
+    {
+      "name": "dashboard-definition-v1",
+      "path": "contracts/runtime/dashboard-definition-v1.schema.json",
+      "sha256": "5e48ea0884e5be93669519ae7ab578e4f3162c84fd36c36058de6e086fb7b53f"
+    },
+    {
+      "name": "dashboard-widget-v1",
+      "path": "contracts/runtime/dashboard-widget-v1.schema.json",
+      "sha256": "5f15b8e4a73e0cb7bf3abec41116fc24595a77a8b32a41cc87840ef168231e08"
+    },
+    {
+      "name": "dashboard-filter-v1",
+      "path": "contracts/runtime/dashboard-filter-v1.schema.json",
+      "sha256": "2dd814f5f180e014faec69d51330d56d6b757a96598f0ddfee782633ae92655c"
+    },
+    {
+      "name": "dashboard-filter-binding-v1",
+      "path": "contracts/runtime/dashboard-filter-binding-v1.schema.json",
+      "sha256": "00c81585363aa576a1e984478565eb04d8d4a130f5c4139d350a3f2065fb81c6"
+    },
+    {
+      "name": "dashboard-filter-mapping-v1",
+      "path": "contracts/runtime/dashboard-filter-mapping-v1.schema.json",
+      "sha256": "c086c90536f62958a42696d622beee03893a46c4922a79d61fc5ca5ba0cf12c1"
+    },
+    {
+      "name": "dashboard-stream-event-v1",
+      "path": "contracts/runtime/dashboard-stream-event-v1.schema.json",
+      "sha256": "47f88e2e2acdc29b838df44a09e9c76a6232057b493f1fb3cd9cf4e5aed71824"
+    },
+    {
+      "name": "dashboard-result-v1",
+      "path": "contracts/runtime/dashboard-result-v1.schema.json",
+      "sha256": "be1bef03b033ae83e2b71469e8ea32ef0b48bfbc7dc93ff0fee71a143327a3e9"
+    },
+    {
+      "name": "import-operation-v1",
+      "path": "contracts/runtime/import-operation-v1.schema.json",
+      "sha256": "97c4ac647f8e2019f80006d0bd4d48ddaa6a33ca2e38af7ef34a4ff20e7ac489"
+    },
+    {
+      "name": "import-preflight-v1",
+      "path": "contracts/runtime/import-preflight-v1.schema.json",
+      "sha256": "c989fd871cde35538ce199f802d2cfabe9f28626e4a087ccebefb18c71e7e79f"
+    },
+    {
+      "name": "import-mapping-v1",
+      "path": "contracts/runtime/import-mapping-v1.schema.json",
+      "sha256": "ffad254d95c98617ef96efff82f06100374a80dc134022ff33a50ea833dca084"
+    },
+    {
+      "name": "import-preview-v1",
+      "path": "contracts/runtime/import-preview-v1.schema.json",
+      "sha256": "f603338baca7fe80f37fc67cc4851737b2dc9acf4b91229124b8ff2ec3439bcf"
+    },
+    {
+      "name": "import-execution-request-v1",
+      "path": "contracts/runtime/import-execution-request-v1.schema.json",
+      "sha256": "031ee9d2b1bd29994d6c7da3bb92f1699ee93ba6bf4e1e33252a20be0d88cfcf"
+    },
+    {
+      "name": "import-result-v1",
+      "path": "contracts/runtime/import-result-v1.schema.json",
+      "sha256": "a05f0e7374ae226d54dac53a7fa3fe5069acb6f962ed4345edb71a63c3cad7ab"
+    },
+    {
+      "name": "import-issue-v1",
+      "path": "contracts/runtime/import-issue-v1.schema.json",
+      "sha256": "416228dbd09b0c8e0e8184f6df8ceab302fd308c8da54f34dd752f8b959938f9"
+    },
+    {
+      "name": "import-stream-event-v1",
+      "path": "contracts/runtime/import-stream-event-v1.schema.json",
+      "sha256": "c43007ac72cf006b9fd2f28fa032c328229778edfdc6f19d9296a3b7182c3c30"
+    },
+    {
+      "name": "presentation-capability-profile-v1",
+      "path": "contracts/runtime/presentation-capability-profile-v1.schema.json",
+      "sha256": "30914a3ac940687619433a05fcf3a1eff7f82888e7dbf702c8bf55220619b579"
+    },
+    {
+      "name": "import-capability-descriptor-v1",
+      "path": "contracts/runtime/import-capability-descriptor-v1.schema.json",
+      "sha256": "d367d81b25857c9a3f1b3378a0af1d199952ac14844cfa6b06f8e72def646211"
     }
   ],
-  "index_sha256": "760c7fc4c9add051aacff9bf6390e465a4545b30ae40e8f20b50e5928c3f26a0"
+  "index_sha256": "04f6c2298ec8e0abd99fdcfc51f726c265aed33fafeae70af7256b30c1c95578"
 }

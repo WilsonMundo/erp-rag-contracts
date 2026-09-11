@@ -1,0 +1,623 @@
+{
+  "$defs": {
+    "DashboardWidgetResultV1": {
+      "additionalProperties": false,
+      "properties": {
+        "block": {
+          "anyOf": [
+            {
+              "discriminator": {
+                "mapping": {
+                  "chart": "#/$defs/MaterializedChartBlockV1",
+                  "data_grid": "#/$defs/MaterializedGridBlockV1",
+                  "gauge": "#/$defs/MaterializedGaugeBlockV1",
+                  "kpi": "#/$defs/MaterializedKpiBlockV1",
+                  "pivot_grid": "#/$defs/MaterializedPivotBlockV1"
+                },
+                "propertyName": "kind"
+              },
+              "oneOf": [
+                {
+                  "$ref": "#/$defs/MaterializedKpiBlockV1"
+                },
+                {
+                  "$ref": "#/$defs/MaterializedGridBlockV1"
+                },
+                {
+                  "$ref": "#/$defs/MaterializedPivotBlockV1"
+                },
+                {
+                  "$ref": "#/$defs/MaterializedChartBlockV1"
+                },
+                {
+                  "$ref": "#/$defs/MaterializedGaugeBlockV1"
+                }
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Block"
+        },
+        "error_code": {
+          "anyOf": [
+            {
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Error Code"
+        },
+        "status": {
+          "enum": [
+            "completed",
+            "degraded",
+            "failed"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "widget_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+          "title": "Widget Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "widget_id",
+        "status"
+      ],
+      "title": "DashboardWidgetResultV1",
+      "type": "object"
+    },
+    "MaterializedChartBlockV1": {
+      "additionalProperties": false,
+      "properties": {
+        "block_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+          "title": "Block Id",
+          "type": "string"
+        },
+        "block_version": {
+          "const": "1.0",
+          "title": "Block Version",
+          "type": "string"
+        },
+        "category_field": {
+          "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,127}$",
+          "title": "Category Field",
+          "type": "string"
+        },
+        "family": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+          "title": "Family",
+          "type": "string"
+        },
+        "kind": {
+          "const": "chart",
+          "title": "Kind",
+          "type": "string"
+        },
+        "series": {
+          "items": {
+            "$ref": "#/$defs/MaterializedChartSeriesV1"
+          },
+          "minItems": 1,
+          "title": "Series",
+          "type": "array"
+        },
+        "title": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        }
+      },
+      "required": [
+        "block_version",
+        "block_id",
+        "kind",
+        "title",
+        "family",
+        "category_field",
+        "series"
+      ],
+      "title": "MaterializedChartBlockV1",
+      "type": "object"
+    },
+    "MaterializedChartSeriesV1": {
+      "additionalProperties": false,
+      "properties": {
+        "field": {
+          "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,127}$",
+          "title": "Field",
+          "type": "string"
+        },
+        "label": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Label",
+          "type": "string"
+        },
+        "type": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "field",
+        "type",
+        "label"
+      ],
+      "title": "MaterializedChartSeriesV1",
+      "type": "object"
+    },
+    "MaterializedGaugeBlockV1": {
+      "additionalProperties": false,
+      "properties": {
+        "block_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+          "title": "Block Id",
+          "type": "string"
+        },
+        "block_version": {
+          "const": "1.0",
+          "title": "Block Version",
+          "type": "string"
+        },
+        "kind": {
+          "const": "gauge",
+          "title": "Kind",
+          "type": "string"
+        },
+        "maximum": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "integer"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Maximum"
+        },
+        "minimum": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "integer"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Minimum"
+        },
+        "ranges": {
+          "items": {
+            "$ref": "#/$defs/MaterializedGaugeRangeV1"
+          },
+          "title": "Ranges",
+          "type": "array"
+        },
+        "target": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "integer"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Target"
+        },
+        "title": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "integer"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Value"
+        }
+      },
+      "required": [
+        "block_version",
+        "block_id",
+        "kind",
+        "title",
+        "value"
+      ],
+      "title": "MaterializedGaugeBlockV1",
+      "type": "object"
+    },
+    "MaterializedGaugeRangeV1": {
+      "additionalProperties": false,
+      "properties": {
+        "end": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "integer"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "End"
+        },
+        "label": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Label",
+          "type": "string"
+        },
+        "start": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "integer"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Start"
+        }
+      },
+      "required": [
+        "start",
+        "end",
+        "label"
+      ],
+      "title": "MaterializedGaugeRangeV1",
+      "type": "object"
+    },
+    "MaterializedGridBlockV1": {
+      "additionalProperties": false,
+      "properties": {
+        "block_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+          "title": "Block Id",
+          "type": "string"
+        },
+        "block_version": {
+          "const": "1.0",
+          "title": "Block Version",
+          "type": "string"
+        },
+        "fields": {
+          "items": {
+            "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,127}$",
+            "type": "string"
+          },
+          "maxItems": 100,
+          "minItems": 1,
+          "title": "Fields",
+          "type": "array"
+        },
+        "kind": {
+          "const": "data_grid",
+          "title": "Kind",
+          "type": "string"
+        },
+        "title": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        }
+      },
+      "required": [
+        "block_version",
+        "block_id",
+        "kind",
+        "title",
+        "fields"
+      ],
+      "title": "MaterializedGridBlockV1",
+      "type": "object"
+    },
+    "MaterializedKpiBlockV1": {
+      "additionalProperties": false,
+      "properties": {
+        "block_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+          "title": "Block Id",
+          "type": "string"
+        },
+        "block_version": {
+          "const": "1.0",
+          "title": "Block Version",
+          "type": "string"
+        },
+        "format": {
+          "enum": [
+            "auto",
+            "number",
+            "integer",
+            "currency",
+            "percent"
+          ],
+          "title": "Format",
+          "type": "string"
+        },
+        "kind": {
+          "const": "kpi",
+          "title": "Kind",
+          "type": "string"
+        },
+        "scope": {
+          "$ref": "#/$defs/MaterializedScopeV1"
+        },
+        "title": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "integer"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Value"
+        }
+      },
+      "required": [
+        "block_version",
+        "block_id",
+        "kind",
+        "title",
+        "value",
+        "format",
+        "scope"
+      ],
+      "title": "MaterializedKpiBlockV1",
+      "type": "object"
+    },
+    "MaterializedPivotBlockV1": {
+      "additionalProperties": false,
+      "properties": {
+        "block_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+          "title": "Block Id",
+          "type": "string"
+        },
+        "block_version": {
+          "const": "1.0",
+          "title": "Block Version",
+          "type": "string"
+        },
+        "columns": {
+          "items": {
+            "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,127}$",
+            "type": "string"
+          },
+          "title": "Columns",
+          "type": "array"
+        },
+        "kind": {
+          "const": "pivot_grid",
+          "title": "Kind",
+          "type": "string"
+        },
+        "rows": {
+          "items": {
+            "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,127}$",
+            "type": "string"
+          },
+          "title": "Rows",
+          "type": "array"
+        },
+        "title": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        },
+        "values": {
+          "items": {
+            "$ref": "#/$defs/MaterializedPivotValueV1"
+          },
+          "minItems": 1,
+          "title": "Values",
+          "type": "array"
+        }
+      },
+      "required": [
+        "block_version",
+        "block_id",
+        "kind",
+        "title",
+        "rows",
+        "columns",
+        "values"
+      ],
+      "title": "MaterializedPivotBlockV1",
+      "type": "object"
+    },
+    "MaterializedPivotValueV1": {
+      "additionalProperties": false,
+      "properties": {
+        "aggregation": {
+          "enum": [
+            "sum",
+            "avg",
+            "min",
+            "max",
+            "count"
+          ],
+          "title": "Aggregation",
+          "type": "string"
+        },
+        "field": {
+          "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,127}$",
+          "title": "Field",
+          "type": "string"
+        }
+      },
+      "required": [
+        "field",
+        "aggregation"
+      ],
+      "title": "MaterializedPivotValueV1",
+      "type": "object"
+    },
+    "MaterializedScopeV1": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "enum": [
+            "all_matches",
+            "top_n",
+            "sample"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "label": {
+          "anyOf": [
+            {
+              "maxLength": 500,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Label"
+        }
+      },
+      "required": [
+        "kind"
+      ],
+      "title": "MaterializedScopeV1",
+      "type": "object"
+    }
+  },
+  "$id": "urn:erp-rag-contracts:schema:dashboard-result:v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Contrato normativo runtime dashboard-result versión 1.",
+  "properties": {
+    "dashboard_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+      "title": "Dashboard Id",
+      "type": "string"
+    },
+    "dashboard_result_version": {
+      "const": "1.0",
+      "title": "Dashboard Result Version",
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "ready",
+        "degraded",
+        "failed"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "widgets": {
+      "items": {
+        "$ref": "#/$defs/DashboardWidgetResultV1"
+      },
+      "title": "Widgets",
+      "type": "array"
+    }
+  },
+  "required": [
+    "dashboard_result_version",
+    "dashboard_id",
+    "status",
+    "widgets"
+  ],
+  "title": "DashboardResultV1",
+  "type": "object"
+}

@@ -1,0 +1,138 @@
+{
+  "$defs": {
+    "ImportConfirmationV1": {
+      "additionalProperties": false,
+      "properties": {
+        "confirmation_id": {
+          "anyOf": [
+            {
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Confirmation Id"
+        },
+        "state": {
+          "enum": [
+            "not_required",
+            "confirmed"
+          ],
+          "title": "State",
+          "type": "string"
+        }
+      },
+      "required": [
+        "state"
+      ],
+      "title": "ImportConfirmationV1",
+      "type": "object"
+    },
+    "ImportOperationV1": {
+      "additionalProperties": false,
+      "properties": {
+        "action_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+          "title": "Action Id",
+          "type": "string"
+        },
+        "entity": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+          "title": "Entity",
+          "type": "string"
+        },
+        "import_operation_version": {
+          "const": "1.0",
+          "title": "Import Operation Version",
+          "type": "string"
+        },
+        "operation": {
+          "const": "import",
+          "title": "Operation",
+          "type": "string"
+        },
+        "policy_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+          "title": "Policy Id",
+          "type": "string"
+        },
+        "write_mode": {
+          "enum": [
+            "create",
+            "update",
+            "upsert"
+          ],
+          "title": "Write Mode",
+          "type": "string"
+        }
+      },
+      "required": [
+        "import_operation_version",
+        "action_id",
+        "entity",
+        "operation",
+        "write_mode",
+        "policy_id"
+      ],
+      "title": "ImportOperationV1",
+      "type": "object"
+    }
+  },
+  "$id": "urn:erp-rag-contracts:schema:import-execution-request:v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Contrato normativo runtime import-execution-request versión 1.",
+  "properties": {
+    "attachment_sha256": {
+      "pattern": "^sha256:[0-9a-f]{64}$",
+      "title": "Attachment Sha256",
+      "type": "string"
+    },
+    "confirmation": {
+      "$ref": "#/$defs/ImportConfirmationV1"
+    },
+    "import_execution_request_version": {
+      "const": "1.0",
+      "title": "Import Execution Request Version",
+      "type": "string"
+    },
+    "mapping_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+      "title": "Mapping Id",
+      "type": "string"
+    },
+    "mapping_version": {
+      "minimum": 1,
+      "title": "Mapping Version",
+      "type": "integer"
+    },
+    "operation": {
+      "$ref": "#/$defs/ImportOperationV1"
+    },
+    "policy_state": {
+      "const": "satisfied",
+      "title": "Policy State",
+      "type": "string"
+    },
+    "preflight_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+      "title": "Preflight Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "import_execution_request_version",
+    "preflight_id",
+    "attachment_sha256",
+    "mapping_id",
+    "mapping_version",
+    "operation",
+    "confirmation",
+    "policy_state"
+  ],
+  "title": "ImportExecutionRequestV1",
+  "type": "object"
+}
