@@ -1,0 +1,18 @@
+{
+  "presentation_capability_profile_version": "1.0",
+  "profile_id": "devextreme-26",
+  "block_kinds": ["data_grid"],
+  "chart_families": [],
+  "chart_series_types": [],
+  "aggregations": ["sum"],
+  "max_blocks": 20,
+  "max_chart_categories": 100,
+  "max_chart_series": 20,
+  "renderer": "devextreme-angular",
+  "renderer_version": "26",
+  "effective_package_version": "26.1.4",
+  "data_grid": {"features": ["editing"]},
+  "pivot_grid": null,
+  "chart": null,
+  "gauge": null
+}

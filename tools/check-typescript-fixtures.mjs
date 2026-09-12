@@ -34,6 +34,12 @@ const pr01Fixtures = await Promise.all(
     'stream-history',
   ].map((family) => readJson(`fixtures/runtime/pr01-${family}/valid/minimum.json`)),
 );
+const capabilityProfile = await readJson(
+  'fixtures/runtime/pr06a-presentation-capabilities/valid/profile.json',
+);
+const expandedPresentationPlan = await readJson(
+  'fixtures/runtime/pr06a-presentation-capabilities/valid/expanded-plan.json',
+);
 const source = `import type {
   AssistantClientStreamEventV2,
   ChatTurnResponseV2,
@@ -41,6 +47,8 @@ const source = `import type {
   EntityMultiSelectionClarificationValueV2,
   EntitySelectionClarificationValueV2,
   ImportPreflightV1,
+  PresentationCapabilityProfileV1,
+  PresentationPlanV2,
   QueryArtifactV1,
   QuerySqlDraftV6,
   ResolvedBusinessReferenceContextV1,
@@ -56,6 +64,8 @@ const queryArtifact: QueryArtifactV1 = ${literal(pr01Fixtures[2])};
 const dashboard: DashboardDefinitionV1 = ${literal(pr01Fixtures[3])};
 const importPreflight: ImportPreflightV1 = ${literal(pr01Fixtures[4])};
 const streamEvent: AssistantClientStreamEventV2 = ${literal(pr01Fixtures[5])};
+const capabilityProfile: PresentationCapabilityProfileV1 = ${literal(capabilityProfile)};
+const expandedPresentationPlan: PresentationPlanV2 = ${literal(expandedPresentationPlan)};
 void [
   requestSingle,
   requestMultiOne,
@@ -67,6 +77,8 @@ void [
   dashboard,
   importPreflight,
   streamEvent,
+  capabilityProfile,
+  expandedPresentationPlan,
 ];
 `;
 

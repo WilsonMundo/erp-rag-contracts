@@ -11,6 +11,33 @@ NonEmptyText = Annotated[str, Field(min_length=1, max_length=500)]
 ContractId = Annotated[str, Field(pattern=r"^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$")]
 Sha256 = Annotated[str, Field(pattern=r"^sha256:[0-9a-f]{64}$")]
 BlockKind = Literal["kpi", "data_grid", "pivot_grid", "chart", "gauge"]
+DataGridFeature = Literal[
+    "sorting",
+    "filtering",
+    "grouping",
+    "search",
+    "paging",
+    "column_chooser",
+    "summaries",
+    "export",
+]
+PivotGridFeature = Literal[
+    "rows",
+    "columns",
+    "values",
+    "filtering",
+    "sorting",
+    "totals",
+    "subtotals",
+    "expand_collapse",
+    "drilldown",
+    "export",
+]
+ChartFeature = Literal["mixed_series", "multiple_series", "multiple_axes"]
+ChartStackingMode = Literal["none", "stacked", "full_stacked"]
+ChartOrientation = Literal["vertical", "horizontal"]
+GaugeType = Literal["circular", "linear"]
+GaugeFeature = Literal["target_indicator", "ranges"]
 QueryShape = Literal[
     "scalar", "detail", "grouped_aggregate", "ranking", "comparison", "distribution", "trend"
 ]
@@ -226,6 +253,7 @@ class DataGridBlockV1(RuntimeContractModel):
     kind: Literal["data_grid"]
     title: NonEmptyText
     fields: Annotated[list[Identifier], Field(min_length=1, max_length=100)]
+    features: Annotated[list[DataGridFeature], Field(max_length=8)] = Field(default_factory=list)
 
 
 class PivotValueV1(RuntimeContractModel):
@@ -241,6 +269,7 @@ class PivotGridBlockV1(RuntimeContractModel):
     rows: Annotated[list[Identifier], Field(min_length=1, max_length=20)]
     columns: Annotated[list[Identifier], Field(max_length=20)]
     values: Annotated[list[PivotValueV1], Field(min_length=1, max_length=20)]
+    features: Annotated[list[PivotGridFeature], Field(max_length=10)] = Field(default_factory=list)
 
 
 class ChartSeriesV2(RuntimeContractModel):
@@ -248,6 +277,7 @@ class ChartSeriesV2(RuntimeContractModel):
     type: ContractId
     label: NonEmptyText
     aggregation: Literal["none", "sum", "avg", "min", "max", "count"] = "none"
+    axis: ContractId | None = None
 
 
 class ChartBlockV1(RuntimeContractModel):
@@ -258,6 +288,7 @@ class ChartBlockV1(RuntimeContractModel):
     family: ContractId
     category_field: Identifier
     series: Annotated[list[ChartSeriesV2], Field(min_length=1, max_length=20)]
+    orientation: ChartOrientation | None = None
 
 
 class GaugeRangeV1(RuntimeContractModel):
@@ -276,6 +307,7 @@ class GaugeBlockV1(RuntimeContractModel):
     minimum: ValueReferenceV1 | None = None
     maximum: ValueReferenceV1 | None = None
     ranges: Annotated[list[GaugeRangeV1], Field(max_length=20)] = Field(default_factory=list)
+    gauge_type: GaugeType = "circular"
 
 
 PresentationBlockV2 = Annotated[
@@ -354,6 +386,7 @@ class MaterializedGridBlockV1(RuntimeContractModel):
     kind: Literal["data_grid"]
     title: NonEmptyText
     fields: Annotated[list[Identifier], Field(min_length=1, max_length=100)]
+    features: Annotated[list[DataGridFeature], Field(max_length=8)] = Field(default_factory=list)
 
 
 class MaterializedPivotValueV1(RuntimeContractModel):
@@ -369,12 +402,14 @@ class MaterializedPivotBlockV1(RuntimeContractModel):
     rows: list[Identifier]
     columns: list[Identifier]
     values: Annotated[list[MaterializedPivotValueV1], Field(min_length=1)]
+    features: Annotated[list[PivotGridFeature], Field(max_length=10)] = Field(default_factory=list)
 
 
 class MaterializedChartSeriesV1(RuntimeContractModel):
     field: Identifier
     type: ContractId
     label: NonEmptyText
+    axis: ContractId | None = None
 
 
 class MaterializedChartBlockV1(RuntimeContractModel):
@@ -385,6 +420,7 @@ class MaterializedChartBlockV1(RuntimeContractModel):
     family: ContractId
     category_field: Identifier
     series: Annotated[list[MaterializedChartSeriesV1], Field(min_length=1)]
+    orientation: ChartOrientation | None = None
 
 
 class MaterializedGaugeRangeV1(RuntimeContractModel):
@@ -403,6 +439,7 @@ class MaterializedGaugeBlockV1(RuntimeContractModel):
     minimum: JsonScalar = None
     maximum: JsonScalar = None
     ranges: list[MaterializedGaugeRangeV1] = Field(default_factory=list)
+    gauge_type: GaugeType = "circular"
 
 
 MaterializedPresentationBlockV2 = Annotated[
@@ -916,6 +953,33 @@ class AssistantHistoricalRequeryResultV2(RuntimeContractModel):
     result: QueryResultV2
 
 
+class DataGridCapabilitiesV1(RuntimeContractModel):
+    features: Annotated[list[DataGridFeature], Field(max_length=8)]
+
+
+class PivotGridCapabilitiesV1(RuntimeContractModel):
+    features: Annotated[list[PivotGridFeature], Field(max_length=10)]
+
+
+class ChartFamilySeriesCompatibilityV1(RuntimeContractModel):
+    family: ContractId
+    series_types: Annotated[list[ContractId], Field(min_length=1, max_length=50)]
+
+
+class ChartCapabilitiesV1(RuntimeContractModel):
+    family_series_compatibility: Annotated[
+        list[ChartFamilySeriesCompatibilityV1], Field(min_length=1, max_length=20)
+    ]
+    features: Annotated[list[ChartFeature], Field(max_length=3)]
+    stacking_modes: Annotated[list[ChartStackingMode], Field(min_length=1, max_length=3)]
+    orientations: Annotated[list[ChartOrientation], Field(min_length=1, max_length=2)]
+
+
+class GaugeCapabilitiesV1(RuntimeContractModel):
+    types: Annotated[list[GaugeType], Field(min_length=1, max_length=2)]
+    features: Annotated[list[GaugeFeature], Field(max_length=2)]
+
+
 class PresentationCapabilityProfileV1(RuntimeContractModel):
     presentation_capability_profile_version: Literal["1.0"]
     profile_id: ContractId
@@ -926,6 +990,47 @@ class PresentationCapabilityProfileV1(RuntimeContractModel):
     max_blocks: Annotated[int, Field(ge=1, le=100)]
     max_chart_categories: Annotated[int, Field(ge=1, le=10000)]
     max_chart_series: Annotated[int, Field(ge=1, le=1000)]
+    renderer: ContractId | None = None
+    renderer_version: ContractId | None = None
+    effective_package_version: ContractId | None = None
+    data_grid: DataGridCapabilitiesV1 | None = None
+    pivot_grid: PivotGridCapabilitiesV1 | None = None
+    chart: ChartCapabilitiesV1 | None = None
+    gauge: GaugeCapabilitiesV1 | None = None
+
+    @model_validator(mode="after")
+    def validate_completed_profile(self) -> PresentationCapabilityProfileV1:
+        metadata = (self.renderer, self.renderer_version, self.effective_package_version)
+        capability_sections = {
+            "data_grid": self.data_grid,
+            "pivot_grid": self.pivot_grid,
+            "chart": self.chart,
+            "gauge": self.gauge,
+        }
+        if any(item is not None for item in metadata) or any(
+            item is not None for item in capability_sections.values()
+        ):
+            if any(item is None for item in metadata):
+                raise ValueError("completed profiles require all renderer metadata")
+            for kind, section in capability_sections.items():
+                if (kind in self.block_kinds) != (section is not None):
+                    raise ValueError(
+                        "completed profiles require capability sections for supported block kinds"
+                    )
+        if self.chart is not None:
+            families = [item.family for item in self.chart.family_series_compatibility]
+            series_types = [
+                series_type
+                for item in self.chart.family_series_compatibility
+                for series_type in item.series_types
+            ]
+            if len(set(families)) != len(families):
+                raise ValueError("chart family compatibility entries must be unique")
+            if set(families) != set(self.chart_families):
+                raise ValueError("chart families must match the compatibility matrix")
+            if set(series_types) != set(self.chart_series_types):
+                raise ValueError("chart series types must match the compatibility matrix")
+        return self
 
 
 class ImportCapabilityDescriptorV1(RuntimeContractModel):

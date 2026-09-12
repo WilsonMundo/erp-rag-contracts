@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.2.0
+
+- Completa aditivamente `PresentationCapabilityProfileV1` con metadata del renderer y
+  capabilities semánticas tipadas para DataGrid, PivotGrid, Chart y Gauge.
+- Permite que los blocks soliciten features de grid/pivot, tipo de gauge y las opciones
+  semánticas de eje y orientación que faltaban para charts.
+- Conserva válidos los payloads V2/V6 existentes y mantiene intactos V1/V5.
+
 ## 2.1.0
 
 - Publica la familia contractual completa de PR-01 para query/presentation V2/V6,

@@ -52,6 +52,26 @@
       "title": "Columns",
       "type": "array"
     },
+    "features": {
+      "items": {
+        "enum": [
+          "rows",
+          "columns",
+          "values",
+          "filtering",
+          "sorting",
+          "totals",
+          "subtotals",
+          "expand_collapse",
+          "drilldown",
+          "export"
+        ],
+        "type": "string"
+      },
+      "maxItems": 10,
+      "title": "Features",
+      "type": "array"
+    },
     "kind": {
       "const": "pivot_grid",
       "title": "Kind",

@@ -14,6 +14,24 @@
       "title": "Block Version",
       "type": "string"
     },
+    "features": {
+      "items": {
+        "enum": [
+          "sorting",
+          "filtering",
+          "grouping",
+          "search",
+          "paging",
+          "column_chooser",
+          "summaries",
+          "export"
+        ],
+        "type": "string"
+      },
+      "maxItems": 8,
+      "title": "Features",
+      "type": "array"
+    },
     "fields": {
       "items": {
         "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,127}$",

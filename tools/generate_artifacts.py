@@ -898,7 +898,7 @@ def main() -> None:
             "contract_version": package_version,
             "package": "erp-rag-contracts",
             "json_schema_version": "2020-12",
-            "published_on": "2026-08-11",
+            "published_on": "2026-09-11",
             "contracts": entries,
             "runtime_fixtures": [
                 {

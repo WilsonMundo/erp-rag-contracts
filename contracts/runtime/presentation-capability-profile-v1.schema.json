@@ -1,4 +1,188 @@
 {
+  "$defs": {
+    "ChartCapabilitiesV1": {
+      "additionalProperties": false,
+      "properties": {
+        "family_series_compatibility": {
+          "items": {
+            "$ref": "#/$defs/ChartFamilySeriesCompatibilityV1"
+          },
+          "maxItems": 20,
+          "minItems": 1,
+          "title": "Family Series Compatibility",
+          "type": "array"
+        },
+        "features": {
+          "items": {
+            "enum": [
+              "mixed_series",
+              "multiple_series",
+              "multiple_axes"
+            ],
+            "type": "string"
+          },
+          "maxItems": 3,
+          "title": "Features",
+          "type": "array"
+        },
+        "orientations": {
+          "items": {
+            "enum": [
+              "vertical",
+              "horizontal"
+            ],
+            "type": "string"
+          },
+          "maxItems": 2,
+          "minItems": 1,
+          "title": "Orientations",
+          "type": "array"
+        },
+        "stacking_modes": {
+          "items": {
+            "enum": [
+              "none",
+              "stacked",
+              "full_stacked"
+            ],
+            "type": "string"
+          },
+          "maxItems": 3,
+          "minItems": 1,
+          "title": "Stacking Modes",
+          "type": "array"
+        }
+      },
+      "required": [
+        "family_series_compatibility",
+        "features",
+        "stacking_modes",
+        "orientations"
+      ],
+      "title": "ChartCapabilitiesV1",
+      "type": "object"
+    },
+    "ChartFamilySeriesCompatibilityV1": {
+      "additionalProperties": false,
+      "properties": {
+        "family": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+          "title": "Family",
+          "type": "string"
+        },
+        "series_types": {
+          "items": {
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+            "type": "string"
+          },
+          "maxItems": 50,
+          "minItems": 1,
+          "title": "Series Types",
+          "type": "array"
+        }
+      },
+      "required": [
+        "family",
+        "series_types"
+      ],
+      "title": "ChartFamilySeriesCompatibilityV1",
+      "type": "object"
+    },
+    "DataGridCapabilitiesV1": {
+      "additionalProperties": false,
+      "properties": {
+        "features": {
+          "items": {
+            "enum": [
+              "sorting",
+              "filtering",
+              "grouping",
+              "search",
+              "paging",
+              "column_chooser",
+              "summaries",
+              "export"
+            ],
+            "type": "string"
+          },
+          "maxItems": 8,
+          "title": "Features",
+          "type": "array"
+        }
+      },
+      "required": [
+        "features"
+      ],
+      "title": "DataGridCapabilitiesV1",
+      "type": "object"
+    },
+    "GaugeCapabilitiesV1": {
+      "additionalProperties": false,
+      "properties": {
+        "features": {
+          "items": {
+            "enum": [
+              "target_indicator",
+              "ranges"
+            ],
+            "type": "string"
+          },
+          "maxItems": 2,
+          "title": "Features",
+          "type": "array"
+        },
+        "types": {
+          "items": {
+            "enum": [
+              "circular",
+              "linear"
+            ],
+            "type": "string"
+          },
+          "maxItems": 2,
+          "minItems": 1,
+          "title": "Types",
+          "type": "array"
+        }
+      },
+      "required": [
+        "types",
+        "features"
+      ],
+      "title": "GaugeCapabilitiesV1",
+      "type": "object"
+    },
+    "PivotGridCapabilitiesV1": {
+      "additionalProperties": false,
+      "properties": {
+        "features": {
+          "items": {
+            "enum": [
+              "rows",
+              "columns",
+              "values",
+              "filtering",
+              "sorting",
+              "totals",
+              "subtotals",
+              "expand_collapse",
+              "drilldown",
+              "export"
+            ],
+            "type": "string"
+          },
+          "maxItems": 10,
+          "title": "Features",
+          "type": "array"
+        }
+      },
+      "required": [
+        "features"
+      ],
+      "title": "PivotGridCapabilitiesV1",
+      "type": "object"
+    }
+  },
   "$id": "urn:erp-rag-contracts:schema:presentation-capability-profile:v1",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "additionalProperties": false,
@@ -34,6 +218,17 @@
       "title": "Block Kinds",
       "type": "array"
     },
+    "chart": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ChartCapabilitiesV1"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
     "chart_families": {
       "items": {
         "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
@@ -49,6 +244,41 @@
       },
       "title": "Chart Series Types",
       "type": "array"
+    },
+    "data_grid": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/DataGridCapabilitiesV1"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "effective_package_version": {
+      "anyOf": [
+        {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Effective Package Version"
+    },
+    "gauge": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/GaugeCapabilitiesV1"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
     },
     "max_blocks": {
       "maximum": 100,
@@ -68,6 +298,17 @@
       "title": "Max Chart Series",
       "type": "integer"
     },
+    "pivot_grid": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/PivotGridCapabilitiesV1"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
     "presentation_capability_profile_version": {
       "const": "1.0",
       "title": "Presentation Capability Profile Version",
@@ -77,6 +318,32 @@
       "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
       "title": "Profile Id",
       "type": "string"
+    },
+    "renderer": {
+      "anyOf": [
+        {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Renderer"
+    },
+    "renderer_version": {
+      "anyOf": [
+        {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Renderer Version"
     }
   },
   "required": [

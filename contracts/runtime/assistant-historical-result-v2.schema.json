@@ -43,6 +43,22 @@
           "title": "Kind",
           "type": "string"
         },
+        "orientation": {
+          "anyOf": [
+            {
+              "enum": [
+                "vertical",
+                "horizontal"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Orientation"
+        },
         "series": {
           "items": {
             "$ref": "#/$defs/ChartSeriesV2"
@@ -87,6 +103,19 @@
           "title": "Aggregation",
           "type": "string"
         },
+        "axis": {
+          "anyOf": [
+            {
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Axis"
+        },
         "field": {
           "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,127}$",
           "title": "Field",
@@ -124,6 +153,24 @@
           "const": "1.0",
           "title": "Block Version",
           "type": "string"
+        },
+        "features": {
+          "items": {
+            "enum": [
+              "sorting",
+              "filtering",
+              "grouping",
+              "search",
+              "paging",
+              "column_chooser",
+              "summaries",
+              "export"
+            ],
+            "type": "string"
+          },
+          "maxItems": 8,
+          "title": "Features",
+          "type": "array"
         },
         "fields": {
           "items": {
@@ -189,6 +236,15 @@
         "block_version": {
           "const": "1.0",
           "title": "Block Version",
+          "type": "string"
+        },
+        "gauge_type": {
+          "default": "circular",
+          "enum": [
+            "circular",
+            "linear"
+          ],
+          "title": "Gauge Type",
           "type": "string"
         },
         "kind": {
@@ -492,6 +548,22 @@
           "title": "Kind",
           "type": "string"
         },
+        "orientation": {
+          "anyOf": [
+            {
+              "enum": [
+                "vertical",
+                "horizontal"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Orientation"
+        },
         "series": {
           "items": {
             "$ref": "#/$defs/MaterializedChartSeriesV1"
@@ -522,6 +594,19 @@
     "MaterializedChartSeriesV1": {
       "additionalProperties": false,
       "properties": {
+        "axis": {
+          "anyOf": [
+            {
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Axis"
+        },
         "field": {
           "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,127}$",
           "title": "Field",
@@ -558,6 +643,15 @@
         "block_version": {
           "const": "1.0",
           "title": "Block Version",
+          "type": "string"
+        },
+        "gauge_type": {
+          "default": "circular",
+          "enum": [
+            "circular",
+            "linear"
+          ],
+          "title": "Gauge Type",
           "type": "string"
         },
         "kind": {
@@ -743,6 +837,24 @@
           "title": "Block Version",
           "type": "string"
         },
+        "features": {
+          "items": {
+            "enum": [
+              "sorting",
+              "filtering",
+              "grouping",
+              "search",
+              "paging",
+              "column_chooser",
+              "summaries",
+              "export"
+            ],
+            "type": "string"
+          },
+          "maxItems": 8,
+          "title": "Features",
+          "type": "array"
+        },
         "fields": {
           "items": {
             "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,127}$",
@@ -865,6 +977,26 @@
             "type": "string"
           },
           "title": "Columns",
+          "type": "array"
+        },
+        "features": {
+          "items": {
+            "enum": [
+              "rows",
+              "columns",
+              "values",
+              "filtering",
+              "sorting",
+              "totals",
+              "subtotals",
+              "expand_collapse",
+              "drilldown",
+              "export"
+            ],
+            "type": "string"
+          },
+          "maxItems": 10,
+          "title": "Features",
           "type": "array"
         },
         "kind": {
@@ -1064,6 +1196,26 @@
           },
           "maxItems": 20,
           "title": "Columns",
+          "type": "array"
+        },
+        "features": {
+          "items": {
+            "enum": [
+              "rows",
+              "columns",
+              "values",
+              "filtering",
+              "sorting",
+              "totals",
+              "subtotals",
+              "expand_collapse",
+              "drilldown",
+              "export"
+            ],
+            "type": "string"
+          },
+          "maxItems": 10,
+          "title": "Features",
           "type": "array"
         },
         "kind": {

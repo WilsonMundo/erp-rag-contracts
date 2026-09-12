@@ -1,0 +1,66 @@
+{
+  "presentation_capability_profile_version": "1.0",
+  "profile_id": "devextreme-26",
+  "block_kinds": ["kpi", "data_grid", "pivot_grid", "chart", "gauge"],
+  "chart_families": ["cartesian", "polar"],
+  "chart_series_types": [
+    "area",
+    "bar",
+    "fullstackedbar",
+    "line",
+    "scatter",
+    "stackedbar"
+  ],
+  "aggregations": ["sum", "avg", "min", "max", "count"],
+  "max_blocks": 20,
+  "max_chart_categories": 100,
+  "max_chart_series": 20,
+  "renderer": "devextreme-angular",
+  "renderer_version": "26",
+  "effective_package_version": "26.1.4",
+  "data_grid": {
+    "features": [
+      "sorting",
+      "filtering",
+      "grouping",
+      "search",
+      "paging",
+      "column_chooser",
+      "summaries",
+      "export"
+    ]
+  },
+  "pivot_grid": {
+    "features": [
+      "rows",
+      "columns",
+      "values",
+      "filtering",
+      "sorting",
+      "totals",
+      "subtotals",
+      "expand_collapse",
+      "drilldown",
+      "export"
+    ]
+  },
+  "chart": {
+    "family_series_compatibility": [
+      {
+        "family": "cartesian",
+        "series_types": ["area", "bar", "fullstackedbar", "line", "stackedbar"]
+      },
+      {
+        "family": "polar",
+        "series_types": ["bar", "line", "scatter", "stackedbar"]
+      }
+    ],
+    "features": ["mixed_series", "multiple_series", "multiple_axes"],
+    "stacking_modes": ["none", "stacked", "full_stacked"],
+    "orientations": ["vertical", "horizontal"]
+  },
+  "gauge": {
+    "types": ["circular", "linear"],
+    "features": ["target_indicator", "ranges"]
+  }
+}

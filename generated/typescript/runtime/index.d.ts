@@ -3787,6 +3787,385 @@ export type Source2 = 'resolved_reference';
 export type BlockId1 = string;
 export type BlockVersion1 = '1.0';
 /**
+ * @maxItems 8
+ */
+export type Features =
+  | []
+  | [
+      | 'sorting'
+      | 'filtering'
+      | 'grouping'
+      | 'search'
+      | 'paging'
+      | 'column_chooser'
+      | 'summaries'
+      | 'export'
+    ]
+  | [
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      )
+    ]
+  | [
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      )
+    ]
+  | [
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      )
+    ]
+  | [
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      )
+    ]
+  | [
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      )
+    ]
+  | [
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      )
+    ]
+  | [
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      )
+    ];
+/**
  * @minItems 1
  * @maxItems 100
  */
@@ -3959,6 +4338,689 @@ export type Columns =
       string,
       string,
       string
+    ];
+/**
+ * @maxItems 10
+ */
+export type Features1 =
+  | []
+  | [
+      | 'rows'
+      | 'columns'
+      | 'values'
+      | 'filtering'
+      | 'sorting'
+      | 'totals'
+      | 'subtotals'
+      | 'expand_collapse'
+      | 'drilldown'
+      | 'export'
+    ]
+  | [
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      )
+    ]
+  | [
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      )
+    ]
+  | [
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      )
+    ]
+  | [
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      )
+    ]
+  | [
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      )
+    ]
+  | [
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      )
+    ]
+  | [
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      )
+    ]
+  | [
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      )
+    ]
+  | [
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      )
     ];
 export type Kind2 = 'pivot_grid';
 /**
@@ -4362,6 +5424,7 @@ export type BlockVersion3 = '1.0';
 export type CategoryField = string;
 export type Family = string;
 export type Kind3 = 'chart';
+export type Orientation = ('vertical' | 'horizontal') | null;
 /**
  * @minItems 1
  * @maxItems 20
@@ -4591,12 +5654,14 @@ export type Series =
       ChartSeriesV2
     ];
 export type Aggregation2 = 'none' | 'sum' | 'avg' | 'min' | 'max' | 'count';
+export type Axis = string | null;
 export type Field3 = string;
 export type Label = string;
 export type Type = string;
 export type Title3 = string;
 export type BlockId4 = string;
 export type BlockVersion4 = '1.0';
+export type GaugeType = 'circular' | 'linear';
 export type Kind4 = 'gauge';
 export type Maximum =
   | (FieldValueReferenceV1 | ResultAggregateValueReferenceV1 | ResolvedReferenceValueReferenceV1)
@@ -6442,6 +7507,385 @@ export type Value10 = string | number | boolean | null;
 export type BlockId7 = string;
 export type BlockVersion6 = '1.0';
 /**
+ * @maxItems 8
+ */
+export type Features2 =
+  | []
+  | [
+      | 'sorting'
+      | 'filtering'
+      | 'grouping'
+      | 'search'
+      | 'paging'
+      | 'column_chooser'
+      | 'summaries'
+      | 'export'
+    ]
+  | [
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      )
+    ]
+  | [
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      )
+    ]
+  | [
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      )
+    ]
+  | [
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      )
+    ]
+  | [
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      )
+    ]
+  | [
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      )
+    ]
+  | [
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      )
+    ];
+/**
  * @minItems 1
  * @maxItems 100
  */
@@ -6451,6 +7895,689 @@ export type Title7 = string;
 export type BlockId8 = string;
 export type BlockVersion7 = '1.0';
 export type Columns3 = string[];
+/**
+ * @maxItems 10
+ */
+export type Features3 =
+  | []
+  | [
+      | 'rows'
+      | 'columns'
+      | 'values'
+      | 'filtering'
+      | 'sorting'
+      | 'totals'
+      | 'subtotals'
+      | 'expand_collapse'
+      | 'drilldown'
+      | 'export'
+    ]
+  | [
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      )
+    ]
+  | [
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      )
+    ]
+  | [
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      )
+    ]
+  | [
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      )
+    ]
+  | [
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      )
+    ]
+  | [
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      )
+    ]
+  | [
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      )
+    ]
+  | [
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      )
+    ]
+  | [
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      )
+    ];
 export type Kind11 = 'pivot_grid';
 export type Rows1 = string[];
 export type Title8 = string;
@@ -6465,16 +8592,19 @@ export type BlockVersion8 = '1.0';
 export type CategoryField1 = string;
 export type Family1 = string;
 export type Kind12 = 'chart';
+export type Orientation1 = ('vertical' | 'horizontal') | null;
 /**
  * @minItems 1
  */
 export type Series1 = [MaterializedChartSeriesV1, ...MaterializedChartSeriesV1[]];
+export type Axis1 = string | null;
 export type Field5 = string;
 export type Label4 = string;
 export type Type1 = string;
 export type Title9 = string;
 export type BlockId10 = string;
 export type BlockVersion9 = '1.0';
+export type GaugeType1 = 'circular' | 'linear';
 export type Kind13 = 'gauge';
 export type Maximum1 = string | number | boolean | null;
 export type Minimum1 = string | number | boolean | null;
@@ -7566,13 +9696,1379 @@ export type BlockKinds =
       'kpi' | 'data_grid' | 'pivot_grid' | 'chart' | 'gauge',
       'kpi' | 'data_grid' | 'pivot_grid' | 'chart' | 'gauge'
     ];
+/**
+ * @minItems 1
+ * @maxItems 20
+ */
+export type FamilySeriesCompatibility =
+  | [ChartFamilySeriesCompatibilityV1]
+  | [ChartFamilySeriesCompatibilityV1, ChartFamilySeriesCompatibilityV1]
+  | [
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1
+    ]
+  | [
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1
+    ]
+  | [
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1
+    ]
+  | [
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1
+    ]
+  | [
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1
+    ]
+  | [
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1
+    ]
+  | [
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1
+    ]
+  | [
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1
+    ]
+  | [
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1
+    ]
+  | [
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1
+    ]
+  | [
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1
+    ]
+  | [
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1
+    ]
+  | [
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1
+    ]
+  | [
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1
+    ]
+  | [
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1
+    ]
+  | [
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1
+    ]
+  | [
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1
+    ]
+  | [
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1,
+      ChartFamilySeriesCompatibilityV1
+    ];
+export type Family2 = string;
+/**
+ * @minItems 1
+ * @maxItems 50
+ */
+export type SeriesTypes = [string, ...string[]];
+/**
+ * @maxItems 3
+ */
+export type Features4 =
+  | []
+  | ['mixed_series' | 'multiple_series' | 'multiple_axes']
+  | [
+      'mixed_series' | 'multiple_series' | 'multiple_axes',
+      'mixed_series' | 'multiple_series' | 'multiple_axes'
+    ]
+  | [
+      'mixed_series' | 'multiple_series' | 'multiple_axes',
+      'mixed_series' | 'multiple_series' | 'multiple_axes',
+      'mixed_series' | 'multiple_series' | 'multiple_axes'
+    ];
+/**
+ * @minItems 1
+ * @maxItems 2
+ */
+export type Orientations =
+  ['vertical' | 'horizontal'] | ['vertical' | 'horizontal', 'vertical' | 'horizontal'];
+/**
+ * @minItems 1
+ * @maxItems 3
+ */
+export type StackingModes =
+  | ['none' | 'stacked' | 'full_stacked']
+  | ['none' | 'stacked' | 'full_stacked', 'none' | 'stacked' | 'full_stacked']
+  | [
+      'none' | 'stacked' | 'full_stacked',
+      'none' | 'stacked' | 'full_stacked',
+      'none' | 'stacked' | 'full_stacked'
+    ];
 export type ChartFamilies = string[];
 export type ChartSeriesTypes = string[];
+/**
+ * @maxItems 8
+ */
+export type Features5 =
+  | []
+  | [
+      | 'sorting'
+      | 'filtering'
+      | 'grouping'
+      | 'search'
+      | 'paging'
+      | 'column_chooser'
+      | 'summaries'
+      | 'export'
+    ]
+  | [
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      )
+    ]
+  | [
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      )
+    ]
+  | [
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      )
+    ]
+  | [
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      )
+    ]
+  | [
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      )
+    ]
+  | [
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      )
+    ]
+  | [
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      ),
+      (
+        | 'sorting'
+        | 'filtering'
+        | 'grouping'
+        | 'search'
+        | 'paging'
+        | 'column_chooser'
+        | 'summaries'
+        | 'export'
+      )
+    ];
+export type EffectivePackageVersion = string | null;
+/**
+ * @maxItems 2
+ */
+export type Features6 =
+  | []
+  | ['target_indicator' | 'ranges']
+  | ['target_indicator' | 'ranges', 'target_indicator' | 'ranges'];
+/**
+ * @minItems 1
+ * @maxItems 2
+ */
+export type Types = ['circular' | 'linear'] | ['circular' | 'linear', 'circular' | 'linear'];
 export type MaxBlocks = number;
 export type MaxChartCategories = number;
 export type MaxChartSeries = number;
+/**
+ * @maxItems 10
+ */
+export type Features7 =
+  | []
+  | [
+      | 'rows'
+      | 'columns'
+      | 'values'
+      | 'filtering'
+      | 'sorting'
+      | 'totals'
+      | 'subtotals'
+      | 'expand_collapse'
+      | 'drilldown'
+      | 'export'
+    ]
+  | [
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      )
+    ]
+  | [
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      )
+    ]
+  | [
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      )
+    ]
+  | [
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      )
+    ]
+  | [
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      )
+    ]
+  | [
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      )
+    ]
+  | [
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      )
+    ]
+  | [
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      )
+    ]
+  | [
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      ),
+      (
+        | 'rows'
+        | 'columns'
+        | 'values'
+        | 'filtering'
+        | 'sorting'
+        | 'totals'
+        | 'subtotals'
+        | 'expand_collapse'
+        | 'drilldown'
+        | 'export'
+      )
+    ];
 export type PresentationCapabilityProfileVersion = '1.0';
 export type ProfileId = string;
+export type Renderer = string | null;
+export type RendererVersion = string | null;
 /**
  * @minItems 1
  * @maxItems 20
@@ -7844,6 +11340,7 @@ export interface ResolvedReferenceValueReferenceV1 {
 export interface DataGridBlockV1 {
   block_id: BlockId1;
   block_version: BlockVersion1;
+  features?: Features;
   fields: Fields;
   kind: Kind1;
   title: Title1;
@@ -7852,6 +11349,7 @@ export interface PivotGridBlockV1 {
   block_id: BlockId2;
   block_version: BlockVersion2;
   columns: Columns;
+  features?: Features1;
   kind: Kind2;
   rows: Rows;
   title: Title2;
@@ -7867,11 +11365,13 @@ export interface ChartBlockV1 {
   category_field: CategoryField;
   family: Family;
   kind: Kind3;
+  orientation?: Orientation;
   series: Series;
   title: Title3;
 }
 export interface ChartSeriesV2 {
   aggregation?: Aggregation2;
+  axis?: Axis;
   field: Field3;
   label: Label;
   type: Type;
@@ -7879,6 +11379,7 @@ export interface ChartSeriesV2 {
 export interface GaugeBlockV1 {
   block_id: BlockId4;
   block_version: BlockVersion4;
+  gauge_type?: GaugeType;
   kind: Kind4;
   maximum?: Maximum;
   minimum?: Minimum;
@@ -7974,6 +11475,7 @@ export interface MaterializedScopeV1 {
 export interface MaterializedGridBlockV1 {
   block_id: BlockId7;
   block_version: BlockVersion6;
+  features?: Features2;
   fields: Fields1;
   kind: Kind10;
   title: Title7;
@@ -7982,6 +11484,7 @@ export interface MaterializedPivotBlockV1 {
   block_id: BlockId8;
   block_version: BlockVersion7;
   columns: Columns3;
+  features?: Features3;
   kind: Kind11;
   rows: Rows1;
   title: Title8;
@@ -7997,10 +11500,12 @@ export interface MaterializedChartBlockV1 {
   category_field: CategoryField1;
   family: Family1;
   kind: Kind12;
+  orientation?: Orientation1;
   series: Series1;
   title: Title9;
 }
 export interface MaterializedChartSeriesV1 {
+  axis?: Axis1;
   field: Field5;
   label: Label4;
   type: Type1;
@@ -8008,6 +11513,7 @@ export interface MaterializedChartSeriesV1 {
 export interface MaterializedGaugeBlockV1 {
   block_id: BlockId10;
   block_version: BlockVersion9;
+  gauge_type?: GaugeType1;
   kind: Kind13;
   maximum?: Maximum1;
   minimum?: Minimum1;
@@ -8290,13 +11796,40 @@ export interface Payload2 {
 export interface PresentationCapabilityProfileV1 {
   aggregations: Aggregations;
   block_kinds: BlockKinds;
+  chart?: ChartCapabilitiesV1 | null;
   chart_families: ChartFamilies;
   chart_series_types: ChartSeriesTypes;
+  data_grid?: DataGridCapabilitiesV1 | null;
+  effective_package_version?: EffectivePackageVersion;
+  gauge?: GaugeCapabilitiesV1 | null;
   max_blocks: MaxBlocks;
   max_chart_categories: MaxChartCategories;
   max_chart_series: MaxChartSeries;
+  pivot_grid?: PivotGridCapabilitiesV1 | null;
   presentation_capability_profile_version: PresentationCapabilityProfileVersion;
   profile_id: ProfileId;
+  renderer?: Renderer;
+  renderer_version?: RendererVersion;
+}
+export interface ChartCapabilitiesV1 {
+  family_series_compatibility: FamilySeriesCompatibility;
+  features: Features4;
+  orientations: Orientations;
+  stacking_modes: StackingModes;
+}
+export interface ChartFamilySeriesCompatibilityV1 {
+  family: Family2;
+  series_types: SeriesTypes;
+}
+export interface DataGridCapabilitiesV1 {
+  features: Features5;
+}
+export interface GaugeCapabilitiesV1 {
+  features: Features6;
+  types: Types;
+}
+export interface PivotGridCapabilitiesV1 {
+  features: Features7;
 }
 export interface ImportCapabilityDescriptorV1 {
   accepted_mime_types: AcceptedMimeTypes;

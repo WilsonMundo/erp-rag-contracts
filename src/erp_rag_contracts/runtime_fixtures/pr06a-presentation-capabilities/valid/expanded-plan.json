@@ -1,0 +1,67 @@
+{
+  "presentation_plan_version": "2.0",
+  "title": "Resumen de ventas",
+  "capability_profile": "devextreme-26",
+  "blocks": [
+    {
+      "block_version": "1.0",
+      "block_id": "sales-grid",
+      "kind": "data_grid",
+      "title": "Detalle",
+      "fields": ["Category", "Period", "Amount", "Target"],
+      "features": ["sorting", "filtering", "search", "paging", "export"]
+    },
+    {
+      "block_version": "1.0",
+      "block_id": "sales-pivot",
+      "kind": "pivot_grid",
+      "title": "Análisis",
+      "rows": ["Category"],
+      "columns": ["Period"],
+      "values": [{"field": "Amount", "aggregation": "sum"}],
+      "features": ["sorting", "totals", "expand_collapse"]
+    },
+    {
+      "block_version": "1.0",
+      "block_id": "sales-chart",
+      "kind": "chart",
+      "title": "Ventas y meta",
+      "family": "cartesian",
+      "category_field": "Category",
+      "series": [
+        {
+          "field": "Amount",
+          "type": "bar",
+          "label": "Venta",
+          "aggregation": "sum",
+          "axis": "amount"
+        },
+        {
+          "field": "Target",
+          "type": "line",
+          "label": "Meta",
+          "aggregation": "sum",
+          "axis": "target"
+        }
+      ],
+      "orientation": "vertical"
+    },
+    {
+      "block_version": "1.0",
+      "block_id": "sales-gauge",
+      "kind": "gauge",
+      "title": "Cumplimiento",
+      "value": {"source": "field", "field": "Amount"},
+      "target": {"source": "resolved_reference", "reference_id": "sales-target"},
+      "minimum": null,
+      "maximum": null,
+      "ranges": [],
+      "gauge_type": "linear"
+    }
+  ],
+  "layout": {
+    "presentation_layout_version": "1.0",
+    "mode": "flow",
+    "columns": null
+  }
+}

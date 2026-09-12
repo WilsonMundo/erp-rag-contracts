@@ -74,6 +74,15 @@
       "title": "Block Version",
       "type": "string"
     },
+    "gauge_type": {
+      "default": "circular",
+      "enum": [
+        "circular",
+        "linear"
+      ],
+      "title": "Gauge Type",
+      "type": "string"
+    },
     "kind": {
       "const": "gauge",
       "title": "Kind",
