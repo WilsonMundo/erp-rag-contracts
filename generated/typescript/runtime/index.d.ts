@@ -8933,15 +8933,13 @@ export type Type4 =
   | 'turn.error';
 export type ExecutedAt = string;
 export type HistoricalResultVersion = '2.0';
-export type AstFingerprint1 = string;
-export type CapabilityProfile2 = string;
-export type CatalogSha2561 = string;
+export type HistoricalQueryArtifactViewVersion = '1.0';
+export type QueryArtifactId = string;
+export type HistoricalRequeryParameterVersion = '1.0';
 export type MaxLength1 = number | null;
 export type Name7 = string;
 export type Nullable8 = boolean;
 export type Precision1 = number | null;
-export type QueryArtifactParameterVersion = '1.0';
-export type Rebindable = boolean;
 export type Scale1 = number | null;
 export type SemanticRole = string;
 export type SqlType7 =
@@ -8955,23 +8953,55 @@ export type SqlType7 =
   | 'datetime2'
   | 'uniqueidentifier'
   | 'nvarchar';
+/**
+ * Effective value applied by the historical QueryExecution being viewed; it is not the QueryArtifactParameterV1 initial value.
+ */
 export type Value13 = string | number | boolean | null;
 /**
+ * Public projection of only the QueryArtifactParameterV1 definitions whose rebindable flag is true.
+ *
  * @maxItems 200
  */
-export type Parameters1 = QueryArtifactParameterV1[];
-export type QueryArtifactId = string;
-export type QueryArtifactVersion = '1.0';
+export type RequeryParameters = HistoricalRequeryParameterV1[];
+export type QueryExecutionId = string;
 export type Available = boolean;
 export type Mode2 = 'none' | 'same_parameters' | 'rebind_parameters';
 export type RebindableParameters = string[];
 export type RequeryCapabilityVersion = '1.0';
-export type Sql1 = string;
-export type QueryExecutionId = string;
 export type SnapshotStatus = 'available' | 'expired' | 'unavailable';
 export type HistoricalRequeryResultVersion = '2.0';
 export type QueryArtifactId1 = string;
 export type QueryExecutionId1 = string;
+export type AstFingerprint1 = string;
+export type CapabilityProfile2 = string;
+export type CatalogSha2561 = string;
+export type MaxLength2 = number | null;
+export type Name8 = string;
+export type Nullable9 = boolean;
+export type Precision2 = number | null;
+export type QueryArtifactParameterVersion = '1.0';
+export type Rebindable = boolean;
+export type Scale2 = number | null;
+export type SemanticRole1 = string;
+export type SqlType8 =
+  | 'bit'
+  | 'tinyint'
+  | 'smallint'
+  | 'int'
+  | 'bigint'
+  | 'decimal'
+  | 'date'
+  | 'datetime2'
+  | 'uniqueidentifier'
+  | 'nvarchar';
+export type Value14 = string | number | boolean | null;
+/**
+ * @maxItems 200
+ */
+export type Parameters1 = QueryArtifactParameterV1[];
+export type QueryArtifactId2 = string;
+export type QueryArtifactVersion = '1.0';
+export type Sql1 = string;
 export type DashboardDefinitionVersion = '1.0';
 export type DashboardId = string;
 /**
@@ -9546,7 +9576,7 @@ export type H = number;
 export type W = number;
 export type X = number;
 export type Y = number;
-export type QueryArtifactId2 = string;
+export type QueryArtifactId3 = string;
 export type WidgetId = string;
 /**
  * @maxItems 100
@@ -11586,31 +11616,23 @@ export interface Payload {
 export interface AssistantHistoricalResultV2 {
   executed_at: ExecutedAt;
   historical_result_version: HistoricalResultVersion;
-  query_artifact: QueryArtifactV1 | null;
+  query_artifact: HistoricalQueryArtifactViewV1 | null;
   query_execution_id: QueryExecutionId;
   requery: RequeryCapabilityV1;
   result: QueryResultV2 | null;
   snapshot_status: SnapshotStatus;
 }
-export interface QueryArtifactV1 {
-  ast_fingerprint: AstFingerprint1;
-  capability_profile: CapabilityProfile2;
-  catalog_sha256: CatalogSha2561;
-  parameters: Parameters1;
-  presentation_plan: PresentationPlanV2;
+export interface HistoricalQueryArtifactViewV1 {
+  historical_query_artifact_view_version: HistoricalQueryArtifactViewVersion;
   query_artifact_id: QueryArtifactId;
-  query_artifact_version: QueryArtifactVersion;
-  requery: RequeryCapabilityV1;
-  semantics: ProposedResultSemanticsV2;
-  sql: Sql1;
+  requery_parameters: RequeryParameters;
 }
-export interface QueryArtifactParameterV1 {
+export interface HistoricalRequeryParameterV1 {
+  historical_requery_parameter_version: HistoricalRequeryParameterVersion;
   max_length?: MaxLength1;
   name: Name7;
   nullable: Nullable8;
   precision?: Precision1;
-  query_artifact_parameter_version: QueryArtifactParameterVersion;
-  rebindable: Rebindable;
   scale?: Scale1;
   semantic_role: SemanticRole;
   sql_type: SqlType7;
@@ -11627,6 +11649,30 @@ export interface AssistantHistoricalRequeryResultV2 {
   query_artifact_id: QueryArtifactId1;
   query_execution_id: QueryExecutionId1;
   result: QueryResultV2;
+}
+export interface QueryArtifactV1 {
+  ast_fingerprint: AstFingerprint1;
+  capability_profile: CapabilityProfile2;
+  catalog_sha256: CatalogSha2561;
+  parameters: Parameters1;
+  presentation_plan: PresentationPlanV2;
+  query_artifact_id: QueryArtifactId2;
+  query_artifact_version: QueryArtifactVersion;
+  requery: RequeryCapabilityV1;
+  semantics: ProposedResultSemanticsV2;
+  sql: Sql1;
+}
+export interface QueryArtifactParameterV1 {
+  max_length?: MaxLength2;
+  name: Name8;
+  nullable: Nullable9;
+  precision?: Precision2;
+  query_artifact_parameter_version: QueryArtifactParameterVersion;
+  rebindable: Rebindable;
+  scale?: Scale2;
+  semantic_role: SemanticRole1;
+  sql_type: SqlType8;
+  value?: Value14;
 }
 export interface DashboardDefinitionV1 {
   dashboard_definition_version: DashboardDefinitionVersion;
@@ -11653,7 +11699,7 @@ export interface DashboardWidgetV1 {
   dashboard_widget_version: DashboardWidgetVersion;
   filter_bindings: FilterBindings;
   layout: DashboardWidgetLayoutV1;
-  query_artifact_id: QueryArtifactId2;
+  query_artifact_id: QueryArtifactId3;
   widget_id: WidgetId;
 }
 export interface DashboardFilterBindingV1 {

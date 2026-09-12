@@ -668,6 +668,68 @@ class QueryArtifactV1(RuntimeContractModel):
         return self
 
 
+class HistoricalRequeryParameterV1(RuntimeContractModel):
+    historical_requery_parameter_version: Literal["1.0"]
+    name: Identifier
+    sql_type: Literal[
+        "bit",
+        "tinyint",
+        "smallint",
+        "int",
+        "bigint",
+        "decimal",
+        "date",
+        "datetime2",
+        "uniqueidentifier",
+        "nvarchar",
+    ]
+    semantic_role: ContractId
+    nullable: bool
+    precision: Annotated[int, Field(ge=1, le=38)] | None = None
+    scale: Annotated[int, Field(ge=0, le=38)] | None = None
+    max_length: Annotated[int, Field(ge=1, le=4000)] | None = None
+    value: JsonScalar = Field(
+        default=None,
+        description=(
+            "Effective value applied by the historical QueryExecution being viewed; "
+            "it is not the QueryArtifactParameterV1 initial value."
+        ),
+    )
+
+    @model_validator(mode="after")
+    def validate_sql_shape(self) -> HistoricalRequeryParameterV1:
+        if self.sql_type == "decimal":
+            if self.precision is None or self.scale is None or self.scale > self.precision:
+                raise ValueError("decimal requires valid precision and scale")
+        elif self.precision is not None or self.scale is not None:
+            raise ValueError("precision and scale only apply to decimal")
+        if (self.sql_type == "nvarchar") != (self.max_length is not None):
+            raise ValueError("max_length is required only for nvarchar")
+        return self
+
+
+class HistoricalQueryArtifactViewV1(RuntimeContractModel):
+    historical_query_artifact_view_version: Literal["1.0"]
+    query_artifact_id: ContractId
+    requery_parameters: Annotated[
+        list[HistoricalRequeryParameterV1],
+        Field(
+            max_length=200,
+            description=(
+                "Public projection of only the QueryArtifactParameterV1 definitions whose "
+                "rebindable flag is true."
+            ),
+        ),
+    ]
+
+    @model_validator(mode="after")
+    def validate_parameters(self) -> HistoricalQueryArtifactViewV1:
+        names = [item.name for item in self.requery_parameters]
+        if len(set(names)) != len(names):
+            raise ValueError("historical requery parameter names must be unique")
+        return self
+
+
 class DashboardGridLayoutV1(RuntimeContractModel):
     columns: Annotated[int, Field(ge=1, le=24)]
     row_height: Annotated[int, Field(ge=1, le=500)]
@@ -936,7 +998,7 @@ class AssistantHistoricalResultV2(RuntimeContractModel):
     executed_at: datetime
     result: QueryResultV2 | None
     snapshot_status: Literal["available", "expired", "unavailable"]
-    query_artifact: QueryArtifactV1 | None
+    query_artifact: HistoricalQueryArtifactViewV1 | None
     requery: RequeryCapabilityV1
 
     @model_validator(mode="after")

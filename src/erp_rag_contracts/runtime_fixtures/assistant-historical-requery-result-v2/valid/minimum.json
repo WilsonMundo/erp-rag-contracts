@@ -1,0 +1,106 @@
+{
+  "historical_requery_result_version": "2.0",
+  "query_artifact_id": "artifact-001",
+  "query_execution_id": "execution-002",
+  "result": {
+    "applied_filters": [
+      {
+        "display": "septiembre de 2026",
+        "end_exclusive": "2026-10-01T00:00:00-06:00",
+        "key": "period",
+        "label": "Período",
+        "start": "2026-09-01T00:00:00-06:00",
+        "type": "date_range",
+        "value": null
+      }
+    ],
+    "columns": [
+      {
+        "aggregation": "sum",
+        "format": {
+          "currency": "GTQ",
+          "style": "currency"
+        },
+        "key": "VentaTotal",
+        "nullable": false,
+        "semantic_type": "currency",
+        "title": "Venta total",
+        "type": "decimal"
+      }
+    ],
+    "execution": {
+      "ast_fingerprint": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "catalog_sha256": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "duration_ms": 5,
+      "truncated": false
+    },
+    "presentation": {
+      "blocks": [
+        {
+          "block_id": "sales_kpi",
+          "block_version": "1.0",
+          "format": "currency",
+          "kind": "kpi",
+          "scope": {
+            "kind": "all_matches",
+            "label": null
+          },
+          "title": "Ventas",
+          "value": 10
+        }
+      ],
+      "capability_profile": "devextreme-26",
+      "layout": {
+        "columns": null,
+        "mode": "flow",
+        "presentation_layout_version": "1.0"
+      },
+      "materialized_presentation_version": "2.0",
+      "resolutions": [
+        {
+          "block_id": "sales_kpi",
+          "code": null,
+          "message": null,
+          "presentation_block_resolution_version": "1.0",
+          "status": "materialized"
+        }
+      ],
+      "title": "Top 10 ventas"
+    },
+    "query_id": "query-001",
+    "query_result_version": "2.0",
+    "result_fingerprint": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "result_id": "result-001",
+    "row_count": 1,
+    "rows": [
+      {
+        "VentaTotal": 10
+      }
+    ],
+    "semantics": {
+      "columns": [
+        {
+          "aggregation": "sum",
+          "key": "VentaTotal",
+          "ordinal": 0,
+          "presentation_support": false,
+          "proposed_semantic_column_version": "2.0",
+          "role": "measure",
+          "semantic_type": "currency"
+        }
+      ],
+      "result_set": {
+        "result_set_semantics_version": "1.0",
+        "selection": {
+          "direction": "descending",
+          "kind": "top_n",
+          "limit": 10,
+          "order_field": "VentaTotal"
+        }
+      },
+      "shape": "ranking",
+      "version": "2.0"
+    },
+    "status": "completed"
+  }
+}

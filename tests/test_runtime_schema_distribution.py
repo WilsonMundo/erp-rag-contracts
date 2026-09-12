@@ -51,6 +51,8 @@ for name, version in (
     ("assistant-historical-requery-result", "2"),
     ("query-artifact", "1"),
     ("query-artifact-parameter", "1"),
+    ("historical-query-artifact-view", "1"),
+    ("historical-requery-parameter", "1"),
     ("requery-capability", "1"),
     ("dashboard-definition", "1"),
     ("dashboard-widget", "1"),

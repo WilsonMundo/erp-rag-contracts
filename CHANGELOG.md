@@ -1,5 +1,14 @@
 # Changelog
 
+## 2.3.0
+
+- Publica `HistoricalQueryArtifactViewV1` y `HistoricalRequeryParameterV1` como
+  proyecciones públicas redacted para historial y requery.
+- `AssistantHistoricalResultV2.query_artifact` deja de exponer el
+  `QueryArtifactV1` durable, incluido su SQL y metadata interna.
+- Conserva `QueryArtifactV1` completo para uso interno y no modifica
+  `AssistantHistoricalRequeryResultV2`, `QuerySqlDraftV6` ni `PresentationPlanV2`.
+
 ## 2.2.0
 
 - Completa aditivamente `PresentationCapabilityProfileV1` con metadata del renderer y

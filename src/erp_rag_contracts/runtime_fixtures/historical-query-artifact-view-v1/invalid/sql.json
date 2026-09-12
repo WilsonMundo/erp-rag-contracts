@@ -1,0 +1,6 @@
+{
+  "historical_query_artifact_view_version": "1.0",
+  "query_artifact_id": "artifact-001",
+  "requery_parameters": [],
+  "sql": "SELECT 1"
+}

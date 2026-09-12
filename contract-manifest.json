@@ -1,5 +1,5 @@
 {
-  "contract_version": "2.2.0",
+  "contract_version": "2.3.0",
   "contracts": [
     {
       "compatibility": "1.x",
@@ -205,7 +205,7 @@
       "compatibility": "2.x",
       "id": "urn:erp-rag-contracts:schema:assistant-historical-result:v2",
       "path": "contracts/runtime/assistant-historical-result-v2.schema.json",
-      "sha256": "faf7aa51bd64ebafcdc47f6f8ad47c5192191be807a7df9880cdc3c47ee54d68",
+      "sha256": "b8092323eafcc35269ec015308218d2f78ab108fc90c4398f7bed3e142336c87",
       "status": "stable",
       "type": "assistant-historical-result"
     },
@@ -328,6 +328,22 @@
       "sha256": "3f5eaec923d5a4728c468795c9447db057b1148c5c344e82f18ad9370a655e92",
       "status": "stable",
       "type": "gauge-block"
+    },
+    {
+      "compatibility": "1.x",
+      "id": "urn:erp-rag-contracts:schema:historical-query-artifact-view:v1",
+      "path": "contracts/runtime/historical-query-artifact-view-v1.schema.json",
+      "sha256": "a6e983f1395ed55f7b649107db990b24177c706ad78aacd1dc4776324b986c89",
+      "status": "stable",
+      "type": "historical-query-artifact-view"
+    },
+    {
+      "compatibility": "1.x",
+      "id": "urn:erp-rag-contracts:schema:historical-requery-parameter:v1",
+      "path": "contracts/runtime/historical-requery-parameter-v1.schema.json",
+      "sha256": "d80eede53bfb5ee16b9364b9b2091e36230c3f131312544ba8c4f3ab7302a5c3",
+      "status": "stable",
+      "type": "historical-requery-parameter"
     },
     {
       "compatibility": "1.x",
@@ -653,15 +669,15 @@
   "generated_artifacts": [
     {
       "path": "generated/typescript/runtime/generation-metadata.json",
-      "sha256": "6aa159e6d4d14d6b23a657225d146441143eef39ce20cab2883972b8677fd6b6"
+      "sha256": "8e7214666c92168b7ae66b8046f97d35e9f9f3196a1b1b7ce3de7f3c4745d1c9"
     },
     {
       "path": "generated/typescript/runtime/index.d.ts",
-      "sha256": "f0c3d0c56b450082156dc0d6de6907f50a9b4ff1564d4f898c2db6f1172995ea"
+      "sha256": "d5c5152ae082a0683b4b0e0ffbebc4bddc9f3676aa8f1b8d9c8b4845310dac09"
     },
     {
       "path": "generated/typescript/runtime/package.json",
-      "sha256": "55ef143097094b0cd1a52b8ce7bc8b0a679f3bb3111c8d637f8e48534554e098"
+      "sha256": "bf5e4f508ab25a3960a01582b8cc57e2e58dcfa85ce17f5aba194257c7587d17"
     }
   ],
   "json_schema_version": "2020-12",
@@ -673,8 +689,16 @@
     "policies/reason-codes-v1.json",
     "policies/versioning-policy-v1.json"
   ],
-  "published_on": "2026-09-11",
+  "published_on": "2026-09-12",
   "runtime_fixtures": [
+    {
+      "path": "fixtures/runtime/assistant-historical-requery-result-v2/valid/minimum.json",
+      "sha256": "dba14ebb9fe0d0048684c19c6b19b978815375a891e79cc481e4320f142368f0"
+    },
+    {
+      "path": "fixtures/runtime/assistant-historical-result-v2/valid/public-query-artifact.json",
+      "sha256": "e594c0a1d17bf91f61ba09b716cae210f7613bdd40bccbecbb8c801df786c23d"
+    },
     {
       "path": "fixtures/runtime/chat-turn-request-v2/invalid/entity-ids-duplicated.json",
       "sha256": "29260531566fa3733f7fab499323e262f4fc3f23475baded495b4a97730ad323"
@@ -754,6 +778,38 @@
     {
       "path": "fixtures/runtime/contract-parity/valid/entity-selection-value.json",
       "sha256": "bd5fb98753109d1212b5bffcb123817326841607bdc07998749c8b6612fc1d66"
+    },
+    {
+      "path": "fixtures/runtime/historical-query-artifact-view-v1/invalid/ast_fingerprint.json",
+      "sha256": "5d9d31c2e76b9fa1d35288e564e4e8db5f748759b6b56eee74281665b192b78b"
+    },
+    {
+      "path": "fixtures/runtime/historical-query-artifact-view-v1/invalid/capability_profile.json",
+      "sha256": "5a3856b54f809adfd6c24f21eb3befc9e0b6d4f8044e821a1173d51d72881bcf"
+    },
+    {
+      "path": "fixtures/runtime/historical-query-artifact-view-v1/invalid/catalog_sha256.json",
+      "sha256": "7691d0f263935c3bd0d51ad1783fb5deb2537b35a6ab524a161f71c9e379cf4e"
+    },
+    {
+      "path": "fixtures/runtime/historical-query-artifact-view-v1/invalid/presentation_plan.json",
+      "sha256": "3dfc750781d122fcbb8e946edff6a7f28ed6dd1a5314439e989fa05df3f3dc6f"
+    },
+    {
+      "path": "fixtures/runtime/historical-query-artifact-view-v1/invalid/semantics.json",
+      "sha256": "cf1ccbb981fdf0f09eede8c17100b297c855f48280ca87f454d76c083bb20e59"
+    },
+    {
+      "path": "fixtures/runtime/historical-query-artifact-view-v1/invalid/sql.json",
+      "sha256": "77513659e901f4476e9a6b11b1e8c1257385930a852df1c8abf0c496006e0d6b"
+    },
+    {
+      "path": "fixtures/runtime/historical-query-artifact-view-v1/valid/date-range.json",
+      "sha256": "035ab99a4912d117db22ff4159761e862f85d7bea69b19759e5a9d3f0c435c3d"
+    },
+    {
+      "path": "fixtures/runtime/historical-query-artifact-view-v1/valid/minimum.json",
+      "sha256": "f75f3d6a097cb63f9eb3978743ac3b2d4e11b2c78243742968a4aed971465f51"
     },
     {
       "path": "fixtures/runtime/invalid-expectations.json",

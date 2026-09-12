@@ -70,6 +70,8 @@ def test_typescript_surface_contains_complete_pr01_catalog() -> None:
         "AssistantHistoricalRequeryResultV2",
         "QueryArtifactV1",
         "QueryArtifactParameterV1",
+        "HistoricalQueryArtifactViewV1",
+        "HistoricalRequeryParameterV1",
         "RequeryCapabilityV1",
         "DashboardDefinitionV1",
         "DashboardWidgetV1",

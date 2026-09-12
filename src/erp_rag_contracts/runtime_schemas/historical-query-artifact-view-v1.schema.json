@@ -1,0 +1,149 @@
+{
+  "$defs": {
+    "HistoricalRequeryParameterV1": {
+      "additionalProperties": false,
+      "properties": {
+        "historical_requery_parameter_version": {
+          "const": "1.0",
+          "title": "Historical Requery Parameter Version",
+          "type": "string"
+        },
+        "max_length": {
+          "anyOf": [
+            {
+              "maximum": 4000,
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Max Length"
+        },
+        "name": {
+          "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,127}$",
+          "title": "Name",
+          "type": "string"
+        },
+        "nullable": {
+          "title": "Nullable",
+          "type": "boolean"
+        },
+        "precision": {
+          "anyOf": [
+            {
+              "maximum": 38,
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Precision"
+        },
+        "scale": {
+          "anyOf": [
+            {
+              "maximum": 38,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Scale"
+        },
+        "semantic_role": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+          "title": "Semantic Role",
+          "type": "string"
+        },
+        "sql_type": {
+          "enum": [
+            "bit",
+            "tinyint",
+            "smallint",
+            "int",
+            "bigint",
+            "decimal",
+            "date",
+            "datetime2",
+            "uniqueidentifier",
+            "nvarchar"
+          ],
+          "title": "Sql Type",
+          "type": "string"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "integer"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Effective value applied by the historical QueryExecution being viewed; it is not the QueryArtifactParameterV1 initial value.",
+          "title": "Value"
+        }
+      },
+      "required": [
+        "historical_requery_parameter_version",
+        "name",
+        "sql_type",
+        "semantic_role",
+        "nullable"
+      ],
+      "title": "HistoricalRequeryParameterV1",
+      "type": "object"
+    }
+  },
+  "$id": "urn:erp-rag-contracts:schema:historical-query-artifact-view:v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Contrato normativo runtime historical-query-artifact-view versión 1.",
+  "properties": {
+    "historical_query_artifact_view_version": {
+      "const": "1.0",
+      "title": "Historical Query Artifact View Version",
+      "type": "string"
+    },
+    "query_artifact_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+      "title": "Query Artifact Id",
+      "type": "string"
+    },
+    "requery_parameters": {
+      "description": "Public projection of only the QueryArtifactParameterV1 definitions whose rebindable flag is true.",
+      "items": {
+        "$ref": "#/$defs/HistoricalRequeryParameterV1"
+      },
+      "maxItems": 200,
+      "title": "Requery Parameters",
+      "type": "array"
+    }
+  },
+  "required": [
+    "historical_query_artifact_view_version",
+    "query_artifact_id",
+    "requery_parameters"
+  ],
+  "title": "HistoricalQueryArtifactViewV1",
+  "type": "object"
+}

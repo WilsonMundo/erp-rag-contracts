@@ -1,0 +1,22 @@
+{
+  "historical_query_artifact_view_version": "1.0",
+  "query_artifact_id": "artifact-001",
+  "requery_parameters": [
+    {
+      "historical_requery_parameter_version": "1.0",
+      "name": "period_start",
+      "nullable": false,
+      "semantic_role": "period_start",
+      "sql_type": "datetime2",
+      "value": "2026-09-01T00:00:00-06:00"
+    },
+    {
+      "historical_requery_parameter_version": "1.0",
+      "name": "period_end",
+      "nullable": false,
+      "semantic_role": "period_end_exclusive",
+      "sql_type": "datetime2",
+      "value": "2026-10-01T00:00:00-06:00"
+    }
+  ]
+}

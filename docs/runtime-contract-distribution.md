@@ -49,3 +49,17 @@ sus dependencias transitivas.
 Los tipos generados ayudan durante compilación, pero no validan JSON externo.
 Una afirmación de paridad de aceptación o rechazo requiere un validador JSON
 Schema runtime contra los schemas canónicos y los mismos fixtures publicados.
+
+## Artifact interno y vista histórica pública
+
+`QueryArtifactV1` es el contrato durable/ejecutable interno y conserva SQL,
+parámetros, semántica, plan de presentación, fingerprints y metadata de ejecución.
+No debe serializarse hacia AppWeb.
+
+`HistoricalQueryArtifactViewV1` es la única proyección del artifact admitida dentro de
+`AssistantHistoricalResultV2`. Contiene solo los parámetros rebindables. El `value` de
+cada `HistoricalRequeryParameterV1` procede de los parámetros aplicados por la
+`QueryExecution` histórica visualizada, mientras `QueryArtifactParameterV1.value`
+permanece como valor inicial inmutable del artifact.
+
+El SQL nunca cruza la frontera `ApiHub → AppWeb`.

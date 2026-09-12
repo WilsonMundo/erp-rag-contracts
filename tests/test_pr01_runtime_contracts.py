@@ -44,6 +44,8 @@ CONTRACTS: tuple[tuple[str, str, str], ...] = (
     ("assistant-historical-requery-result-v2", "AssistantHistoricalRequeryResultV2", "2"),
     ("query-artifact-v1", "QueryArtifactV1", "1"),
     ("query-artifact-parameter-v1", "QueryArtifactParameterV1", "1"),
+    ("historical-query-artifact-view-v1", "HistoricalQueryArtifactViewV1", "1"),
+    ("historical-requery-parameter-v1", "HistoricalRequeryParameterV1", "1"),
     ("requery-capability-v1", "RequeryCapabilityV1", "1"),
     ("dashboard-definition-v1", "DashboardDefinitionV1", "1"),
     ("dashboard-widget-v1", "DashboardWidgetV1", "1"),

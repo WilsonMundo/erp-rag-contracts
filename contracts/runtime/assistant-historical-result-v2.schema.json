@@ -15,509 +15,148 @@
       "title": "AllMatchesSelectionV1",
       "type": "object"
     },
-    "ChartBlockV1": {
+    "HistoricalQueryArtifactViewV1": {
       "additionalProperties": false,
       "properties": {
-        "block_id": {
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
-          "title": "Block Id",
-          "type": "string"
-        },
-        "block_version": {
+        "historical_query_artifact_view_version": {
           "const": "1.0",
-          "title": "Block Version",
+          "title": "Historical Query Artifact View Version",
           "type": "string"
         },
-        "category_field": {
-          "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,127}$",
-          "title": "Category Field",
-          "type": "string"
-        },
-        "family": {
+        "query_artifact_id": {
           "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
-          "title": "Family",
+          "title": "Query Artifact Id",
           "type": "string"
         },
-        "kind": {
-          "const": "chart",
-          "title": "Kind",
+        "requery_parameters": {
+          "description": "Public projection of only the QueryArtifactParameterV1 definitions whose rebindable flag is true.",
+          "items": {
+            "$ref": "#/$defs/HistoricalRequeryParameterV1"
+          },
+          "maxItems": 200,
+          "title": "Requery Parameters",
+          "type": "array"
+        }
+      },
+      "required": [
+        "historical_query_artifact_view_version",
+        "query_artifact_id",
+        "requery_parameters"
+      ],
+      "title": "HistoricalQueryArtifactViewV1",
+      "type": "object"
+    },
+    "HistoricalRequeryParameterV1": {
+      "additionalProperties": false,
+      "properties": {
+        "historical_requery_parameter_version": {
+          "const": "1.0",
+          "title": "Historical Requery Parameter Version",
           "type": "string"
         },
-        "orientation": {
+        "max_length": {
           "anyOf": [
             {
-              "enum": [
-                "vertical",
-                "horizontal"
-              ],
-              "type": "string"
+              "maximum": 4000,
+              "minimum": 1,
+              "type": "integer"
             },
             {
               "type": "null"
             }
           ],
           "default": null,
-          "title": "Orientation"
+          "title": "Max Length"
         },
-        "series": {
-          "items": {
-            "$ref": "#/$defs/ChartSeriesV2"
-          },
-          "maxItems": 20,
-          "minItems": 1,
-          "title": "Series",
-          "type": "array"
-        },
-        "title": {
-          "maxLength": 500,
-          "minLength": 1,
-          "title": "Title",
+        "name": {
+          "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,127}$",
+          "title": "Name",
           "type": "string"
-        }
-      },
-      "required": [
-        "block_version",
-        "block_id",
-        "kind",
-        "title",
-        "family",
-        "category_field",
-        "series"
-      ],
-      "title": "ChartBlockV1",
-      "type": "object"
-    },
-    "ChartSeriesV2": {
-      "additionalProperties": false,
-      "properties": {
-        "aggregation": {
-          "default": "none",
+        },
+        "nullable": {
+          "title": "Nullable",
+          "type": "boolean"
+        },
+        "precision": {
+          "anyOf": [
+            {
+              "maximum": 38,
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Precision"
+        },
+        "scale": {
+          "anyOf": [
+            {
+              "maximum": 38,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Scale"
+        },
+        "semantic_role": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+          "title": "Semantic Role",
+          "type": "string"
+        },
+        "sql_type": {
           "enum": [
-            "none",
-            "sum",
-            "avg",
-            "min",
-            "max",
-            "count"
+            "bit",
+            "tinyint",
+            "smallint",
+            "int",
+            "bigint",
+            "decimal",
+            "date",
+            "datetime2",
+            "uniqueidentifier",
+            "nvarchar"
           ],
-          "title": "Aggregation",
-          "type": "string"
-        },
-        "axis": {
-          "anyOf": [
-            {
-              "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Axis"
-        },
-        "field": {
-          "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,127}$",
-          "title": "Field",
-          "type": "string"
-        },
-        "label": {
-          "maxLength": 500,
-          "minLength": 1,
-          "title": "Label",
-          "type": "string"
-        },
-        "type": {
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
-          "title": "Type",
-          "type": "string"
-        }
-      },
-      "required": [
-        "field",
-        "type",
-        "label"
-      ],
-      "title": "ChartSeriesV2",
-      "type": "object"
-    },
-    "DataGridBlockV1": {
-      "additionalProperties": false,
-      "properties": {
-        "block_id": {
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
-          "title": "Block Id",
-          "type": "string"
-        },
-        "block_version": {
-          "const": "1.0",
-          "title": "Block Version",
-          "type": "string"
-        },
-        "features": {
-          "items": {
-            "enum": [
-              "sorting",
-              "filtering",
-              "grouping",
-              "search",
-              "paging",
-              "column_chooser",
-              "summaries",
-              "export"
-            ],
-            "type": "string"
-          },
-          "maxItems": 8,
-          "title": "Features",
-          "type": "array"
-        },
-        "fields": {
-          "items": {
-            "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,127}$",
-            "type": "string"
-          },
-          "maxItems": 100,
-          "minItems": 1,
-          "title": "Fields",
-          "type": "array"
-        },
-        "kind": {
-          "const": "data_grid",
-          "title": "Kind",
-          "type": "string"
-        },
-        "title": {
-          "maxLength": 500,
-          "minLength": 1,
-          "title": "Title",
-          "type": "string"
-        }
-      },
-      "required": [
-        "block_version",
-        "block_id",
-        "kind",
-        "title",
-        "fields"
-      ],
-      "title": "DataGridBlockV1",
-      "type": "object"
-    },
-    "FieldValueReferenceV1": {
-      "additionalProperties": false,
-      "properties": {
-        "field": {
-          "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,127}$",
-          "title": "Field",
-          "type": "string"
-        },
-        "source": {
-          "const": "field",
-          "title": "Source",
-          "type": "string"
-        }
-      },
-      "required": [
-        "source",
-        "field"
-      ],
-      "title": "FieldValueReferenceV1",
-      "type": "object"
-    },
-    "GaugeBlockV1": {
-      "additionalProperties": false,
-      "properties": {
-        "block_id": {
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
-          "title": "Block Id",
-          "type": "string"
-        },
-        "block_version": {
-          "const": "1.0",
-          "title": "Block Version",
-          "type": "string"
-        },
-        "gauge_type": {
-          "default": "circular",
-          "enum": [
-            "circular",
-            "linear"
-          ],
-          "title": "Gauge Type",
-          "type": "string"
-        },
-        "kind": {
-          "const": "gauge",
-          "title": "Kind",
-          "type": "string"
-        },
-        "maximum": {
-          "anyOf": [
-            {
-              "discriminator": {
-                "mapping": {
-                  "field": "#/$defs/FieldValueReferenceV1",
-                  "resolved_reference": "#/$defs/ResolvedReferenceValueReferenceV1",
-                  "result_aggregate": "#/$defs/ResultAggregateValueReferenceV1"
-                },
-                "propertyName": "source"
-              },
-              "oneOf": [
-                {
-                  "$ref": "#/$defs/FieldValueReferenceV1"
-                },
-                {
-                  "$ref": "#/$defs/ResultAggregateValueReferenceV1"
-                },
-                {
-                  "$ref": "#/$defs/ResolvedReferenceValueReferenceV1"
-                }
-              ]
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Maximum"
-        },
-        "minimum": {
-          "anyOf": [
-            {
-              "discriminator": {
-                "mapping": {
-                  "field": "#/$defs/FieldValueReferenceV1",
-                  "resolved_reference": "#/$defs/ResolvedReferenceValueReferenceV1",
-                  "result_aggregate": "#/$defs/ResultAggregateValueReferenceV1"
-                },
-                "propertyName": "source"
-              },
-              "oneOf": [
-                {
-                  "$ref": "#/$defs/FieldValueReferenceV1"
-                },
-                {
-                  "$ref": "#/$defs/ResultAggregateValueReferenceV1"
-                },
-                {
-                  "$ref": "#/$defs/ResolvedReferenceValueReferenceV1"
-                }
-              ]
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Minimum"
-        },
-        "ranges": {
-          "items": {
-            "$ref": "#/$defs/GaugeRangeV1"
-          },
-          "maxItems": 20,
-          "title": "Ranges",
-          "type": "array"
-        },
-        "target": {
-          "anyOf": [
-            {
-              "discriminator": {
-                "mapping": {
-                  "field": "#/$defs/FieldValueReferenceV1",
-                  "resolved_reference": "#/$defs/ResolvedReferenceValueReferenceV1",
-                  "result_aggregate": "#/$defs/ResultAggregateValueReferenceV1"
-                },
-                "propertyName": "source"
-              },
-              "oneOf": [
-                {
-                  "$ref": "#/$defs/FieldValueReferenceV1"
-                },
-                {
-                  "$ref": "#/$defs/ResultAggregateValueReferenceV1"
-                },
-                {
-                  "$ref": "#/$defs/ResolvedReferenceValueReferenceV1"
-                }
-              ]
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Target"
-        },
-        "title": {
-          "maxLength": 500,
-          "minLength": 1,
-          "title": "Title",
+          "title": "Sql Type",
           "type": "string"
         },
         "value": {
-          "discriminator": {
-            "mapping": {
-              "field": "#/$defs/FieldValueReferenceV1",
-              "resolved_reference": "#/$defs/ResolvedReferenceValueReferenceV1",
-              "result_aggregate": "#/$defs/ResultAggregateValueReferenceV1"
-            },
-            "propertyName": "source"
-          },
-          "oneOf": [
+          "anyOf": [
             {
-              "$ref": "#/$defs/FieldValueReferenceV1"
+              "type": "string"
             },
             {
-              "$ref": "#/$defs/ResultAggregateValueReferenceV1"
+              "type": "integer"
             },
             {
-              "$ref": "#/$defs/ResolvedReferenceValueReferenceV1"
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
             }
           ],
+          "default": null,
+          "description": "Effective value applied by the historical QueryExecution being viewed; it is not the QueryArtifactParameterV1 initial value.",
           "title": "Value"
         }
       },
       "required": [
-        "block_version",
-        "block_id",
-        "kind",
-        "title",
-        "value"
+        "historical_requery_parameter_version",
+        "name",
+        "sql_type",
+        "semantic_role",
+        "nullable"
       ],
-      "title": "GaugeBlockV1",
-      "type": "object"
-    },
-    "GaugeRangeV1": {
-      "additionalProperties": false,
-      "properties": {
-        "end": {
-          "discriminator": {
-            "mapping": {
-              "field": "#/$defs/FieldValueReferenceV1",
-              "resolved_reference": "#/$defs/ResolvedReferenceValueReferenceV1",
-              "result_aggregate": "#/$defs/ResultAggregateValueReferenceV1"
-            },
-            "propertyName": "source"
-          },
-          "oneOf": [
-            {
-              "$ref": "#/$defs/FieldValueReferenceV1"
-            },
-            {
-              "$ref": "#/$defs/ResultAggregateValueReferenceV1"
-            },
-            {
-              "$ref": "#/$defs/ResolvedReferenceValueReferenceV1"
-            }
-          ],
-          "title": "End"
-        },
-        "label": {
-          "maxLength": 500,
-          "minLength": 1,
-          "title": "Label",
-          "type": "string"
-        },
-        "start": {
-          "discriminator": {
-            "mapping": {
-              "field": "#/$defs/FieldValueReferenceV1",
-              "resolved_reference": "#/$defs/ResolvedReferenceValueReferenceV1",
-              "result_aggregate": "#/$defs/ResultAggregateValueReferenceV1"
-            },
-            "propertyName": "source"
-          },
-          "oneOf": [
-            {
-              "$ref": "#/$defs/FieldValueReferenceV1"
-            },
-            {
-              "$ref": "#/$defs/ResultAggregateValueReferenceV1"
-            },
-            {
-              "$ref": "#/$defs/ResolvedReferenceValueReferenceV1"
-            }
-          ],
-          "title": "Start"
-        }
-      },
-      "required": [
-        "start",
-        "end",
-        "label"
-      ],
-      "title": "GaugeRangeV1",
-      "type": "object"
-    },
-    "KpiBlockV1": {
-      "additionalProperties": false,
-      "properties": {
-        "block_id": {
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
-          "title": "Block Id",
-          "type": "string"
-        },
-        "block_version": {
-          "const": "1.0",
-          "title": "Block Version",
-          "type": "string"
-        },
-        "format": {
-          "default": "auto",
-          "enum": [
-            "auto",
-            "number",
-            "integer",
-            "currency",
-            "percent"
-          ],
-          "title": "Format",
-          "type": "string"
-        },
-        "kind": {
-          "const": "kpi",
-          "title": "Kind",
-          "type": "string"
-        },
-        "title": {
-          "maxLength": 500,
-          "minLength": 1,
-          "title": "Title",
-          "type": "string"
-        },
-        "value": {
-          "discriminator": {
-            "mapping": {
-              "field": "#/$defs/FieldValueReferenceV1",
-              "resolved_reference": "#/$defs/ResolvedReferenceValueReferenceV1",
-              "result_aggregate": "#/$defs/ResultAggregateValueReferenceV1"
-            },
-            "propertyName": "source"
-          },
-          "oneOf": [
-            {
-              "$ref": "#/$defs/FieldValueReferenceV1"
-            },
-            {
-              "$ref": "#/$defs/ResultAggregateValueReferenceV1"
-            },
-            {
-              "$ref": "#/$defs/ResolvedReferenceValueReferenceV1"
-            }
-          ],
-          "title": "Value"
-        }
-      },
-      "required": [
-        "block_version",
-        "block_id",
-        "kind",
-        "title",
-        "value"
-      ],
-      "title": "KpiBlockV1",
+      "title": "HistoricalRequeryParameterV1",
       "type": "object"
     },
     "MaterializedChartBlockV1": {
@@ -1176,118 +815,6 @@
       "title": "MaterializedScopeV1",
       "type": "object"
     },
-    "PivotGridBlockV1": {
-      "additionalProperties": false,
-      "properties": {
-        "block_id": {
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
-          "title": "Block Id",
-          "type": "string"
-        },
-        "block_version": {
-          "const": "1.0",
-          "title": "Block Version",
-          "type": "string"
-        },
-        "columns": {
-          "items": {
-            "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,127}$",
-            "type": "string"
-          },
-          "maxItems": 20,
-          "title": "Columns",
-          "type": "array"
-        },
-        "features": {
-          "items": {
-            "enum": [
-              "rows",
-              "columns",
-              "values",
-              "filtering",
-              "sorting",
-              "totals",
-              "subtotals",
-              "expand_collapse",
-              "drilldown",
-              "export"
-            ],
-            "type": "string"
-          },
-          "maxItems": 10,
-          "title": "Features",
-          "type": "array"
-        },
-        "kind": {
-          "const": "pivot_grid",
-          "title": "Kind",
-          "type": "string"
-        },
-        "rows": {
-          "items": {
-            "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,127}$",
-            "type": "string"
-          },
-          "maxItems": 20,
-          "minItems": 1,
-          "title": "Rows",
-          "type": "array"
-        },
-        "title": {
-          "maxLength": 500,
-          "minLength": 1,
-          "title": "Title",
-          "type": "string"
-        },
-        "values": {
-          "items": {
-            "$ref": "#/$defs/PivotValueV1"
-          },
-          "maxItems": 20,
-          "minItems": 1,
-          "title": "Values",
-          "type": "array"
-        }
-      },
-      "required": [
-        "block_version",
-        "block_id",
-        "kind",
-        "title",
-        "rows",
-        "columns",
-        "values"
-      ],
-      "title": "PivotGridBlockV1",
-      "type": "object"
-    },
-    "PivotValueV1": {
-      "additionalProperties": false,
-      "properties": {
-        "aggregation": {
-          "enum": [
-            "sum",
-            "avg",
-            "min",
-            "max",
-            "count"
-          ],
-          "title": "Aggregation",
-          "type": "string"
-        },
-        "field": {
-          "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,127}$",
-          "title": "Field",
-          "type": "string"
-        }
-      },
-      "required": [
-        "field",
-        "aggregation"
-      ],
-      "title": "PivotValueV1",
-      "type": "object"
-    },
     "PresentationBlockResolutionV1": {
       "additionalProperties": false,
       "properties": {
@@ -1391,74 +918,6 @@
         "mode"
       ],
       "title": "PresentationLayoutV1",
-      "type": "object"
-    },
-    "PresentationPlanV2": {
-      "additionalProperties": false,
-      "properties": {
-        "blocks": {
-          "items": {
-            "discriminator": {
-              "mapping": {
-                "chart": "#/$defs/ChartBlockV1",
-                "data_grid": "#/$defs/DataGridBlockV1",
-                "gauge": "#/$defs/GaugeBlockV1",
-                "kpi": "#/$defs/KpiBlockV1",
-                "pivot_grid": "#/$defs/PivotGridBlockV1"
-              },
-              "propertyName": "kind"
-            },
-            "oneOf": [
-              {
-                "$ref": "#/$defs/KpiBlockV1"
-              },
-              {
-                "$ref": "#/$defs/DataGridBlockV1"
-              },
-              {
-                "$ref": "#/$defs/PivotGridBlockV1"
-              },
-              {
-                "$ref": "#/$defs/ChartBlockV1"
-              },
-              {
-                "$ref": "#/$defs/GaugeBlockV1"
-              }
-            ]
-          },
-          "maxItems": 20,
-          "minItems": 1,
-          "title": "Blocks",
-          "type": "array"
-        },
-        "capability_profile": {
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
-          "title": "Capability Profile",
-          "type": "string"
-        },
-        "layout": {
-          "$ref": "#/$defs/PresentationLayoutV1"
-        },
-        "presentation_plan_version": {
-          "const": "2.0",
-          "title": "Presentation Plan Version",
-          "type": "string"
-        },
-        "title": {
-          "maxLength": 500,
-          "minLength": 1,
-          "title": "Title",
-          "type": "string"
-        }
-      },
-      "required": [
-        "presentation_plan_version",
-        "title",
-        "capability_profile",
-        "blocks",
-        "layout"
-      ],
-      "title": "PresentationPlanV2",
       "type": "object"
     },
     "ProposedResultSemanticsV2": {
@@ -1661,190 +1120,6 @@
         "display"
       ],
       "title": "QueryAppliedFilterV2",
-      "type": "object"
-    },
-    "QueryArtifactParameterV1": {
-      "additionalProperties": false,
-      "properties": {
-        "max_length": {
-          "anyOf": [
-            {
-              "maximum": 4000,
-              "minimum": 1,
-              "type": "integer"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Max Length"
-        },
-        "name": {
-          "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,127}$",
-          "title": "Name",
-          "type": "string"
-        },
-        "nullable": {
-          "title": "Nullable",
-          "type": "boolean"
-        },
-        "precision": {
-          "anyOf": [
-            {
-              "maximum": 38,
-              "minimum": 1,
-              "type": "integer"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Precision"
-        },
-        "query_artifact_parameter_version": {
-          "const": "1.0",
-          "title": "Query Artifact Parameter Version",
-          "type": "string"
-        },
-        "rebindable": {
-          "title": "Rebindable",
-          "type": "boolean"
-        },
-        "scale": {
-          "anyOf": [
-            {
-              "maximum": 38,
-              "minimum": 0,
-              "type": "integer"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Scale"
-        },
-        "semantic_role": {
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
-          "title": "Semantic Role",
-          "type": "string"
-        },
-        "sql_type": {
-          "enum": [
-            "bit",
-            "tinyint",
-            "smallint",
-            "int",
-            "bigint",
-            "decimal",
-            "date",
-            "datetime2",
-            "uniqueidentifier",
-            "nvarchar"
-          ],
-          "title": "Sql Type",
-          "type": "string"
-        },
-        "value": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "integer"
-            },
-            {
-              "type": "number"
-            },
-            {
-              "type": "boolean"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Value"
-        }
-      },
-      "required": [
-        "query_artifact_parameter_version",
-        "name",
-        "sql_type",
-        "semantic_role",
-        "rebindable",
-        "nullable"
-      ],
-      "title": "QueryArtifactParameterV1",
-      "type": "object"
-    },
-    "QueryArtifactV1": {
-      "additionalProperties": false,
-      "properties": {
-        "ast_fingerprint": {
-          "pattern": "^sha256:[0-9a-f]{64}$",
-          "title": "Ast Fingerprint",
-          "type": "string"
-        },
-        "capability_profile": {
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
-          "title": "Capability Profile",
-          "type": "string"
-        },
-        "catalog_sha256": {
-          "pattern": "^sha256:[0-9a-f]{64}$",
-          "title": "Catalog Sha256",
-          "type": "string"
-        },
-        "parameters": {
-          "items": {
-            "$ref": "#/$defs/QueryArtifactParameterV1"
-          },
-          "maxItems": 200,
-          "title": "Parameters",
-          "type": "array"
-        },
-        "presentation_plan": {
-          "$ref": "#/$defs/PresentationPlanV2"
-        },
-        "query_artifact_id": {
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
-          "title": "Query Artifact Id",
-          "type": "string"
-        },
-        "query_artifact_version": {
-          "const": "1.0",
-          "title": "Query Artifact Version",
-          "type": "string"
-        },
-        "requery": {
-          "$ref": "#/$defs/RequeryCapabilityV1"
-        },
-        "semantics": {
-          "$ref": "#/$defs/ProposedResultSemanticsV2"
-        },
-        "sql": {
-          "maxLength": 100000,
-          "minLength": 1,
-          "title": "Sql",
-          "type": "string"
-        }
-      },
-      "required": [
-        "query_artifact_version",
-        "query_artifact_id",
-        "sql",
-        "parameters",
-        "semantics",
-        "presentation_plan",
-        "ast_fingerprint",
-        "catalog_sha256",
-        "capability_profile",
-        "requery"
-      ],
-      "title": "QueryArtifactV1",
       "type": "object"
     },
     "QueryResultColumnV2": {
@@ -2139,66 +1414,6 @@
       "title": "RequeryCapabilityV1",
       "type": "object"
     },
-    "ResolvedReferenceValueReferenceV1": {
-      "additionalProperties": false,
-      "properties": {
-        "reference_id": {
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
-          "title": "Reference Id",
-          "type": "string"
-        },
-        "source": {
-          "const": "resolved_reference",
-          "title": "Source",
-          "type": "string"
-        }
-      },
-      "required": [
-        "source",
-        "reference_id"
-      ],
-      "title": "ResolvedReferenceValueReferenceV1",
-      "type": "object"
-    },
-    "ResultAggregateValueReferenceV1": {
-      "additionalProperties": false,
-      "properties": {
-        "aggregation": {
-          "enum": [
-            "sum",
-            "avg",
-            "min",
-            "max",
-            "count"
-          ],
-          "title": "Aggregation",
-          "type": "string"
-        },
-        "field": {
-          "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,127}$",
-          "title": "Field",
-          "type": "string"
-        },
-        "scope": {
-          "const": "result_set",
-          "title": "Scope",
-          "type": "string"
-        },
-        "source": {
-          "const": "result_aggregate",
-          "title": "Source",
-          "type": "string"
-        }
-      },
-      "required": [
-        "source",
-        "scope",
-        "field",
-        "aggregation"
-      ],
-      "title": "ResultAggregateValueReferenceV1",
-      "type": "object"
-    },
     "ResultSetSemanticsV1": {
       "additionalProperties": false,
       "properties": {
@@ -2315,7 +1530,7 @@
     "query_artifact": {
       "anyOf": [
         {
-          "$ref": "#/$defs/QueryArtifactV1"
+          "$ref": "#/$defs/HistoricalQueryArtifactViewV1"
         },
         {
           "type": "null"

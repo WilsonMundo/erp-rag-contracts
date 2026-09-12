@@ -40,13 +40,21 @@ const capabilityProfile = await readJson(
 const expandedPresentationPlan = await readJson(
   'fixtures/runtime/pr06a-presentation-capabilities/valid/expanded-plan.json',
 );
+const historicalQueryArtifactView = await readJson(
+  'fixtures/runtime/historical-query-artifact-view-v1/valid/date-range.json',
+);
+const historicalResult = await readJson(
+  'fixtures/runtime/assistant-historical-result-v2/valid/public-query-artifact.json',
+);
 const source = `import type {
   AssistantClientStreamEventV2,
+  AssistantHistoricalResultV2,
   ChatTurnResponseV2,
   DashboardDefinitionV1,
   EntityMultiSelectionClarificationValueV2,
   EntitySelectionClarificationValueV2,
   ImportPreflightV1,
+  HistoricalQueryArtifactViewV1,
   PresentationCapabilityProfileV1,
   PresentationPlanV2,
   QueryArtifactV1,
@@ -66,6 +74,8 @@ const importPreflight: ImportPreflightV1 = ${literal(pr01Fixtures[4])};
 const streamEvent: AssistantClientStreamEventV2 = ${literal(pr01Fixtures[5])};
 const capabilityProfile: PresentationCapabilityProfileV1 = ${literal(capabilityProfile)};
 const expandedPresentationPlan: PresentationPlanV2 = ${literal(expandedPresentationPlan)};
+const historicalQueryArtifactView: HistoricalQueryArtifactViewV1 = ${literal(historicalQueryArtifactView)};
+const historicalResult: AssistantHistoricalResultV2 = ${literal(historicalResult)};
 void [
   requestSingle,
   requestMultiOne,
@@ -79,6 +89,8 @@ void [
   streamEvent,
   capabilityProfile,
   expandedPresentationPlan,
+  historicalQueryArtifactView,
+  historicalResult,
 ];
 `;
 

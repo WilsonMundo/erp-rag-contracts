@@ -211,6 +211,12 @@ RUNTIME_V2_SCHEMA_MODELS: tuple[tuple[str, Any, str], ...] = (
     ),
     ("query-artifact-v1", runtime_v2.QueryArtifactV1, "1"),
     ("query-artifact-parameter-v1", runtime_v2.QueryArtifactParameterV1, "1"),
+    (
+        "historical-query-artifact-view-v1",
+        runtime_v2.HistoricalQueryArtifactViewV1,
+        "1",
+    ),
+    ("historical-requery-parameter-v1", runtime_v2.HistoricalRequeryParameterV1, "1"),
     ("requery-capability-v1", runtime_v2.RequeryCapabilityV1, "1"),
     ("dashboard-definition-v1", runtime_v2.DashboardDefinitionV1, "1"),
     ("dashboard-widget-v1", runtime_v2.DashboardWidgetV1, "1"),
@@ -616,6 +622,118 @@ def generate_pr01_runtime_fixtures() -> None:
         "type": "query.result",
         "payload": {"result_id": "result-001"},
     }
+    historical_view_minimum = {
+        "historical_query_artifact_view_version": "1.0",
+        "query_artifact_id": "artifact-001",
+        "requery_parameters": [],
+    }
+    historical_view_date_range = {
+        "historical_query_artifact_view_version": "1.0",
+        "query_artifact_id": "artifact-001",
+        "requery_parameters": [
+            {
+                "historical_requery_parameter_version": "1.0",
+                "name": "period_start",
+                "sql_type": "datetime2",
+                "semantic_role": "period_start",
+                "nullable": False,
+                "value": "2026-09-01T00:00:00-06:00",
+            },
+            {
+                "historical_requery_parameter_version": "1.0",
+                "name": "period_end",
+                "sql_type": "datetime2",
+                "semantic_role": "period_end_exclusive",
+                "nullable": False,
+                "value": "2026-10-01T00:00:00-06:00",
+            },
+        ],
+    }
+    materialized_presentation = {
+        "materialized_presentation_version": "2.0",
+        "title": "Top 10 ventas",
+        "capability_profile": "devextreme-26",
+        "blocks": [
+            {
+                "block_version": "1.0",
+                "block_id": "sales_kpi",
+                "kind": "kpi",
+                "title": "Ventas",
+                "value": 10,
+                "format": "currency",
+                "scope": {"kind": "all_matches", "label": None},
+            }
+        ],
+        "resolutions": [
+            {
+                "presentation_block_resolution_version": "1.0",
+                "block_id": "sales_kpi",
+                "status": "materialized",
+                "code": None,
+                "message": None,
+            }
+        ],
+        "layout": layout,
+    }
+    query_result = {
+        "query_result_version": "2.0",
+        "query_id": "query-001",
+        "result_id": "result-001",
+        "result_fingerprint": sha,
+        "status": "completed",
+        "semantics": semantics,
+        "columns": [
+            {
+                "key": "VentaTotal",
+                "title": "Venta total",
+                "type": "decimal",
+                "semantic_type": "currency",
+                "aggregation": "sum",
+                "nullable": False,
+                "format": {"style": "currency", "currency": "GTQ"},
+            }
+        ],
+        "rows": [{"VentaTotal": 10}],
+        "row_count": 1,
+        "applied_filters": [
+            {
+                "key": "period",
+                "label": "Período",
+                "type": "date_range",
+                "display": "septiembre de 2026",
+                "value": None,
+                "start": "2026-09-01T00:00:00-06:00",
+                "end_exclusive": "2026-10-01T00:00:00-06:00",
+            }
+        ],
+        "presentation": materialized_presentation,
+        "execution": {
+            "duration_ms": 5,
+            "ast_fingerprint": sha,
+            "catalog_sha256": sha,
+            "truncated": False,
+        },
+    }
+    historical_result = {
+        "historical_result_version": "2.0",
+        "query_execution_id": "execution-001",
+        "executed_at": "2026-09-11T10:00:00-06:00",
+        "result": query_result,
+        "snapshot_status": "available",
+        "query_artifact": historical_view_date_range,
+        "requery": {
+            "requery_capability_version": "1.0",
+            "available": True,
+            "mode": "rebind_parameters",
+            "rebindable_parameters": ["period_start", "period_end"],
+        },
+    }
+    historical_requery_result = {
+        "historical_requery_result_version": "2.0",
+        "query_execution_id": "execution-002",
+        "query_artifact_id": "artifact-001",
+        "result": query_result,
+    }
     families = {
         "query-presentation": ("query-sql-draft-v6", query_draft),
         "business-references": (
@@ -637,6 +755,37 @@ def generate_pr01_runtime_fixtures() -> None:
             f"fixtures/runtime/pr01-{family}/fixture-metadata.json",
             {"schema": schema_name},
         )
+
+    dump(
+        "fixtures/runtime/historical-query-artifact-view-v1/valid/minimum.json",
+        historical_view_minimum,
+    )
+    dump(
+        "fixtures/runtime/historical-query-artifact-view-v1/valid/date-range.json",
+        historical_view_date_range,
+    )
+    forbidden_fields = {
+        "sql": "SELECT 1",
+        "ast_fingerprint": sha,
+        "catalog_sha256": sha,
+        "semantics": {},
+        "presentation_plan": {},
+        "capability_profile": "devextreme-26",
+    }
+    for field, value in forbidden_fields.items():
+        invalid_view = {**historical_view_minimum, field: value}
+        dump(
+            f"fixtures/runtime/historical-query-artifact-view-v1/invalid/{field}.json",
+            invalid_view,
+        )
+    dump(
+        "fixtures/runtime/assistant-historical-result-v2/valid/public-query-artifact.json",
+        historical_result,
+    )
+    dump(
+        "fixtures/runtime/assistant-historical-requery-result-v2/valid/minimum.json",
+        historical_requery_result,
+    )
 
 
 QUERY = {
@@ -898,7 +1047,7 @@ def main() -> None:
             "contract_version": package_version,
             "package": "erp-rag-contracts",
             "json_schema_version": "2020-12",
-            "published_on": "2026-09-11",
+            "published_on": "2026-09-12",
             "contracts": entries,
             "runtime_fixtures": [
                 {

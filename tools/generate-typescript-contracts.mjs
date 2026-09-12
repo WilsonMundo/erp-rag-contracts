@@ -42,6 +42,8 @@ const PR01_SCHEMAS = [
   ['assistant-historical-requery-result-v2', 'AssistantHistoricalRequeryResultV2'],
   ['query-artifact-v1', 'QueryArtifactV1'],
   ['query-artifact-parameter-v1', 'QueryArtifactParameterV1'],
+  ['historical-query-artifact-view-v1', 'HistoricalQueryArtifactViewV1'],
+  ['historical-requery-parameter-v1', 'HistoricalRequeryParameterV1'],
   ['requery-capability-v1', 'RequeryCapabilityV1'],
   ['dashboard-definition-v1', 'DashboardDefinitionV1'],
   ['dashboard-widget-v1', 'DashboardWidgetV1'],
