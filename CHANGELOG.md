@@ -1,5 +1,14 @@
 # Changelog
 
+## 2.4.0
+
+- Incorpora `comparison_kpi` como bloque propuesto y materializado para presentar
+  periodo actual, periodo anterior y cambio en una sola tarjeta comparativa.
+- Amplía `ChartBlockV1` y `MaterializedChartBlockV1` con invariantes condicionales
+  para `family=circular`, limitado a una serie `pie` o `doughnut` sin eje,
+  orientación ni agregación adicional.
+- Conserva sin cambios el comportamiento contractual de los charts cartesianos.
+
 ## 2.3.0
 
 - Publica `HistoricalQueryArtifactViewV1` y `HistoricalRequeryParameterV1` como

@@ -22,6 +22,7 @@
       "items": {
         "enum": [
           "kpi",
+          "comparison_kpi",
           "data_grid",
           "pivot_grid",
           "chart",
@@ -29,7 +30,7 @@
         ],
         "type": "string"
       },
-      "maxItems": 5,
+      "maxItems": 6,
       "title": "Required",
       "type": "array"
     }

@@ -1,0 +1,690 @@
+{
+  "$defs": {
+    "AnalyticsMethodExplanationV1": {
+      "additionalProperties": false,
+      "properties": {
+        "calculation": {
+          "anyOf": [
+            {
+              "discriminator": {
+                "mapping": {
+                  "daily_run_rate": "#/$defs/DailyRunRateCalculationV1",
+                  "moving_average": "#/$defs/MovingAverageCalculationV1",
+                  "naive_last_period": "#/$defs/NaiveLastPeriodCalculationV1"
+                },
+                "propertyName": "kind"
+              },
+              "oneOf": [
+                {
+                  "$ref": "#/$defs/DailyRunRateCalculationV1"
+                },
+                {
+                  "$ref": "#/$defs/NaiveLastPeriodCalculationV1"
+                },
+                {
+                  "$ref": "#/$defs/MovingAverageCalculationV1"
+                }
+              ]
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Calculation"
+        },
+        "description": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Description",
+          "type": "string"
+        },
+        "label": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Label",
+          "type": "string"
+        },
+        "method_id": {
+          "enum": [
+            "daily_run_rate_v1",
+            "naive_last_period_v1",
+            "moving_average_v1",
+            "inventory_reorder_v1"
+          ],
+          "title": "Method Id",
+          "type": "string"
+        },
+        "method_version": {
+          "const": "1.0",
+          "title": "Method Version",
+          "type": "string"
+        },
+        "selection_reason": {
+          "enum": [
+            "explicit_method_requested",
+            "single_complete_base_period",
+            "minimum_history_for_moving_average",
+            "registered_inventory_reorder_method"
+          ],
+          "title": "Selection Reason",
+          "type": "string"
+        }
+      },
+      "required": [
+        "method_id",
+        "method_version",
+        "label",
+        "description",
+        "selection_reason"
+      ],
+      "title": "AnalyticsMethodExplanationV1",
+      "type": "object"
+    },
+    "AnalyticsResultGroupV1": {
+      "additionalProperties": false,
+      "properties": {
+        "concept": {
+          "const": "branch",
+          "title": "Concept",
+          "type": "string"
+        },
+        "key": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Key",
+          "type": "string"
+        },
+        "label": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Label",
+          "type": "string"
+        }
+      },
+      "required": [
+        "concept",
+        "key",
+        "label"
+      ],
+      "title": "AnalyticsResultGroupV1",
+      "type": "object"
+    },
+    "AnalyticsResultGroupedRowV1": {
+      "additionalProperties": false,
+      "properties": {
+        "base_value": {
+          "pattern": "^-?(0|[1-9][0-9]*)(\\.[0-9]+)?$",
+          "title": "Base Value",
+          "type": "string"
+        },
+        "group": {
+          "$ref": "#/$defs/AnalyticsResultGroupV1"
+        },
+        "projected_value": {
+          "pattern": "^-?(0|[1-9][0-9]*)(\\.[0-9]+)?$",
+          "title": "Projected Value",
+          "type": "string"
+        }
+      },
+      "required": [
+        "group",
+        "base_value",
+        "projected_value"
+      ],
+      "title": "AnalyticsResultGroupedRowV1",
+      "type": "object"
+    },
+    "AnalyticsResultInputTotalV1": {
+      "additionalProperties": false,
+      "properties": {
+        "period": {
+          "$ref": "#/$defs/AnalyticsResultPeriodV1"
+        },
+        "value": {
+          "pattern": "^-?(0|[1-9][0-9]*)(\\.[0-9]+)?$",
+          "title": "Value",
+          "type": "string"
+        }
+      },
+      "required": [
+        "period",
+        "value"
+      ],
+      "title": "AnalyticsResultInputTotalV1",
+      "type": "object"
+    },
+    "AnalyticsResultPeriodV1": {
+      "additionalProperties": false,
+      "properties": {
+        "end_exclusive": {
+          "format": "date-time",
+          "title": "End Exclusive",
+          "type": "string"
+        },
+        "start": {
+          "format": "date-time",
+          "title": "Start",
+          "type": "string"
+        },
+        "timezone": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Timezone",
+          "type": "string"
+        }
+      },
+      "required": [
+        "start",
+        "end_exclusive",
+        "timezone"
+      ],
+      "title": "AnalyticsResultPeriodV1",
+      "type": "object"
+    },
+    "AnalyticsResultPresentationV1": {
+      "additionalProperties": false,
+      "properties": {
+        "chart_enabled": {
+          "const": false,
+          "title": "Chart Enabled",
+          "type": "boolean"
+        },
+        "kind": {
+          "enum": [
+            "forecast_summary",
+            "grouped_forecast",
+            "inventory_reorder_grid"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "kpi_title": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Kpi Title",
+          "type": "string"
+        },
+        "method_label": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Method Label",
+          "type": "string"
+        },
+        "title": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "title",
+        "kpi_title",
+        "method_label",
+        "chart_enabled"
+      ],
+      "title": "AnalyticsResultPresentationV1",
+      "type": "object"
+    },
+    "AnalyticsResultRowV1": {
+      "additionalProperties": false,
+      "properties": {
+        "period": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Period",
+          "type": "string"
+        },
+        "type": {
+          "enum": [
+            "actual",
+            "forecast"
+          ],
+          "title": "Type",
+          "type": "string"
+        },
+        "value": {
+          "pattern": "^-?(0|[1-9][0-9]*)(\\.[0-9]+)?$",
+          "title": "Value",
+          "type": "string"
+        }
+      },
+      "required": [
+        "period",
+        "type",
+        "value"
+      ],
+      "title": "AnalyticsResultRowV1",
+      "type": "object"
+    },
+    "DailyRunRateCalculationV1": {
+      "additionalProperties": false,
+      "properties": {
+        "base_days": {
+          "exclusiveMinimum": 0,
+          "title": "Base Days",
+          "type": "integer"
+        },
+        "base_total": {
+          "pattern": "^-?(0|[1-9][0-9]*)(\\.[0-9]+)?$",
+          "title": "Base Total",
+          "type": "string"
+        },
+        "daily_average": {
+          "pattern": "^-?(0|[1-9][0-9]*)(\\.[0-9]+)?$",
+          "title": "Daily Average",
+          "type": "string"
+        },
+        "kind": {
+          "const": "daily_run_rate",
+          "title": "Kind",
+          "type": "string"
+        },
+        "projected_value": {
+          "pattern": "^-?(0|[1-9][0-9]*)(\\.[0-9]+)?$",
+          "title": "Projected Value",
+          "type": "string"
+        },
+        "target_days": {
+          "exclusiveMinimum": 0,
+          "title": "Target Days",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "kind",
+        "base_total",
+        "base_days",
+        "daily_average",
+        "target_days",
+        "projected_value"
+      ],
+      "title": "DailyRunRateCalculationV1",
+      "type": "object"
+    },
+    "InventoryReorderResultRowV1": {
+      "additionalProperties": false,
+      "properties": {
+        "available_inventory": {
+          "anyOf": [
+            {
+              "pattern": "^-?(0|[1-9][0-9]*)(\\.[0-9]+)?$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Available Inventory"
+        },
+        "product_id": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Product Id",
+          "type": "string"
+        },
+        "product_name": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Product Name",
+          "type": "string"
+        },
+        "projected_demand": {
+          "pattern": "^-?(0|[1-9][0-9]*)(\\.[0-9]+)?$",
+          "title": "Projected Demand",
+          "type": "string"
+        },
+        "recommended_reorder": {
+          "anyOf": [
+            {
+              "pattern": "^-?(0|[1-9][0-9]*)(\\.[0-9]+)?$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Recommended Reorder"
+        },
+        "row_status": {
+          "enum": [
+            "ready",
+            "missing_inventory"
+          ],
+          "title": "Row Status",
+          "type": "string"
+        },
+        "shortage": {
+          "anyOf": [
+            {
+              "pattern": "^-?(0|[1-9][0-9]*)(\\.[0-9]+)?$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Shortage"
+        }
+      },
+      "required": [
+        "product_id",
+        "product_name",
+        "projected_demand",
+        "available_inventory",
+        "shortage",
+        "recommended_reorder",
+        "row_status"
+      ],
+      "title": "InventoryReorderResultRowV1",
+      "type": "object"
+    },
+    "MovingAverageCalculationV1": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "moving_average",
+          "title": "Kind",
+          "type": "string"
+        },
+        "period_count": {
+          "exclusiveMinimum": 0,
+          "maximum": 36,
+          "title": "Period Count",
+          "type": "integer"
+        },
+        "period_totals": {
+          "items": {
+            "pattern": "^-?(0|[1-9][0-9]*)(\\.[0-9]+)?$",
+            "type": "string"
+          },
+          "maxItems": 36,
+          "minItems": 1,
+          "title": "Period Totals",
+          "type": "array"
+        },
+        "projected_value": {
+          "pattern": "^-?(0|[1-9][0-9]*)(\\.[0-9]+)?$",
+          "title": "Projected Value",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "period_totals",
+        "period_count",
+        "projected_value"
+      ],
+      "title": "MovingAverageCalculationV1",
+      "type": "object"
+    },
+    "NaiveLastPeriodCalculationV1": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "naive_last_period",
+          "title": "Kind",
+          "type": "string"
+        },
+        "projected_value": {
+          "pattern": "^-?(0|[1-9][0-9]*)(\\.[0-9]+)?$",
+          "title": "Projected Value",
+          "type": "string"
+        },
+        "source_period_total": {
+          "pattern": "^-?(0|[1-9][0-9]*)(\\.[0-9]+)?$",
+          "title": "Source Period Total",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "source_period_total",
+        "projected_value"
+      ],
+      "title": "NaiveLastPeriodCalculationV1",
+      "type": "object"
+    }
+  },
+  "$id": "urn:erp-rag-contracts:schema:analytics-result:v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Contrato normativo runtime analytics-result versión 1.",
+  "properties": {
+    "analytics_result_version": {
+      "const": "1.0",
+      "title": "Analytics Result Version",
+      "type": "string"
+    },
+    "base_periods": {
+      "anyOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/AnalyticsResultPeriodV1"
+          },
+          "maxItems": 12,
+          "minItems": 1,
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Base Periods"
+    },
+    "demand_forecast_method_id": {
+      "anyOf": [
+        {
+          "enum": [
+            "daily_run_rate_v1",
+            "moving_average_v1"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Demand Forecast Method Id"
+    },
+    "demand_forecast_method_version": {
+      "anyOf": [
+        {
+          "const": "1.0",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Demand Forecast Method Version"
+    },
+    "group_by": {
+      "anyOf": [
+        {
+          "enum": [
+            "branch",
+            "product"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Group By"
+    },
+    "grouped_rows": {
+      "anyOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/AnalyticsResultGroupedRowV1"
+          },
+          "maxItems": 500,
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Grouped Rows"
+    },
+    "input_totals": {
+      "items": {
+        "$ref": "#/$defs/AnalyticsResultInputTotalV1"
+      },
+      "maxItems": 36,
+      "title": "Input Totals",
+      "type": "array"
+    },
+    "inventory_as_of": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Inventory As Of"
+    },
+    "limitations": {
+      "anyOf": [
+        {
+          "items": {
+            "maxLength": 500,
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Limitations"
+    },
+    "method_explanation": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/AnalyticsMethodExplanationV1"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "method_id": {
+      "enum": [
+        "daily_run_rate_v1",
+        "naive_last_period_v1",
+        "moving_average_v1",
+        "inventory_reorder_v1"
+      ],
+      "title": "Method Id",
+      "type": "string"
+    },
+    "method_version": {
+      "anyOf": [
+        {
+          "const": "1.0",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Method Version"
+    },
+    "metric_concept": {
+      "enum": [
+        "sales",
+        "purchases",
+        "inventory_reorder"
+      ],
+      "title": "Metric Concept",
+      "type": "string"
+    },
+    "operation": {
+      "enum": [
+        "forecast",
+        "inventory_reorder"
+      ],
+      "title": "Operation",
+      "type": "string"
+    },
+    "presentation": {
+      "$ref": "#/$defs/AnalyticsResultPresentationV1"
+    },
+    "projected_value": {
+      "anyOf": [
+        {
+          "pattern": "^-?(0|[1-9][0-9]*)(\\.[0-9]+)?$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Projected Value"
+    },
+    "result_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+      "title": "Result Id",
+      "type": "string"
+    },
+    "rows": {
+      "items": {
+        "anyOf": [
+          {
+            "$ref": "#/$defs/AnalyticsResultRowV1"
+          },
+          {
+            "$ref": "#/$defs/InventoryReorderResultRowV1"
+          }
+        ]
+      },
+      "maxItems": 500,
+      "title": "Rows",
+      "type": "array"
+    },
+    "status": {
+      "const": "completed",
+      "title": "Status",
+      "type": "string"
+    },
+    "target_period": {
+      "$ref": "#/$defs/AnalyticsResultPeriodV1"
+    }
+  },
+  "required": [
+    "analytics_result_version",
+    "result_id",
+    "status",
+    "operation",
+    "metric_concept",
+    "method_id",
+    "input_totals",
+    "target_period",
+    "rows",
+    "presentation"
+  ],
+  "title": "AnalyticsResultV1",
+  "type": "object"
+}

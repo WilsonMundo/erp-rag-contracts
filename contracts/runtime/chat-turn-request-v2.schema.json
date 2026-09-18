@@ -51,6 +51,23 @@
       "type": "integer",
       "minimum": 0,
       "description": "Revisión del estado que .NET espera reanudar. Es obligatoria para respuestas a aclaraciones y confirmaciones."
+    },
+    "previous_query_context": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["version", "query_artifact_id", "query_execution_id", "query_id", "sql", "parameters", "applied_parameters", "rebindable_parameters", "result_semantics", "presentation_plan"],
+      "properties": {
+        "version": {"const": "1.0"},
+        "query_artifact_id": {"type": "string", "minLength": 1, "maxLength": 160},
+        "query_execution_id": {"type": "string", "minLength": 1, "maxLength": 160},
+        "query_id": {"type": "string", "minLength": 1, "maxLength": 160},
+        "sql": {"type": "string", "minLength": 1, "maxLength": 100000},
+        "parameters": {"type": "array", "maxItems": 100, "items": {"type": "object"}},
+        "applied_parameters": {"type": "object"},
+        "rebindable_parameters": {"type": "array", "maxItems": 100, "items": {"type": "string"}},
+        "result_semantics": {"type": "object"},
+        "presentation_plan": {"type": "object"}
+      }
     }
   },
   "allOf": [

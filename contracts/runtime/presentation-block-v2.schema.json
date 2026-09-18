@@ -2,6 +2,47 @@
   "$defs": {
     "ChartBlockV1": {
       "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "family": {
+                "const": "circular"
+              }
+            },
+            "required": [
+              "family"
+            ]
+          },
+          "then": {
+            "properties": {
+              "orientation": {
+                "type": "null"
+              },
+              "series": {
+                "items": {
+                  "properties": {
+                    "aggregation": {
+                      "const": "none"
+                    },
+                    "axis": {
+                      "type": "null"
+                    },
+                    "type": {
+                      "enum": [
+                        "pie",
+                        "doughnut"
+                      ]
+                    }
+                  }
+                },
+                "maxItems": 1,
+                "minItems": 1
+              }
+            }
+          }
+        }
+      ],
       "properties": {
         "block_id": {
           "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
@@ -124,6 +165,147 @@
         "label"
       ],
       "title": "ChartSeriesV2",
+      "type": "object"
+    },
+    "ComparisonKpiBlockV1": {
+      "additionalProperties": false,
+      "properties": {
+        "block_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+          "title": "Block Id",
+          "type": "string"
+        },
+        "block_version": {
+          "const": "1.0",
+          "title": "Block Version",
+          "type": "string"
+        },
+        "change": {
+          "$ref": "#/$defs/ComparisonKpiChangeV1"
+        },
+        "current": {
+          "$ref": "#/$defs/ComparisonKpiValueV1"
+        },
+        "kind": {
+          "const": "comparison_kpi",
+          "title": "Kind",
+          "type": "string"
+        },
+        "previous": {
+          "$ref": "#/$defs/ComparisonKpiValueV1"
+        },
+        "title": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        }
+      },
+      "required": [
+        "block_version",
+        "block_id",
+        "kind",
+        "title",
+        "current",
+        "previous",
+        "change"
+      ],
+      "title": "ComparisonKpiBlockV1",
+      "type": "object"
+    },
+    "ComparisonKpiChangeV1": {
+      "additionalProperties": false,
+      "properties": {
+        "format": {
+          "default": "percent",
+          "enum": [
+            "auto",
+            "number",
+            "integer",
+            "currency",
+            "percent"
+          ],
+          "title": "Format",
+          "type": "string"
+        },
+        "value": {
+          "discriminator": {
+            "mapping": {
+              "field": "#/$defs/FieldValueReferenceV1",
+              "resolved_reference": "#/$defs/ResolvedReferenceValueReferenceV1",
+              "result_aggregate": "#/$defs/ResultAggregateValueReferenceV1"
+            },
+            "propertyName": "source"
+          },
+          "oneOf": [
+            {
+              "$ref": "#/$defs/FieldValueReferenceV1"
+            },
+            {
+              "$ref": "#/$defs/ResultAggregateValueReferenceV1"
+            },
+            {
+              "$ref": "#/$defs/ResolvedReferenceValueReferenceV1"
+            }
+          ],
+          "title": "Value"
+        }
+      },
+      "required": [
+        "value"
+      ],
+      "title": "ComparisonKpiChangeV1",
+      "type": "object"
+    },
+    "ComparisonKpiValueV1": {
+      "additionalProperties": false,
+      "properties": {
+        "format": {
+          "default": "auto",
+          "enum": [
+            "auto",
+            "number",
+            "integer",
+            "currency",
+            "percent"
+          ],
+          "title": "Format",
+          "type": "string"
+        },
+        "label": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Label",
+          "type": "string"
+        },
+        "value": {
+          "discriminator": {
+            "mapping": {
+              "field": "#/$defs/FieldValueReferenceV1",
+              "resolved_reference": "#/$defs/ResolvedReferenceValueReferenceV1",
+              "result_aggregate": "#/$defs/ResultAggregateValueReferenceV1"
+            },
+            "propertyName": "source"
+          },
+          "oneOf": [
+            {
+              "$ref": "#/$defs/FieldValueReferenceV1"
+            },
+            {
+              "$ref": "#/$defs/ResultAggregateValueReferenceV1"
+            },
+            {
+              "$ref": "#/$defs/ResolvedReferenceValueReferenceV1"
+            }
+          ],
+          "title": "Value"
+        }
+      },
+      "required": [
+        "label",
+        "value"
+      ],
+      "title": "ComparisonKpiValueV1",
       "type": "object"
     },
     "DataGridBlockV1": {
@@ -684,6 +866,7 @@
   "discriminator": {
     "mapping": {
       "chart": "#/$defs/ChartBlockV1",
+      "comparison_kpi": "#/$defs/ComparisonKpiBlockV1",
       "data_grid": "#/$defs/DataGridBlockV1",
       "gauge": "#/$defs/GaugeBlockV1",
       "kpi": "#/$defs/KpiBlockV1",
@@ -694,6 +877,9 @@
   "oneOf": [
     {
       "$ref": "#/$defs/KpiBlockV1"
+    },
+    {
+      "$ref": "#/$defs/ComparisonKpiBlockV1"
     },
     {
       "$ref": "#/$defs/DataGridBlockV1"

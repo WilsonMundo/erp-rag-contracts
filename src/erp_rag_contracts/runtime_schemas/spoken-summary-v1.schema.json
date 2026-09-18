@@ -1,0 +1,31 @@
+{
+  "$id": "urn:erp-rag-contracts:schema:spoken-summary:v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Contrato normativo runtime spoken-summary versión 1.",
+  "properties": {
+    "kind": {
+      "const": "result_summary",
+      "title": "Kind",
+      "type": "string"
+    },
+    "spoken_summary_version": {
+      "const": "1.0",
+      "title": "Spoken Summary Version",
+      "type": "string"
+    },
+    "text": {
+      "maxLength": 500,
+      "minLength": 1,
+      "title": "Text",
+      "type": "string"
+    }
+  },
+  "required": [
+    "spoken_summary_version",
+    "kind",
+    "text"
+  ],
+  "title": "SpokenSummaryV1",
+  "type": "object"
+}

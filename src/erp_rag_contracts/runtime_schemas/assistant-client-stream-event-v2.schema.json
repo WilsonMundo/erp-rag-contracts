@@ -1,4 +1,34 @@
 {
+  "$defs": {
+    "SpokenSummaryV1": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "result_summary",
+          "title": "Kind",
+          "type": "string"
+        },
+        "spoken_summary_version": {
+          "const": "1.0",
+          "title": "Spoken Summary Version",
+          "type": "string"
+        },
+        "text": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Text",
+          "type": "string"
+        }
+      },
+      "required": [
+        "spoken_summary_version",
+        "kind",
+        "text"
+      ],
+      "title": "SpokenSummaryV1",
+      "type": "object"
+    }
+  },
   "$id": "urn:erp-rag-contracts:schema:assistant-client-stream-event:v2",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "additionalProperties": false,
@@ -35,6 +65,17 @@
       "title": "Sequence",
       "type": "integer"
     },
+    "spoken_summary": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/SpokenSummaryV1"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
     "timestamp": {
       "format": "date-time",
       "title": "Timestamp",
@@ -52,6 +93,7 @@
         "assistant.delta",
         "heartbeat",
         "query.result",
+        "analytics.result",
         "query.narrative_pending",
         "query.narrative",
         "query.narrative_degraded",

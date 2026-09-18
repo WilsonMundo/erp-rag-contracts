@@ -206,6 +206,7 @@
       "items": {
         "enum": [
           "kpi",
+          "comparison_kpi",
           "data_grid",
           "pivot_grid",
           "chart",
@@ -213,7 +214,7 @@
         ],
         "type": "string"
       },
-      "maxItems": 5,
+      "maxItems": 6,
       "minItems": 1,
       "title": "Block Kinds",
       "type": "array"

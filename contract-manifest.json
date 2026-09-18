@@ -1,5 +1,5 @@
 {
-  "contract_version": "2.3.0",
+  "contract_version": "2.4.0",
   "contracts": [
     {
       "compatibility": "1.x",
@@ -186,10 +186,18 @@
       "type": "reviewer-view-source"
     },
     {
+      "compatibility": "1.x",
+      "id": "urn:erp-rag-contracts:schema:analytics-result:v1",
+      "path": "contracts/runtime/analytics-result-v1.schema.json",
+      "sha256": "f16e7ff8135cc565a6ef745abb73167992db49cd9f71fff75585e815dace64e3",
+      "status": "stable",
+      "type": "analytics-result"
+    },
+    {
       "compatibility": "2.x",
       "id": "urn:erp-rag-contracts:schema:assistant-client-stream-event:v2",
       "path": "contracts/runtime/assistant-client-stream-event-v2.schema.json",
-      "sha256": "8a7defa00db2ecbc14274ea49b60e5c75663290678fbe02e7c61d588cf2d35aa",
+      "sha256": "59c2518526faad40b3f8f4a4a1ac37561c4e1c9b5102947521eb2cb0a74d0cb6",
       "status": "stable",
       "type": "assistant-client-stream-event"
     },
@@ -197,7 +205,7 @@
       "compatibility": "2.x",
       "id": "urn:erp-rag-contracts:schema:assistant-historical-requery-result:v2",
       "path": "contracts/runtime/assistant-historical-requery-result-v2.schema.json",
-      "sha256": "6dad64809833358a8ef6fc0a2f534afc18b385326e014bd7e036e29290301620",
+      "sha256": "fb6ad859220a940516451bdb42f7e72ebbb5280452cb04d9b15a5195558589b5",
       "status": "stable",
       "type": "assistant-historical-requery-result"
     },
@@ -205,7 +213,7 @@
       "compatibility": "2.x",
       "id": "urn:erp-rag-contracts:schema:assistant-historical-result:v2",
       "path": "contracts/runtime/assistant-historical-result-v2.schema.json",
-      "sha256": "b8092323eafcc35269ec015308218d2f78ab108fc90c4398f7bed3e142336c87",
+      "sha256": "7735d17d324eb5b46584db3b004e6147f6d7e6b3003454b25033802a58700eca",
       "status": "stable",
       "type": "assistant-historical-result"
     },
@@ -213,7 +221,7 @@
       "compatibility": "1.x",
       "id": "urn:erp-rag-contracts:schema:chart-block:v1",
       "path": "contracts/runtime/chart-block-v1.schema.json",
-      "sha256": "9e27919583f06de28bf3c3a77ca117969bb923b8dfce38b9739368583588313a",
+      "sha256": "1ef962ba6948b449599dd30a99826dcdeaec44e71c9000247ef464bfca241618",
       "status": "stable",
       "type": "chart-block"
     },
@@ -229,7 +237,7 @@
       "compatibility": "2.x",
       "id": "urn:erp-rag-contracts:schema:chat-turn-request:v2",
       "path": "contracts/runtime/chat-turn-request-v2.schema.json",
-      "sha256": "965aa25092642c870586985ddedc3d07a28f02f77a4b08bd53cb7089c611bcb3",
+      "sha256": "df81edc8a812ef80a93b97e5ad1bb1d78bb4e2a13d0bb719ca08dfb00a98bc61",
       "status": "stable",
       "type": "chat-turn-request"
     },
@@ -240,6 +248,14 @@
       "sha256": "05e6b4f0dc47aa4231b9c37e407cb5f2d63b417d701b634ff1a4af3854290329",
       "status": "stable",
       "type": "chat-turn-response"
+    },
+    {
+      "compatibility": "1.x",
+      "id": "urn:erp-rag-contracts:schema:comparison-kpi-block:v1",
+      "path": "contracts/runtime/comparison-kpi-block-v1.schema.json",
+      "sha256": "cc656164483e0d37a6daf6a10d4024104cadcccae8ac9f4afb1b978b668e8c38",
+      "status": "stable",
+      "type": "comparison-kpi-block"
     },
     {
       "compatibility": "1.x",
@@ -277,7 +293,7 @@
       "compatibility": "1.x",
       "id": "urn:erp-rag-contracts:schema:dashboard-result:v1",
       "path": "contracts/runtime/dashboard-result-v1.schema.json",
-      "sha256": "e875fcaaf8e97a8aa75c68f694cc01965ac899d4050b8241588020f5cd98b5d2",
+      "sha256": "84ff1b835df7af11b99059ab7b39c15afa5ed49f2e43e50b63fada3455fcbd83",
       "status": "stable",
       "type": "dashboard-result"
     },
@@ -421,7 +437,7 @@
       "compatibility": "2.x",
       "id": "urn:erp-rag-contracts:schema:intent-classification:v2",
       "path": "contracts/runtime/intent-classification-v2.schema.json",
-      "sha256": "501bb0e50d80833e53ce9e1e0a13be58b898ee6fb473b752733138e1fb9427a1",
+      "sha256": "c6ecf22510c0507b6cbf939e2e8063d5e15b9a4270102749602089f4b257866e",
       "status": "stable",
       "type": "intent-classification"
     },
@@ -437,9 +453,17 @@
       "compatibility": "1.x",
       "id": "urn:erp-rag-contracts:schema:materialized-chart-block:v1",
       "path": "contracts/runtime/materialized-chart-block-v1.schema.json",
-      "sha256": "8139358bd18a71105a0c974a29e05360576c50e3cf233e4071d1e790b970948d",
+      "sha256": "6fa46db1bee0c8238f08cbd4eb84130f07418894775a4a3c9a2a62896e914e70",
       "status": "stable",
       "type": "materialized-chart-block"
+    },
+    {
+      "compatibility": "1.x",
+      "id": "urn:erp-rag-contracts:schema:materialized-comparison-kpi-block:v1",
+      "path": "contracts/runtime/materialized-comparison-kpi-block-v1.schema.json",
+      "sha256": "9b59c06485e68aa0331ef864067241beb1901beb0fd2ac7d1aa2866cf96be84d",
+      "status": "stable",
+      "type": "materialized-comparison-kpi-block"
     },
     {
       "compatibility": "1.x",
@@ -477,7 +501,7 @@
       "compatibility": "2.x",
       "id": "urn:erp-rag-contracts:schema:materialized-presentation:v2",
       "path": "contracts/runtime/materialized-presentation-v2.schema.json",
-      "sha256": "0a0e5e20f6c1b9192d4531c0a26e3c5297936f13278a3419193858937add53e1",
+      "sha256": "381c8bca2e4c66aa01bf33561f6f55d36b14c461b491a95f32aace48db10244f",
       "status": "stable",
       "type": "materialized-presentation"
     },
@@ -501,7 +525,7 @@
       "compatibility": "2.x",
       "id": "urn:erp-rag-contracts:schema:presentation-block:v2",
       "path": "contracts/runtime/presentation-block-v2.schema.json",
-      "sha256": "9c3dbb16baac0ca3a2969c641662ae4a57f693c4145b22188e22c994b6ee033f",
+      "sha256": "08605aacf51bb4b0160e47609dfbfdb1855259706c4cd904f3c9e1ba189464ed",
       "status": "stable",
       "type": "presentation-block"
     },
@@ -509,7 +533,7 @@
       "compatibility": "1.x",
       "id": "urn:erp-rag-contracts:schema:presentation-capability-profile:v1",
       "path": "contracts/runtime/presentation-capability-profile-v1.schema.json",
-      "sha256": "49f031c80b1d3e0c7e7da64855487622d1d1aa018eb356bf443292d839c44fa7",
+      "sha256": "f13e51df7293448e8e15e51774ad5ac725a2b09bc49418f91b74c8da7c42dd1e",
       "status": "stable",
       "type": "presentation-capability-profile"
     },
@@ -525,7 +549,7 @@
       "compatibility": "2.x",
       "id": "urn:erp-rag-contracts:schema:presentation-plan:v2",
       "path": "contracts/runtime/presentation-plan-v2.schema.json",
-      "sha256": "12b0f7f0c9251f6166a1c514258817285c0aaa51e6b1333b38faa5285c09cbfd",
+      "sha256": "80a5c2af87c843dc2c99d4527063eb91bde40906a91d42ce1f217ef071661703",
       "status": "stable",
       "type": "presentation-plan"
     },
@@ -533,7 +557,7 @@
       "compatibility": "1.x",
       "id": "urn:erp-rag-contracts:schema:presentation-preference:v1",
       "path": "contracts/runtime/presentation-preference-v1.schema.json",
-      "sha256": "0cf5442fb3a56d5d2f8d3703b5634be0a1fb6a7cf0ff2ed78bc6c41980fed6ae",
+      "sha256": "188723503a32f2559149ff7eb0a747206e2c2fcc740666207fc9d4a118c5b61c",
       "status": "stable",
       "type": "presentation-preference"
     },
@@ -573,7 +597,7 @@
       "compatibility": "1.x",
       "id": "urn:erp-rag-contracts:schema:query-artifact:v1",
       "path": "contracts/runtime/query-artifact-v1.schema.json",
-      "sha256": "78de22f8c58804ad20a8d723200c1948d6fac70b7abecf80c4b48a1770ea051a",
+      "sha256": "12d40cbbce07a30d363702a3a459abea30a474a2d22e591715820f3edfc369d4",
       "status": "stable",
       "type": "query-artifact"
     },
@@ -581,7 +605,7 @@
       "compatibility": "2.x",
       "id": "urn:erp-rag-contracts:schema:query-result:v2",
       "path": "contracts/runtime/query-result-v2.schema.json",
-      "sha256": "d3d11b42c61b732c2a508676746a42ec1907dfb6cc49c59e18c567d03918c5db",
+      "sha256": "380380214c174be4b22b9882d8c358e9221299b076ff67296ceda88cb16901fa",
       "status": "stable",
       "type": "query-result"
     },
@@ -605,7 +629,7 @@
       "compatibility": "6.x",
       "id": "urn:erp-rag-contracts:schema:query-sql-draft:v6",
       "path": "contracts/runtime/query-sql-draft-v6.schema.json",
-      "sha256": "237f2a8a90d5b31227c879adcb0859066dd78f11354cef21763dd4d97bfac334",
+      "sha256": "67e818691c3472dc8dd5164f0c7fbc481ed011c780c4e0649844e4a162c59edb",
       "status": "stable",
       "type": "query-sql-draft"
     },
@@ -659,6 +683,14 @@
     },
     {
       "compatibility": "1.x",
+      "id": "urn:erp-rag-contracts:schema:spoken-summary:v1",
+      "path": "contracts/runtime/spoken-summary-v1.schema.json",
+      "sha256": "00344cb3611fe932d7ca7c6fb28da55f2dfd147bee9a5e450051f02152cfc769",
+      "status": "stable",
+      "type": "spoken-summary"
+    },
+    {
+      "compatibility": "1.x",
       "id": "urn:erp-rag-contracts:schema:value-reference:v1",
       "path": "contracts/runtime/value-reference-v1.schema.json",
       "sha256": "46ea18c4272e0aad1de900b7fb46493629aab6887750c170806beb4caae308f4",
@@ -669,15 +701,15 @@
   "generated_artifacts": [
     {
       "path": "generated/typescript/runtime/generation-metadata.json",
-      "sha256": "8e7214666c92168b7ae66b8046f97d35e9f9f3196a1b1b7ce3de7f3c4745d1c9"
+      "sha256": "90bcd5587129341615741f726ffea98692ef73abac41802f97c044d8112806a0"
     },
     {
       "path": "generated/typescript/runtime/index.d.ts",
-      "sha256": "d5c5152ae082a0683b4b0e0ffbebc4bddc9f3676aa8f1b8d9c8b4845310dac09"
+      "sha256": "3f4e0b22cc3d550bfd541b0cd387294422b5d53d8014566e11ba7a7afe88686f"
     },
     {
       "path": "generated/typescript/runtime/package.json",
-      "sha256": "bf5e4f508ab25a3960a01582b8cc57e2e58dcfa85ce17f5aba194257c7587d17"
+      "sha256": "1bb21c78418b974ac0b8852d2b7c46d8457ba02ba7032e2f7632bee662f84079"
     }
   ],
   "json_schema_version": "2020-12",

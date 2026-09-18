@@ -9,6 +9,7 @@
               "discriminator": {
                 "mapping": {
                   "chart": "#/$defs/MaterializedChartBlockV1",
+                  "comparison_kpi": "#/$defs/MaterializedComparisonKpiBlockV1",
                   "data_grid": "#/$defs/MaterializedGridBlockV1",
                   "gauge": "#/$defs/MaterializedGaugeBlockV1",
                   "kpi": "#/$defs/MaterializedKpiBlockV1",
@@ -19,6 +20,9 @@
               "oneOf": [
                 {
                   "$ref": "#/$defs/MaterializedKpiBlockV1"
+                },
+                {
+                  "$ref": "#/$defs/MaterializedComparisonKpiBlockV1"
                 },
                 {
                   "$ref": "#/$defs/MaterializedGridBlockV1"
@@ -78,6 +82,44 @@
     },
     "MaterializedChartBlockV1": {
       "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "family": {
+                "const": "circular"
+              }
+            },
+            "required": [
+              "family"
+            ]
+          },
+          "then": {
+            "properties": {
+              "orientation": {
+                "type": "null"
+              },
+              "series": {
+                "items": {
+                  "properties": {
+                    "axis": {
+                      "type": "null"
+                    },
+                    "type": {
+                      "enum": [
+                        "pie",
+                        "doughnut"
+                      ]
+                    }
+                  }
+                },
+                "maxItems": 1,
+                "minItems": 1
+              }
+            }
+          }
+        }
+      ],
       "properties": {
         "block_id": {
           "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
@@ -186,6 +228,169 @@
         "label"
       ],
       "title": "MaterializedChartSeriesV1",
+      "type": "object"
+    },
+    "MaterializedComparisonKpiBlockV1": {
+      "additionalProperties": false,
+      "properties": {
+        "block_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+          "title": "Block Id",
+          "type": "string"
+        },
+        "block_version": {
+          "const": "1.0",
+          "title": "Block Version",
+          "type": "string"
+        },
+        "change": {
+          "$ref": "#/$defs/MaterializedComparisonKpiChangeV1"
+        },
+        "current": {
+          "$ref": "#/$defs/MaterializedComparisonKpiValueV1"
+        },
+        "kind": {
+          "const": "comparison_kpi",
+          "title": "Kind",
+          "type": "string"
+        },
+        "previous": {
+          "$ref": "#/$defs/MaterializedComparisonKpiValueV1"
+        },
+        "scope": {
+          "$ref": "#/$defs/MaterializedScopeV1"
+        },
+        "title": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        }
+      },
+      "required": [
+        "block_version",
+        "block_id",
+        "kind",
+        "title",
+        "current",
+        "previous",
+        "change",
+        "scope"
+      ],
+      "title": "MaterializedComparisonKpiBlockV1",
+      "type": "object"
+    },
+    "MaterializedComparisonKpiChangeV1": {
+      "additionalProperties": false,
+      "properties": {
+        "direction": {
+          "enum": [
+            "up",
+            "down",
+            "flat",
+            "unknown"
+          ],
+          "title": "Direction",
+          "type": "string"
+        },
+        "format": {
+          "enum": [
+            "auto",
+            "number",
+            "integer",
+            "currency",
+            "percent"
+          ],
+          "title": "Format",
+          "type": "string"
+        },
+        "sentiment": {
+          "enum": [
+            "positive",
+            "negative",
+            "neutral",
+            "unknown"
+          ],
+          "title": "Sentiment",
+          "type": "string"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "integer"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Value"
+        }
+      },
+      "required": [
+        "value",
+        "format",
+        "direction",
+        "sentiment"
+      ],
+      "title": "MaterializedComparisonKpiChangeV1",
+      "type": "object"
+    },
+    "MaterializedComparisonKpiValueV1": {
+      "additionalProperties": false,
+      "properties": {
+        "format": {
+          "enum": [
+            "auto",
+            "number",
+            "integer",
+            "currency",
+            "percent"
+          ],
+          "title": "Format",
+          "type": "string"
+        },
+        "label": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Label",
+          "type": "string"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "integer"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Value"
+        }
+      },
+      "required": [
+        "label",
+        "value",
+        "format"
+      ],
+      "title": "MaterializedComparisonKpiValueV1",
       "type": "object"
     },
     "MaterializedGaugeBlockV1": {

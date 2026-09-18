@@ -45,6 +45,44 @@
   "$id": "urn:erp-rag-contracts:schema:materialized-chart-block:v1",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "family": {
+            "const": "circular"
+          }
+        },
+        "required": [
+          "family"
+        ]
+      },
+      "then": {
+        "properties": {
+          "orientation": {
+            "type": "null"
+          },
+          "series": {
+            "items": {
+              "properties": {
+                "axis": {
+                  "type": "null"
+                },
+                "type": {
+                  "enum": [
+                    "pie",
+                    "doughnut"
+                  ]
+                }
+              }
+            },
+            "maxItems": 1,
+            "minItems": 1
+          }
+        }
+      }
+    }
+  ],
   "description": "Contrato normativo runtime materialized-chart-block versión 1.",
   "properties": {
     "block_id": {

@@ -3425,32 +3425,40 @@ export type MissingInformation =
 export type Mode = 'auto' | 'include' | 'only';
 export type PresentationPreferenceVersion = '1.0';
 /**
- * @maxItems 5
+ * @maxItems 6
  */
 export type Required =
   | []
-  | ['kpi' | 'data_grid' | 'pivot_grid' | 'chart' | 'gauge']
+  | ['kpi' | 'comparison_kpi' | 'data_grid' | 'pivot_grid' | 'chart' | 'gauge']
   | [
-      'kpi' | 'data_grid' | 'pivot_grid' | 'chart' | 'gauge',
-      'kpi' | 'data_grid' | 'pivot_grid' | 'chart' | 'gauge'
+      'kpi' | 'comparison_kpi' | 'data_grid' | 'pivot_grid' | 'chart' | 'gauge',
+      'kpi' | 'comparison_kpi' | 'data_grid' | 'pivot_grid' | 'chart' | 'gauge'
     ]
   | [
-      'kpi' | 'data_grid' | 'pivot_grid' | 'chart' | 'gauge',
-      'kpi' | 'data_grid' | 'pivot_grid' | 'chart' | 'gauge',
-      'kpi' | 'data_grid' | 'pivot_grid' | 'chart' | 'gauge'
+      'kpi' | 'comparison_kpi' | 'data_grid' | 'pivot_grid' | 'chart' | 'gauge',
+      'kpi' | 'comparison_kpi' | 'data_grid' | 'pivot_grid' | 'chart' | 'gauge',
+      'kpi' | 'comparison_kpi' | 'data_grid' | 'pivot_grid' | 'chart' | 'gauge'
     ]
   | [
-      'kpi' | 'data_grid' | 'pivot_grid' | 'chart' | 'gauge',
-      'kpi' | 'data_grid' | 'pivot_grid' | 'chart' | 'gauge',
-      'kpi' | 'data_grid' | 'pivot_grid' | 'chart' | 'gauge',
-      'kpi' | 'data_grid' | 'pivot_grid' | 'chart' | 'gauge'
+      'kpi' | 'comparison_kpi' | 'data_grid' | 'pivot_grid' | 'chart' | 'gauge',
+      'kpi' | 'comparison_kpi' | 'data_grid' | 'pivot_grid' | 'chart' | 'gauge',
+      'kpi' | 'comparison_kpi' | 'data_grid' | 'pivot_grid' | 'chart' | 'gauge',
+      'kpi' | 'comparison_kpi' | 'data_grid' | 'pivot_grid' | 'chart' | 'gauge'
     ]
   | [
-      'kpi' | 'data_grid' | 'pivot_grid' | 'chart' | 'gauge',
-      'kpi' | 'data_grid' | 'pivot_grid' | 'chart' | 'gauge',
-      'kpi' | 'data_grid' | 'pivot_grid' | 'chart' | 'gauge',
-      'kpi' | 'data_grid' | 'pivot_grid' | 'chart' | 'gauge',
-      'kpi' | 'data_grid' | 'pivot_grid' | 'chart' | 'gauge'
+      'kpi' | 'comparison_kpi' | 'data_grid' | 'pivot_grid' | 'chart' | 'gauge',
+      'kpi' | 'comparison_kpi' | 'data_grid' | 'pivot_grid' | 'chart' | 'gauge',
+      'kpi' | 'comparison_kpi' | 'data_grid' | 'pivot_grid' | 'chart' | 'gauge',
+      'kpi' | 'comparison_kpi' | 'data_grid' | 'pivot_grid' | 'chart' | 'gauge',
+      'kpi' | 'comparison_kpi' | 'data_grid' | 'pivot_grid' | 'chart' | 'gauge'
+    ]
+  | [
+      'kpi' | 'comparison_kpi' | 'data_grid' | 'pivot_grid' | 'chart' | 'gauge',
+      'kpi' | 'comparison_kpi' | 'data_grid' | 'pivot_grid' | 'chart' | 'gauge',
+      'kpi' | 'comparison_kpi' | 'data_grid' | 'pivot_grid' | 'chart' | 'gauge',
+      'kpi' | 'comparison_kpi' | 'data_grid' | 'pivot_grid' | 'chart' | 'gauge',
+      'kpi' | 'comparison_kpi' | 'data_grid' | 'pivot_grid' | 'chart' | 'gauge',
+      'kpi' | 'comparison_kpi' | 'data_grid' | 'pivot_grid' | 'chart' | 'gauge'
     ];
 export type Reason =
   | 'erp_general'
@@ -3521,253 +3529,1723 @@ export type Parameters = (
  * @maxItems 20
  */
 export type Blocks =
-  | [KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1]
   | [
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1
+      | KpiBlockV1
+      | ComparisonKpiBlockV1
+      | DataGridBlockV1
+      | PivotGridBlockV1
+      | ChartBlockV1
+      | GaugeBlockV1
     ]
   | [
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      )
     ]
   | [
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      )
     ]
   | [
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      )
     ]
   | [
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      )
     ]
   | [
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      )
     ]
   | [
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      )
     ]
   | [
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      )
     ]
   | [
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      )
     ]
   | [
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      )
     ]
   | [
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      )
     ]
   | [
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      )
     ]
   | [
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      )
     ]
   | [
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      )
     ]
   | [
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      )
     ]
   | [
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      )
     ]
   | [
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      )
     ]
   | [
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      )
     ]
   | [
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
-      KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      )
+    ]
+  | [
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      ),
+      (
+        | KpiBlockV1
+        | ComparisonKpiBlockV1
+        | DataGridBlockV1
+        | PivotGridBlockV1
+        | ChartBlockV1
+        | GaugeBlockV1
+      )
     ];
 export type BlockId = string;
 export type BlockVersion = '1.0';
@@ -3786,6 +5264,17 @@ export type ReferenceId = string;
 export type Source2 = 'resolved_reference';
 export type BlockId1 = string;
 export type BlockVersion1 = '1.0';
+export type Format1 = 'auto' | 'number' | 'integer' | 'currency' | 'percent';
+export type Value8 =
+  FieldValueReferenceV1 | ResultAggregateValueReferenceV1 | ResolvedReferenceValueReferenceV1;
+export type Format2 = 'auto' | 'number' | 'integer' | 'currency' | 'percent';
+export type Label = string;
+export type Value9 =
+  FieldValueReferenceV1 | ResultAggregateValueReferenceV1 | ResolvedReferenceValueReferenceV1;
+export type Kind1 = 'comparison_kpi';
+export type Title1 = string;
+export type BlockId2 = string;
+export type BlockVersion2 = '1.0';
 /**
  * @maxItems 8
  */
@@ -4170,10 +5659,10 @@ export type Features =
  * @maxItems 100
  */
 export type Fields = [string, ...string[]];
-export type Kind1 = 'data_grid';
-export type Title1 = string;
-export type BlockId2 = string;
-export type BlockVersion2 = '1.0';
+export type Kind2 = 'data_grid';
+export type Title2 = string;
+export type BlockId3 = string;
+export type BlockVersion3 = '1.0';
 /**
  * @maxItems 20
  */
@@ -5022,7 +6511,7 @@ export type Features1 =
         | 'export'
       )
     ];
-export type Kind2 = 'pivot_grid';
+export type Kind3 = 'pivot_grid';
 /**
  * @minItems 1
  * @maxItems 20
@@ -5188,7 +6677,7 @@ export type Rows =
       string,
       string
     ];
-export type Title2 = string;
+export type Title3 = string;
 /**
  * @minItems 1
  * @maxItems 20
@@ -5419,11 +6908,12 @@ export type Values =
     ];
 export type Aggregation1 = 'sum' | 'avg' | 'min' | 'max' | 'count';
 export type Field2 = string;
-export type BlockId3 = string;
-export type BlockVersion3 = '1.0';
+export type ChartBlockV1 = ChartBlockV11;
+export type BlockId4 = string;
+export type BlockVersion4 = '1.0';
 export type CategoryField = string;
 export type Family = string;
-export type Kind3 = 'chart';
+export type Kind4 = 'chart';
 export type Orientation = ('vertical' | 'horizontal') | null;
 /**
  * @minItems 1
@@ -5656,13 +7146,13 @@ export type Series =
 export type Aggregation2 = 'none' | 'sum' | 'avg' | 'min' | 'max' | 'count';
 export type Axis = string | null;
 export type Field3 = string;
-export type Label = string;
+export type Label1 = string;
 export type Type = string;
-export type Title3 = string;
-export type BlockId4 = string;
-export type BlockVersion4 = '1.0';
+export type Title4 = string;
+export type BlockId5 = string;
+export type BlockVersion5 = '1.0';
 export type GaugeType = 'circular' | 'linear';
-export type Kind4 = 'gauge';
+export type Kind5 = 'gauge';
 export type Maximum =
   | (FieldValueReferenceV1 | ResultAggregateValueReferenceV1 | ResolvedReferenceValueReferenceV1)
   | null;
@@ -5899,21 +7389,21 @@ export type Ranges =
     ];
 export type End =
   FieldValueReferenceV1 | ResultAggregateValueReferenceV1 | ResolvedReferenceValueReferenceV1;
-export type Label1 = string;
+export type Label2 = string;
 export type Start =
   FieldValueReferenceV1 | ResultAggregateValueReferenceV1 | ResolvedReferenceValueReferenceV1;
 export type Target =
   | (FieldValueReferenceV1 | ResultAggregateValueReferenceV1 | ResolvedReferenceValueReferenceV1)
   | null;
-export type Title4 = string;
-export type Value8 =
+export type Title5 = string;
+export type Value10 =
   FieldValueReferenceV1 | ResultAggregateValueReferenceV1 | ResolvedReferenceValueReferenceV1;
 export type CapabilityProfile = string;
 export type Columns1 = number | null;
 export type Mode1 = 'flow' | 'grid';
 export type PresentationLayoutVersion = '1.0';
 export type PresentationPlanVersion = '2.0';
-export type Title5 = string;
+export type Title6 = string;
 export type Aggregation3 = 'none' | 'sum' | 'count' | 'avg' | 'min' | 'max' | 'unknown';
 export type Key = string;
 export type Ordinal = number;
@@ -5936,12 +7426,12 @@ export type SemanticType =
 export type Columns2 = ProposedSemanticColumnV2[];
 export type ResultSetSemanticsVersion = '1.0';
 export type Selection = AllMatchesSelectionV1 | TopNSelectionV1 | SampleSelectionV1;
-export type Kind5 = 'all_matches';
+export type Kind6 = 'all_matches';
 export type Direction = 'ascending' | 'descending';
-export type Kind6 = 'top_n';
+export type Kind7 = 'top_n';
 export type Limit = number;
 export type OrderField = string;
-export type Kind7 = 'sample';
+export type Kind8 = 'sample';
 export type Limit1 = number;
 export type Shape =
   'scalar' | 'detail' | 'grouped_aggregate' | 'ranking' | 'comparison' | 'distribution' | 'trend';
@@ -5951,22 +7441,27 @@ export type Sql = string;
 export type ResultSetSelectionV1 = AllMatchesSelectionV1 | TopNSelectionV1 | SampleSelectionV1;
 export type ValueReferenceV1 =
   FieldValueReferenceV1 | ResultAggregateValueReferenceV1 | ResolvedReferenceValueReferenceV1;
-export type Label2 = string;
+export type Label3 = string;
 export type ReferenceId1 = string;
 export type ReferenceType = 'target' | 'goal' | 'budget' | 'threshold';
 export type ResolvedAt = string;
 export type ResolvedBusinessReferenceVersion = '1.0';
 export type SemanticType1 = 'number' | 'currency' | 'percent' | 'date' | 'datetime';
 export type SourceId = string;
-export type Value9 = string | number | boolean | null;
+export type Value11 = string | number | boolean | null;
 /**
  * @maxItems 50
  */
 export type References = ResolvedBusinessReferenceV1[];
 export type ResolvedBusinessReferenceContextVersion = '1.0';
 export type PresentationBlockV2 =
-  KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1;
-export type BlockId5 = string;
+  | KpiBlockV1
+  | ComparisonKpiBlockV1
+  | DataGridBlockV1
+  | PivotGridBlockV1
+  | ChartBlockV1
+  | GaugeBlockV1;
+export type BlockId6 = string;
 export type Code =
   | (
       | 'BLOCK_FIELD_NOT_FOUND'
@@ -5990,6 +7485,7 @@ export type Blocks1 =
   | []
   | [
       | MaterializedKpiBlockV1
+      | MaterializedComparisonKpiBlockV1
       | MaterializedGridBlockV1
       | MaterializedPivotBlockV1
       | MaterializedChartBlockV1
@@ -5998,6 +7494,7 @@ export type Blocks1 =
   | [
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6005,29 +7502,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
-        | MaterializedGridBlockV1
-        | MaterializedPivotBlockV1
-        | MaterializedChartBlockV1
-        | MaterializedGaugeBlockV1
-      )
-    ]
-  | [
-      (
-        | MaterializedKpiBlockV1
-        | MaterializedGridBlockV1
-        | MaterializedPivotBlockV1
-        | MaterializedChartBlockV1
-        | MaterializedGaugeBlockV1
-      ),
-      (
-        | MaterializedKpiBlockV1
-        | MaterializedGridBlockV1
-        | MaterializedPivotBlockV1
-        | MaterializedChartBlockV1
-        | MaterializedGaugeBlockV1
-      ),
-      (
-        | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6037,6 +7512,7 @@ export type Blocks1 =
   | [
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6044,6 +7520,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6051,50 +7528,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
-        | MaterializedGridBlockV1
-        | MaterializedPivotBlockV1
-        | MaterializedChartBlockV1
-        | MaterializedGaugeBlockV1
-      ),
-      (
-        | MaterializedKpiBlockV1
-        | MaterializedGridBlockV1
-        | MaterializedPivotBlockV1
-        | MaterializedChartBlockV1
-        | MaterializedGaugeBlockV1
-      )
-    ]
-  | [
-      (
-        | MaterializedKpiBlockV1
-        | MaterializedGridBlockV1
-        | MaterializedPivotBlockV1
-        | MaterializedChartBlockV1
-        | MaterializedGaugeBlockV1
-      ),
-      (
-        | MaterializedKpiBlockV1
-        | MaterializedGridBlockV1
-        | MaterializedPivotBlockV1
-        | MaterializedChartBlockV1
-        | MaterializedGaugeBlockV1
-      ),
-      (
-        | MaterializedKpiBlockV1
-        | MaterializedGridBlockV1
-        | MaterializedPivotBlockV1
-        | MaterializedChartBlockV1
-        | MaterializedGaugeBlockV1
-      ),
-      (
-        | MaterializedKpiBlockV1
-        | MaterializedGridBlockV1
-        | MaterializedPivotBlockV1
-        | MaterializedChartBlockV1
-        | MaterializedGaugeBlockV1
-      ),
-      (
-        | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6104,6 +7538,7 @@ export type Blocks1 =
   | [
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6111,6 +7546,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6118,6 +7554,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6125,20 +7562,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
-        | MaterializedGridBlockV1
-        | MaterializedPivotBlockV1
-        | MaterializedChartBlockV1
-        | MaterializedGaugeBlockV1
-      ),
-      (
-        | MaterializedKpiBlockV1
-        | MaterializedGridBlockV1
-        | MaterializedPivotBlockV1
-        | MaterializedChartBlockV1
-        | MaterializedGaugeBlockV1
-      ),
-      (
-        | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6148,6 +7572,7 @@ export type Blocks1 =
   | [
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6155,6 +7580,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6162,6 +7588,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6169,6 +7596,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6176,20 +7604,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
-        | MaterializedGridBlockV1
-        | MaterializedPivotBlockV1
-        | MaterializedChartBlockV1
-        | MaterializedGaugeBlockV1
-      ),
-      (
-        | MaterializedKpiBlockV1
-        | MaterializedGridBlockV1
-        | MaterializedPivotBlockV1
-        | MaterializedChartBlockV1
-        | MaterializedGaugeBlockV1
-      ),
-      (
-        | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6199,6 +7614,7 @@ export type Blocks1 =
   | [
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6206,6 +7622,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6213,6 +7630,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6220,6 +7638,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6227,6 +7646,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6234,20 +7654,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
-        | MaterializedGridBlockV1
-        | MaterializedPivotBlockV1
-        | MaterializedChartBlockV1
-        | MaterializedGaugeBlockV1
-      ),
-      (
-        | MaterializedKpiBlockV1
-        | MaterializedGridBlockV1
-        | MaterializedPivotBlockV1
-        | MaterializedChartBlockV1
-        | MaterializedGaugeBlockV1
-      ),
-      (
-        | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6257,6 +7664,7 @@ export type Blocks1 =
   | [
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6264,6 +7672,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6271,6 +7680,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6278,6 +7688,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6285,6 +7696,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6292,6 +7704,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6299,20 +7712,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
-        | MaterializedGridBlockV1
-        | MaterializedPivotBlockV1
-        | MaterializedChartBlockV1
-        | MaterializedGaugeBlockV1
-      ),
-      (
-        | MaterializedKpiBlockV1
-        | MaterializedGridBlockV1
-        | MaterializedPivotBlockV1
-        | MaterializedChartBlockV1
-        | MaterializedGaugeBlockV1
-      ),
-      (
-        | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6322,6 +7722,7 @@ export type Blocks1 =
   | [
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6329,6 +7730,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6336,6 +7738,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6343,6 +7746,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6350,6 +7754,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6357,6 +7762,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6364,6 +7770,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6371,20 +7778,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
-        | MaterializedGridBlockV1
-        | MaterializedPivotBlockV1
-        | MaterializedChartBlockV1
-        | MaterializedGaugeBlockV1
-      ),
-      (
-        | MaterializedKpiBlockV1
-        | MaterializedGridBlockV1
-        | MaterializedPivotBlockV1
-        | MaterializedChartBlockV1
-        | MaterializedGaugeBlockV1
-      ),
-      (
-        | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6394,6 +7788,7 @@ export type Blocks1 =
   | [
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6401,6 +7796,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6408,6 +7804,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6415,6 +7812,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6422,6 +7820,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6429,6 +7828,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6436,6 +7836,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6443,6 +7844,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6450,20 +7852,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
-        | MaterializedGridBlockV1
-        | MaterializedPivotBlockV1
-        | MaterializedChartBlockV1
-        | MaterializedGaugeBlockV1
-      ),
-      (
-        | MaterializedKpiBlockV1
-        | MaterializedGridBlockV1
-        | MaterializedPivotBlockV1
-        | MaterializedChartBlockV1
-        | MaterializedGaugeBlockV1
-      ),
-      (
-        | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6473,6 +7862,7 @@ export type Blocks1 =
   | [
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6480,6 +7870,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6487,6 +7878,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6494,6 +7886,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6501,6 +7894,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6508,6 +7902,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6515,6 +7910,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6522,6 +7918,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6529,6 +7926,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6536,113 +7934,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
-        | MaterializedGridBlockV1
-        | MaterializedPivotBlockV1
-        | MaterializedChartBlockV1
-        | MaterializedGaugeBlockV1
-      ),
-      (
-        | MaterializedKpiBlockV1
-        | MaterializedGridBlockV1
-        | MaterializedPivotBlockV1
-        | MaterializedChartBlockV1
-        | MaterializedGaugeBlockV1
-      ),
-      (
-        | MaterializedKpiBlockV1
-        | MaterializedGridBlockV1
-        | MaterializedPivotBlockV1
-        | MaterializedChartBlockV1
-        | MaterializedGaugeBlockV1
-      )
-    ]
-  | [
-      (
-        | MaterializedKpiBlockV1
-        | MaterializedGridBlockV1
-        | MaterializedPivotBlockV1
-        | MaterializedChartBlockV1
-        | MaterializedGaugeBlockV1
-      ),
-      (
-        | MaterializedKpiBlockV1
-        | MaterializedGridBlockV1
-        | MaterializedPivotBlockV1
-        | MaterializedChartBlockV1
-        | MaterializedGaugeBlockV1
-      ),
-      (
-        | MaterializedKpiBlockV1
-        | MaterializedGridBlockV1
-        | MaterializedPivotBlockV1
-        | MaterializedChartBlockV1
-        | MaterializedGaugeBlockV1
-      ),
-      (
-        | MaterializedKpiBlockV1
-        | MaterializedGridBlockV1
-        | MaterializedPivotBlockV1
-        | MaterializedChartBlockV1
-        | MaterializedGaugeBlockV1
-      ),
-      (
-        | MaterializedKpiBlockV1
-        | MaterializedGridBlockV1
-        | MaterializedPivotBlockV1
-        | MaterializedChartBlockV1
-        | MaterializedGaugeBlockV1
-      ),
-      (
-        | MaterializedKpiBlockV1
-        | MaterializedGridBlockV1
-        | MaterializedPivotBlockV1
-        | MaterializedChartBlockV1
-        | MaterializedGaugeBlockV1
-      ),
-      (
-        | MaterializedKpiBlockV1
-        | MaterializedGridBlockV1
-        | MaterializedPivotBlockV1
-        | MaterializedChartBlockV1
-        | MaterializedGaugeBlockV1
-      ),
-      (
-        | MaterializedKpiBlockV1
-        | MaterializedGridBlockV1
-        | MaterializedPivotBlockV1
-        | MaterializedChartBlockV1
-        | MaterializedGaugeBlockV1
-      ),
-      (
-        | MaterializedKpiBlockV1
-        | MaterializedGridBlockV1
-        | MaterializedPivotBlockV1
-        | MaterializedChartBlockV1
-        | MaterializedGaugeBlockV1
-      ),
-      (
-        | MaterializedKpiBlockV1
-        | MaterializedGridBlockV1
-        | MaterializedPivotBlockV1
-        | MaterializedChartBlockV1
-        | MaterializedGaugeBlockV1
-      ),
-      (
-        | MaterializedKpiBlockV1
-        | MaterializedGridBlockV1
-        | MaterializedPivotBlockV1
-        | MaterializedChartBlockV1
-        | MaterializedGaugeBlockV1
-      ),
-      (
-        | MaterializedKpiBlockV1
-        | MaterializedGridBlockV1
-        | MaterializedPivotBlockV1
-        | MaterializedChartBlockV1
-        | MaterializedGaugeBlockV1
-      ),
-      (
-        | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6652,6 +7944,7 @@ export type Blocks1 =
   | [
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6659,6 +7952,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6666,6 +7960,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6673,6 +7968,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6680,6 +7976,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6687,6 +7984,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6694,6 +7992,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6701,6 +8000,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6708,6 +8008,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6715,6 +8016,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6722,27 +8024,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
-        | MaterializedGridBlockV1
-        | MaterializedPivotBlockV1
-        | MaterializedChartBlockV1
-        | MaterializedGaugeBlockV1
-      ),
-      (
-        | MaterializedKpiBlockV1
-        | MaterializedGridBlockV1
-        | MaterializedPivotBlockV1
-        | MaterializedChartBlockV1
-        | MaterializedGaugeBlockV1
-      ),
-      (
-        | MaterializedKpiBlockV1
-        | MaterializedGridBlockV1
-        | MaterializedPivotBlockV1
-        | MaterializedChartBlockV1
-        | MaterializedGaugeBlockV1
-      ),
-      (
-        | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6752,6 +8034,7 @@ export type Blocks1 =
   | [
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6759,6 +8042,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6766,6 +8050,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6773,6 +8058,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6780,6 +8066,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6787,6 +8074,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6794,6 +8082,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6801,6 +8090,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6808,6 +8098,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6815,6 +8106,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6822,6 +8114,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6829,27 +8122,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
-        | MaterializedGridBlockV1
-        | MaterializedPivotBlockV1
-        | MaterializedChartBlockV1
-        | MaterializedGaugeBlockV1
-      ),
-      (
-        | MaterializedKpiBlockV1
-        | MaterializedGridBlockV1
-        | MaterializedPivotBlockV1
-        | MaterializedChartBlockV1
-        | MaterializedGaugeBlockV1
-      ),
-      (
-        | MaterializedKpiBlockV1
-        | MaterializedGridBlockV1
-        | MaterializedPivotBlockV1
-        | MaterializedChartBlockV1
-        | MaterializedGaugeBlockV1
-      ),
-      (
-        | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6859,6 +8132,7 @@ export type Blocks1 =
   | [
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6866,6 +8140,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6873,6 +8148,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6880,6 +8156,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6887,6 +8164,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6894,6 +8172,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6901,6 +8180,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6908,6 +8188,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6915,6 +8196,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6922,6 +8204,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6929,6 +8212,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6936,6 +8220,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6943,27 +8228,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
-        | MaterializedGridBlockV1
-        | MaterializedPivotBlockV1
-        | MaterializedChartBlockV1
-        | MaterializedGaugeBlockV1
-      ),
-      (
-        | MaterializedKpiBlockV1
-        | MaterializedGridBlockV1
-        | MaterializedPivotBlockV1
-        | MaterializedChartBlockV1
-        | MaterializedGaugeBlockV1
-      ),
-      (
-        | MaterializedKpiBlockV1
-        | MaterializedGridBlockV1
-        | MaterializedPivotBlockV1
-        | MaterializedChartBlockV1
-        | MaterializedGaugeBlockV1
-      ),
-      (
-        | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6973,6 +8238,7 @@ export type Blocks1 =
   | [
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6980,6 +8246,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6987,6 +8254,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -6994,6 +8262,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -7001,6 +8270,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -7008,6 +8278,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -7015,6 +8286,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -7022,6 +8294,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -7029,6 +8302,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -7036,6 +8310,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -7043,6 +8318,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -7050,6 +8326,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -7057,6 +8334,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -7064,27 +8342,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
-        | MaterializedGridBlockV1
-        | MaterializedPivotBlockV1
-        | MaterializedChartBlockV1
-        | MaterializedGaugeBlockV1
-      ),
-      (
-        | MaterializedKpiBlockV1
-        | MaterializedGridBlockV1
-        | MaterializedPivotBlockV1
-        | MaterializedChartBlockV1
-        | MaterializedGaugeBlockV1
-      ),
-      (
-        | MaterializedKpiBlockV1
-        | MaterializedGridBlockV1
-        | MaterializedPivotBlockV1
-        | MaterializedChartBlockV1
-        | MaterializedGaugeBlockV1
-      ),
-      (
-        | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -7094,6 +8352,7 @@ export type Blocks1 =
   | [
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -7101,6 +8360,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -7108,6 +8368,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -7115,6 +8376,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -7122,6 +8384,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -7129,6 +8392,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -7136,6 +8400,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -7143,6 +8408,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -7150,6 +8416,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -7157,6 +8424,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -7164,6 +8432,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -7171,6 +8440,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -7178,6 +8448,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -7185,6 +8456,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -7192,27 +8464,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
-        | MaterializedGridBlockV1
-        | MaterializedPivotBlockV1
-        | MaterializedChartBlockV1
-        | MaterializedGaugeBlockV1
-      ),
-      (
-        | MaterializedKpiBlockV1
-        | MaterializedGridBlockV1
-        | MaterializedPivotBlockV1
-        | MaterializedChartBlockV1
-        | MaterializedGaugeBlockV1
-      ),
-      (
-        | MaterializedKpiBlockV1
-        | MaterializedGridBlockV1
-        | MaterializedPivotBlockV1
-        | MaterializedChartBlockV1
-        | MaterializedGaugeBlockV1
-      ),
-      (
-        | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -7222,6 +8474,7 @@ export type Blocks1 =
   | [
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -7229,6 +8482,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -7236,6 +8490,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -7243,6 +8498,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -7250,6 +8506,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -7257,6 +8514,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -7264,6 +8522,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -7271,6 +8530,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -7278,6 +8538,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -7285,6 +8546,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -7292,6 +8554,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -7299,6 +8562,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -7306,6 +8570,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -7313,6 +8578,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -7320,6 +8586,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -7327,27 +8594,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
-        | MaterializedGridBlockV1
-        | MaterializedPivotBlockV1
-        | MaterializedChartBlockV1
-        | MaterializedGaugeBlockV1
-      ),
-      (
-        | MaterializedKpiBlockV1
-        | MaterializedGridBlockV1
-        | MaterializedPivotBlockV1
-        | MaterializedChartBlockV1
-        | MaterializedGaugeBlockV1
-      ),
-      (
-        | MaterializedKpiBlockV1
-        | MaterializedGridBlockV1
-        | MaterializedPivotBlockV1
-        | MaterializedChartBlockV1
-        | MaterializedGaugeBlockV1
-      ),
-      (
-        | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -7357,6 +8604,7 @@ export type Blocks1 =
   | [
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -7364,6 +8612,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -7371,6 +8620,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -7378,6 +8628,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -7385,6 +8636,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -7392,6 +8644,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -7399,6 +8652,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -7406,6 +8660,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -7413,6 +8668,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -7420,6 +8676,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -7427,6 +8684,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -7434,6 +8692,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -7441,6 +8700,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -7448,6 +8708,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -7455,6 +8716,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -7462,6 +8724,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -7469,6 +8732,17 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
+        | MaterializedGridBlockV1
+        | MaterializedPivotBlockV1
+        | MaterializedChartBlockV1
+        | MaterializedGaugeBlockV1
+      )
+    ]
+  | [
+      (
+        | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -7476,6 +8750,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -7483,6 +8758,7 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
@@ -7490,22 +8766,462 @@ export type Blocks1 =
       ),
       (
         | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
+        | MaterializedGridBlockV1
+        | MaterializedPivotBlockV1
+        | MaterializedChartBlockV1
+        | MaterializedGaugeBlockV1
+      ),
+      (
+        | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
+        | MaterializedGridBlockV1
+        | MaterializedPivotBlockV1
+        | MaterializedChartBlockV1
+        | MaterializedGaugeBlockV1
+      ),
+      (
+        | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
+        | MaterializedGridBlockV1
+        | MaterializedPivotBlockV1
+        | MaterializedChartBlockV1
+        | MaterializedGaugeBlockV1
+      ),
+      (
+        | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
+        | MaterializedGridBlockV1
+        | MaterializedPivotBlockV1
+        | MaterializedChartBlockV1
+        | MaterializedGaugeBlockV1
+      ),
+      (
+        | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
+        | MaterializedGridBlockV1
+        | MaterializedPivotBlockV1
+        | MaterializedChartBlockV1
+        | MaterializedGaugeBlockV1
+      ),
+      (
+        | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
+        | MaterializedGridBlockV1
+        | MaterializedPivotBlockV1
+        | MaterializedChartBlockV1
+        | MaterializedGaugeBlockV1
+      ),
+      (
+        | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
+        | MaterializedGridBlockV1
+        | MaterializedPivotBlockV1
+        | MaterializedChartBlockV1
+        | MaterializedGaugeBlockV1
+      ),
+      (
+        | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
+        | MaterializedGridBlockV1
+        | MaterializedPivotBlockV1
+        | MaterializedChartBlockV1
+        | MaterializedGaugeBlockV1
+      ),
+      (
+        | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
+        | MaterializedGridBlockV1
+        | MaterializedPivotBlockV1
+        | MaterializedChartBlockV1
+        | MaterializedGaugeBlockV1
+      ),
+      (
+        | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
+        | MaterializedGridBlockV1
+        | MaterializedPivotBlockV1
+        | MaterializedChartBlockV1
+        | MaterializedGaugeBlockV1
+      ),
+      (
+        | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
+        | MaterializedGridBlockV1
+        | MaterializedPivotBlockV1
+        | MaterializedChartBlockV1
+        | MaterializedGaugeBlockV1
+      ),
+      (
+        | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
+        | MaterializedGridBlockV1
+        | MaterializedPivotBlockV1
+        | MaterializedChartBlockV1
+        | MaterializedGaugeBlockV1
+      ),
+      (
+        | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
+        | MaterializedGridBlockV1
+        | MaterializedPivotBlockV1
+        | MaterializedChartBlockV1
+        | MaterializedGaugeBlockV1
+      ),
+      (
+        | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
+        | MaterializedGridBlockV1
+        | MaterializedPivotBlockV1
+        | MaterializedChartBlockV1
+        | MaterializedGaugeBlockV1
+      ),
+      (
+        | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
+        | MaterializedGridBlockV1
+        | MaterializedPivotBlockV1
+        | MaterializedChartBlockV1
+        | MaterializedGaugeBlockV1
+      )
+    ]
+  | [
+      (
+        | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
+        | MaterializedGridBlockV1
+        | MaterializedPivotBlockV1
+        | MaterializedChartBlockV1
+        | MaterializedGaugeBlockV1
+      ),
+      (
+        | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
+        | MaterializedGridBlockV1
+        | MaterializedPivotBlockV1
+        | MaterializedChartBlockV1
+        | MaterializedGaugeBlockV1
+      ),
+      (
+        | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
+        | MaterializedGridBlockV1
+        | MaterializedPivotBlockV1
+        | MaterializedChartBlockV1
+        | MaterializedGaugeBlockV1
+      ),
+      (
+        | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
+        | MaterializedGridBlockV1
+        | MaterializedPivotBlockV1
+        | MaterializedChartBlockV1
+        | MaterializedGaugeBlockV1
+      ),
+      (
+        | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
+        | MaterializedGridBlockV1
+        | MaterializedPivotBlockV1
+        | MaterializedChartBlockV1
+        | MaterializedGaugeBlockV1
+      ),
+      (
+        | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
+        | MaterializedGridBlockV1
+        | MaterializedPivotBlockV1
+        | MaterializedChartBlockV1
+        | MaterializedGaugeBlockV1
+      ),
+      (
+        | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
+        | MaterializedGridBlockV1
+        | MaterializedPivotBlockV1
+        | MaterializedChartBlockV1
+        | MaterializedGaugeBlockV1
+      ),
+      (
+        | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
+        | MaterializedGridBlockV1
+        | MaterializedPivotBlockV1
+        | MaterializedChartBlockV1
+        | MaterializedGaugeBlockV1
+      ),
+      (
+        | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
+        | MaterializedGridBlockV1
+        | MaterializedPivotBlockV1
+        | MaterializedChartBlockV1
+        | MaterializedGaugeBlockV1
+      ),
+      (
+        | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
+        | MaterializedGridBlockV1
+        | MaterializedPivotBlockV1
+        | MaterializedChartBlockV1
+        | MaterializedGaugeBlockV1
+      ),
+      (
+        | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
+        | MaterializedGridBlockV1
+        | MaterializedPivotBlockV1
+        | MaterializedChartBlockV1
+        | MaterializedGaugeBlockV1
+      ),
+      (
+        | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
+        | MaterializedGridBlockV1
+        | MaterializedPivotBlockV1
+        | MaterializedChartBlockV1
+        | MaterializedGaugeBlockV1
+      ),
+      (
+        | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
+        | MaterializedGridBlockV1
+        | MaterializedPivotBlockV1
+        | MaterializedChartBlockV1
+        | MaterializedGaugeBlockV1
+      ),
+      (
+        | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
+        | MaterializedGridBlockV1
+        | MaterializedPivotBlockV1
+        | MaterializedChartBlockV1
+        | MaterializedGaugeBlockV1
+      ),
+      (
+        | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
+        | MaterializedGridBlockV1
+        | MaterializedPivotBlockV1
+        | MaterializedChartBlockV1
+        | MaterializedGaugeBlockV1
+      ),
+      (
+        | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
+        | MaterializedGridBlockV1
+        | MaterializedPivotBlockV1
+        | MaterializedChartBlockV1
+        | MaterializedGaugeBlockV1
+      ),
+      (
+        | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
+        | MaterializedGridBlockV1
+        | MaterializedPivotBlockV1
+        | MaterializedChartBlockV1
+        | MaterializedGaugeBlockV1
+      ),
+      (
+        | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
+        | MaterializedGridBlockV1
+        | MaterializedPivotBlockV1
+        | MaterializedChartBlockV1
+        | MaterializedGaugeBlockV1
+      ),
+      (
+        | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
+        | MaterializedGridBlockV1
+        | MaterializedPivotBlockV1
+        | MaterializedChartBlockV1
+        | MaterializedGaugeBlockV1
+      )
+    ]
+  | [
+      (
+        | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
+        | MaterializedGridBlockV1
+        | MaterializedPivotBlockV1
+        | MaterializedChartBlockV1
+        | MaterializedGaugeBlockV1
+      ),
+      (
+        | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
+        | MaterializedGridBlockV1
+        | MaterializedPivotBlockV1
+        | MaterializedChartBlockV1
+        | MaterializedGaugeBlockV1
+      ),
+      (
+        | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
+        | MaterializedGridBlockV1
+        | MaterializedPivotBlockV1
+        | MaterializedChartBlockV1
+        | MaterializedGaugeBlockV1
+      ),
+      (
+        | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
+        | MaterializedGridBlockV1
+        | MaterializedPivotBlockV1
+        | MaterializedChartBlockV1
+        | MaterializedGaugeBlockV1
+      ),
+      (
+        | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
+        | MaterializedGridBlockV1
+        | MaterializedPivotBlockV1
+        | MaterializedChartBlockV1
+        | MaterializedGaugeBlockV1
+      ),
+      (
+        | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
+        | MaterializedGridBlockV1
+        | MaterializedPivotBlockV1
+        | MaterializedChartBlockV1
+        | MaterializedGaugeBlockV1
+      ),
+      (
+        | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
+        | MaterializedGridBlockV1
+        | MaterializedPivotBlockV1
+        | MaterializedChartBlockV1
+        | MaterializedGaugeBlockV1
+      ),
+      (
+        | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
+        | MaterializedGridBlockV1
+        | MaterializedPivotBlockV1
+        | MaterializedChartBlockV1
+        | MaterializedGaugeBlockV1
+      ),
+      (
+        | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
+        | MaterializedGridBlockV1
+        | MaterializedPivotBlockV1
+        | MaterializedChartBlockV1
+        | MaterializedGaugeBlockV1
+      ),
+      (
+        | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
+        | MaterializedGridBlockV1
+        | MaterializedPivotBlockV1
+        | MaterializedChartBlockV1
+        | MaterializedGaugeBlockV1
+      ),
+      (
+        | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
+        | MaterializedGridBlockV1
+        | MaterializedPivotBlockV1
+        | MaterializedChartBlockV1
+        | MaterializedGaugeBlockV1
+      ),
+      (
+        | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
+        | MaterializedGridBlockV1
+        | MaterializedPivotBlockV1
+        | MaterializedChartBlockV1
+        | MaterializedGaugeBlockV1
+      ),
+      (
+        | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
+        | MaterializedGridBlockV1
+        | MaterializedPivotBlockV1
+        | MaterializedChartBlockV1
+        | MaterializedGaugeBlockV1
+      ),
+      (
+        | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
+        | MaterializedGridBlockV1
+        | MaterializedPivotBlockV1
+        | MaterializedChartBlockV1
+        | MaterializedGaugeBlockV1
+      ),
+      (
+        | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
+        | MaterializedGridBlockV1
+        | MaterializedPivotBlockV1
+        | MaterializedChartBlockV1
+        | MaterializedGaugeBlockV1
+      ),
+      (
+        | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
+        | MaterializedGridBlockV1
+        | MaterializedPivotBlockV1
+        | MaterializedChartBlockV1
+        | MaterializedGaugeBlockV1
+      ),
+      (
+        | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
+        | MaterializedGridBlockV1
+        | MaterializedPivotBlockV1
+        | MaterializedChartBlockV1
+        | MaterializedGaugeBlockV1
+      ),
+      (
+        | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
+        | MaterializedGridBlockV1
+        | MaterializedPivotBlockV1
+        | MaterializedChartBlockV1
+        | MaterializedGaugeBlockV1
+      ),
+      (
+        | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
+        | MaterializedGridBlockV1
+        | MaterializedPivotBlockV1
+        | MaterializedChartBlockV1
+        | MaterializedGaugeBlockV1
+      ),
+      (
+        | MaterializedKpiBlockV1
+        | MaterializedComparisonKpiBlockV1
         | MaterializedGridBlockV1
         | MaterializedPivotBlockV1
         | MaterializedChartBlockV1
         | MaterializedGaugeBlockV1
       )
     ];
-export type BlockId6 = string;
-export type BlockVersion5 = '1.0';
-export type Format1 = 'auto' | 'number' | 'integer' | 'currency' | 'percent';
-export type Kind8 = 'kpi';
-export type Kind9 = 'all_matches' | 'top_n' | 'sample';
-export type Label3 = string | null;
-export type Title6 = string;
-export type Value10 = string | number | boolean | null;
 export type BlockId7 = string;
 export type BlockVersion6 = '1.0';
+export type Format3 = 'auto' | 'number' | 'integer' | 'currency' | 'percent';
+export type Kind9 = 'kpi';
+export type Kind10 = 'all_matches' | 'top_n' | 'sample';
+export type Label4 = string | null;
+export type Title7 = string;
+export type Value12 = string | number | boolean | null;
+export type BlockId8 = string;
+export type BlockVersion7 = '1.0';
+export type Direction1 = 'up' | 'down' | 'flat' | 'unknown';
+export type Format4 = 'auto' | 'number' | 'integer' | 'currency' | 'percent';
+export type Sentiment = 'positive' | 'negative' | 'neutral' | 'unknown';
+export type Value13 = string | number | boolean | null;
+export type Format5 = 'auto' | 'number' | 'integer' | 'currency' | 'percent';
+export type Label5 = string;
+export type Value14 = string | number | boolean | null;
+export type Kind11 = 'comparison_kpi';
+export type Title8 = string;
+export type BlockId9 = string;
+export type BlockVersion8 = '1.0';
 /**
  * @maxItems 8
  */
@@ -7890,10 +9606,10 @@ export type Features2 =
  * @maxItems 100
  */
 export type Fields1 = [string, ...string[]];
-export type Kind10 = 'data_grid';
-export type Title7 = string;
-export type BlockId8 = string;
-export type BlockVersion7 = '1.0';
+export type Kind12 = 'data_grid';
+export type Title9 = string;
+export type BlockId10 = string;
+export type BlockVersion9 = '1.0';
 export type Columns3 = string[];
 /**
  * @maxItems 10
@@ -8578,20 +10294,21 @@ export type Features3 =
         | 'export'
       )
     ];
-export type Kind11 = 'pivot_grid';
+export type Kind13 = 'pivot_grid';
 export type Rows1 = string[];
-export type Title8 = string;
+export type Title10 = string;
 /**
  * @minItems 1
  */
 export type Values1 = [MaterializedPivotValueV1, ...MaterializedPivotValueV1[]];
 export type Aggregation4 = 'sum' | 'avg' | 'min' | 'max' | 'count';
 export type Field4 = string;
-export type BlockId9 = string;
-export type BlockVersion8 = '1.0';
+export type MaterializedChartBlockV1 = MaterializedChartBlockV11;
+export type BlockId11 = string;
+export type BlockVersion10 = '1.0';
 export type CategoryField1 = string;
 export type Family1 = string;
-export type Kind12 = 'chart';
+export type Kind14 = 'chart';
 export type Orientation1 = ('vertical' | 'horizontal') | null;
 /**
  * @minItems 1
@@ -8599,22 +10316,22 @@ export type Orientation1 = ('vertical' | 'horizontal') | null;
 export type Series1 = [MaterializedChartSeriesV1, ...MaterializedChartSeriesV1[]];
 export type Axis1 = string | null;
 export type Field5 = string;
-export type Label4 = string;
+export type Label6 = string;
 export type Type1 = string;
-export type Title9 = string;
-export type BlockId10 = string;
-export type BlockVersion9 = '1.0';
+export type Title11 = string;
+export type BlockId12 = string;
+export type BlockVersion11 = '1.0';
 export type GaugeType1 = 'circular' | 'linear';
-export type Kind13 = 'gauge';
+export type Kind15 = 'gauge';
 export type Maximum1 = string | number | boolean | null;
 export type Minimum1 = string | number | boolean | null;
 export type End1 = string | number | boolean | null;
-export type Label5 = string;
+export type Label7 = string;
 export type Start1 = string | number | boolean | null;
 export type Ranges1 = MaterializedGaugeRangeV1[];
 export type Target1 = string | number | boolean | null;
-export type Title10 = string;
-export type Value11 = string | number | boolean | null;
+export type Title12 = string;
+export type Value15 = string | number | boolean | null;
 export type CapabilityProfile1 = string;
 export type MaterializedPresentationVersion = '2.0';
 /**
@@ -8863,14 +10580,14 @@ export type Resolutions =
       PresentationBlockResolutionV1,
       PresentationBlockResolutionV1
     ];
-export type Title11 = string;
+export type Title13 = string;
 export type Display = string;
 export type EndExclusive = string | null;
 export type Key1 = string;
-export type Label6 = string;
+export type Label8 = string;
 export type Start2 = string | null;
 export type Type2 = 'scalar' | 'date_range' | 'integer';
-export type Value12 = string | number | boolean | null;
+export type Value16 = string | number | boolean | null;
 /**
  * @maxItems 100
  */
@@ -8890,7 +10607,7 @@ export type SemanticType2 =
   | 'date'
   | 'datetime'
   | 'boolean';
-export type Title12 = string;
+export type Title14 = string;
 export type Type3 =
   'string' | 'boolean' | 'date' | 'datetime' | 'integer' | 'bigint' | 'decimal' | 'number' | 'guid';
 /**
@@ -8918,6 +10635,9 @@ export type EventId = string;
 export type EventVersion = '2.0';
 export type RequestId = string;
 export type Sequence = number;
+export type Kind16 = 'result_summary';
+export type SpokenSummaryVersion = '1.0';
+export type Text = string;
 export type Timestamp = string;
 export type TurnId = string;
 export type Type4 =
@@ -8926,11 +10646,185 @@ export type Type4 =
   | 'assistant.delta'
   | 'heartbeat'
   | 'query.result'
+  | 'analytics.result'
   | 'query.narrative_pending'
   | 'query.narrative'
   | 'query.narrative_degraded'
   | 'turn.response'
   | 'turn.error';
+export type AnalyticsResultVersion = '1.0';
+export type BasePeriods =
+  | [AnalyticsResultPeriodV1]
+  | [AnalyticsResultPeriodV1, AnalyticsResultPeriodV1]
+  | [AnalyticsResultPeriodV1, AnalyticsResultPeriodV1, AnalyticsResultPeriodV1]
+  | [
+      AnalyticsResultPeriodV1,
+      AnalyticsResultPeriodV1,
+      AnalyticsResultPeriodV1,
+      AnalyticsResultPeriodV1
+    ]
+  | [
+      AnalyticsResultPeriodV1,
+      AnalyticsResultPeriodV1,
+      AnalyticsResultPeriodV1,
+      AnalyticsResultPeriodV1,
+      AnalyticsResultPeriodV1
+    ]
+  | [
+      AnalyticsResultPeriodV1,
+      AnalyticsResultPeriodV1,
+      AnalyticsResultPeriodV1,
+      AnalyticsResultPeriodV1,
+      AnalyticsResultPeriodV1,
+      AnalyticsResultPeriodV1
+    ]
+  | [
+      AnalyticsResultPeriodV1,
+      AnalyticsResultPeriodV1,
+      AnalyticsResultPeriodV1,
+      AnalyticsResultPeriodV1,
+      AnalyticsResultPeriodV1,
+      AnalyticsResultPeriodV1,
+      AnalyticsResultPeriodV1
+    ]
+  | [
+      AnalyticsResultPeriodV1,
+      AnalyticsResultPeriodV1,
+      AnalyticsResultPeriodV1,
+      AnalyticsResultPeriodV1,
+      AnalyticsResultPeriodV1,
+      AnalyticsResultPeriodV1,
+      AnalyticsResultPeriodV1,
+      AnalyticsResultPeriodV1
+    ]
+  | [
+      AnalyticsResultPeriodV1,
+      AnalyticsResultPeriodV1,
+      AnalyticsResultPeriodV1,
+      AnalyticsResultPeriodV1,
+      AnalyticsResultPeriodV1,
+      AnalyticsResultPeriodV1,
+      AnalyticsResultPeriodV1,
+      AnalyticsResultPeriodV1,
+      AnalyticsResultPeriodV1
+    ]
+  | [
+      AnalyticsResultPeriodV1,
+      AnalyticsResultPeriodV1,
+      AnalyticsResultPeriodV1,
+      AnalyticsResultPeriodV1,
+      AnalyticsResultPeriodV1,
+      AnalyticsResultPeriodV1,
+      AnalyticsResultPeriodV1,
+      AnalyticsResultPeriodV1,
+      AnalyticsResultPeriodV1,
+      AnalyticsResultPeriodV1
+    ]
+  | [
+      AnalyticsResultPeriodV1,
+      AnalyticsResultPeriodV1,
+      AnalyticsResultPeriodV1,
+      AnalyticsResultPeriodV1,
+      AnalyticsResultPeriodV1,
+      AnalyticsResultPeriodV1,
+      AnalyticsResultPeriodV1,
+      AnalyticsResultPeriodV1,
+      AnalyticsResultPeriodV1,
+      AnalyticsResultPeriodV1,
+      AnalyticsResultPeriodV1
+    ]
+  | [
+      AnalyticsResultPeriodV1,
+      AnalyticsResultPeriodV1,
+      AnalyticsResultPeriodV1,
+      AnalyticsResultPeriodV1,
+      AnalyticsResultPeriodV1,
+      AnalyticsResultPeriodV1,
+      AnalyticsResultPeriodV1,
+      AnalyticsResultPeriodV1,
+      AnalyticsResultPeriodV1,
+      AnalyticsResultPeriodV1,
+      AnalyticsResultPeriodV1,
+      AnalyticsResultPeriodV1
+    ]
+  | null;
+export type EndExclusive1 = string;
+export type Start3 = string;
+export type Timezone = string;
+export type DemandForecastMethodId = ('daily_run_rate_v1' | 'moving_average_v1') | null;
+export type DemandForecastMethodVersion = '1.0' | null;
+export type GroupBy = ('branch' | 'product') | null;
+export type GroupedRows = AnalyticsResultGroupedRowV1[] | null;
+export type BaseValue = string;
+export type Concept = 'branch';
+export type Key3 = string;
+export type Label9 = string;
+export type ProjectedValue = string;
+export type Value17 = string;
+/**
+ * @maxItems 36
+ */
+export type InputTotals = AnalyticsResultInputTotalV1[];
+export type InventoryAsOf = string | null;
+export type Limitations = string[] | null;
+export type Calculation =
+  | (DailyRunRateCalculationV1 | NaiveLastPeriodCalculationV1 | MovingAverageCalculationV1)
+  | string
+  | null;
+export type BaseDays = number;
+export type BaseTotal = string;
+export type DailyAverage = string;
+export type Kind17 = 'daily_run_rate';
+export type ProjectedValue1 = string;
+export type TargetDays = number;
+export type Kind18 = 'naive_last_period';
+export type ProjectedValue2 = string;
+export type SourcePeriodTotal = string;
+export type Kind19 = 'moving_average';
+export type PeriodCount = number;
+/**
+ * @minItems 1
+ * @maxItems 36
+ */
+export type PeriodTotals = [string, ...string[]];
+export type ProjectedValue3 = string;
+export type Description = string;
+export type Label10 = string;
+export type MethodId =
+  'daily_run_rate_v1' | 'naive_last_period_v1' | 'moving_average_v1' | 'inventory_reorder_v1';
+export type MethodVersion = '1.0';
+export type SelectionReason =
+  | 'explicit_method_requested'
+  | 'single_complete_base_period'
+  | 'minimum_history_for_moving_average'
+  | 'registered_inventory_reorder_method';
+export type MethodId1 =
+  'daily_run_rate_v1' | 'naive_last_period_v1' | 'moving_average_v1' | 'inventory_reorder_v1';
+export type MethodVersion1 = '1.0' | null;
+export type MetricConcept = 'sales' | 'purchases' | 'inventory_reorder';
+export type Operation = 'forecast' | 'inventory_reorder';
+export type ChartEnabled = false;
+export type Kind20 = 'forecast_summary' | 'grouped_forecast' | 'inventory_reorder_grid';
+export type KpiTitle = string;
+export type MethodLabel = string;
+export type Title15 = string;
+export type ProjectedValue4 = string | null;
+export type ResultId1 = string;
+export type Period = string;
+export type Type5 = 'actual' | 'forecast';
+export type Value18 = string;
+export type AvailableInventory = string | null;
+export type ProductId = string;
+export type ProductName = string;
+export type ProjectedDemand = string;
+export type RecommendedReorder = string | null;
+export type RowStatus = 'ready' | 'missing_inventory';
+export type Shortage = string | null;
+/**
+ * @maxItems 500
+ */
+export type Rows3 = (AnalyticsResultRowV1 | InventoryReorderResultRowV1)[];
+export type Status2 = 'completed';
 export type ExecutedAt = string;
 export type HistoricalResultVersion = '2.0';
 export type HistoricalQueryArtifactViewVersion = '1.0';
@@ -8956,7 +10850,7 @@ export type SqlType7 =
 /**
  * Effective value applied by the historical QueryExecution being viewed; it is not the QueryArtifactParameterV1 initial value.
  */
-export type Value13 = string | number | boolean | null;
+export type Value19 = string | number | boolean | null;
 /**
  * Public projection of only the QueryArtifactParameterV1 definitions whose rebindable flag is true.
  *
@@ -8994,7 +10888,7 @@ export type SqlType8 =
   | 'datetime2'
   | 'uniqueidentifier'
   | 'nvarchar';
-export type Value14 = string | number | boolean | null;
+export type Value20 = string | number | boolean | null;
 /**
  * @maxItems 200
  */
@@ -9241,14 +11135,14 @@ export type GlobalFilters =
     ];
 export type DashboardFilterVersion = '1.0';
 export type FilterId = string;
-export type Label7 = string;
+export type Label11 = string;
 export type Required1 = boolean;
-export type Type5 = 'scalar' | 'date_range';
+export type Type6 = 'scalar' | 'date_range';
 export type Columns5 = number;
 export type RowHeight = number;
-export type Status2 = 'draft' | 'building' | 'ready' | 'published' | 'degraded' | 'archived';
-export type Title13 = string;
-export type BlockId11 = string;
+export type Status3 = 'draft' | 'building' | 'ready' | 'published' | 'degraded' | 'archived';
+export type Title16 = string;
+export type BlockId13 = string;
 export type DashboardWidgetVersion = '1.0';
 /**
  * @maxItems 20
@@ -9587,7 +11481,7 @@ export type EventId1 = string;
 export type EventVersion1 = '1.0';
 export type Sequence1 = number;
 export type Timestamp1 = string;
-export type Type6 =
+export type Type7 =
   | 'dashboard.started'
   | 'dashboard.plan.updated'
   | 'dashboard.widget.started'
@@ -9598,10 +11492,11 @@ export type Type6 =
 export type WidgetId1 = string | null;
 export type DashboardId2 = string;
 export type DashboardResultVersion = '1.0';
-export type Status3 = 'ready' | 'degraded' | 'failed';
+export type Status4 = 'ready' | 'degraded' | 'failed';
 export type Block =
   | (
       | MaterializedKpiBlockV1
+      | MaterializedComparisonKpiBlockV1
       | MaterializedGridBlockV1
       | MaterializedPivotBlockV1
       | MaterializedChartBlockV1
@@ -9609,13 +11504,13 @@ export type Block =
     )
   | null;
 export type ErrorCode = string | null;
-export type Status4 = 'completed' | 'degraded' | 'failed';
+export type Status5 = 'completed' | 'degraded' | 'failed';
 export type WidgetId2 = string;
 export type Widgets1 = DashboardWidgetResultV1[];
 export type ActionId = string;
 export type Entity = string;
 export type ImportOperationVersion = '1.0';
-export type Operation = 'import';
+export type Operation1 = 'import';
 export type PolicyId = string;
 export type WriteMode = 'create' | 'update' | 'upsert';
 export type AttachmentSha256 = string;
@@ -9650,9 +11545,9 @@ export type Valid = boolean;
 /**
  * @maxItems 100
  */
-export type Rows3 = ImportPreviewRowV1[];
+export type Rows4 = ImportPreviewRowV1[];
 export type Truncated1 = boolean;
-export type Status5 = 'validated' | 'awaiting_confirmation' | 'failed';
+export type Status6 = 'validated' | 'awaiting_confirmation' | 'failed';
 export type AttachmentSha2561 = string;
 export type ConfirmationId = string | null;
 export type State = 'not_required' | 'confirmed';
@@ -9669,7 +11564,7 @@ export type ImportResultVersion = '1.0';
  */
 export type Issues1 = ImportIssueV1[];
 export type PreflightId2 = string;
-export type Status6 =
+export type Status7 =
   | 'validated'
   | 'awaiting_confirmation'
   | 'processing'
@@ -9689,7 +11584,7 @@ export type ImportId1 = string;
 export type PreflightId3 = string;
 export type Sequence2 = number;
 export type Timestamp2 = string;
-export type Type7 =
+export type Type8 =
   | 'import.started'
   | 'import.preflight.completed'
   | 'import.awaiting_confirmation'
@@ -9700,31 +11595,39 @@ export type Type7 =
 export type Aggregations = ('sum' | 'avg' | 'min' | 'max' | 'count')[];
 /**
  * @minItems 1
- * @maxItems 5
+ * @maxItems 6
  */
 export type BlockKinds =
-  | ['kpi' | 'data_grid' | 'pivot_grid' | 'chart' | 'gauge']
+  | ['kpi' | 'comparison_kpi' | 'data_grid' | 'pivot_grid' | 'chart' | 'gauge']
   | [
-      'kpi' | 'data_grid' | 'pivot_grid' | 'chart' | 'gauge',
-      'kpi' | 'data_grid' | 'pivot_grid' | 'chart' | 'gauge'
+      'kpi' | 'comparison_kpi' | 'data_grid' | 'pivot_grid' | 'chart' | 'gauge',
+      'kpi' | 'comparison_kpi' | 'data_grid' | 'pivot_grid' | 'chart' | 'gauge'
     ]
   | [
-      'kpi' | 'data_grid' | 'pivot_grid' | 'chart' | 'gauge',
-      'kpi' | 'data_grid' | 'pivot_grid' | 'chart' | 'gauge',
-      'kpi' | 'data_grid' | 'pivot_grid' | 'chart' | 'gauge'
+      'kpi' | 'comparison_kpi' | 'data_grid' | 'pivot_grid' | 'chart' | 'gauge',
+      'kpi' | 'comparison_kpi' | 'data_grid' | 'pivot_grid' | 'chart' | 'gauge',
+      'kpi' | 'comparison_kpi' | 'data_grid' | 'pivot_grid' | 'chart' | 'gauge'
     ]
   | [
-      'kpi' | 'data_grid' | 'pivot_grid' | 'chart' | 'gauge',
-      'kpi' | 'data_grid' | 'pivot_grid' | 'chart' | 'gauge',
-      'kpi' | 'data_grid' | 'pivot_grid' | 'chart' | 'gauge',
-      'kpi' | 'data_grid' | 'pivot_grid' | 'chart' | 'gauge'
+      'kpi' | 'comparison_kpi' | 'data_grid' | 'pivot_grid' | 'chart' | 'gauge',
+      'kpi' | 'comparison_kpi' | 'data_grid' | 'pivot_grid' | 'chart' | 'gauge',
+      'kpi' | 'comparison_kpi' | 'data_grid' | 'pivot_grid' | 'chart' | 'gauge',
+      'kpi' | 'comparison_kpi' | 'data_grid' | 'pivot_grid' | 'chart' | 'gauge'
     ]
   | [
-      'kpi' | 'data_grid' | 'pivot_grid' | 'chart' | 'gauge',
-      'kpi' | 'data_grid' | 'pivot_grid' | 'chart' | 'gauge',
-      'kpi' | 'data_grid' | 'pivot_grid' | 'chart' | 'gauge',
-      'kpi' | 'data_grid' | 'pivot_grid' | 'chart' | 'gauge',
-      'kpi' | 'data_grid' | 'pivot_grid' | 'chart' | 'gauge'
+      'kpi' | 'comparison_kpi' | 'data_grid' | 'pivot_grid' | 'chart' | 'gauge',
+      'kpi' | 'comparison_kpi' | 'data_grid' | 'pivot_grid' | 'chart' | 'gauge',
+      'kpi' | 'comparison_kpi' | 'data_grid' | 'pivot_grid' | 'chart' | 'gauge',
+      'kpi' | 'comparison_kpi' | 'data_grid' | 'pivot_grid' | 'chart' | 'gauge',
+      'kpi' | 'comparison_kpi' | 'data_grid' | 'pivot_grid' | 'chart' | 'gauge'
+    ]
+  | [
+      'kpi' | 'comparison_kpi' | 'data_grid' | 'pivot_grid' | 'chart' | 'gauge',
+      'kpi' | 'comparison_kpi' | 'data_grid' | 'pivot_grid' | 'chart' | 'gauge',
+      'kpi' | 'comparison_kpi' | 'data_grid' | 'pivot_grid' | 'chart' | 'gauge',
+      'kpi' | 'comparison_kpi' | 'data_grid' | 'pivot_grid' | 'chart' | 'gauge',
+      'kpi' | 'comparison_kpi' | 'data_grid' | 'pivot_grid' | 'chart' | 'gauge',
+      'kpi' | 'comparison_kpi' | 'data_grid' | 'pivot_grid' | 'chart' | 'gauge'
     ];
 /**
  * @minItems 1
@@ -11343,7 +13246,7 @@ export interface PresentationPlanV2 {
   capability_profile: CapabilityProfile;
   layout: PresentationLayoutV1;
   presentation_plan_version: PresentationPlanVersion;
-  title: Title5;
+  title: Title6;
 }
 export interface KpiBlockV1 {
   block_id: BlockId;
@@ -11367,60 +13270,78 @@ export interface ResolvedReferenceValueReferenceV1 {
   reference_id: ReferenceId;
   source: Source2;
 }
-export interface DataGridBlockV1 {
+export interface ComparisonKpiBlockV1 {
   block_id: BlockId1;
   block_version: BlockVersion1;
-  features?: Features;
-  fields: Fields;
+  change: ComparisonKpiChangeV1;
+  current: ComparisonKpiValueV1;
   kind: Kind1;
+  previous: ComparisonKpiValueV1;
   title: Title1;
 }
-export interface PivotGridBlockV1 {
+export interface ComparisonKpiChangeV1 {
+  format?: Format1;
+  value: Value8;
+}
+export interface ComparisonKpiValueV1 {
+  format?: Format2;
+  label: Label;
+  value: Value9;
+}
+export interface DataGridBlockV1 {
   block_id: BlockId2;
   block_version: BlockVersion2;
+  features?: Features;
+  fields: Fields;
+  kind: Kind2;
+  title: Title2;
+}
+export interface PivotGridBlockV1 {
+  block_id: BlockId3;
+  block_version: BlockVersion3;
   columns: Columns;
   features?: Features1;
-  kind: Kind2;
+  kind: Kind3;
   rows: Rows;
-  title: Title2;
+  title: Title3;
   values: Values;
 }
 export interface PivotValueV1 {
   aggregation: Aggregation1;
   field: Field2;
 }
-export interface ChartBlockV1 {
-  block_id: BlockId3;
-  block_version: BlockVersion3;
+export interface ChartBlockV11 {
+  block_id: BlockId4;
+  block_version: BlockVersion4;
   category_field: CategoryField;
   family: Family;
-  kind: Kind3;
+  kind: Kind4;
   orientation?: Orientation;
   series: Series;
-  title: Title3;
+  title: Title4;
 }
 export interface ChartSeriesV2 {
   aggregation?: Aggregation2;
   axis?: Axis;
   field: Field3;
-  label: Label;
+  label: Label1;
   type: Type;
 }
 export interface GaugeBlockV1 {
-  block_id: BlockId4;
-  block_version: BlockVersion4;
+  block_id: BlockId5;
+  block_version: BlockVersion5;
   gauge_type?: GaugeType;
-  kind: Kind4;
+  kind: Kind5;
   maximum?: Maximum;
   minimum?: Minimum;
   ranges?: Ranges;
   target?: Target;
-  title: Title4;
-  value: Value8;
+  title: Title5;
+  value: Value10;
 }
 export interface GaugeRangeV1 {
   end: End;
-  label: Label1;
+  label: Label2;
   start: Start;
 }
 export interface PresentationLayoutV1 {
@@ -11448,16 +13369,16 @@ export interface ResultSetSemanticsV1 {
   selection: Selection;
 }
 export interface AllMatchesSelectionV1 {
-  kind: Kind5;
+  kind: Kind6;
 }
 export interface TopNSelectionV1 {
   direction: Direction;
-  kind: Kind6;
+  kind: Kind7;
   limit: Limit;
   order_field: OrderField;
 }
 export interface SampleSelectionV1 {
-  kind: Kind7;
+  kind: Kind8;
   limit: Limit1;
 }
 export interface ResolvedBusinessReferenceContextV1 {
@@ -11465,17 +13386,17 @@ export interface ResolvedBusinessReferenceContextV1 {
   resolved_business_reference_context_version: ResolvedBusinessReferenceContextVersion;
 }
 export interface ResolvedBusinessReferenceV1 {
-  label: Label2;
+  label: Label3;
   reference_id: ReferenceId1;
   reference_type: ReferenceType;
   resolved_at: ResolvedAt;
   resolved_business_reference_version: ResolvedBusinessReferenceVersion;
   semantic_type: SemanticType1;
   source_id: SourceId;
-  value: Value9;
+  value: Value11;
 }
 export interface PresentationBlockResolutionV1 {
-  block_id: BlockId5;
+  block_id: BlockId6;
   code?: Code;
   message?: Message;
   presentation_block_resolution_version: PresentationBlockResolutionVersion;
@@ -11487,74 +13408,95 @@ export interface MaterializedPresentationV2 {
   layout: PresentationLayoutV1;
   materialized_presentation_version: MaterializedPresentationVersion;
   resolutions: Resolutions;
-  title: Title11;
+  title: Title13;
 }
 export interface MaterializedKpiBlockV1 {
-  block_id: BlockId6;
-  block_version: BlockVersion5;
-  format: Format1;
-  kind: Kind8;
-  scope: MaterializedScopeV1;
-  title: Title6;
-  value: Value10;
-}
-export interface MaterializedScopeV1 {
-  kind: Kind9;
-  label?: Label3;
-}
-export interface MaterializedGridBlockV1 {
   block_id: BlockId7;
   block_version: BlockVersion6;
-  features?: Features2;
-  fields: Fields1;
-  kind: Kind10;
+  format: Format3;
+  kind: Kind9;
+  scope: MaterializedScopeV1;
   title: Title7;
+  value: Value12;
 }
-export interface MaterializedPivotBlockV1 {
+export interface MaterializedScopeV1 {
+  kind: Kind10;
+  label?: Label4;
+}
+export interface MaterializedComparisonKpiBlockV1 {
   block_id: BlockId8;
   block_version: BlockVersion7;
+  change: MaterializedComparisonKpiChangeV1;
+  current: MaterializedComparisonKpiValueV1;
+  kind: Kind11;
+  previous: MaterializedComparisonKpiValueV1;
+  scope: MaterializedScopeV1;
+  title: Title8;
+}
+export interface MaterializedComparisonKpiChangeV1 {
+  direction: Direction1;
+  format: Format4;
+  sentiment: Sentiment;
+  value: Value13;
+}
+export interface MaterializedComparisonKpiValueV1 {
+  format: Format5;
+  label: Label5;
+  value: Value14;
+}
+export interface MaterializedGridBlockV1 {
+  block_id: BlockId9;
+  block_version: BlockVersion8;
+  features?: Features2;
+  fields: Fields1;
+  kind: Kind12;
+  title: Title9;
+}
+export interface MaterializedPivotBlockV1 {
+  block_id: BlockId10;
+  block_version: BlockVersion9;
   columns: Columns3;
   features?: Features3;
-  kind: Kind11;
+  kind: Kind13;
   rows: Rows1;
-  title: Title8;
+  title: Title10;
   values: Values1;
 }
 export interface MaterializedPivotValueV1 {
   aggregation: Aggregation4;
   field: Field4;
 }
-export interface MaterializedChartBlockV1 {
-  block_id: BlockId9;
-  block_version: BlockVersion8;
+export interface MaterializedChartBlockV11 {
+  block_id: BlockId11;
+  block_version: BlockVersion10;
   category_field: CategoryField1;
   family: Family1;
-  kind: Kind12;
+  kind: Kind14;
   orientation?: Orientation1;
   series: Series1;
-  title: Title9;
+  title: Title11;
 }
 export interface MaterializedChartSeriesV1 {
   axis?: Axis1;
   field: Field5;
-  label: Label4;
+  label: Label6;
   type: Type1;
 }
 export interface MaterializedGaugeBlockV1 {
-  block_id: BlockId10;
-  block_version: BlockVersion9;
+  block_id: BlockId12;
+  block_version: BlockVersion11;
   gauge_type?: GaugeType1;
-  kind: Kind13;
+  kind: Kind15;
   maximum?: Maximum1;
   minimum?: Minimum1;
   ranges?: Ranges1;
   target?: Target1;
-  title: Title10;
-  value: Value11;
+  title: Title12;
+  value: Value15;
 }
 export interface MaterializedGaugeRangeV1 {
   end: End1;
-  label: Label5;
+  label: Label7;
   start: Start1;
 }
 export interface QueryResultV2 {
@@ -11575,10 +13517,10 @@ export interface QueryAppliedFilterV2 {
   display: Display;
   end_exclusive?: EndExclusive;
   key: Key1;
-  label: Label6;
+  label: Label8;
   start?: Start2;
   type: Type2;
-  value?: Value12;
+  value?: Value16;
 }
 export interface QueryResultColumnV2 {
   aggregation: Aggregation5;
@@ -11586,7 +13528,7 @@ export interface QueryResultColumnV2 {
   key: Key2;
   nullable: Nullable7;
   semantic_type: SemanticType2;
-  title: Title12;
+  title: Title14;
   type: Type3;
 }
 export interface QueryResultFormatV2 {
@@ -11606,12 +13548,107 @@ export interface AssistantClientStreamEventV2 {
   payload: Payload;
   request_id: RequestId;
   sequence: Sequence;
+  spoken_summary?: SpokenSummaryV1 | null;
   timestamp: Timestamp;
   turn_id: TurnId;
   type: Type4;
 }
 export interface Payload {
   [k: string]: any;
+}
+export interface SpokenSummaryV1 {
+  kind: Kind16;
+  spoken_summary_version: SpokenSummaryVersion;
+  text: Text;
+}
+export interface AnalyticsResultV1 {
+  analytics_result_version: AnalyticsResultVersion;
+  base_periods?: BasePeriods;
+  demand_forecast_method_id?: DemandForecastMethodId;
+  demand_forecast_method_version?: DemandForecastMethodVersion;
+  group_by?: GroupBy;
+  grouped_rows?: GroupedRows;
+  input_totals: InputTotals;
+  inventory_as_of?: InventoryAsOf;
+  limitations?: Limitations;
+  method_explanation?: AnalyticsMethodExplanationV1 | null;
+  method_id: MethodId1;
+  method_version?: MethodVersion1;
+  metric_concept: MetricConcept;
+  operation: Operation;
+  presentation: AnalyticsResultPresentationV1;
+  projected_value?: ProjectedValue4;
+  result_id: ResultId1;
+  rows: Rows3;
+  status: Status2;
+  target_period: AnalyticsResultPeriodV1;
+}
+export interface AnalyticsResultPeriodV1 {
+  end_exclusive: EndExclusive1;
+  start: Start3;
+  timezone: Timezone;
+}
+export interface AnalyticsResultGroupedRowV1 {
+  base_value: BaseValue;
+  group: AnalyticsResultGroupV1;
+  projected_value: ProjectedValue;
+}
+export interface AnalyticsResultGroupV1 {
+  concept: Concept;
+  key: Key3;
+  label: Label9;
+}
+export interface AnalyticsResultInputTotalV1 {
+  period: AnalyticsResultPeriodV1;
+  value: Value17;
+}
+export interface AnalyticsMethodExplanationV1 {
+  calculation?: Calculation;
+  description: Description;
+  label: Label10;
+  method_id: MethodId;
+  method_version: MethodVersion;
+  selection_reason: SelectionReason;
+}
+export interface DailyRunRateCalculationV1 {
+  base_days: BaseDays;
+  base_total: BaseTotal;
+  daily_average: DailyAverage;
+  kind: Kind17;
+  projected_value: ProjectedValue1;
+  target_days: TargetDays;
+}
+export interface NaiveLastPeriodCalculationV1 {
+  kind: Kind18;
+  projected_value: ProjectedValue2;
+  source_period_total: SourcePeriodTotal;
+}
+export interface MovingAverageCalculationV1 {
+  kind: Kind19;
+  period_count: PeriodCount;
+  period_totals: PeriodTotals;
+  projected_value: ProjectedValue3;
+}
+export interface AnalyticsResultPresentationV1 {
+  chart_enabled: ChartEnabled;
+  kind: Kind20;
+  kpi_title: KpiTitle;
+  method_label: MethodLabel;
+  title: Title15;
+}
+export interface AnalyticsResultRowV1 {
+  period: Period;
+  type: Type5;
+  value: Value18;
+}
+export interface InventoryReorderResultRowV1 {
+  available_inventory: AvailableInventory;
+  product_id: ProductId;
+  product_name: ProductName;
+  projected_demand: ProjectedDemand;
+  recommended_reorder: RecommendedReorder;
+  row_status: RowStatus;
+  shortage: Shortage;
 }
 export interface AssistantHistoricalResultV2 {
   executed_at: ExecutedAt;
@@ -11636,7 +13673,7 @@ export interface HistoricalRequeryParameterV1 {
   scale?: Scale1;
   semantic_role: SemanticRole;
   sql_type: SqlType7;
-  value?: Value13;
+  value?: Value19;
 }
 export interface RequeryCapabilityV1 {
   available: Available;
@@ -11672,30 +13709,30 @@ export interface QueryArtifactParameterV1 {
   scale?: Scale2;
   semantic_role: SemanticRole1;
   sql_type: SqlType8;
-  value?: Value14;
+  value?: Value20;
 }
 export interface DashboardDefinitionV1 {
   dashboard_definition_version: DashboardDefinitionVersion;
   dashboard_id: DashboardId;
   global_filters: GlobalFilters;
   grid_layout: DashboardGridLayoutV1;
-  status: Status2;
-  title: Title13;
+  status: Status3;
+  title: Title16;
   widgets: Widgets;
 }
 export interface DashboardFilterV1 {
   dashboard_filter_version: DashboardFilterVersion;
   filter_id: FilterId;
-  label: Label7;
+  label: Label11;
   required?: Required1;
-  type: Type5;
+  type: Type6;
 }
 export interface DashboardGridLayoutV1 {
   columns: Columns5;
   row_height: RowHeight;
 }
 export interface DashboardWidgetV1 {
-  block_id: BlockId11;
+  block_id: BlockId13;
   dashboard_widget_version: DashboardWidgetVersion;
   filter_bindings: FilterBindings;
   layout: DashboardWidgetLayoutV1;
@@ -11725,7 +13762,7 @@ export interface DashboardStreamEventV1 {
   payload: Payload1;
   sequence: Sequence1;
   timestamp: Timestamp1;
-  type: Type6;
+  type: Type7;
   widget_id?: WidgetId1;
 }
 export interface Payload1 {
@@ -11734,20 +13771,20 @@ export interface Payload1 {
 export interface DashboardResultV1 {
   dashboard_id: DashboardId2;
   dashboard_result_version: DashboardResultVersion;
-  status: Status3;
+  status: Status4;
   widgets: Widgets1;
 }
 export interface DashboardWidgetResultV1 {
   block?: Block;
   error_code?: ErrorCode;
-  status: Status4;
+  status: Status5;
   widget_id: WidgetId2;
 }
 export interface ImportOperationV1 {
   action_id: ActionId;
   entity: Entity;
   import_operation_version: ImportOperationVersion;
-  operation: Operation;
+  operation: Operation1;
   policy_id: PolicyId;
   write_mode: WriteMode;
 }
@@ -11759,7 +13796,7 @@ export interface ImportPreflightV1 {
   operation: ImportOperationV1;
   preflight_id: PreflightId;
   preview: ImportPreviewV1;
-  status: Status5;
+  status: Status6;
 }
 export interface ImportIssueV1 {
   code: Code1;
@@ -11784,7 +13821,7 @@ export interface ImportMappingEntryV1 {
 export interface ImportPreviewV1 {
   columns: Columns6;
   import_preview_version: ImportPreviewVersion;
-  rows: Rows3;
+  rows: Rows4;
   truncated: Truncated1;
 }
 export interface ImportPreviewRowV1 {
@@ -11815,7 +13852,7 @@ export interface ImportResultV1 {
   import_result_version: ImportResultVersion;
   issues: Issues1;
   preflight_id: PreflightId2;
-  status: Status6;
+  status: Status7;
   summary: ImportCountSummaryV1;
 }
 export interface ImportCountSummaryV1 {
@@ -11834,7 +13871,7 @@ export interface ImportStreamEventV1 {
   preflight_id: PreflightId3;
   sequence: Sequence2;
   timestamp: Timestamp2;
-  type: Type7;
+  type: Type8;
 }
 export interface Payload2 {
   [k: string]: any;

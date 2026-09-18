@@ -1,16 +1,16 @@
 from __future__ import annotations
 
 from datetime import datetime
-from typing import Annotated, Literal, TypeAlias
+from typing import Annotated, Any, Literal, TypeAlias
 
-from pydantic import Field, model_validator
+from pydantic import ConfigDict, Field, model_validator
 
 from .runtime import Identifier, QueryParameterDraftV2, RuntimeContractModel
 
 NonEmptyText = Annotated[str, Field(min_length=1, max_length=500)]
 ContractId = Annotated[str, Field(pattern=r"^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$")]
 Sha256 = Annotated[str, Field(pattern=r"^sha256:[0-9a-f]{64}$")]
-BlockKind = Literal["kpi", "data_grid", "pivot_grid", "chart", "gauge"]
+BlockKind = Literal["kpi", "comparison_kpi", "data_grid", "pivot_grid", "chart", "gauge"]
 DataGridFeature = Literal[
     "sorting",
     "filtering",
@@ -38,6 +38,59 @@ ChartStackingMode = Literal["none", "stacked", "full_stacked"]
 ChartOrientation = Literal["vertical", "horizontal"]
 GaugeType = Literal["circular", "linear"]
 GaugeFeature = Literal["target_indicator", "ranges"]
+
+_CIRCULAR_CHART_SCHEMA: dict[str, Any] = {
+    "allOf": [
+        {
+            "if": {
+                "properties": {"family": {"const": "circular"}},
+                "required": ["family"],
+            },
+            "then": {
+                "properties": {
+                    "orientation": {"type": "null"},
+                    "series": {
+                        "maxItems": 1,
+                        "minItems": 1,
+                        "items": {
+                            "properties": {
+                                "aggregation": {"const": "none"},
+                                "axis": {"type": "null"},
+                                "type": {"enum": ["pie", "doughnut"]},
+                            }
+                        },
+                    },
+                }
+            },
+        }
+    ]
+}
+
+_MATERIALIZED_CIRCULAR_CHART_SCHEMA: dict[str, Any] = {
+    "allOf": [
+        {
+            "if": {
+                "properties": {"family": {"const": "circular"}},
+                "required": ["family"],
+            },
+            "then": {
+                "properties": {
+                    "orientation": {"type": "null"},
+                    "series": {
+                        "maxItems": 1,
+                        "minItems": 1,
+                        "items": {
+                            "properties": {
+                                "axis": {"type": "null"},
+                                "type": {"enum": ["pie", "doughnut"]},
+                            }
+                        },
+                    },
+                }
+            },
+        }
+    ]
+}
 QueryShape = Literal[
     "scalar", "detail", "grouped_aggregate", "ranking", "comparison", "distribution", "trend"
 ]
@@ -47,7 +100,7 @@ JsonScalar: TypeAlias = str | int | float | bool | None
 class PresentationPreferenceV1(RuntimeContractModel):
     presentation_preference_version: Literal["1.0"]
     mode: Literal["auto", "include", "only"]
-    required: Annotated[list[BlockKind], Field(max_length=5)]
+    required: Annotated[list[BlockKind], Field(max_length=6)]
 
     @model_validator(mode="after")
     def validate_mode(self) -> PresentationPreferenceV1:
@@ -247,6 +300,27 @@ class KpiBlockV1(RuntimeContractModel):
     format: Literal["auto", "number", "integer", "currency", "percent"] = "auto"
 
 
+class ComparisonKpiValueV1(RuntimeContractModel):
+    label: NonEmptyText
+    value: ValueReferenceV1
+    format: Literal["auto", "number", "integer", "currency", "percent"] = "auto"
+
+
+class ComparisonKpiChangeV1(RuntimeContractModel):
+    value: ValueReferenceV1
+    format: Literal["auto", "number", "integer", "currency", "percent"] = "percent"
+
+
+class ComparisonKpiBlockV1(RuntimeContractModel):
+    block_version: Literal["1.0"]
+    block_id: ContractId
+    kind: Literal["comparison_kpi"]
+    title: NonEmptyText
+    current: ComparisonKpiValueV1
+    previous: ComparisonKpiValueV1
+    change: ComparisonKpiChangeV1
+
+
 class DataGridBlockV1(RuntimeContractModel):
     block_version: Literal["1.0"]
     block_id: ContractId
@@ -281,6 +355,8 @@ class ChartSeriesV2(RuntimeContractModel):
 
 
 class ChartBlockV1(RuntimeContractModel):
+    model_config = ConfigDict(json_schema_extra=_CIRCULAR_CHART_SCHEMA)
+
     block_version: Literal["1.0"]
     block_id: ContractId
     kind: Literal["chart"]
@@ -289,6 +365,21 @@ class ChartBlockV1(RuntimeContractModel):
     category_field: Identifier
     series: Annotated[list[ChartSeriesV2], Field(min_length=1, max_length=20)]
     orientation: ChartOrientation | None = None
+
+    @model_validator(mode="after")
+    def validate_circular_chart(self) -> ChartBlockV1:
+        if self.family != "circular":
+            return self
+        if len(self.series) != 1:
+            raise ValueError("circular charts require exactly one series")
+        series = self.series[0]
+        if series.type not in {"pie", "doughnut"}:
+            raise ValueError("circular chart series type must be pie or doughnut")
+        if self.orientation is not None or series.axis is not None:
+            raise ValueError("circular charts forbid orientation and series axis")
+        if series.aggregation != "none":
+            raise ValueError("circular chart series aggregation must be none")
+        return self
 
 
 class GaugeRangeV1(RuntimeContractModel):
@@ -311,7 +402,12 @@ class GaugeBlockV1(RuntimeContractModel):
 
 
 PresentationBlockV2 = Annotated[
-    KpiBlockV1 | DataGridBlockV1 | PivotGridBlockV1 | ChartBlockV1 | GaugeBlockV1,
+    KpiBlockV1
+    | ComparisonKpiBlockV1
+    | DataGridBlockV1
+    | PivotGridBlockV1
+    | ChartBlockV1
+    | GaugeBlockV1,
     Field(discriminator="kind"),
 ]
 
@@ -380,6 +476,30 @@ class MaterializedKpiBlockV1(RuntimeContractModel):
     scope: MaterializedScopeV1
 
 
+class MaterializedComparisonKpiValueV1(RuntimeContractModel):
+    label: NonEmptyText
+    value: JsonScalar
+    format: Literal["auto", "number", "integer", "currency", "percent"]
+
+
+class MaterializedComparisonKpiChangeV1(RuntimeContractModel):
+    value: JsonScalar
+    format: Literal["auto", "number", "integer", "currency", "percent"]
+    direction: Literal["up", "down", "flat", "unknown"]
+    sentiment: Literal["positive", "negative", "neutral", "unknown"]
+
+
+class MaterializedComparisonKpiBlockV1(RuntimeContractModel):
+    block_version: Literal["1.0"]
+    block_id: ContractId
+    kind: Literal["comparison_kpi"]
+    title: NonEmptyText
+    current: MaterializedComparisonKpiValueV1
+    previous: MaterializedComparisonKpiValueV1
+    change: MaterializedComparisonKpiChangeV1
+    scope: MaterializedScopeV1
+
+
 class MaterializedGridBlockV1(RuntimeContractModel):
     block_version: Literal["1.0"]
     block_id: ContractId
@@ -413,6 +533,8 @@ class MaterializedChartSeriesV1(RuntimeContractModel):
 
 
 class MaterializedChartBlockV1(RuntimeContractModel):
+    model_config = ConfigDict(json_schema_extra=_MATERIALIZED_CIRCULAR_CHART_SCHEMA)
+
     block_version: Literal["1.0"]
     block_id: ContractId
     kind: Literal["chart"]
@@ -421,6 +543,19 @@ class MaterializedChartBlockV1(RuntimeContractModel):
     category_field: Identifier
     series: Annotated[list[MaterializedChartSeriesV1], Field(min_length=1)]
     orientation: ChartOrientation | None = None
+
+    @model_validator(mode="after")
+    def validate_circular_chart(self) -> MaterializedChartBlockV1:
+        if self.family != "circular":
+            return self
+        if len(self.series) != 1:
+            raise ValueError("materialized circular charts require exactly one series")
+        series = self.series[0]
+        if series.type not in {"pie", "doughnut"}:
+            raise ValueError("materialized circular chart type must be pie or doughnut")
+        if self.orientation is not None or series.axis is not None:
+            raise ValueError("materialized circular charts forbid orientation and series axis")
+        return self
 
 
 class MaterializedGaugeRangeV1(RuntimeContractModel):
@@ -444,6 +579,7 @@ class MaterializedGaugeBlockV1(RuntimeContractModel):
 
 MaterializedPresentationBlockV2 = Annotated[
     MaterializedKpiBlockV1
+    | MaterializedComparisonKpiBlockV1
     | MaterializedGridBlockV1
     | MaterializedPivotBlockV1
     | MaterializedChartBlockV1
@@ -470,6 +606,8 @@ class QuerySqlDraftV6(RuntimeContractModel):
 
     @model_validator(mode="after")
     def validate_presentation_fields(self) -> QuerySqlDraftV6:
+        # Field-role relationships cross proposed_result_semantics and presentation_plan, so they
+        # remain runtime validation; block-local circular invariants are also emitted as JSON Schema.
         columns = {item.key: item for item in self.proposed_result_semantics.columns}
 
         def validate_reference(reference: ValueReferenceV1) -> None:
@@ -482,6 +620,10 @@ class QuerySqlDraftV6(RuntimeContractModel):
         for block in self.presentation_plan.blocks:
             if isinstance(block, KpiBlockV1):
                 validate_reference(block.value)
+            elif isinstance(block, ComparisonKpiBlockV1):
+                validate_reference(block.current.value)
+                validate_reference(block.previous.value)
+                validate_reference(block.change.value)
             elif isinstance(block, DataGridBlockV1):
                 if any(field not in columns for field in block.fields):
                     raise ValueError("data grid fields must target semantic columns")
@@ -940,6 +1082,221 @@ class StreamEventBaseV1(RuntimeContractModel):
     timestamp: datetime
 
 
+AnalyticsDecimalV1 = Annotated[str, Field(pattern=r"^-?(0|[1-9][0-9]*)(\.[0-9]+)?$")]
+
+
+class AnalyticsResultPeriodV1(RuntimeContractModel):
+    start: datetime
+    end_exclusive: datetime
+    timezone: NonEmptyText
+
+
+class AnalyticsResultInputTotalV1(RuntimeContractModel):
+    period: AnalyticsResultPeriodV1
+    value: AnalyticsDecimalV1
+
+
+class AnalyticsResultRowV1(RuntimeContractModel):
+    period: NonEmptyText
+    type: Literal["actual", "forecast"]
+    value: AnalyticsDecimalV1
+
+
+class InventoryReorderResultRowV1(RuntimeContractModel):
+    product_id: NonEmptyText
+    product_name: NonEmptyText
+    projected_demand: AnalyticsDecimalV1
+    available_inventory: AnalyticsDecimalV1 | None
+    shortage: AnalyticsDecimalV1 | None
+    recommended_reorder: AnalyticsDecimalV1 | None
+    row_status: Literal["ready", "missing_inventory"]
+
+    @model_validator(mode="after")
+    def validate_missing_inventory(self) -> InventoryReorderResultRowV1:
+        if self.row_status == "missing_inventory":
+            if any(value is not None for value in (
+                self.available_inventory, self.shortage, self.recommended_reorder
+            )):
+                raise ValueError("Missing inventory has no reorder values")
+        elif any(value is None for value in (
+            self.available_inventory, self.shortage, self.recommended_reorder
+        )):
+            raise ValueError("Ready reorder has complete values")
+        return self
+
+
+class AnalyticsResultPresentationV1(RuntimeContractModel):
+    kind: Literal["forecast_summary", "grouped_forecast", "inventory_reorder_grid"]
+    title: NonEmptyText
+    kpi_title: NonEmptyText
+    method_label: NonEmptyText
+    chart_enabled: Literal[False]
+
+
+class DailyRunRateCalculationV1(RuntimeContractModel):
+    kind: Literal["daily_run_rate"]
+    base_total: AnalyticsDecimalV1
+    base_days: Annotated[int, Field(gt=0)]
+    daily_average: AnalyticsDecimalV1
+    target_days: Annotated[int, Field(gt=0)]
+    projected_value: AnalyticsDecimalV1
+
+
+class NaiveLastPeriodCalculationV1(RuntimeContractModel):
+    kind: Literal["naive_last_period"]
+    source_period_total: AnalyticsDecimalV1
+    projected_value: AnalyticsDecimalV1
+
+
+class MovingAverageCalculationV1(RuntimeContractModel):
+    kind: Literal["moving_average"]
+    period_totals: Annotated[list[AnalyticsDecimalV1], Field(min_length=1, max_length=36)]
+    period_count: Annotated[int, Field(gt=0, le=36)]
+    projected_value: AnalyticsDecimalV1
+
+
+class AnalyticsMethodExplanationV1(RuntimeContractModel):
+    method_id: Literal["daily_run_rate_v1", "naive_last_period_v1", "moving_average_v1", "inventory_reorder_v1"]
+    method_version: Literal["1.0"]
+    label: NonEmptyText
+    description: NonEmptyText
+    selection_reason: Literal[
+        "explicit_method_requested",
+        "single_complete_base_period",
+        "minimum_history_for_moving_average",
+        "registered_inventory_reorder_method",
+    ]
+    calculation: (
+        Annotated[
+            DailyRunRateCalculationV1 | NaiveLastPeriodCalculationV1 | MovingAverageCalculationV1,
+            Field(discriminator="kind"),
+        ]
+        | str
+        | None
+    ) = None
+
+
+class AnalyticsResultGroupV1(RuntimeContractModel):
+    concept: Literal["branch"]
+    key: NonEmptyText
+    label: NonEmptyText
+
+
+class AnalyticsResultGroupedRowV1(RuntimeContractModel):
+    group: AnalyticsResultGroupV1
+    base_value: AnalyticsDecimalV1
+    projected_value: AnalyticsDecimalV1
+
+
+class AnalyticsResultV1(RuntimeContractModel):
+    analytics_result_version: Literal["1.0"]
+    result_id: ContractId
+    status: Literal["completed"]
+    operation: Literal["forecast", "inventory_reorder"]
+    metric_concept: Literal["sales", "purchases", "inventory_reorder"]
+    method_id: Literal["daily_run_rate_v1", "naive_last_period_v1", "moving_average_v1", "inventory_reorder_v1"]
+    method_version: Literal["1.0"] | None = None
+    demand_forecast_method_id: Literal["daily_run_rate_v1", "moving_average_v1"] | None = None
+    demand_forecast_method_version: Literal["1.0"] | None = None
+    inventory_as_of: datetime | None = None
+    limitations: list[NonEmptyText] | None = None
+    method_explanation: AnalyticsMethodExplanationV1 | None = None
+    input_totals: Annotated[list[AnalyticsResultInputTotalV1], Field(max_length=36)]
+    target_period: AnalyticsResultPeriodV1
+    projected_value: AnalyticsDecimalV1 | None = None
+    rows: Annotated[list[AnalyticsResultRowV1 | InventoryReorderResultRowV1], Field(max_length=500)]
+    presentation: AnalyticsResultPresentationV1
+    group_by: Literal["branch", "product"] | None = None
+    base_periods: (
+        Annotated[list[AnalyticsResultPeriodV1], Field(min_length=1, max_length=12)] | None
+    ) = None
+    grouped_rows: Annotated[list[AnalyticsResultGroupedRowV1], Field(max_length=500)] | None = None
+
+    @model_validator(mode="after")
+    def validate_rows(self) -> AnalyticsResultV1:
+        if self.operation == "inventory_reorder":
+            if (
+                self.metric_concept != "inventory_reorder"
+                or self.method_id != "inventory_reorder_v1"
+                or self.method_version != "1.0"
+                or self.demand_forecast_method_id is None
+                or self.demand_forecast_method_version != "1.0"
+                or self.inventory_as_of is None
+                or self.limitations is None
+                or self.group_by != "product"
+                or self.presentation.kind != "inventory_reorder_grid"
+                or self.input_totals
+                or self.projected_value is not None
+                or self.grouped_rows is not None
+                or not self.base_periods
+                or self.method_explanation is None
+                or self.method_explanation.method_id != self.method_id
+                or not isinstance(self.method_explanation.calculation, str)
+                or self.method_explanation.selection_reason != "registered_inventory_reorder_method"
+                or any(not isinstance(row, InventoryReorderResultRowV1) for row in self.rows)
+                or len({row.product_id for row in self.rows}) != len(self.rows)
+            ):
+                raise ValueError("Invalid inventory reorder result")
+            return self
+        if self.metric_concept not in ("sales", "purchases") or self.method_id == "inventory_reorder_v1":
+            raise ValueError("Invalid forecast identity")
+        if self.group_by is not None:
+            if (
+                self.grouped_rows is None
+                or self.base_periods is None
+                or self.input_totals
+                or self.rows
+                or self.projected_value is not None
+                or self.presentation.kind != "grouped_forecast"
+                or self.method_id != "daily_run_rate_v1"
+                or self.method_explanation is None
+                or self.method_explanation.calculation is not None
+                or self.method_explanation.method_id != self.method_id
+                or len({row.group.key for row in self.grouped_rows}) != len(self.grouped_rows)
+            ):
+                raise ValueError("Grouped forecast requires independent branch rows")
+            return self
+        if (
+            self.grouped_rows is not None
+            or self.base_periods is not None
+            or self.presentation.kind != "forecast_summary"
+            or self.projected_value is None
+            or not self.input_totals
+            or len(self.rows) != len(self.input_totals) + 1
+            or any(
+                not isinstance(row, AnalyticsResultRowV1)
+                or row.type != "actual" or row.value != item.value
+                for row, item in zip(self.rows[:-1], self.input_totals, strict=True)
+            )
+            or not isinstance(self.rows[-1], AnalyticsResultRowV1)
+            or self.rows[-1].type != "forecast"
+            or self.rows[-1].value != self.projected_value
+            or (
+                self.method_explanation is not None
+                and (
+                    self.method_explanation.method_id != self.method_id
+                    or self.method_explanation.calculation is None
+                    or isinstance(self.method_explanation.calculation, str)
+                    or self.method_explanation.calculation.projected_value != self.projected_value
+                    or self.method_explanation.calculation.kind
+                    != {
+                        "daily_run_rate_v1": "daily_run_rate",
+                        "naive_last_period_v1": "naive_last_period",
+                        "moving_average_v1": "moving_average",
+                    }[self.method_id]
+                )
+            )
+        ):
+            raise ValueError("Forecast rows must carry the exact input and output totals")
+        return self
+
+
+class SpokenSummaryV1(RuntimeContractModel):
+    spoken_summary_version: Literal["1.0"]
+    kind: Literal["result_summary"]
+    text: NonEmptyText
+
+
 class AssistantClientStreamEventV2(StreamEventBaseV1):
     event_version: Literal["2.0"]
     request_id: ContractId
@@ -951,6 +1308,7 @@ class AssistantClientStreamEventV2(StreamEventBaseV1):
         "assistant.delta",
         "heartbeat",
         "query.result",
+        "analytics.result",
         "query.narrative_pending",
         "query.narrative",
         "query.narrative_degraded",
@@ -958,6 +1316,7 @@ class AssistantClientStreamEventV2(StreamEventBaseV1):
         "turn.error",
     ]
     payload: Annotated[dict[str, object], Field(json_schema_extra={"x-dynamic-map": True})]
+    spoken_summary: SpokenSummaryV1 | None = None
 
 
 class DashboardStreamEventV1(StreamEventBaseV1):
@@ -1045,7 +1404,7 @@ class GaugeCapabilitiesV1(RuntimeContractModel):
 class PresentationCapabilityProfileV1(RuntimeContractModel):
     presentation_capability_profile_version: Literal["1.0"]
     profile_id: ContractId
-    block_kinds: Annotated[list[BlockKind], Field(min_length=1, max_length=5)]
+    block_kinds: Annotated[list[BlockKind], Field(min_length=1, max_length=6)]
     chart_families: list[ContractId]
     chart_series_types: list[ContractId]
     aggregations: list[Literal["sum", "avg", "min", "max", "count"]]

@@ -1,0 +1,201 @@
+{
+  "$defs": {
+    "MaterializedComparisonKpiChangeV1": {
+      "additionalProperties": false,
+      "properties": {
+        "direction": {
+          "enum": [
+            "up",
+            "down",
+            "flat",
+            "unknown"
+          ],
+          "title": "Direction",
+          "type": "string"
+        },
+        "format": {
+          "enum": [
+            "auto",
+            "number",
+            "integer",
+            "currency",
+            "percent"
+          ],
+          "title": "Format",
+          "type": "string"
+        },
+        "sentiment": {
+          "enum": [
+            "positive",
+            "negative",
+            "neutral",
+            "unknown"
+          ],
+          "title": "Sentiment",
+          "type": "string"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "integer"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Value"
+        }
+      },
+      "required": [
+        "value",
+        "format",
+        "direction",
+        "sentiment"
+      ],
+      "title": "MaterializedComparisonKpiChangeV1",
+      "type": "object"
+    },
+    "MaterializedComparisonKpiValueV1": {
+      "additionalProperties": false,
+      "properties": {
+        "format": {
+          "enum": [
+            "auto",
+            "number",
+            "integer",
+            "currency",
+            "percent"
+          ],
+          "title": "Format",
+          "type": "string"
+        },
+        "label": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Label",
+          "type": "string"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "integer"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Value"
+        }
+      },
+      "required": [
+        "label",
+        "value",
+        "format"
+      ],
+      "title": "MaterializedComparisonKpiValueV1",
+      "type": "object"
+    },
+    "MaterializedScopeV1": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "enum": [
+            "all_matches",
+            "top_n",
+            "sample"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "label": {
+          "anyOf": [
+            {
+              "maxLength": 500,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Label"
+        }
+      },
+      "required": [
+        "kind"
+      ],
+      "title": "MaterializedScopeV1",
+      "type": "object"
+    }
+  },
+  "$id": "urn:erp-rag-contracts:schema:materialized-comparison-kpi-block:v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Contrato normativo runtime materialized-comparison-kpi-block versión 1.",
+  "properties": {
+    "block_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+      "title": "Block Id",
+      "type": "string"
+    },
+    "block_version": {
+      "const": "1.0",
+      "title": "Block Version",
+      "type": "string"
+    },
+    "change": {
+      "$ref": "#/$defs/MaterializedComparisonKpiChangeV1"
+    },
+    "current": {
+      "$ref": "#/$defs/MaterializedComparisonKpiValueV1"
+    },
+    "kind": {
+      "const": "comparison_kpi",
+      "title": "Kind",
+      "type": "string"
+    },
+    "previous": {
+      "$ref": "#/$defs/MaterializedComparisonKpiValueV1"
+    },
+    "scope": {
+      "$ref": "#/$defs/MaterializedScopeV1"
+    },
+    "title": {
+      "maxLength": 500,
+      "minLength": 1,
+      "title": "Title",
+      "type": "string"
+    }
+  },
+  "required": [
+    "block_version",
+    "block_id",
+    "kind",
+    "title",
+    "current",
+    "previous",
+    "change",
+    "scope"
+  ],
+  "title": "MaterializedComparisonKpiBlockV1",
+  "type": "object"
+}
