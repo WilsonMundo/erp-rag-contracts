@@ -113,7 +113,7 @@ wheels = [
 
 [[package]]
 name = "erp-rag-contracts"
-version = "2.4.0"
+version = "2.8.0"
 source = { editable = "." }
 dependencies = [
     { name = "jsonschema" },

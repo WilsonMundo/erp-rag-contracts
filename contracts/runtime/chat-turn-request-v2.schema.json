@@ -66,7 +66,14 @@
         "applied_parameters": {"type": "object"},
         "rebindable_parameters": {"type": "array", "maxItems": 100, "items": {"type": "string"}},
         "result_semantics": {"type": "object"},
-        "presentation_plan": {"type": "object"}
+        "presentation_plan": {"type": "object"},
+        "available_result_scopes": {
+          "type": "array",
+          "maxItems": 16,
+          "items": {"$ref": "#/$defs/resultScopeV1"}
+        },
+        "active_result_scope": {"$ref": "#/$defs/resultScopeV1"},
+        "result_set_binding": {"$ref": "#/$defs/resultSetBindingV1"}
       }
     }
   },
@@ -124,6 +131,108 @@
     "semanticVersion": {
       "type": "string",
       "pattern": "^[0-9]+\\.[0-9]+(?:\\.[0-9]+)?$"
+    },
+    "resultScopeV1": {
+      "title": "ResultScopeV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "result_scope_version",
+        "source_query_execution_id",
+        "entity",
+        "key_semantic_roles",
+        "selection_kind",
+        "row_count"
+      ],
+      "properties": {
+        "result_scope_version": {
+          "const": "1.0",
+          "title": "Result Scope Version",
+          "type": "string"
+        },
+        "source_query_execution_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+          "title": "Source Query Execution Id",
+          "type": "string"
+        },
+        "entity": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+          "title": "Entity",
+          "type": "string"
+        },
+        "key_semantic_roles": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 8,
+          "uniqueItems": true,
+          "title": "Key Semantic Roles",
+          "items": {
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+            "type": "string"
+          }
+        },
+        "selection_kind": {
+          "const": "displayed_result",
+          "title": "Selection Kind",
+          "type": "string"
+        },
+        "row_count": {
+          "minimum": 0,
+          "title": "Row Count",
+          "type": "integer"
+        }
+      }
+    },
+    "resultSetBindingV1": {
+      "title": "ResultSetBindingV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "result_set_binding_version",
+        "binding_id",
+        "source",
+        "source_query_execution_id",
+        "source_entity",
+        "source_key_semantic_roles",
+        "target_semantic_roles"
+      ],
+      "properties": {
+        "result_set_binding_version": {"const": "1.0", "title": "Result Set Binding Version", "type": "string"},
+        "binding_id": {"const": "selected_scope_entities", "title": "Binding Id", "type": "string"},
+        "source": {"const": "prior_result_entity_set", "title": "Source", "type": "string"},
+        "source_query_execution_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+          "title": "Source Query Execution Id"
+        },
+        "source_entity": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+          "title": "Source Entity"
+        },
+        "source_key_semantic_roles": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 8,
+          "uniqueItems": true,
+          "title": "Source Key Semantic Roles",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$"
+          }
+        },
+        "target_semantic_roles": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 8,
+          "uniqueItems": true,
+          "title": "Target Semantic Roles",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$"
+          }
+        }
+      }
     },
     "runtimeContext": {
       "type": "object",

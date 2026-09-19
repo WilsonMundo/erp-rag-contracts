@@ -935,6 +935,19 @@
           "title": "Columns",
           "type": "array"
         },
+        "primary_result_scope_entity": {
+          "anyOf": [
+            {
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Primary Result Scope Entity"
+        },
         "result_set": {
           "$ref": "#/$defs/ResultSetSemanticsV1"
         },
@@ -1256,6 +1269,69 @@
       "title": "ResultAggregateValueReferenceV1",
       "type": "object"
     },
+    "ResultSetBindingV1": {
+      "additionalProperties": false,
+      "properties": {
+        "binding_id": {
+          "const": "selected_scope_entities",
+          "title": "Binding Id",
+          "type": "string"
+        },
+        "result_set_binding_version": {
+          "const": "1.0",
+          "title": "Result Set Binding Version",
+          "type": "string"
+        },
+        "source": {
+          "const": "prior_result_entity_set",
+          "title": "Source",
+          "type": "string"
+        },
+        "source_entity": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+          "title": "Source Entity",
+          "type": "string"
+        },
+        "source_key_semantic_roles": {
+          "items": {
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+            "type": "string"
+          },
+          "maxItems": 8,
+          "minItems": 1,
+          "title": "Source Key Semantic Roles",
+          "type": "array",
+          "uniqueItems": true
+        },
+        "source_query_execution_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+          "title": "Source Query Execution Id",
+          "type": "string"
+        },
+        "target_semantic_roles": {
+          "items": {
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+            "type": "string"
+          },
+          "maxItems": 8,
+          "minItems": 1,
+          "title": "Target Semantic Roles",
+          "type": "array",
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "result_set_binding_version",
+        "binding_id",
+        "source",
+        "source_query_execution_id",
+        "source_entity",
+        "source_key_semantic_roles",
+        "target_semantic_roles"
+      ],
+      "title": "ResultSetBindingV1",
+      "type": "object"
+    },
     "ResultSetSemanticsV1": {
       "additionalProperties": false,
       "properties": {
@@ -1342,6 +1418,25 @@
           "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,127}$",
           "title": "Order Field",
           "type": "string"
+        },
+        "partition_fields": {
+          "items": {
+            "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,127}$",
+            "type": "string"
+          },
+          "maxItems": 20,
+          "title": "Partition Fields",
+          "type": "array",
+          "uniqueItems": true
+        },
+        "scope": {
+          "default": "global",
+          "enum": [
+            "global",
+            "per_group"
+          ],
+          "title": "Scope",
+          "type": "string"
         }
       },
       "required": [
@@ -1397,6 +1492,17 @@
     },
     "requery": {
       "$ref": "#/$defs/RequeryCapabilityV1"
+    },
+    "result_set_binding": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ResultSetBindingV1"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
     },
     "semantics": {
       "$ref": "#/$defs/ProposedResultSemanticsV2"

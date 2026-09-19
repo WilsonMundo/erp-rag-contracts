@@ -17,6 +17,8 @@ const PR01_SCHEMAS = [
   ['proposed-result-semantics-v2', 'ProposedResultSemanticsV2'],
   ['result-set-semantics-v1', 'ResultSetSemanticsV1'],
   ['result-set-selection-v1', 'ResultSetSelectionV1'],
+  ['result-scope-v1', 'ResultScopeV1'],
+  ['result-set-binding-v1', 'ResultSetBindingV1'],
   ['proposed-semantic-column-v2', 'ProposedSemanticColumnV2'],
   ['value-reference-v1', 'ValueReferenceV1'],
   ['resolved-business-reference-context-v1', 'ResolvedBusinessReferenceContextV1'],

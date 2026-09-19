@@ -1,5 +1,33 @@
 # Changelog
 
+## 2.8.0
+
+- Permite publicar múltiples `ResultScopeV1` de una misma ejecución mediante
+  `available_result_scopes`, manteniendo `active_result_scope` como scope primario compatible.
+- Declara opcionalmente `primary_result_scope_entity` en la semántica propuesta para seleccionar
+  de forma determinista el scope principal sin transportar IDs materiales.
+
+## 2.7.0
+
+- Distingue rankings `top_n` globales y por grupo mediante `scope` y
+  `partition_fields`, conservando compatibilidad con artefactos globales previos.
+- Permite transportar el `result_set_binding` lógico del artefacto anterior en
+  `ChatTurnRequestV2`, sin materializar IDs ni detalles físicos del TVP.
+
+## 2.6.0
+
+- Publica `ResultSetBindingV1` como referencia lógica a un conjunto durable previo,
+  sin IDs materiales ni detalles físicos de TVP.
+- Permite que `QueryArtifactV1` conserve opcionalmente el binding lógico para
+  reautorizar y rematerializar el conjunto en cada ejecución.
+
+## 2.5.0
+
+- Publica `ResultScopeV1` con referencia durable a `QueryExecution`, entidad,
+  claves semánticas ordenadas, selección `displayed_result` y cantidad de filas.
+- Agrega `active_result_scope` opcional al contexto de consulta anterior para
+  conservar compatibilidad con estados conversacionales existentes.
+
 ## 2.4.0
 
 - Incorpora `comparison_kpi` como bloque propuesto y materializado para presentar

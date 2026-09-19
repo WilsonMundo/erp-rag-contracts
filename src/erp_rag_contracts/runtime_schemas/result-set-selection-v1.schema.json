@@ -63,6 +63,25 @@
           "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,127}$",
           "title": "Order Field",
           "type": "string"
+        },
+        "partition_fields": {
+          "items": {
+            "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,127}$",
+            "type": "string"
+          },
+          "maxItems": 20,
+          "title": "Partition Fields",
+          "type": "array",
+          "uniqueItems": true
+        },
+        "scope": {
+          "default": "global",
+          "enum": [
+            "global",
+            "per_group"
+          ],
+          "title": "Scope",
+          "type": "string"
         }
       },
       "required": [

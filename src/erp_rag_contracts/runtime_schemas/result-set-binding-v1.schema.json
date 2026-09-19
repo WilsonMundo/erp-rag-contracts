@@ -1,0 +1,66 @@
+{
+  "$id": "urn:erp-rag-contracts:schema:result-set-binding:v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Contrato normativo runtime result-set-binding versión 1.",
+  "properties": {
+    "binding_id": {
+      "const": "selected_scope_entities",
+      "title": "Binding Id",
+      "type": "string"
+    },
+    "result_set_binding_version": {
+      "const": "1.0",
+      "title": "Result Set Binding Version",
+      "type": "string"
+    },
+    "source": {
+      "const": "prior_result_entity_set",
+      "title": "Source",
+      "type": "string"
+    },
+    "source_entity": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+      "title": "Source Entity",
+      "type": "string"
+    },
+    "source_key_semantic_roles": {
+      "items": {
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+        "type": "string"
+      },
+      "maxItems": 8,
+      "minItems": 1,
+      "title": "Source Key Semantic Roles",
+      "type": "array",
+      "uniqueItems": true
+    },
+    "source_query_execution_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+      "title": "Source Query Execution Id",
+      "type": "string"
+    },
+    "target_semantic_roles": {
+      "items": {
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+        "type": "string"
+      },
+      "maxItems": 8,
+      "minItems": 1,
+      "title": "Target Semantic Roles",
+      "type": "array",
+      "uniqueItems": true
+    }
+  },
+  "required": [
+    "result_set_binding_version",
+    "binding_id",
+    "source",
+    "source_query_execution_id",
+    "source_entity",
+    "source_key_semantic_roles",
+    "target_semantic_roles"
+  ],
+  "title": "ResultSetBindingV1",
+  "type": "object"
+}

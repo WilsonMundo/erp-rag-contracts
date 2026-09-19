@@ -1,0 +1,54 @@
+{
+  "$id": "urn:erp-rag-contracts:schema:result-scope:v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Contrato normativo runtime result-scope versión 1.",
+  "properties": {
+    "entity": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+      "title": "Entity",
+      "type": "string"
+    },
+    "key_semantic_roles": {
+      "items": {
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+        "type": "string"
+      },
+      "maxItems": 8,
+      "minItems": 1,
+      "title": "Key Semantic Roles",
+      "type": "array",
+      "uniqueItems": true
+    },
+    "result_scope_version": {
+      "const": "1.0",
+      "title": "Result Scope Version",
+      "type": "string"
+    },
+    "row_count": {
+      "minimum": 0,
+      "title": "Row Count",
+      "type": "integer"
+    },
+    "selection_kind": {
+      "const": "displayed_result",
+      "title": "Selection Kind",
+      "type": "string"
+    },
+    "source_query_execution_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+      "title": "Source Query Execution Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "result_scope_version",
+    "source_query_execution_id",
+    "entity",
+    "key_semantic_roles",
+    "selection_kind",
+    "row_count"
+  ],
+  "title": "ResultScopeV1",
+  "type": "object"
+}

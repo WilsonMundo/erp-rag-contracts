@@ -176,6 +176,20 @@ class TopNSelectionV1(RuntimeContractModel):
     limit: Annotated[int, Field(ge=1, le=500)]
     order_field: Identifier
     direction: Literal["ascending", "descending"]
+    scope: Literal["global", "per_group"] = "global"
+    partition_fields: Annotated[
+        list[Identifier], Field(max_length=20, json_schema_extra={"uniqueItems": True})
+    ] = Field(default_factory=list)
+
+    @model_validator(mode="after")
+    def validate_scope(self) -> TopNSelectionV1:
+        if len(set(self.partition_fields)) != len(self.partition_fields):
+            raise ValueError("top_n partition fields must be unique")
+        if self.scope == "global" and self.partition_fields:
+            raise ValueError("global top_n forbids partition fields")
+        if self.scope == "per_group" and not self.partition_fields:
+            raise ValueError("per_group top_n requires partition fields")
+        return self
 
 
 class SampleSelectionV1(RuntimeContractModel):
@@ -192,6 +206,47 @@ ResultSetSelectionV1 = Annotated[
 class ResultSetSemanticsV1(RuntimeContractModel):
     result_set_semantics_version: Literal["1.0"]
     selection: ResultSetSelectionV1
+
+
+class ResultScopeV1(RuntimeContractModel):
+    result_scope_version: Literal["1.0"]
+    source_query_execution_id: ContractId
+    entity: ContractId
+    key_semantic_roles: Annotated[
+        list[ContractId], Field(min_length=1, max_length=8, json_schema_extra={"uniqueItems": True})
+    ]
+    selection_kind: Literal["displayed_result"]
+    row_count: Annotated[int, Field(ge=0)]
+
+    @model_validator(mode="after")
+    def validate_key_semantic_roles(self) -> ResultScopeV1:
+        if len(set(self.key_semantic_roles)) != len(self.key_semantic_roles):
+            raise ValueError("key semantic roles must be unique")
+        return self
+
+
+class ResultSetBindingV1(RuntimeContractModel):
+    result_set_binding_version: Literal["1.0"]
+    binding_id: Literal["selected_scope_entities"]
+    source: Literal["prior_result_entity_set"]
+    source_query_execution_id: ContractId
+    source_entity: ContractId
+    source_key_semantic_roles: Annotated[
+        list[ContractId], Field(min_length=1, max_length=8, json_schema_extra={"uniqueItems": True})
+    ]
+    target_semantic_roles: Annotated[
+        list[ContractId], Field(min_length=1, max_length=8, json_schema_extra={"uniqueItems": True})
+    ]
+
+    @model_validator(mode="after")
+    def validate_semantic_roles(self) -> ResultSetBindingV1:
+        if len(set(self.source_key_semantic_roles)) != len(self.source_key_semantic_roles):
+            raise ValueError("source key semantic roles must be unique")
+        if len(set(self.target_semantic_roles)) != len(self.target_semantic_roles):
+            raise ValueError("target semantic roles must be unique")
+        if len(self.source_key_semantic_roles) != len(self.target_semantic_roles):
+            raise ValueError("source and target semantic role cardinality must match")
+        return self
 
 
 class ProposedSemanticColumnV2(RuntimeContractModel):
@@ -218,6 +273,7 @@ class ProposedResultSemanticsV2(RuntimeContractModel):
     version: Literal["2.0"]
     shape: QueryShape
     result_set: ResultSetSemanticsV1
+    primary_result_scope_entity: ContractId | None = None
     columns: Annotated[list[ProposedSemanticColumnV2], Field(max_length=200)]
 
     @model_validator(mode="after")
@@ -231,6 +287,10 @@ class ProposedResultSemanticsV2(RuntimeContractModel):
             item.key for item in self.columns
         }:
             raise ValueError("top_n order_field must reference a semantic column")
+        if isinstance(selection, TopNSelectionV1) and not set(selection.partition_fields) <= {
+            item.key for item in self.columns
+        }:
+            raise ValueError("top_n partition fields must reference semantic columns")
         return self
 
 
@@ -797,6 +857,7 @@ class QueryArtifactV1(RuntimeContractModel):
     catalog_sha256: Sha256
     capability_profile: ContractId
     requery: RequeryCapabilityV1
+    result_set_binding: ResultSetBindingV1 | None = None
 
     @model_validator(mode="after")
     def validate_parameters(self) -> QueryArtifactV1:
@@ -1114,13 +1175,15 @@ class InventoryReorderResultRowV1(RuntimeContractModel):
     @model_validator(mode="after")
     def validate_missing_inventory(self) -> InventoryReorderResultRowV1:
         if self.row_status == "missing_inventory":
-            if any(value is not None for value in (
-                self.available_inventory, self.shortage, self.recommended_reorder
-            )):
+            if any(
+                value is not None
+                for value in (self.available_inventory, self.shortage, self.recommended_reorder)
+            ):
                 raise ValueError("Missing inventory has no reorder values")
-        elif any(value is None for value in (
-            self.available_inventory, self.shortage, self.recommended_reorder
-        )):
+        elif any(
+            value is None
+            for value in (self.available_inventory, self.shortage, self.recommended_reorder)
+        ):
             raise ValueError("Ready reorder has complete values")
         return self
 
@@ -1156,7 +1219,9 @@ class MovingAverageCalculationV1(RuntimeContractModel):
 
 
 class AnalyticsMethodExplanationV1(RuntimeContractModel):
-    method_id: Literal["daily_run_rate_v1", "naive_last_period_v1", "moving_average_v1", "inventory_reorder_v1"]
+    method_id: Literal[
+        "daily_run_rate_v1", "naive_last_period_v1", "moving_average_v1", "inventory_reorder_v1"
+    ]
     method_version: Literal["1.0"]
     label: NonEmptyText
     description: NonEmptyText
@@ -1194,7 +1259,9 @@ class AnalyticsResultV1(RuntimeContractModel):
     status: Literal["completed"]
     operation: Literal["forecast", "inventory_reorder"]
     metric_concept: Literal["sales", "purchases", "inventory_reorder"]
-    method_id: Literal["daily_run_rate_v1", "naive_last_period_v1", "moving_average_v1", "inventory_reorder_v1"]
+    method_id: Literal[
+        "daily_run_rate_v1", "naive_last_period_v1", "moving_average_v1", "inventory_reorder_v1"
+    ]
     method_version: Literal["1.0"] | None = None
     demand_forecast_method_id: Literal["daily_run_rate_v1", "moving_average_v1"] | None = None
     demand_forecast_method_version: Literal["1.0"] | None = None
@@ -1215,6 +1282,9 @@ class AnalyticsResultV1(RuntimeContractModel):
     @model_validator(mode="after")
     def validate_rows(self) -> AnalyticsResultV1:
         if self.operation == "inventory_reorder":
+            inventory_rows = [
+                row for row in self.rows if isinstance(row, InventoryReorderResultRowV1)
+            ]
             if (
                 self.metric_concept != "inventory_reorder"
                 or self.method_id != "inventory_reorder_v1"
@@ -1233,12 +1303,15 @@ class AnalyticsResultV1(RuntimeContractModel):
                 or self.method_explanation.method_id != self.method_id
                 or not isinstance(self.method_explanation.calculation, str)
                 or self.method_explanation.selection_reason != "registered_inventory_reorder_method"
-                or any(not isinstance(row, InventoryReorderResultRowV1) for row in self.rows)
-                or len({row.product_id for row in self.rows}) != len(self.rows)
+                or len(inventory_rows) != len(self.rows)
+                or len({row.product_id for row in inventory_rows}) != len(inventory_rows)
             ):
                 raise ValueError("Invalid inventory reorder result")
             return self
-        if self.metric_concept not in ("sales", "purchases") or self.method_id == "inventory_reorder_v1":
+        if (
+            self.metric_concept not in ("sales", "purchases")
+            or self.method_id == "inventory_reorder_v1"
+        ):
             raise ValueError("Invalid forecast identity")
         if self.group_by is not None:
             if (
@@ -1265,7 +1338,8 @@ class AnalyticsResultV1(RuntimeContractModel):
             or len(self.rows) != len(self.input_totals) + 1
             or any(
                 not isinstance(row, AnalyticsResultRowV1)
-                or row.type != "actual" or row.value != item.value
+                or row.type != "actual"
+                or row.value != item.value
                 for row, item in zip(self.rows[:-1], self.input_totals, strict=True)
             )
             or not isinstance(self.rows[-1], AnalyticsResultRowV1)

@@ -178,6 +178,8 @@ RUNTIME_V2_SCHEMA_MODELS: tuple[tuple[str, Any, str], ...] = (
     ("proposed-result-semantics-v2", runtime_v2.ProposedResultSemanticsV2, "2"),
     ("result-set-semantics-v1", runtime_v2.ResultSetSemanticsV1, "1"),
     ("result-set-selection-v1", runtime_v2.ResultSetSelectionV1, "1"),
+    ("result-scope-v1", runtime_v2.ResultScopeV1, "1"),
+    ("result-set-binding-v1", runtime_v2.ResultSetBindingV1, "1"),
     ("proposed-semantic-column-v2", runtime_v2.ProposedSemanticColumnV2, "2"),
     ("value-reference-v1", runtime_v2.ValueReferenceV1, "1"),
     (
@@ -281,6 +283,28 @@ def runtime_schema_for(model: Any, slug: str, version: str) -> dict[str, Any]:
     schema["$id"] = f"urn:erp-rag-contracts:schema:{slug}:v{version}"
     schema["description"] = f"Contrato normativo runtime {slug} versión {version}."
     return schema
+
+
+def verify_result_scope_embedding() -> None:
+    request = json.loads(
+        (ROOT / "contracts/runtime/chat-turn-request-v2.schema.json").read_text(encoding="utf-8")
+    )
+    canonical = json.loads(
+        (ROOT / "contracts/runtime/result-scope-v1.schema.json").read_text(encoding="utf-8")
+    )
+    for key in ("$schema", "$id", "description"):
+        canonical.pop(key)
+    if request["$defs"].get("resultScopeV1") != canonical:
+        raise RuntimeError("ChatTurnRequestV2 embeds a divergent ResultScopeV1 definition")
+    binding = json.loads(
+        (ROOT / "contracts/runtime/result-set-binding-v1.schema.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    for key in ("$schema", "$id", "description"):
+        binding.pop(key)
+    if request["$defs"].get("resultSetBindingV1") != binding:
+        raise RuntimeError("ChatTurnRequestV2 embeds a divergent ResultSetBindingV1 definition")
 
 
 def generate_chat_runtime_fixtures() -> None:
@@ -927,6 +951,7 @@ def main() -> None:
     for path, (model, slug, version) in sorted(RUNTIME_SCHEMAS.items()):
         if model is not None:
             dump(path, runtime_schema_for(model, slug, version))
+    verify_result_scope_embedding()
     package_schema_directory = ROOT / "src" / "erp_rag_contracts" / "runtime_schemas"
     package_schema_directory.mkdir(parents=True, exist_ok=True)
     for path in RUNTIME_SCHEMAS:

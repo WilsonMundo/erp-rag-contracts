@@ -7424,6 +7424,7 @@ export type SemanticType =
  * @maxItems 200
  */
 export type Columns2 = ProposedSemanticColumnV2[];
+export type PrimaryResultScopeEntity = string | null;
 export type ResultSetSemanticsVersion = '1.0';
 export type Selection = AllMatchesSelectionV1 | TopNSelectionV1 | SampleSelectionV1;
 export type Kind6 = 'all_matches';
@@ -7431,6 +7432,172 @@ export type Direction = 'ascending' | 'descending';
 export type Kind7 = 'top_n';
 export type Limit = number;
 export type OrderField = string;
+/**
+ * @maxItems 20
+ */
+export type PartitionFields =
+  | []
+  | [string]
+  | [string, string]
+  | [string, string, string]
+  | [string, string, string, string]
+  | [string, string, string, string, string]
+  | [string, string, string, string, string, string]
+  | [string, string, string, string, string, string, string]
+  | [string, string, string, string, string, string, string, string]
+  | [string, string, string, string, string, string, string, string, string]
+  | [string, string, string, string, string, string, string, string, string, string]
+  | [string, string, string, string, string, string, string, string, string, string, string]
+  | [string, string, string, string, string, string, string, string, string, string, string, string]
+  | [
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string
+    ]
+  | [
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string
+    ]
+  | [
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string
+    ]
+  | [
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string
+    ]
+  | [
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string
+    ]
+  | [
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string
+    ]
+  | [
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string
+    ]
+  | [
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string
+    ];
+export type Scope1 = 'global' | 'per_group';
 export type Kind8 = 'sample';
 export type Limit1 = number;
 export type Shape =
@@ -7439,6 +7606,55 @@ export type Version = '2.0';
 export type QuerySqlDraftVersion = '6.0';
 export type Sql = string;
 export type ResultSetSelectionV1 = AllMatchesSelectionV1 | TopNSelectionV1 | SampleSelectionV1;
+export type Entity = string;
+/**
+ * @minItems 1
+ * @maxItems 8
+ */
+export type KeySemanticRoles =
+  | [string]
+  | [string, string]
+  | [string, string, string]
+  | [string, string, string, string]
+  | [string, string, string, string, string]
+  | [string, string, string, string, string, string]
+  | [string, string, string, string, string, string, string]
+  | [string, string, string, string, string, string, string, string];
+export type ResultScopeVersion = '1.0';
+export type RowCount = number;
+export type SelectionKind = 'displayed_result';
+export type SourceQueryExecutionId = string;
+export type BindingId = 'selected_scope_entities';
+export type ResultSetBindingVersion = '1.0';
+export type Source3 = 'prior_result_entity_set';
+export type SourceEntity = string;
+/**
+ * @minItems 1
+ * @maxItems 8
+ */
+export type SourceKeySemanticRoles =
+  | [string]
+  | [string, string]
+  | [string, string, string]
+  | [string, string, string, string]
+  | [string, string, string, string, string]
+  | [string, string, string, string, string, string]
+  | [string, string, string, string, string, string, string]
+  | [string, string, string, string, string, string, string, string];
+export type SourceQueryExecutionId1 = string;
+/**
+ * @minItems 1
+ * @maxItems 8
+ */
+export type TargetSemanticRoles =
+  | [string]
+  | [string, string]
+  | [string, string, string]
+  | [string, string, string, string]
+  | [string, string, string, string, string]
+  | [string, string, string, string, string, string]
+  | [string, string, string, string, string, string, string]
+  | [string, string, string, string, string, string, string, string];
 export type ValueReferenceV1 =
   FieldValueReferenceV1 | ResultAggregateValueReferenceV1 | ResolvedReferenceValueReferenceV1;
 export type Label3 = string;
@@ -10622,7 +10838,7 @@ export type QueryId = string;
 export type QueryResultVersion = '2.0';
 export type ResultFingerprint = string;
 export type ResultId = string;
-export type RowCount = number;
+export type RowCount1 = number;
 /**
  * @maxItems 500
  */
@@ -11508,7 +11724,7 @@ export type Status5 = 'completed' | 'degraded' | 'failed';
 export type WidgetId2 = string;
 export type Widgets1 = DashboardWidgetResultV1[];
 export type ActionId = string;
-export type Entity = string;
+export type Entity1 = string;
 export type ImportOperationVersion = '1.0';
 export type Operation1 = 'import';
 export type PolicyId = string;
@@ -13351,6 +13567,7 @@ export interface PresentationLayoutV1 {
 }
 export interface ProposedResultSemanticsV2 {
   columns: Columns2;
+  primary_result_scope_entity?: PrimaryResultScopeEntity;
   result_set: ResultSetSemanticsV1;
   shape: Shape;
   version: Version;
@@ -13376,10 +13593,29 @@ export interface TopNSelectionV1 {
   kind: Kind7;
   limit: Limit;
   order_field: OrderField;
+  partition_fields?: PartitionFields;
+  scope?: Scope1;
 }
 export interface SampleSelectionV1 {
   kind: Kind8;
   limit: Limit1;
+}
+export interface ResultScopeV1 {
+  entity: Entity;
+  key_semantic_roles: KeySemanticRoles;
+  result_scope_version: ResultScopeVersion;
+  row_count: RowCount;
+  selection_kind: SelectionKind;
+  source_query_execution_id: SourceQueryExecutionId;
+}
+export interface ResultSetBindingV1 {
+  binding_id: BindingId;
+  result_set_binding_version: ResultSetBindingVersion;
+  source: Source3;
+  source_entity: SourceEntity;
+  source_key_semantic_roles: SourceKeySemanticRoles;
+  source_query_execution_id: SourceQueryExecutionId1;
+  target_semantic_roles: TargetSemanticRoles;
 }
 export interface ResolvedBusinessReferenceContextV1 {
   references: References;
@@ -13508,7 +13744,7 @@ export interface QueryResultV2 {
   query_result_version: QueryResultVersion;
   result_fingerprint: ResultFingerprint;
   result_id: ResultId;
-  row_count: RowCount;
+  row_count: RowCount1;
   rows: Rows2;
   semantics: ProposedResultSemanticsV2;
   status: Status1;
@@ -13696,6 +13932,7 @@ export interface QueryArtifactV1 {
   query_artifact_id: QueryArtifactId2;
   query_artifact_version: QueryArtifactVersion;
   requery: RequeryCapabilityV1;
+  result_set_binding?: ResultSetBindingV1 | null;
   semantics: ProposedResultSemanticsV2;
   sql: Sql1;
 }
@@ -13782,7 +14019,7 @@ export interface DashboardWidgetResultV1 {
 }
 export interface ImportOperationV1 {
   action_id: ActionId;
-  entity: Entity;
+  entity: Entity1;
   import_operation_version: ImportOperationVersion;
   operation: Operation1;
   policy_id: PolicyId;
