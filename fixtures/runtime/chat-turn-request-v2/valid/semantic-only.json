@@ -1,0 +1,32 @@
+{
+  "contract_version": "2.0",
+  "request_id": "req-semantic-001",
+  "conversation_id": "conv-semantic-001",
+  "turn_id": "turn-semantic-002",
+  "input": {
+    "type": "user_message",
+    "contents": [
+      {
+        "kind": "text",
+        "text": "Ahora dame un reporte usando ese margen"
+      }
+    ]
+  },
+  "runtime_context": {
+    "locale": "es-GT",
+    "timezone": "America/Guatemala",
+    "current_datetime": "2026-09-21T01:54:00-06:00"
+  },
+  "active_semantic_context": {
+    "version": "1.0",
+    "context_kind": "semantic_only",
+    "topic_concepts": [
+      "cost",
+      "margin"
+    ],
+    "domain": "sales",
+    "last_intent": "chat",
+    "last_operation": "explanation",
+    "execution_exists": false
+  }
+}

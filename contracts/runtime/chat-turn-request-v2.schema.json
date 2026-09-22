@@ -75,6 +75,10 @@
         "active_result_scope": {"$ref": "#/$defs/resultScopeV1"},
         "result_set_binding": {"$ref": "#/$defs/resultSetBindingV1"}
       }
+    },
+    "active_semantic_context": {
+      "$ref": "#/$defs/activeSemanticContextV1",
+      "description": "Continuidad temática sin ejecución previa. No concede autorización ni transporta scopes, parámetros, SQL o bindings."
     }
   },
   "allOf": [
@@ -119,6 +123,14 @@
           "expected_state_revision"
         ]
       }
+    },
+    {
+      "not": {
+        "required": [
+          "previous_query_context",
+          "active_semantic_context"
+        ]
+      }
     }
   ],
   "$defs": {
@@ -131,6 +143,54 @@
     "semanticVersion": {
       "type": "string",
       "pattern": "^[0-9]+\\.[0-9]+(?:\\.[0-9]+)?$"
+    },
+    "activeSemanticContextV1": {
+      "title": "ActiveSemanticContextV1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version",
+        "context_kind",
+        "topic_concepts",
+        "last_intent",
+        "last_operation",
+        "execution_exists"
+      ],
+      "properties": {
+        "version": { "const": "1.0" },
+        "context_kind": { "const": "semantic_only" },
+        "topic_concepts": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 20,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_]{0,79}$"
+          }
+        },
+        "domain": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]{0,79}$"
+        },
+        "last_intent": {
+          "enum": [
+            "chat",
+            "query",
+            "skill",
+            "attachment",
+            "analytics",
+            "deny",
+            "unsupported",
+            "clarification"
+          ]
+        },
+        "last_operation": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]{0,79}$"
+        },
+        "execution_exists": { "const": false }
+      }
     },
     "resultScopeV1": {
       "title": "ResultScopeV1",

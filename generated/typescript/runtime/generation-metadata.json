@@ -7,7 +7,7 @@
     {
       "name": "chat-turn-request-v2",
       "path": "contracts/runtime/chat-turn-request-v2.schema.json",
-      "sha256": "17c50711dfce3a0423bdcfa8b18c2983db543e7a61f1478569ca98988cafb3ee"
+      "sha256": "6d76fbee3d03ccf5abc926c719abd5740acdd8af48cf8341e9d6055998b4df65"
     },
     {
       "name": "chat-turn-response-v2",

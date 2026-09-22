@@ -237,7 +237,7 @@
       "compatibility": "2.x",
       "id": "urn:erp-rag-contracts:schema:chat-turn-request:v2",
       "path": "contracts/runtime/chat-turn-request-v2.schema.json",
-      "sha256": "17c50711dfce3a0423bdcfa8b18c2983db543e7a61f1478569ca98988cafb3ee",
+      "sha256": "6d76fbee3d03ccf5abc926c719abd5740acdd8af48cf8341e9d6055998b4df65",
       "status": "stable",
       "type": "chat-turn-request"
     },
@@ -717,7 +717,7 @@
   "generated_artifacts": [
     {
       "path": "generated/typescript/runtime/generation-metadata.json",
-      "sha256": "e2aabddb9048faddaeaa76e697524f989a925acbb1656f53a4aaef64cf6667c9"
+      "sha256": "26ead1aa82a6e8d274424d5964fc3923d5f9624adb57306d27db0609d11b35f5"
     },
     {
       "path": "generated/typescript/runtime/index.d.ts",
@@ -778,6 +778,10 @@
     {
       "path": "fixtures/runtime/chat-turn-request-v2/valid/entity-selection.json",
       "sha256": "c767c9d666e7695fa18ff2f46d2e8f3d8f9e570324581670a9a1d931ece6a5ce"
+    },
+    {
+      "path": "fixtures/runtime/chat-turn-request-v2/valid/semantic-only.json",
+      "sha256": "f2db1537152656f91d444a438b8e599717372a4df7f4856aa7813cd694004dd3"
     },
     {
       "path": "fixtures/runtime/chat-turn-request-v2/valid/user-message.json",
