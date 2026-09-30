@@ -100,7 +100,25 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "additionalProperties": false,
   "description": "Contrato normativo runtime dashboard-widget versión 1.",
+  "oneOf": [
+    {
+      "required": [
+        "query_artifact_id"
+      ]
+    },
+    {
+      "required": [
+        "analytics_artifact_id"
+      ]
+    }
+  ],
   "properties": {
+    "analytics_artifact_id": {
+      "description": "Fuente AnalyticsArtifact; excluyente con query_artifact_id.",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+      "title": "Analytics Artifact Id",
+      "type": "string"
+    },
     "block_id": {
       "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
       "title": "Block Id",
@@ -136,7 +154,6 @@
   "required": [
     "dashboard_widget_version",
     "widget_id",
-    "query_artifact_id",
     "block_id",
     "layout",
     "filter_bindings"
