@@ -32,7 +32,7 @@
     {
       "name": "query-sql-draft-v6",
       "path": "contracts/runtime/query-sql-draft-v6.schema.json",
-      "sha256": "59a75f976cb294dd2036e54eaeca59a485fbdfef1c9c231f6457ea2dbb777d47"
+      "sha256": "09ab2a5e94bd17025802cc3c8d479669a2928f91b768a83a402cb9e29a930de2"
     },
     {
       "name": "proposed-result-semantics-v2",
@@ -305,5 +305,5 @@
       "sha256": "d367d81b25857c9a3f1b3378a0af1d199952ac14844cfa6b06f8e72def646211"
     }
   ],
-  "index_sha256": "0d5f18090ccdae2df2b07aa907b20dd2ee0b46b55b837f6ed5cd629b26f68986"
+  "index_sha256": "c513e6a352cacb1a4c244ab7f51472c90121076689edb0cf405431962710a93e"
 }

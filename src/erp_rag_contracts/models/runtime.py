@@ -111,6 +111,19 @@ class ResolvedEntityBindingV1(RuntimeContractModel):
         return self
 
 
+class EntityIdentitySourceV1(RuntimeContractModel):
+    source_object: Identifier
+    source_column: Identifier
+    sql_type: Literal["tinyint", "smallint", "int", "bigint", "uniqueidentifier", "nvarchar"]
+    max_length: Annotated[int, Field(ge=1, le=4000)] | None = None
+
+    @model_validator(mode="after")
+    def validate_source(self) -> EntityIdentitySourceV1:
+        if (self.sql_type == "nvarchar") != (self.max_length is not None):
+            raise ValueError("max_length is required only for nvarchar identity sources")
+        return self
+
+
 class ResolvedEntityV1(RuntimeContractModel):
     ref: ReferenceIdentifier
     entity_type: EntityType
@@ -120,6 +133,8 @@ class ResolvedEntityV1(RuntimeContractModel):
     entity_id: Annotated[str, Field(min_length=1, max_length=128)]
     display_text: Annotated[str, Field(min_length=1, max_length=500)]
     binding: ResolvedEntityBindingV1
+    entity_id_source: EntityIdentitySourceV1 | None = None
+    binding_value_source: EntityIdentitySourceV1 | None = None
 
 
 class ResolvedQueryContextV1(RuntimeContractModel):
@@ -165,6 +180,8 @@ class EntityResolutionCandidateV2(RuntimeContractModel):
     binding_kind: Literal["entity_id", "binding_value"]
     sql_type: Literal["tinyint", "smallint", "int", "bigint", "uniqueidentifier", "nvarchar"]
     max_length: Annotated[int, Field(ge=1, le=4000)] | None = None
+    entity_id_source: EntityIdentitySourceV1 | None = None
+    binding_value_source: EntityIdentitySourceV1 | None = None
 
     @model_validator(mode="after")
     def validate_binding(self) -> EntityResolutionCandidateV2:
@@ -195,6 +212,8 @@ class EntityResolutionItemV2(RuntimeContractModel):
         Literal["tinyint", "smallint", "int", "bigint", "uniqueidentifier", "nvarchar"] | None
     ) = None
     max_length: Annotated[int, Field(ge=1, le=4000)] | None = None
+    entity_id_source: EntityIdentitySourceV1 | None = None
+    binding_value_source: EntityIdentitySourceV1 | None = None
     candidates: Annotated[list[EntityResolutionCandidateV2], Field(max_length=10)] | None = None
     error_code: Annotated[str, Field(min_length=1, max_length=160)] | None = None
 
@@ -229,6 +248,7 @@ class EntityResolutionResultV2(RuntimeContractModel):
 class QueryParameterDraftBaseV2(RuntimeContractModel):
     name: Identifier
     nullable: bool
+    entity_value_source: Literal["entity_id", "binding_value"] | None = None
 
 
 class BitParameterDraftV2(QueryParameterDraftBaseV2):

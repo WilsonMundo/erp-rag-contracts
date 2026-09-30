@@ -333,7 +333,7 @@
       "compatibility": "2.x",
       "id": "urn:erp-rag-contracts:schema:entity-resolution-result:v2",
       "path": "contracts/runtime/entity-resolution-result-v2.schema.json",
-      "sha256": "b2dc3ba6bd56cee20eababd3df01c0407023b88a1922db3feed1ec48e5edc829",
+      "sha256": "0ec215e2471b44b3d0e3aa3961d53242087f454605bbf3ec945543991ae36490",
       "status": "stable",
       "type": "entity-resolution-result"
     },
@@ -621,7 +621,7 @@
       "compatibility": "5.x",
       "id": "urn:erp-rag-contracts:schema:query-sql-draft:v5",
       "path": "contracts/runtime/query-sql-draft-v5.schema.json",
-      "sha256": "a1b096dd076242152d96c6b4fbf8ba6dd785634aece35e27d3a6f33eeb13a13d",
+      "sha256": "f21feaa05aff455306ad521c15caf61e3806c0c70e47624325b4f51d78e64fd6",
       "status": "stable",
       "type": "query-sql-draft"
     },
@@ -629,7 +629,7 @@
       "compatibility": "6.x",
       "id": "urn:erp-rag-contracts:schema:query-sql-draft:v6",
       "path": "contracts/runtime/query-sql-draft-v6.schema.json",
-      "sha256": "59a75f976cb294dd2036e54eaeca59a485fbdfef1c9c231f6457ea2dbb777d47",
+      "sha256": "09ab2a5e94bd17025802cc3c8d479669a2928f91b768a83a402cb9e29a930de2",
       "status": "stable",
       "type": "query-sql-draft"
     },
@@ -661,7 +661,7 @@
       "compatibility": "1.x",
       "id": "urn:erp-rag-contracts:schema:resolved-query-context:v1",
       "path": "contracts/runtime/resolved-query-context-v1.schema.json",
-      "sha256": "c275c641ee3cab2e295d7caaee637490c698c3db20773fdb6e81728434a2407c",
+      "sha256": "0f3e40b4a2795872ff2597ef2ff66b3f4ea88e46370aa9044b16d37906ebcf16",
       "status": "stable",
       "type": "resolved-query-context"
     },
@@ -717,11 +717,11 @@
   "generated_artifacts": [
     {
       "path": "generated/typescript/runtime/generation-metadata.json",
-      "sha256": "26ead1aa82a6e8d274424d5964fc3923d5f9624adb57306d27db0609d11b35f5"
+      "sha256": "b14370330a5169ca35e77dba133a6ecae7aeea4d82da7e1d43cc448ecb5bf1a0"
     },
     {
       "path": "generated/typescript/runtime/index.d.ts",
-      "sha256": "0d5f18090ccdae2df2b07aa907b20dd2ee0b46b55b837f6ed5cd629b26f68986"
+      "sha256": "c513e6a352cacb1a4c244ab7f51472c90121076689edb0cf405431962710a93e"
     },
     {
       "path": "generated/typescript/runtime/package.json",

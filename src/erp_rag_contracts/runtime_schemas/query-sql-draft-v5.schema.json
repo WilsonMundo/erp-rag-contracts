@@ -3,6 +3,22 @@
     "BitParameterDraftV2": {
       "additionalProperties": false,
       "properties": {
+        "entity_value_source": {
+          "anyOf": [
+            {
+              "enum": [
+                "entity_id",
+                "binding_value"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Entity Value Source"
+        },
         "name": {
           "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,127}$",
           "title": "Name",
@@ -332,6 +348,22 @@
     "DateParameterDraftV2": {
       "additionalProperties": false,
       "properties": {
+        "entity_value_source": {
+          "anyOf": [
+            {
+              "enum": [
+                "entity_id",
+                "binding_value"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Entity Value Source"
+        },
         "name": {
           "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,127}$",
           "title": "Name",
@@ -370,6 +402,22 @@
     "DateTimeParameterDraftV2": {
       "additionalProperties": false,
       "properties": {
+        "entity_value_source": {
+          "anyOf": [
+            {
+              "enum": [
+                "entity_id",
+                "binding_value"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Entity Value Source"
+        },
         "name": {
           "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,127}$",
           "title": "Name",
@@ -408,6 +456,22 @@
     "DecimalParameterDraftV2": {
       "additionalProperties": false,
       "properties": {
+        "entity_value_source": {
+          "anyOf": [
+            {
+              "enum": [
+                "entity_id",
+                "binding_value"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Entity Value Source"
+        },
         "name": {
           "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,127}$",
           "title": "Name",
@@ -461,6 +525,22 @@
     "IntegerParameterDraftV2": {
       "additionalProperties": false,
       "properties": {
+        "entity_value_source": {
+          "anyOf": [
+            {
+              "enum": [
+                "entity_id",
+                "binding_value"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Entity Value Source"
+        },
         "name": {
           "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,127}$",
           "title": "Name",
@@ -504,6 +584,22 @@
     "NVarCharParameterDraftV2": {
       "additionalProperties": false,
       "properties": {
+        "entity_value_source": {
+          "anyOf": [
+            {
+              "enum": [
+                "entity_id",
+                "binding_value"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Entity Value Source"
+        },
         "max_length": {
           "maximum": 4000,
           "minimum": 1,
@@ -685,6 +781,22 @@
     "UniqueIdentifierParameterDraftV2": {
       "additionalProperties": false,
       "properties": {
+        "entity_value_source": {
+          "anyOf": [
+            {
+              "enum": [
+                "entity_id",
+                "binding_value"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Entity Value Source"
+        },
         "name": {
           "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,127}$",
           "title": "Name",

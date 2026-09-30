@@ -1,5 +1,53 @@
 {
   "$defs": {
+    "EntityIdentitySourceV1": {
+      "additionalProperties": false,
+      "properties": {
+        "max_length": {
+          "anyOf": [
+            {
+              "maximum": 4000,
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Max Length"
+        },
+        "source_column": {
+          "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,127}$",
+          "title": "Source Column",
+          "type": "string"
+        },
+        "source_object": {
+          "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,127}$",
+          "title": "Source Object",
+          "type": "string"
+        },
+        "sql_type": {
+          "enum": [
+            "tinyint",
+            "smallint",
+            "int",
+            "bigint",
+            "uniqueidentifier",
+            "nvarchar"
+          ],
+          "title": "Sql Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "source_object",
+        "source_column",
+        "sql_type"
+      ],
+      "title": "EntityIdentitySourceV1",
+      "type": "object"
+    },
     "MetricMentionV1": {
       "additionalProperties": false,
       "properties": {
@@ -156,6 +204,17 @@
         "binding": {
           "$ref": "#/$defs/ResolvedEntityBindingV1"
         },
+        "binding_value_source": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/EntityIdentitySourceV1"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
         "display_text": {
           "maxLength": 500,
           "minLength": 1,
@@ -167,6 +226,17 @@
           "minLength": 1,
           "title": "Entity Id",
           "type": "string"
+        },
+        "entity_id_source": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/EntityIdentitySourceV1"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
         },
         "entity_type": {
           "enum": [

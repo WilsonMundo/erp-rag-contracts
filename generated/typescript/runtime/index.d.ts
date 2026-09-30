@@ -3481,32 +3481,39 @@ export type TaskKind =
       | 'trend'
     )
   | null;
+export type EntityValueSource = ('entity_id' | 'binding_value') | null;
 export type Name = string;
 export type Nullable = boolean;
 export type SqlType = 'bit';
 export type Value = boolean | null;
+export type EntityValueSource1 = ('entity_id' | 'binding_value') | null;
 export type Name1 = string;
 export type Nullable1 = boolean;
 export type SqlType1 = 'tinyint' | 'smallint' | 'int' | 'bigint';
 export type Value1 = number | null;
+export type EntityValueSource2 = ('entity_id' | 'binding_value') | null;
 export type Name2 = string;
 export type Nullable2 = boolean;
 export type Precision = number;
 export type Scale = number;
 export type SqlType2 = 'decimal';
 export type Value2 = string | null;
+export type EntityValueSource3 = ('entity_id' | 'binding_value') | null;
 export type Name3 = string;
 export type Nullable3 = boolean;
 export type SqlType3 = 'date';
 export type Value3 = string | null;
+export type EntityValueSource4 = ('entity_id' | 'binding_value') | null;
 export type Name4 = string;
 export type Nullable4 = boolean;
 export type SqlType4 = 'datetime2';
 export type Value4 = string | null;
+export type EntityValueSource5 = ('entity_id' | 'binding_value') | null;
 export type Name5 = string;
 export type Nullable5 = boolean;
 export type SqlType5 = 'uniqueidentifier';
 export type Value5 = string | null;
+export type EntityValueSource6 = ('entity_id' | 'binding_value') | null;
 export type MaxLength = number;
 export type Name6 = string;
 export type Nullable6 = boolean;
@@ -13413,18 +13420,21 @@ export interface QuerySqlDraftV6 {
   sql: Sql;
 }
 export interface BitParameterDraftV2 {
+  entity_value_source?: EntityValueSource;
   name: Name;
   nullable: Nullable;
   sql_type: SqlType;
   value: Value;
 }
 export interface IntegerParameterDraftV2 {
+  entity_value_source?: EntityValueSource1;
   name: Name1;
   nullable: Nullable1;
   sql_type: SqlType1;
   value: Value1;
 }
 export interface DecimalParameterDraftV2 {
+  entity_value_source?: EntityValueSource2;
   name: Name2;
   nullable: Nullable2;
   precision: Precision;
@@ -13433,24 +13443,28 @@ export interface DecimalParameterDraftV2 {
   value: Value2;
 }
 export interface DateParameterDraftV2 {
+  entity_value_source?: EntityValueSource3;
   name: Name3;
   nullable: Nullable3;
   sql_type: SqlType3;
   value: Value3;
 }
 export interface DateTimeParameterDraftV2 {
+  entity_value_source?: EntityValueSource4;
   name: Name4;
   nullable: Nullable4;
   sql_type: SqlType4;
   value: Value4;
 }
 export interface UniqueIdentifierParameterDraftV2 {
+  entity_value_source?: EntityValueSource5;
   name: Name5;
   nullable: Nullable5;
   sql_type: SqlType5;
   value: Value5;
 }
 export interface NVarCharParameterDraftV2 {
+  entity_value_source?: EntityValueSource6;
   max_length: MaxLength;
   name: Name6;
   nullable: Nullable6;
