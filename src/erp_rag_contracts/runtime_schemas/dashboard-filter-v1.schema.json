@@ -9,9 +9,29 @@
       "title": "Dashboard Filter Version",
       "type": "string"
     },
+    "default_value": {
+      "description": "Valor por defecto tipado del par\u00e1metro (nunca el valor aplicado).",
+      "title": "Default Value",
+      "type": [
+        "boolean",
+        "number",
+        "object",
+        "string"
+      ]
+    },
     "filter_id": {
       "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
       "title": "Filter Id",
+      "type": "string"
+    },
+    "impact": {
+      "description": "Qu\u00e9 puede provocar el cambio del valor: query, analysis o presentation.",
+      "enum": [
+        "query",
+        "analysis",
+        "presentation"
+      ],
+      "title": "Impact",
       "type": "string"
     },
     "label": {
@@ -20,10 +40,27 @@
       "title": "Label",
       "type": "string"
     },
+    "max_value": {
+      "title": "Max Value",
+      "type": "number"
+    },
+    "min_value": {
+      "title": "Min Value",
+      "type": "number"
+    },
     "required": {
       "default": false,
       "title": "Required",
       "type": "boolean"
+    },
+    "scope": {
+      "enum": [
+        "data",
+        "analysis",
+        "presentation"
+      ],
+      "title": "Scope",
+      "type": "string"
     },
     "type": {
       "enum": [
@@ -31,6 +68,25 @@
         "date_range"
       ],
       "title": "Type",
+      "type": "string"
+    },
+    "unit": {
+      "maxLength": 40,
+      "minLength": 1,
+      "title": "Unit",
+      "type": "string"
+    },
+    "value_type": {
+      "description": "Subtipo escalar tipado de la definici\u00f3n del par\u00e1metro.",
+      "enum": [
+        "date_range",
+        "integer",
+        "decimal",
+        "boolean",
+        "string",
+        "entity"
+      ],
+      "title": "Value Type",
       "type": "string"
     }
   },
