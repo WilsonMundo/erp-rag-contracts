@@ -303,7 +303,12 @@
       "name": "import-capability-descriptor-v1",
       "path": "contracts/runtime/import-capability-descriptor-v1.schema.json",
       "sha256": "d367d81b25857c9a3f1b3378a0af1d199952ac14844cfa6b06f8e72def646211"
+    },
+    {
+      "name": "analytics-presentation-block-v1",
+      "path": "contracts/runtime/analytics-presentation-block-v1.schema.json",
+      "sha256": "52333a102aa909d61131ae898889e267590cabdc7f89b7524cf11af3fa58b837"
     }
   ],
-  "index_sha256": "c513e6a352cacb1a4c244ab7f51472c90121076689edb0cf405431962710a93e"
+  "index_sha256": "7d913585ec4f896d80f69a8c1e1fd7249ca7a4e4c9e83ec17d6107026ef6fddc"
 }

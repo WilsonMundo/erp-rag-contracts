@@ -4,6 +4,13 @@ Paquete independiente y versionado que define los contratos oficiales del asiste
 
 ## Frontera
 
+PR-75B0A publica `contracts/runtime/analytics-presentation-block-v1.schema.json`:
+un bloque Generic Analytics `kind=chart` requiere `chart.type`, `orientation`,
+`category_field` y `series[].field`. Otros kinds no llevan configuración de chart.
+Los campos se validan contra el schema de salida de la operación en los consumidores.
+Los artifacts antiguos incompletos se rechazan para rendering, sin backfill.
+La proyección TypeScript se publica por paridad; este cambio no modifica AppWeb.
+
 Este repositorio define, documenta, versiona y prueba contratos. Es la fuente única tanto de los contratos de conocimiento RAG como de los envelopes runtime; no ejecuta SQL ni conecta con ERP, OpenAI o Milvus y tampoco contiene LangGraph.
 
 ```text

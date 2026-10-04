@@ -1,0 +1,7 @@
+# Hash-bearing outputs of PR-75B0A must keep canonical LF bytes on Windows.
+**/analytics-presentation-block-v1.schema.json text eol=lf
+**/ranking-block.json text eol=lf
+contract-manifest.json text eol=lf
+generated/typescript/runtime/index.d.ts text eol=lf
+generated/typescript/runtime/generation-metadata.json text eol=lf
+generated/typescript/runtime/package.json text eol=lf

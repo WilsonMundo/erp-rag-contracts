@@ -13394,6 +13394,19 @@ export type ActionId1 = string;
 export type ConfirmationRequired = boolean;
 export type ImportCapabilityDescriptorVersion = '1.0';
 export type MaxBytes = number;
+export type AnalyticsPresentationBlockV1 = AnalyticsPresentationBlockV11;
+export type BlockId14 = string;
+export type CategoryField2 = string;
+export type Orientation2 = 'horizontal' | 'vertical';
+/**
+ * @minItems 1
+ * @maxItems 1000
+ */
+export type Series2 = [AnalyticsChartSeriesV1, ...AnalyticsChartSeriesV1[]];
+export type Field6 = string;
+export type Type9 = 'bar' | 'line' | 'area';
+export type Kind21 = 'table' | 'kpi' | 'chart';
+export type SourceOutputId = string;
 
 export interface IntentClassificationV2 {
   analysis_intent?: AnalysisIntent;
@@ -14172,5 +14185,20 @@ export interface ImportCapabilityDescriptorV1 {
   import_capability_descriptor_version: ImportCapabilityDescriptorVersion;
   max_bytes: MaxBytes;
   operation: ImportOperationV1;
+}
+export interface AnalyticsPresentationBlockV11 {
+  block_id: BlockId14;
+  chart?: AnalyticsChartPresentationV1 | null;
+  kind: Kind21;
+  source_output_id: SourceOutputId;
+}
+export interface AnalyticsChartPresentationV1 {
+  category_field: CategoryField2;
+  orientation: Orientation2;
+  series: Series2;
+  type: Type9;
+}
+export interface AnalyticsChartSeriesV1 {
+  field: Field6;
 }
 

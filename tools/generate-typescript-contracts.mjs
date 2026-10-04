@@ -68,6 +68,7 @@ const PR01_SCHEMAS = [
   ['import-stream-event-v1', 'ImportStreamEventV1'],
   ['presentation-capability-profile-v1', 'PresentationCapabilityProfileV1'],
   ['import-capability-descriptor-v1', 'ImportCapabilityDescriptorV1'],
+  ['analytics-presentation-block-v1', 'AnalyticsPresentationBlockV1'],
 ].map(([slug, typeName]) => [
   slug,
   typeName,

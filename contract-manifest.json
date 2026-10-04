@@ -187,6 +187,14 @@
     },
     {
       "compatibility": "1.x",
+      "id": "urn:erp-rag-contracts:schema:analytics-presentation-block:v1",
+      "path": "contracts/runtime/analytics-presentation-block-v1.schema.json",
+      "sha256": "52333a102aa909d61131ae898889e267590cabdc7f89b7524cf11af3fa58b837",
+      "status": "stable",
+      "type": "analytics-presentation-block"
+    },
+    {
+      "compatibility": "1.x",
       "id": "urn:erp-rag-contracts:schema:analytics-result:v1",
       "path": "contracts/runtime/analytics-result-v1.schema.json",
       "sha256": "f16e7ff8135cc565a6ef745abb73167992db49cd9f71fff75585e815dace64e3",
@@ -717,11 +725,11 @@
   "generated_artifacts": [
     {
       "path": "generated/typescript/runtime/generation-metadata.json",
-      "sha256": "b14370330a5169ca35e77dba133a6ecae7aeea4d82da7e1d43cc448ecb5bf1a0"
+      "sha256": "27f4aeb0b2d28edaa81a9aecd711169e2a0f793a1899065a700a0c149472e2f2"
     },
     {
       "path": "generated/typescript/runtime/index.d.ts",
-      "sha256": "c513e6a352cacb1a4c244ab7f51472c90121076689edb0cf405431962710a93e"
+      "sha256": "7d913585ec4f896d80f69a8c1e1fd7249ca7a4e4c9e83ec17d6107026ef6fddc"
     },
     {
       "path": "generated/typescript/runtime/package.json",
@@ -950,6 +958,10 @@
     {
       "path": "fixtures/runtime/pr06a-presentation-capabilities/valid/profile.json",
       "sha256": "4dd114844040d4c68e554bbf7da6c30335b49a7facf3b225038fcf35c03a33e2"
+    },
+    {
+      "path": "fixtures/runtime/pr75b0a-generic-chart/valid/ranking-block.json",
+      "sha256": "1807c55da4b3e196a4e36c849834d9220002f3f92924591685f90d98aa26ff3e"
     }
   ],
   "templates": [

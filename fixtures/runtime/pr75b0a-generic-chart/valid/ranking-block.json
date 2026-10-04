@@ -1,0 +1,11 @@
+{
+  "block_id": "ranking_chart",
+  "source_output_id": "ranking_chart",
+  "kind": "chart",
+  "chart": {
+    "type": "bar",
+    "orientation": "horizontal",
+    "category_field": "sucursal_etiqueta",
+    "series": [{ "field": "importe_neto" }]
+  }
+}

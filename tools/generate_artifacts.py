@@ -12,6 +12,7 @@ from typing import Any
 from pydantic import TypeAdapter
 
 from erp_rag_contracts.models import runtime_v2
+from erp_rag_contracts.models.analytics_presentation import AnalyticsPresentationBlockV1
 from erp_rag_contracts.models.contracts import (
     EmbeddingArtifactV1,
     EmbeddingReleaseManifestV1,
@@ -136,6 +137,11 @@ SCHEMAS: dict[str, tuple[Any, str]] = {
     ),
 }
 RUNTIME_SCHEMAS: dict[str, tuple[Any | None, str, str]] = {
+    "contracts/runtime/analytics-presentation-block-v1.schema.json": (
+        AnalyticsPresentationBlockV1,
+        "analytics-presentation-block",
+        "1",
+    ),
     "contracts/runtime/chat-turn-request-v2.schema.json": (None, "chat-turn-request", "2"),
     "contracts/runtime/chat-turn-response-v2.schema.json": (None, "chat-turn-response", "2"),
     "contracts/runtime/query-sql-draft-v5.schema.json": (QuerySqlDraftV5, "query-sql-draft", "5"),
