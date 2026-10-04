@@ -4,6 +4,13 @@ Paquete independiente y versionado que define los contratos oficiales del asiste
 
 ## Frontera
 
+PR-75B0B añade `kpi.value_field`, `selection: single_row` y `format` al bloque
+Generic Analytics. Reutiliza la taxonomía de `MaterializedKpiBlockV1.format`:
+auto, number, integer, currency y percent. El schema exige metadata en escrituras
+nuevas; los modelos de lectura conservan los KPI históricos sin metadata. Los
+writers llaman `require_kpi()`. Solo rendering exige exactamente una fila.
+El valor permanece exclusivamente en GenericAnalyticsResultV1; no hay backfill.
+
 PR-75B0A publica `contracts/runtime/analytics-presentation-block-v1.schema.json`:
 un bloque Generic Analytics `kind=chart` requiere `chart.type`, `orientation`,
 `category_field` y `series[].field`. Otros kinds no llevan configuración de chart.

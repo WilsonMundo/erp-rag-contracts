@@ -60,6 +60,40 @@
       ],
       "title": "AnalyticsChartSeriesV1",
       "type": "object"
+    },
+    "AnalyticsKpiPresentationV1": {
+      "additionalProperties": false,
+      "properties": {
+        "format": {
+          "enum": [
+            "auto",
+            "number",
+            "integer",
+            "currency",
+            "percent"
+          ],
+          "title": "Format",
+          "type": "string"
+        },
+        "selection": {
+          "const": "single_row",
+          "title": "Selection",
+          "type": "string"
+        },
+        "value_field": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Value Field",
+          "type": "string"
+        }
+      },
+      "required": [
+        "value_field",
+        "selection",
+        "format"
+      ],
+      "title": "AnalyticsKpiPresentationV1",
+      "type": "object"
     }
   },
   "$id": "urn:erp-rag-contracts:schema:analytics-presentation-block:v1",
@@ -94,6 +128,35 @@
           "chart"
         ]
       }
+    },
+    {
+      "else": {
+        "properties": {
+          "kpi": {
+            "type": "null"
+          }
+        }
+      },
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "kpi"
+          }
+        },
+        "required": [
+          "kind"
+        ]
+      },
+      "then": {
+        "properties": {
+          "kpi": {
+            "type": "object"
+          }
+        },
+        "required": [
+          "kpi"
+        ]
+      }
     }
   ],
   "description": "Contrato normativo runtime analytics-presentation-block versión 1.",
@@ -122,6 +185,17 @@
       ],
       "title": "Kind",
       "type": "string"
+    },
+    "kpi": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/AnalyticsKpiPresentationV1"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
     },
     "source_output_id": {
       "pattern": "^[a-z][a-z0-9_]{0,63}$",

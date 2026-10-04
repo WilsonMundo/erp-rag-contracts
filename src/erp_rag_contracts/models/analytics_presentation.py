@@ -28,6 +28,13 @@ class AnalyticsChartPresentationV1(RuntimeContractModel):
         return self
 
 
+class AnalyticsKpiPresentationV1(RuntimeContractModel):
+    value_field: AnalyticsChartField
+    selection: Literal["single_row"]
+    # Same presentation taxonomy as MaterializedKpiBlockV1.format (Query V2).
+    format: Literal["auto", "number", "integer", "currency", "percent"]
+
+
 class AnalyticsPresentationBlockV1(RuntimeContractModel):
     model_config = ConfigDict(
         extra="forbid",
@@ -40,7 +47,12 @@ class AnalyticsPresentationBlockV1(RuntimeContractModel):
                     "if": {"properties": {"kind": {"const": "chart"}}, "required": ["kind"]},
                     "then": {"required": ["chart"], "properties": {"chart": {"type": "object"}}},
                     "else": {"properties": {"chart": {"type": "null"}}},
-                }
+                },
+                {
+                    "if": {"properties": {"kind": {"const": "kpi"}}, "required": ["kind"]},
+                    "then": {"required": ["kpi"], "properties": {"kpi": {"type": "object"}}},
+                    "else": {"properties": {"kpi": {"type": "null"}}},
+                },
             ],
         },
     )
@@ -49,6 +61,18 @@ class AnalyticsPresentationBlockV1(RuntimeContractModel):
     source_output_id: AnalyticsBlockIdentifier
     kind: Literal["table", "kpi", "chart"]
     chart: AnalyticsChartPresentationV1 | None = None
+    # Historical reads retain absent metadata; new writes call require_kpi().
+    kpi: AnalyticsKpiPresentationV1 | None = None
+
+    @model_validator(mode="after")
+    def validate_kpi_kind(self) -> Self:
+        if self.kind != "kpi" and self.kpi is not None:
+            raise ValueError("kpi metadata is only allowed when kind is kpi")
+        return self
+
+    def require_kpi(self) -> None:
+        if self.kind == "kpi" and self.kpi is None:
+            raise ValueError("new KPI writes/rendering require explicit KPI metadata")
 
     @model_validator(mode="after")
     def validate_chart(self) -> Self:

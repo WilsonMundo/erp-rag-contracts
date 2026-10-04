@@ -1,0 +1,10 @@
+{
+  "block_id": "variance_kpi",
+  "source_output_id": "variance_kpi",
+  "kind": "kpi",
+  "kpi": {
+    "value_field": "variance",
+    "selection": "single_row",
+    "format": "number"
+  }
+}

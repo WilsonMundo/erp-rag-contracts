@@ -189,7 +189,7 @@
       "compatibility": "1.x",
       "id": "urn:erp-rag-contracts:schema:analytics-presentation-block:v1",
       "path": "contracts/runtime/analytics-presentation-block-v1.schema.json",
-      "sha256": "52333a102aa909d61131ae898889e267590cabdc7f89b7524cf11af3fa58b837",
+      "sha256": "92a460f666bf213867a87f983f834f9b822a50194e5dee76d299dbe769dfe9df",
       "status": "stable",
       "type": "analytics-presentation-block"
     },
@@ -725,11 +725,11 @@
   "generated_artifacts": [
     {
       "path": "generated/typescript/runtime/generation-metadata.json",
-      "sha256": "27f4aeb0b2d28edaa81a9aecd711169e2a0f793a1899065a700a0c149472e2f2"
+      "sha256": "8b0d23bddb3a2bb88f01c970ab77316826357b31504a770b4c06161a4de7e3ed"
     },
     {
       "path": "generated/typescript/runtime/index.d.ts",
-      "sha256": "7d913585ec4f896d80f69a8c1e1fd7249ca7a4e4c9e83ec17d6107026ef6fddc"
+      "sha256": "4de904a9ac72d3e26a1247faf62d24e9b8c9fc1b15ed888c6d1eca26a5875e78"
     },
     {
       "path": "generated/typescript/runtime/package.json",
@@ -962,6 +962,10 @@
     {
       "path": "fixtures/runtime/pr75b0a-generic-chart/valid/ranking-block.json",
       "sha256": "1807c55da4b3e196a4e36c849834d9220002f3f92924591685f90d98aa26ff3e"
+    },
+    {
+      "path": "fixtures/runtime/pr75b0b-generic-kpi/valid/variance-block.json",
+      "sha256": "21be986eee1974426b1c70cf571cb1d51cb53d5ef33a4cc3bd9229e6a26bb42b"
     }
   ],
   "templates": [

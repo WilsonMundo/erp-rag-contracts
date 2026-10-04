@@ -13406,6 +13406,9 @@ export type Series2 = [AnalyticsChartSeriesV1, ...AnalyticsChartSeriesV1[]];
 export type Field6 = string;
 export type Type9 = 'bar' | 'line' | 'area';
 export type Kind21 = 'table' | 'kpi' | 'chart';
+export type Format6 = 'auto' | 'number' | 'integer' | 'currency' | 'percent';
+export type Selection1 = 'single_row';
+export type ValueField = string;
 export type SourceOutputId = string;
 
 export interface IntentClassificationV2 {
@@ -14190,6 +14193,7 @@ export interface AnalyticsPresentationBlockV11 {
   block_id: BlockId14;
   chart?: AnalyticsChartPresentationV1 | null;
   kind: Kind21;
+  kpi?: AnalyticsKpiPresentationV1 | null;
   source_output_id: SourceOutputId;
 }
 export interface AnalyticsChartPresentationV1 {
@@ -14200,5 +14204,10 @@ export interface AnalyticsChartPresentationV1 {
 }
 export interface AnalyticsChartSeriesV1 {
   field: Field6;
+}
+export interface AnalyticsKpiPresentationV1 {
+  format: Format6;
+  selection: Selection1;
+  value_field: ValueField;
 }
 

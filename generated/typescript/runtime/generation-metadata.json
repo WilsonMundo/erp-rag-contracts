@@ -307,8 +307,8 @@
     {
       "name": "analytics-presentation-block-v1",
       "path": "contracts/runtime/analytics-presentation-block-v1.schema.json",
-      "sha256": "52333a102aa909d61131ae898889e267590cabdc7f89b7524cf11af3fa58b837"
+      "sha256": "92a460f666bf213867a87f983f834f9b822a50194e5dee76d299dbe769dfe9df"
     }
   ],
-  "index_sha256": "7d913585ec4f896d80f69a8c1e1fd7249ca7a4e4c9e83ec17d6107026ef6fddc"
+  "index_sha256": "4de904a9ac72d3e26a1247faf62d24e9b8c9fc1b15ed888c6d1eca26a5875e78"
 }
