@@ -56,6 +56,7 @@ const PR01_SCHEMAS = [
   ['dashboard-filter-v1', 'DashboardFilterV1'],
   ['dashboard-filter-binding-v1', 'DashboardFilterBindingV1'],
   ['dashboard-filter-mapping-v1', 'DashboardFilterMappingV1'],
+  ['dashboard-entity-selection-v1', 'DashboardEntitySelectionV1'],
   ['dashboard-stream-event-v1', 'DashboardStreamEventV1'],
   ['dashboard-result-v1', 'DashboardResultV1'],
   ['import-operation-v1', 'ImportOperationV1'],

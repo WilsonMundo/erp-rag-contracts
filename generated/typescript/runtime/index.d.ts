@@ -11366,6 +11366,19 @@ export type Columns5 = number;
 export type RowHeight = number;
 export type Status3 = 'draft' | 'building' | 'ready' | 'published' | 'degraded' | 'archived';
 export type Title16 = string;
+export type DashboardWidgetV1 = DashboardWidgetV11 & DashboardWidgetV12;
+export type DashboardWidgetV11 =
+  | {
+      analytics_artifact_id?: null;
+      query_artifact_id: string;
+      [k: string]: any;
+    }
+  | {
+      analytics_artifact_id: string;
+      query_artifact_id?: null;
+      [k: string]: any;
+    };
+export type AnalyticsArtifactId = string | null;
 export type BlockId13 = string;
 export type DashboardWidgetVersion = '1.0';
 /**
@@ -11687,19 +11700,24 @@ export type Mappings =
       DashboardFilterMappingV1,
       DashboardFilterMappingV1
     ];
+export type DashboardFilterMappingV1 = DashboardFilterMappingV11;
 export type DashboardFilterMappingVersion = '1.0';
+export type EntityBinding = ('entity_id' | 'binding_value') | null;
 export type SourcePath = 'value' | 'start' | 'end_exclusive';
 export type TargetParameter = string;
 export type H = number;
 export type W = number;
 export type X = number;
 export type Y = number;
-export type QueryArtifactId3 = string;
+export type QueryArtifactId3 = string | null;
 export type WidgetId = string;
 /**
  * @maxItems 100
  */
 export type Widgets = DashboardWidgetV1[];
+export type EntityId = string;
+export type EntityType =
+  'branch' | 'customer' | 'product' | 'supplier' | 'seller' | 'document' | 'classification_level';
 export type DashboardId1 = string;
 export type EventId1 = string;
 export type EventVersion1 = '1.0';
@@ -13990,13 +14008,6 @@ export interface DashboardDefinitionV1 {
 }
 export interface DashboardFilterV11 {
   dashboard_filter_version: DashboardFilterVersion;
-  filter_id: FilterId;
-  label: Label11;
-  required?: Required1;
-  type: Type6;
-  value_type?: 'date_range' | 'integer' | 'decimal' | 'boolean' | 'string' | 'entity' | null;
-  scope?: 'data' | 'analysis' | 'presentation' | null;
-  impact?: 'query' | 'analysis' | 'presentation' | null;
   default_value?:
     | {
         [k: string]: any;
@@ -14005,9 +14016,6 @@ export interface DashboardFilterV11 {
     | string
     | boolean
     | null;
-  min_value?: number | null;
-  max_value?: number | null;
-  unit?: string | null;
   /**
    * Canonical Entity Resolution type. Optional for historical reads; required by new entity writes. No inference.
    */
@@ -14020,17 +14028,28 @@ export interface DashboardFilterV11 {
     | 'document'
     | 'classification_level'
     | null;
+  filter_id: FilterId;
+  impact?: 'query' | 'analysis' | 'presentation' | null;
+  label: Label11;
+  max_value?: number | null;
+  min_value?: number | null;
+  required?: Required1;
+  scope?: 'data' | 'analysis' | 'presentation' | null;
+  type: Type6;
+  unit?: string | null;
+  value_type?: 'date_range' | 'integer' | 'decimal' | 'boolean' | 'string' | 'entity' | null;
 }
 export interface DashboardGridLayoutV1 {
   columns: Columns5;
   row_height: RowHeight;
 }
-export interface DashboardWidgetV1 {
+export interface DashboardWidgetV12 {
+  analytics_artifact_id?: AnalyticsArtifactId;
   block_id: BlockId13;
   dashboard_widget_version: DashboardWidgetVersion;
   filter_bindings: FilterBindings;
   layout: DashboardWidgetLayoutV1;
-  query_artifact_id: QueryArtifactId3;
+  query_artifact_id?: QueryArtifactId3;
   widget_id: WidgetId;
 }
 export interface DashboardFilterBindingV1 {
@@ -14038,8 +14057,9 @@ export interface DashboardFilterBindingV1 {
   filter_id: FilterId1;
   mappings: Mappings;
 }
-export interface DashboardFilterMappingV1 {
+export interface DashboardFilterMappingV11 {
   dashboard_filter_mapping_version: DashboardFilterMappingVersion;
+  entity_binding?: EntityBinding;
   source_path: SourcePath;
   target_parameter: TargetParameter;
 }
@@ -14048,6 +14068,10 @@ export interface DashboardWidgetLayoutV1 {
   w: W;
   x: X;
   y: Y;
+}
+export interface DashboardEntitySelectionV1 {
+  entity_id: EntityId;
+  entity_type: EntityType;
 }
 export interface DashboardStreamEventV1 {
   dashboard_id: DashboardId1;

@@ -1,0 +1,34 @@
+{
+  "$id": "urn:erp-rag-contracts:schema:dashboard-entity-selection:v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Contrato normativo runtime dashboard-entity-selection versión 1.",
+  "properties": {
+    "entity_id": {
+      "maxLength": 160,
+      "minLength": 1,
+      "pattern": "^\\S+$",
+      "title": "Entity Id",
+      "type": "string"
+    },
+    "entity_type": {
+      "enum": [
+        "branch",
+        "customer",
+        "product",
+        "supplier",
+        "seller",
+        "document",
+        "classification_level"
+      ],
+      "title": "Entity Type",
+      "type": "string"
+    }
+  },
+  "required": [
+    "entity_type",
+    "entity_id"
+  ],
+  "title": "DashboardEntitySelectionV1",
+  "type": "object"
+}

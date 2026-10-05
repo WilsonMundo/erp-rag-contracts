@@ -33,11 +33,48 @@
     },
     "DashboardFilterMappingV1": {
       "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "entity_binding": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "entity_binding"
+            ]
+          },
+          "then": {
+            "properties": {
+              "source_path": {
+                "const": "value"
+              }
+            }
+          }
+        }
+      ],
       "properties": {
         "dashboard_filter_mapping_version": {
           "const": "1.0",
           "title": "Dashboard Filter Mapping Version",
           "type": "string"
+        },
+        "entity_binding": {
+          "anyOf": [
+            {
+              "enum": [
+                "entity_id",
+                "binding_value"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Entity Binding"
         },
         "source_path": {
           "enum": [
@@ -64,122 +101,6 @@
     },
     "DashboardFilterV1": {
       "additionalProperties": false,
-      "properties": {
-        "dashboard_filter_version": {
-          "const": "1.0",
-          "title": "Dashboard Filter Version",
-          "type": "string"
-        },
-        "filter_id": {
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
-          "title": "Filter Id",
-          "type": "string"
-        },
-        "label": {
-          "maxLength": 500,
-          "minLength": 1,
-          "title": "Label",
-          "type": "string",
-          "pattern": "\\S"
-        },
-        "required": {
-          "default": false,
-          "title": "Required",
-          "type": "boolean"
-        },
-        "type": {
-          "enum": [
-            "scalar",
-            "date_range"
-          ],
-          "title": "Type",
-          "type": "string"
-        },
-        "value_type": {
-          "enum": [
-            "date_range",
-            "integer",
-            "decimal",
-            "boolean",
-            "string",
-            "entity",
-            null
-          ],
-          "default": null
-        },
-        "scope": {
-          "enum": [
-            "data",
-            "analysis",
-            "presentation",
-            null
-          ],
-          "default": null
-        },
-        "impact": {
-          "enum": [
-            "query",
-            "analysis",
-            "presentation",
-            null
-          ],
-          "default": null
-        },
-        "default_value": {
-          "type": [
-            "object",
-            "number",
-            "string",
-            "boolean",
-            "null"
-          ],
-          "default": null
-        },
-        "min_value": {
-          "type": [
-            "number",
-            "null"
-          ],
-          "default": null
-        },
-        "max_value": {
-          "type": [
-            "number",
-            "null"
-          ],
-          "default": null
-        },
-        "unit": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "pattern": "\\S",
-          "default": null
-        },
-        "entity_type": {
-          "enum": [
-            "branch",
-            "customer",
-            "product",
-            "supplier",
-            "seller",
-            "document",
-            "classification_level",
-            null
-          ],
-          "default": null,
-          "description": "Canonical Entity Resolution type. Optional for historical reads; required by new entity writes. No inference."
-        }
-      },
-      "required": [
-        "dashboard_filter_version",
-        "filter_id",
-        "type",
-        "label"
-      ],
-      "title": "DashboardFilterV1",
-      "type": "object",
       "allOf": [
         {
           "if": {
@@ -333,11 +254,11 @@
         {
           "not": {
             "properties": {
-              "scope": {
-                "const": "data"
-              },
               "impact": {
                 "const": "presentation"
+              },
+              "scope": {
+                "const": "data"
               }
             },
             "required": [
@@ -370,7 +291,123 @@
             ]
           }
         }
-      ]
+      ],
+      "properties": {
+        "dashboard_filter_version": {
+          "const": "1.0",
+          "title": "Dashboard Filter Version",
+          "type": "string"
+        },
+        "default_value": {
+          "default": null,
+          "type": [
+            "object",
+            "number",
+            "string",
+            "boolean",
+            "null"
+          ]
+        },
+        "entity_type": {
+          "default": null,
+          "description": "Canonical Entity Resolution type. Optional for historical reads; required by new entity writes. No inference.",
+          "enum": [
+            "branch",
+            "customer",
+            "product",
+            "supplier",
+            "seller",
+            "document",
+            "classification_level",
+            null
+          ]
+        },
+        "filter_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+          "title": "Filter Id",
+          "type": "string"
+        },
+        "impact": {
+          "default": null,
+          "enum": [
+            "query",
+            "analysis",
+            "presentation",
+            null
+          ]
+        },
+        "label": {
+          "maxLength": 500,
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Label",
+          "type": "string"
+        },
+        "max_value": {
+          "default": null,
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "min_value": {
+          "default": null,
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "required": {
+          "default": false,
+          "title": "Required",
+          "type": "boolean"
+        },
+        "scope": {
+          "default": null,
+          "enum": [
+            "data",
+            "analysis",
+            "presentation",
+            null
+          ]
+        },
+        "type": {
+          "enum": [
+            "scalar",
+            "date_range"
+          ],
+          "title": "Type",
+          "type": "string"
+        },
+        "unit": {
+          "default": null,
+          "pattern": "\\S",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "value_type": {
+          "default": null,
+          "enum": [
+            "date_range",
+            "integer",
+            "decimal",
+            "boolean",
+            "string",
+            "entity",
+            null
+          ]
+        }
+      },
+      "required": [
+        "dashboard_filter_version",
+        "filter_id",
+        "type",
+        "label"
+      ],
+      "title": "DashboardFilterV1",
+      "type": "object"
     },
     "DashboardGridLayoutV1": {
       "additionalProperties": false,
@@ -430,7 +467,48 @@
     },
     "DashboardWidgetV1": {
       "additionalProperties": false,
+      "oneOf": [
+        {
+          "properties": {
+            "analytics_artifact_id": {
+              "type": "null"
+            },
+            "query_artifact_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "query_artifact_id"
+          ]
+        },
+        {
+          "properties": {
+            "analytics_artifact_id": {
+              "type": "string"
+            },
+            "query_artifact_id": {
+              "type": "null"
+            }
+          },
+          "required": [
+            "analytics_artifact_id"
+          ]
+        }
+      ],
       "properties": {
+        "analytics_artifact_id": {
+          "anyOf": [
+            {
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Analytics Artifact Id"
+        },
         "block_id": {
           "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
           "title": "Block Id",
@@ -453,9 +531,17 @@
           "$ref": "#/$defs/DashboardWidgetLayoutV1"
         },
         "query_artifact_id": {
-          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
-          "title": "Query Artifact Id",
-          "type": "string"
+          "anyOf": [
+            {
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Query Artifact Id"
         },
         "widget_id": {
           "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
@@ -466,7 +552,6 @@
       "required": [
         "dashboard_widget_version",
         "widget_id",
-        "query_artifact_id",
         "block_id",
         "layout",
         "filter_bindings"

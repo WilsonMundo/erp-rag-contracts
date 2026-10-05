@@ -1,5 +1,5 @@
 {
-  "contract_version": "2.8.0",
+  "contract_version": "2.9.0",
   "contracts": [
     {
       "compatibility": "1.x",
@@ -269,15 +269,23 @@
       "compatibility": "1.x",
       "id": "urn:erp-rag-contracts:schema:dashboard-definition:v1",
       "path": "contracts/runtime/dashboard-definition-v1.schema.json",
-      "sha256": "e5d48b8cb438d0f6b4e4fe1093fa9eeebe467510112062b4d6b107a95fdc785c",
+      "sha256": "a7c441dad06071214a55bbd3ec81761fcc2c1fc7c70e1005b9218313fd8c08d3",
       "status": "stable",
       "type": "dashboard-definition"
     },
     {
       "compatibility": "1.x",
+      "id": "urn:erp-rag-contracts:schema:dashboard-entity-selection:v1",
+      "path": "contracts/runtime/dashboard-entity-selection-v1.schema.json",
+      "sha256": "6417ab0a37abc32ae736ce8eba153aba223c61047c6e0982aebb1d333cfa2b27",
+      "status": "stable",
+      "type": "dashboard-entity-selection"
+    },
+    {
+      "compatibility": "1.x",
       "id": "urn:erp-rag-contracts:schema:dashboard-filter-binding:v1",
       "path": "contracts/runtime/dashboard-filter-binding-v1.schema.json",
-      "sha256": "00c81585363aa576a1e984478565eb04d8d4a130f5c4139d350a3f2065fb81c6",
+      "sha256": "f744661b72e7be4adb957b14515de2004cef7294d580bef7dbf8d6754303d18d",
       "status": "stable",
       "type": "dashboard-filter-binding"
     },
@@ -285,7 +293,7 @@
       "compatibility": "1.x",
       "id": "urn:erp-rag-contracts:schema:dashboard-filter-mapping:v1",
       "path": "contracts/runtime/dashboard-filter-mapping-v1.schema.json",
-      "sha256": "c086c90536f62958a42696d622beee03893a46c4922a79d61fc5ca5ba0cf12c1",
+      "sha256": "a3d35751fd85ea47eaf0cc6bd287ac0ff0de2014f3414db703e92be9dff66065",
       "status": "stable",
       "type": "dashboard-filter-mapping"
     },
@@ -293,7 +301,7 @@
       "compatibility": "1.x",
       "id": "urn:erp-rag-contracts:schema:dashboard-filter:v1",
       "path": "contracts/runtime/dashboard-filter-v1.schema.json",
-      "sha256": "485a6a44261e2acab192a1eb7931fcd75de2795efe698c904fae3b966f1f3b3e",
+      "sha256": "db735b99e1f26f877eee5ba539854155bfd219739e727e81ce2fd3b429125010",
       "status": "stable",
       "type": "dashboard-filter"
     },
@@ -317,7 +325,7 @@
       "compatibility": "1.x",
       "id": "urn:erp-rag-contracts:schema:dashboard-widget:v1",
       "path": "contracts/runtime/dashboard-widget-v1.schema.json",
-      "sha256": "5f15b8e4a73e0cb7bf3abec41116fc24595a77a8b32a41cc87840ef168231e08",
+      "sha256": "7e81088e1bab229300f2e6da0624cc60ae73b0c2f5402cbccde49c0094d45664",
       "status": "stable",
       "type": "dashboard-widget"
     },
@@ -725,11 +733,11 @@
   "generated_artifacts": [
     {
       "path": "generated/typescript/runtime/generation-metadata.json",
-      "sha256": "b3a3d65a456b3282bc19c6d9f02568df4693cd0fc4d07a5eba573d685b26f88a"
+      "sha256": "fc013101afa679c2d6edc68f7951158abf83bf17dd4852b8fc4b8251b83c02fd"
     },
     {
       "path": "generated/typescript/runtime/index.d.ts",
-      "sha256": "7f77cc5053c508ee8187b7957103966ffd62d6474b423a77e9382af5ff5363a9"
+      "sha256": "b80120627dc8ab9fe1c82abf3f067b28ed6bcc47447d053d3cd4b5a71765cdb0"
     },
     {
       "path": "generated/typescript/runtime/package.json",

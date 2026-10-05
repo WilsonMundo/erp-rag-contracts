@@ -945,10 +945,28 @@ class DashboardWidgetLayoutV1(RuntimeContractModel):
     h: Annotated[int, Field(ge=1)]
 
 
+class DashboardEntitySelectionV1(RuntimeContractModel):
+    """Identity supplied by AppWeb; never a SQL binding value."""
+
+    entity_type: EntityType
+    entity_id: Annotated[str, Field(min_length=1, max_length=160, pattern=r"^\S+$")]
+
+
 class DashboardFilterMappingV1(RuntimeContractModel):
+    model_config = ConfigDict(json_schema_extra={"allOf": [{
+        "if": {"properties": {"entity_binding": {"type": "string"}}, "required": ["entity_binding"]},
+        "then": {"properties": {"source_path": {"const": "value"}}},
+    }]})
     dashboard_filter_mapping_version: Literal["1.0"]
     source_path: Literal["value", "start", "end_exclusive"]
     target_parameter: Identifier
+    entity_binding: Literal["entity_id", "binding_value"] | None = None
+
+    @model_validator(mode="after")
+    def validate_entity_source(self) -> DashboardFilterMappingV1:
+        if self.entity_binding is not None and self.source_path != "value":
+            raise ValueError("entity binding requires source_path=value")
+        return self
 
 
 class DashboardFilterBindingV1(RuntimeContractModel):
@@ -958,7 +976,8 @@ class DashboardFilterBindingV1(RuntimeContractModel):
 
     @model_validator(mode="after")
     def validate_mappings(self) -> DashboardFilterBindingV1:
-        if len({item.source_path for item in self.mappings}) != len(self.mappings):
+        non_entity_paths = [item.source_path for item in self.mappings if item.entity_binding is None]
+        if len(set(non_entity_paths)) != len(non_entity_paths):
             raise ValueError("mapping source paths must be unique")
         if len({item.target_parameter for item in self.mappings}) != len(self.mappings):
             raise ValueError("mapping target parameters must be unique")
@@ -1118,12 +1137,24 @@ class DashboardFilterV1(RuntimeContractModel):
 
 
 class DashboardWidgetV1(RuntimeContractModel):
+    # Preserve the existing published Query XOR Analytics source contract during generation.
+    model_config = ConfigDict(json_schema_extra={"oneOf": [
+        {"required": ["query_artifact_id"], "properties": {"query_artifact_id": {"type": "string"}, "analytics_artifact_id": {"type": "null"}}},
+        {"required": ["analytics_artifact_id"], "properties": {"analytics_artifact_id": {"type": "string"}, "query_artifact_id": {"type": "null"}}},
+    ]})
     dashboard_widget_version: Literal["1.0"]
     widget_id: ContractId
-    query_artifact_id: ContractId
+    query_artifact_id: ContractId | None = None
+    analytics_artifact_id: ContractId | None = None
     block_id: ContractId
     layout: DashboardWidgetLayoutV1
     filter_bindings: Annotated[list[DashboardFilterBindingV1], Field(max_length=20)]
+
+    @model_validator(mode="after")
+    def validate_source(self) -> DashboardWidgetV1:
+        if (self.query_artifact_id is None) == (self.analytics_artifact_id is None):
+            raise ValueError("dashboard widget requires exactly one Query or Analytics source")
+        return self
 
 
 class DashboardDefinitionV1(RuntimeContractModel):
@@ -1134,6 +1165,22 @@ class DashboardDefinitionV1(RuntimeContractModel):
     global_filters: Annotated[list[DashboardFilterV1], Field(max_length=20)]
     widgets: Annotated[list[DashboardWidgetV1], Field(max_length=100)]
     grid_layout: DashboardGridLayoutV1
+
+    def require_entity_bindings(self) -> None:
+        """New-write boundary. Historical mappings remain readable with NULL metadata."""
+        filters = {item.filter_id: item for item in self.global_filters}
+        for item in filters.values():
+            item.require_entity_metadata()
+            if item.value_type == "entity" and item.default_value is not None:
+                selection = DashboardEntitySelectionV1.model_validate(item.default_value)
+                if selection.entity_type != item.entity_type:
+                    raise ValueError("entity default must match explicit entity_type")
+        for widget in self.widgets:
+            for binding in widget.filter_bindings:
+                if filters[binding.filter_id].value_type == "entity" and any(
+                    item.entity_binding is None for item in binding.mappings
+                ):
+                    raise ValueError("every entity destination requires explicit entity_binding")
 
     @model_validator(mode="after")
     def validate_ids(self) -> DashboardDefinitionV1:
@@ -1149,8 +1196,13 @@ class DashboardDefinitionV1(RuntimeContractModel):
         ):
             raise ValueError("widget binding must reference a global filter")
         filter_types = {item.filter_id: item.type for item in self.global_filters}
+        value_types = {item.filter_id: item.value_type for item in self.global_filters}
         for widget in self.widgets:
             for binding in widget.filter_bindings:
+                if value_types[binding.filter_id] != "entity" and any(
+                    item.entity_binding is not None for item in binding.mappings
+                ):
+                    raise ValueError("entity_binding is only valid for entity filters")
                 paths = {item.source_path for item in binding.mappings}
                 if filter_types[binding.filter_id] == "date_range" and paths != {
                     "start",

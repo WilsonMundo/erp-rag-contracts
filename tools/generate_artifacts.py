@@ -239,6 +239,7 @@ RUNTIME_V2_SCHEMA_MODELS: tuple[tuple[str, Any, str], ...] = (
     ("dashboard-filter-v1", runtime_v2.DashboardFilterV1, "1"),
     ("dashboard-filter-binding-v1", runtime_v2.DashboardFilterBindingV1, "1"),
     ("dashboard-filter-mapping-v1", runtime_v2.DashboardFilterMappingV1, "1"),
+    ("dashboard-entity-selection-v1", runtime_v2.DashboardEntitySelectionV1, "1"),
     ("dashboard-stream-event-v1", runtime_v2.DashboardStreamEventV1, "1"),
     ("dashboard-result-v1", runtime_v2.DashboardResultV1, "1"),
     ("import-operation-v1", runtime_v2.ImportOperationV1, "1"),

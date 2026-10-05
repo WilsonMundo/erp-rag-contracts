@@ -1,5 +1,8 @@
 # Distribución de contratos runtime
 
+PR-75B2B publishes [per-destination entity bindings](dashboard-entity-binding-v1.md),
+canonical identity selections, compatible historical reads and generated schema/model parity.
+
 ## Dashboard entity filters (PR-75B2A)
 
 `dashboard-filter-v1.schema.json` now includes all published `DashboardFilterV1`

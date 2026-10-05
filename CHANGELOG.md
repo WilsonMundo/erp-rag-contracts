@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.9.0
+
+- Declara selección canónica de dashboard `{entity_type, entity_id}` y
+  `entity_binding` opcional histórico por mapping destino; la escritura nueva y
+  el refresh entity exigen metadata explícita, sin inferencias.
+- Permite destinos entity 1:N desde una misma selección, conservando unicidad de
+  parámetros destino y compatibilidad de filtros no-entity.
+
 ## 2.8.0
 
 - Permite publicar múltiples `ResultScopeV1` de una misma ejecución mediante
