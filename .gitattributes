@@ -6,3 +6,5 @@ contract-manifest.json text eol=lf
 generated/typescript/runtime/index.d.ts text eol=lf
 generated/typescript/runtime/generation-metadata.json text eol=lf
 generated/typescript/runtime/package.json text eol=lf
+**/dashboard-editor-*.schema.json text eol=lf
+**/dashboard-editor-catalog-v1/** text eol=lf

@@ -1,0 +1,78 @@
+{
+  "$id": "urn:erp-rag-contracts:schema:dashboard-editor-binding-option:v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "entity_binding": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "entity_binding"
+        ]
+      },
+      "then": {
+        "properties": {
+          "source_path": {
+            "const": "value"
+          }
+        }
+      }
+    }
+  ],
+  "description": "Contrato normativo runtime dashboard-editor-binding-option versión 1.",
+  "properties": {
+    "dashboard_filter_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+      "title": "Dashboard Filter Id",
+      "type": "string"
+    },
+    "entity_binding": {
+      "anyOf": [
+        {
+          "enum": [
+            "entity_id",
+            "binding_value"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Entity Binding"
+    },
+    "filter_label": {
+      "maxLength": 500,
+      "minLength": 1,
+      "title": "Filter Label",
+      "type": "string"
+    },
+    "source_path": {
+      "enum": [
+        "value",
+        "start",
+        "end_exclusive"
+      ],
+      "title": "Source Path",
+      "type": "string"
+    },
+    "target_parameter": {
+      "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,127}$",
+      "title": "Target Parameter",
+      "type": "string"
+    }
+  },
+  "required": [
+    "dashboard_filter_id",
+    "filter_label",
+    "source_path",
+    "target_parameter"
+  ],
+  "title": "DashboardEditorBindingOptionV1",
+  "type": "object"
+}

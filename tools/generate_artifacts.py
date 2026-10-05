@@ -13,6 +13,12 @@ from pydantic import TypeAdapter
 
 from erp_rag_contracts.models import runtime_v2
 from erp_rag_contracts.models.analytics_presentation import AnalyticsPresentationBlockV1
+from erp_rag_contracts.models.dashboard_editor import (
+    DashboardEditorBindingOptionV1,
+    DashboardEditorCatalogBlockV1,
+    DashboardEditorCatalogItemV1,
+    DashboardEditorCatalogV1,
+)
 from erp_rag_contracts.models.contracts import (
     EmbeddingArtifactV1,
     EmbeddingReleaseManifestV1,
@@ -240,6 +246,10 @@ RUNTIME_V2_SCHEMA_MODELS: tuple[tuple[str, Any, str], ...] = (
     ("dashboard-filter-binding-v1", runtime_v2.DashboardFilterBindingV1, "1"),
     ("dashboard-filter-mapping-v1", runtime_v2.DashboardFilterMappingV1, "1"),
     ("dashboard-entity-selection-v1", runtime_v2.DashboardEntitySelectionV1, "1"),
+    ("dashboard-editor-catalog-v1", DashboardEditorCatalogV1, "1"),
+    ("dashboard-editor-catalog-item-v1", DashboardEditorCatalogItemV1, "1"),
+    ("dashboard-editor-catalog-block-v1", DashboardEditorCatalogBlockV1, "1"),
+    ("dashboard-editor-binding-option-v1", DashboardEditorBindingOptionV1, "1"),
     ("dashboard-stream-event-v1", runtime_v2.DashboardStreamEventV1, "1"),
     ("dashboard-result-v1", runtime_v2.DashboardResultV1, "1"),
     ("import-operation-v1", runtime_v2.ImportOperationV1, "1"),
@@ -952,6 +962,32 @@ FAMILY = {
 }
 
 
+def generate_dashboard_editor_fixtures() -> None:
+    option = {
+        "dashboard_filter_id": "customer", "filter_label": "Cliente",
+        "source_path": "value", "target_parameter": "customer_code",
+        "entity_binding": "binding_value",
+    }
+    catalog = {"items": [
+        {"source_kind": "query", "artifact_id": "query-sales", "display_title": "Top 10 ventas",
+         "blocks": [{"block_id": "sales_grid", "kind": "data_grid",
+                     "display_title": "Ventas por sucursal", "binding_options": [option]}]},
+        {"source_kind": "analytics", "artifact_id": "analytics-sales", "display_title": "Tendencia de ventas",
+         "blocks": [{"block_id": "sales_chart", "kind": "chart", "display_title": "Tendencia de ventas",
+                     "visual_type": "line", "binding_options": [
+                         {**option, "target_parameter": "party"},
+                         {"dashboard_filter_id": "horizon", "filter_label": "Horizonte",
+                          "source_path": "value", "target_parameter": "window"}]}]},
+    ]}
+    dump("fixtures/runtime/dashboard-editor-catalog-v1/valid/minimum.json", catalog)
+    invalid = deepcopy(catalog)
+    invalid["items"][0]["query_execution_id"] = "execution-must-not-be-selectable"
+    dump("fixtures/runtime/dashboard-editor-catalog-v1/invalid/execution-selection.json", invalid)
+    invalid = deepcopy(catalog)
+    invalid["items"][0]["blocks"][0]["binding_options"][0]["source_path"] = "start"
+    dump("fixtures/runtime/dashboard-editor-catalog-v1/invalid/entity-source.json", invalid)
+
+
 def main() -> None:
     for path, (model, slug) in sorted(SCHEMAS.items()):
         dump(path, schema_for(model, slug))
@@ -966,6 +1002,7 @@ def main() -> None:
         (package_schema_directory / source.name).write_bytes(source.read_bytes())
     generate_chat_runtime_fixtures()
     generate_pr01_runtime_fixtures()
+    generate_dashboard_editor_fixtures()
     package_fixture_directory = ROOT / "src" / "erp_rag_contracts" / "runtime_fixtures"
     for source in (ROOT / "fixtures" / "runtime").rglob("*.json"):
         relative = source.relative_to(ROOT / "fixtures" / "runtime")

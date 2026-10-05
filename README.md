@@ -4,6 +4,11 @@ Paquete independiente y versionado que define los contratos oficiales del asiste
 
 ## Frontera
 
+PR-75C2A publica el [catálogo del editor de dashboards V1](docs/dashboard-editor-catalog-v1.md):
+artifacts reutilizables, bloques durables y opciones explícitas de bindings.
+ApiHub conserva la autoridad de visibilidad/compatibilidad. No modifica AppWeb,
+ejecuciones ni persistencia de widgets.
+
 PR-75B0B añade `kpi.value_field`, `selection: single_row` y `format` al bloque
 Generic Analytics. Reutiliza la taxonomía de `MaterializedKpiBlockV1.format`:
 auto, number, integer, currency y percent. El schema exige metadata en escrituras

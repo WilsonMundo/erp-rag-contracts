@@ -1,0 +1,53 @@
+{
+  "items": [
+    {
+      "artifact_id": "query-sales",
+      "blocks": [
+        {
+          "binding_options": [
+            {
+              "dashboard_filter_id": "customer",
+              "entity_binding": "binding_value",
+              "filter_label": "Cliente",
+              "source_path": "value",
+              "target_parameter": "customer_code"
+            }
+          ],
+          "block_id": "sales_grid",
+          "display_title": "Ventas por sucursal",
+          "kind": "data_grid"
+        }
+      ],
+      "display_title": "Top 10 ventas",
+      "source_kind": "query"
+    },
+    {
+      "artifact_id": "analytics-sales",
+      "blocks": [
+        {
+          "binding_options": [
+            {
+              "dashboard_filter_id": "customer",
+              "entity_binding": "binding_value",
+              "filter_label": "Cliente",
+              "source_path": "value",
+              "target_parameter": "party"
+            },
+            {
+              "dashboard_filter_id": "horizon",
+              "filter_label": "Horizonte",
+              "source_path": "value",
+              "target_parameter": "window"
+            }
+          ],
+          "block_id": "sales_chart",
+          "display_title": "Tendencia de ventas",
+          "kind": "chart",
+          "visual_type": "line"
+        }
+      ],
+      "display_title": "Tendencia de ventas",
+      "source_kind": "analytics"
+    }
+  ]
+}

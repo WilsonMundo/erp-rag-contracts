@@ -11718,6 +11718,26 @@ export type Widgets = DashboardWidgetV1[];
 export type EntityId = string;
 export type EntityType =
   'branch' | 'customer' | 'product' | 'supplier' | 'seller' | 'document' | 'classification_level';
+export type ArtifactId = string;
+/**
+ * @minItems 1
+ */
+export type Blocks2 = [DashboardEditorCatalogBlockV1, ...DashboardEditorCatalogBlockV1[]];
+export type DashboardEditorBindingOptionV1 = DashboardEditorBindingOptionV11;
+export type DashboardFilterId = string;
+export type EntityBinding1 = ('entity_id' | 'binding_value') | null;
+export type FilterLabel = string;
+export type SourcePath1 = 'value' | 'start' | 'end_exclusive';
+export type TargetParameter1 = string;
+export type BindingOptions = DashboardEditorBindingOptionV1[];
+export type BlockId14 = string;
+export type DisplayTitle = string;
+export type Kind21 =
+  'kpi' | 'comparison_kpi' | 'data_grid' | 'pivot_grid' | 'chart' | 'gauge' | 'table';
+export type VisualType = string | null;
+export type DisplayTitle1 = string;
+export type SourceKind = 'query' | 'analytics';
+export type Items = DashboardEditorCatalogItemV1[];
 export type DashboardId1 = string;
 export type EventId1 = string;
 export type EventVersion1 = '1.0';
@@ -13414,7 +13434,7 @@ export type ConfirmationRequired = boolean;
 export type ImportCapabilityDescriptorVersion = '1.0';
 export type MaxBytes = number;
 export type AnalyticsPresentationBlockV1 = AnalyticsPresentationBlockV11;
-export type BlockId14 = string;
+export type BlockId15 = string;
 export type CategoryField2 = string;
 export type Orientation2 = 'horizontal' | 'vertical';
 /**
@@ -13424,7 +13444,7 @@ export type Orientation2 = 'horizontal' | 'vertical';
 export type Series2 = [AnalyticsChartSeriesV1, ...AnalyticsChartSeriesV1[]];
 export type Field6 = string;
 export type Type9 = 'bar' | 'line' | 'area';
-export type Kind21 = 'table' | 'kpi' | 'chart';
+export type Kind22 = 'table' | 'kpi' | 'chart';
 export type Format6 = 'auto' | 'number' | 'integer' | 'currency' | 'percent';
 export type Selection1 = 'single_row';
 export type ValueField = string;
@@ -14073,6 +14093,29 @@ export interface DashboardEntitySelectionV1 {
   entity_id: EntityId;
   entity_type: EntityType;
 }
+export interface DashboardEditorCatalogV1 {
+  items: Items;
+}
+export interface DashboardEditorCatalogItemV1 {
+  artifact_id: ArtifactId;
+  blocks: Blocks2;
+  display_title: DisplayTitle1;
+  source_kind: SourceKind;
+}
+export interface DashboardEditorCatalogBlockV1 {
+  binding_options: BindingOptions;
+  block_id: BlockId14;
+  display_title: DisplayTitle;
+  kind: Kind21;
+  visual_type?: VisualType;
+}
+export interface DashboardEditorBindingOptionV11 {
+  dashboard_filter_id: DashboardFilterId;
+  entity_binding?: EntityBinding1;
+  filter_label: FilterLabel;
+  source_path: SourcePath1;
+  target_parameter: TargetParameter1;
+}
 export interface DashboardStreamEventV1 {
   dashboard_id: DashboardId1;
   event_id: EventId1;
@@ -14241,9 +14284,9 @@ export interface ImportCapabilityDescriptorV1 {
   operation: ImportOperationV1;
 }
 export interface AnalyticsPresentationBlockV11 {
-  block_id: BlockId14;
+  block_id: BlockId15;
   chart?: AnalyticsChartPresentationV1 | null;
-  kind: Kind21;
+  kind: Kind22;
   kpi?: AnalyticsKpiPresentationV1 | null;
   source_output_id: SourceOutputId;
 }

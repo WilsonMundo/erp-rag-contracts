@@ -1,5 +1,12 @@
 # Changelog
 
+## 2.10.0
+
+- PR-75C2A: publica el read-model de catálogo del editor de dashboards con
+  artifacts, bloques durables, metadata humana y opciones de binding explícitas.
+- No incluye ejecuciones, SQL, presentation definitions editables ni persistencia
+  de título de widget. ApiHub decide visibilidad y compatibilidad.
+
 ## 2.9.0
 
 - Declara selección canónica de dashboard `{entity_type, entity_id}` y
