@@ -1,0 +1,19 @@
+{
+  "analytics_artifact_id": "generic-ranking-artifact",
+  "blocks": [
+    {
+      "block_id": "durable-ranking-chart",
+      "display_title": "Ranking de ventas por sucursal",
+      "kind": "chart",
+      "visual_type": "bar"
+    },
+    {
+      "block_id": "durable-ranking-table",
+      "display_title": "Ranking de ventas por sucursal",
+      "kind": "table",
+      "visual_type": null
+    }
+  ],
+  "display_title": "Ranking de ventas por sucursal",
+  "source_kind": "query"
+}

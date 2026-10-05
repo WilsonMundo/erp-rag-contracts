@@ -8,3 +8,5 @@ generated/typescript/runtime/generation-metadata.json text eol=lf
 generated/typescript/runtime/package.json text eol=lf
 **/dashboard-editor-*.schema.json text eol=lf
 **/dashboard-editor-catalog-v1/** text eol=lf
+**/analytics-dashboard-source*.schema.json text eol=lf
+**/analytics-dashboard-source-v1/** text eol=lf

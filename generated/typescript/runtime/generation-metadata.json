@@ -1,6 +1,6 @@
 {
   "contract_package": "erp-rag-contracts",
-  "contract_package_version": "2.10.0",
+  "contract_package_version": "2.11.0",
   "generator": "json-schema-to-typescript",
   "generator_version": "16.0.0",
   "schemas": [
@@ -255,6 +255,16 @@
       "sha256": "7308b229a8994e9d2aa44851b6bb125d5f71dd6810c2eb2a2cb0c76d035ac333"
     },
     {
+      "name": "analytics-dashboard-source-v1",
+      "path": "contracts/runtime/analytics-dashboard-source-v1.schema.json",
+      "sha256": "8ee6d7df1cd8edb029d8977145932abc782a4eeaaebb2bb236b7e6124e64aee5"
+    },
+    {
+      "name": "analytics-dashboard-source-block-v1",
+      "path": "contracts/runtime/analytics-dashboard-source-block-v1.schema.json",
+      "sha256": "20564eeae1733733908cb88b154fdb852aaee42f9b0d2ee86d17704bb13258e2"
+    },
+    {
       "name": "dashboard-editor-catalog-item-v1",
       "path": "contracts/runtime/dashboard-editor-catalog-item-v1.schema.json",
       "sha256": "d295107be42ae1a4b1df037f7ece87f7ad07d266d67666857d5bd8a1fd1f1474"
@@ -335,5 +345,5 @@
       "sha256": "92a460f666bf213867a87f983f834f9b822a50194e5dee76d299dbe769dfe9df"
     }
   ],
-  "index_sha256": "6d91d9c91939aa4ce61a0ad59e34e584c3299d2a4f492126189b2d27a8a4a528"
+  "index_sha256": "2af5fe01dced63600eb6896bad84177e1125a5442a58a0feb6bbf442f2e81d32"
 }

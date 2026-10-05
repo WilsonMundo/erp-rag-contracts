@@ -4,6 +4,11 @@ Paquete independiente y versionado que define los contratos oficiales del asiste
 
 ## Frontera
 
+PR-75D1 publica la [fuente pública Generic Analytics para dashboards V1](docs/analytics-dashboard-source-v1.md):
+artifact durable exacto y bloques de `presentation_definition`, resueltos por ApiHub
+desde la lineage del resultado y con la misma proyección/autorización del catálogo.
+No habilita AppWeb ni convierte artifacts legacy en fuentes de dashboard.
+
 PR-75C2A publica el [catálogo del editor de dashboards V1](docs/dashboard-editor-catalog-v1.md):
 artifacts reutilizables, bloques durables y opciones explícitas de bindings.
 ApiHub conserva la autoridad de visibilidad/compatibilidad. No modifica AppWeb,

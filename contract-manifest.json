@@ -1,5 +1,5 @@
 {
-  "contract_version": "2.10.0",
+  "contract_version": "2.11.0",
   "contracts": [
     {
       "compatibility": "1.x",
@@ -184,6 +184,22 @@
       "sha256": "56c12f93ab2bdf895e87c4eb0223c5323213dfdefd54170c06b1ca1f495ab2a7",
       "status": "stable",
       "type": "reviewer-view-source"
+    },
+    {
+      "compatibility": "1.x",
+      "id": "urn:erp-rag-contracts:schema:analytics-dashboard-source-block:v1",
+      "path": "contracts/runtime/analytics-dashboard-source-block-v1.schema.json",
+      "sha256": "20564eeae1733733908cb88b154fdb852aaee42f9b0d2ee86d17704bb13258e2",
+      "status": "stable",
+      "type": "analytics-dashboard-source-block"
+    },
+    {
+      "compatibility": "1.x",
+      "id": "urn:erp-rag-contracts:schema:analytics-dashboard-source:v1",
+      "path": "contracts/runtime/analytics-dashboard-source-v1.schema.json",
+      "sha256": "8ee6d7df1cd8edb029d8977145932abc782a4eeaaebb2bb236b7e6124e64aee5",
+      "status": "stable",
+      "type": "analytics-dashboard-source"
     },
     {
       "compatibility": "1.x",
@@ -765,15 +781,15 @@
   "generated_artifacts": [
     {
       "path": "generated/typescript/runtime/generation-metadata.json",
-      "sha256": "eaa85013f81fdf33c83c160a9a194830cd558c5ac9f956b8fcccca8dd36e4be4"
+      "sha256": "0ad0bbc1b185043ef2cca04e78d4a2c61effeeaedfa38e21faae5366579288c5"
     },
     {
       "path": "generated/typescript/runtime/index.d.ts",
-      "sha256": "6d91d9c91939aa4ce61a0ad59e34e584c3299d2a4f492126189b2d27a8a4a528"
+      "sha256": "2af5fe01dced63600eb6896bad84177e1125a5442a58a0feb6bbf442f2e81d32"
     },
     {
       "path": "generated/typescript/runtime/package.json",
-      "sha256": "9623e5992bf6ac32c15b76dfa8eee16f138e32b37660a95a32e3a09c8abc4078"
+      "sha256": "712fc85290628c829420509d090c70751e059cacb7539a48b8f8fe4956e926b7"
     }
   ],
   "json_schema_version": "2020-12",
@@ -787,6 +803,30 @@
   ],
   "published_on": "2026-09-12",
   "runtime_fixtures": [
+    {
+      "path": "fixtures/runtime/analytics-dashboard-source-v1/invalid/execution-source.json",
+      "sha256": "1c1582adef37a88c5d727cb4112c74a1de87966fc7615001ff7b14d3ed8e3d06"
+    },
+    {
+      "path": "fixtures/runtime/analytics-dashboard-source-v1/invalid/legacy-presentation.json",
+      "sha256": "544537d5a484c69bc969accf577519ae57af6bba77441eb96eac998d184032f1"
+    },
+    {
+      "path": "fixtures/runtime/analytics-dashboard-source-v1/invalid/missing-artifact.json",
+      "sha256": "4024960802161637a450ad2203c15db7f51f3baa480a5388b9ca845e70f3b387"
+    },
+    {
+      "path": "fixtures/runtime/analytics-dashboard-source-v1/invalid/missing-block.json",
+      "sha256": "ceb225338c2b200529f133d68ee3a1b0485885d0091d77916dcdb9507804fa04"
+    },
+    {
+      "path": "fixtures/runtime/analytics-dashboard-source-v1/invalid/query-source.json",
+      "sha256": "ec724a367e8434cd5b39b37e6a21f54ee478cf0e3747008aceff571432b4f66b"
+    },
+    {
+      "path": "fixtures/runtime/analytics-dashboard-source-v1/valid/minimum.json",
+      "sha256": "5b2b46f929f2eb6a4632598ba6fa09e8f6674034f060755b774e03f987b24f37"
+    },
     {
       "path": "fixtures/runtime/assistant-historical-requery-result-v2/valid/minimum.json",
       "sha256": "dba14ebb9fe0d0048684c19c6b19b978815375a891e79cc481e4320f142368f0"

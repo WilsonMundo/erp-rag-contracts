@@ -11738,6 +11738,17 @@ export type VisualType = string | null;
 export type DisplayTitle1 = string;
 export type SourceKind = 'query' | 'analytics';
 export type Items = DashboardEditorCatalogItemV1[];
+export type AnalyticsArtifactId1 = string;
+/**
+ * @minItems 1
+ */
+export type Blocks3 = [AnalyticsDashboardSourceBlockV1, ...AnalyticsDashboardSourceBlockV1[]];
+export type BlockId15 = string;
+export type DisplayTitle2 = string;
+export type Kind22 = 'kpi' | 'chart' | 'table';
+export type VisualType1 = string | null;
+export type DisplayTitle3 = string;
+export type SourceKind1 = 'analytics';
 export type DashboardId1 = string;
 export type EventId1 = string;
 export type EventVersion1 = '1.0';
@@ -13434,7 +13445,7 @@ export type ConfirmationRequired = boolean;
 export type ImportCapabilityDescriptorVersion = '1.0';
 export type MaxBytes = number;
 export type AnalyticsPresentationBlockV1 = AnalyticsPresentationBlockV11;
-export type BlockId15 = string;
+export type BlockId16 = string;
 export type CategoryField2 = string;
 export type Orientation2 = 'horizontal' | 'vertical';
 /**
@@ -13444,7 +13455,7 @@ export type Orientation2 = 'horizontal' | 'vertical';
 export type Series2 = [AnalyticsChartSeriesV1, ...AnalyticsChartSeriesV1[]];
 export type Field6 = string;
 export type Type9 = 'bar' | 'line' | 'area';
-export type Kind22 = 'table' | 'kpi' | 'chart';
+export type Kind23 = 'table' | 'kpi' | 'chart';
 export type Format6 = 'auto' | 'number' | 'integer' | 'currency' | 'percent';
 export type Selection1 = 'single_row';
 export type ValueField = string;
@@ -14116,6 +14127,18 @@ export interface DashboardEditorBindingOptionV11 {
   source_path: SourcePath1;
   target_parameter: TargetParameter1;
 }
+export interface AnalyticsDashboardSourceV1 {
+  analytics_artifact_id: AnalyticsArtifactId1;
+  blocks: Blocks3;
+  display_title: DisplayTitle3;
+  source_kind: SourceKind1;
+}
+export interface AnalyticsDashboardSourceBlockV1 {
+  block_id: BlockId15;
+  display_title: DisplayTitle2;
+  kind: Kind22;
+  visual_type?: VisualType1;
+}
 export interface DashboardStreamEventV1 {
   dashboard_id: DashboardId1;
   event_id: EventId1;
@@ -14284,9 +14307,9 @@ export interface ImportCapabilityDescriptorV1 {
   operation: ImportOperationV1;
 }
 export interface AnalyticsPresentationBlockV11 {
-  block_id: BlockId15;
+  block_id: BlockId16;
   chart?: AnalyticsChartPresentationV1 | null;
-  kind: Kind22;
+  kind: Kind23;
   kpi?: AnalyticsKpiPresentationV1 | null;
   source_output_id: SourceOutputId;
 }

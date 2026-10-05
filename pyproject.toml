@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "erp-rag-contracts"
-version = "2.10.0"
+version = "2.11.0"
 description = "Contratos versionados de conocimiento RAG y runtime para el asistente ERP"
 readme = "README.md"
 requires-python = ">=3.11"

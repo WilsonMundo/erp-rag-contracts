@@ -7,6 +7,14 @@
   destinos existentes y falla cerrado cuando falta autoridad semántica o
   representación entity explícita. No cambia el envelope V1 ni sus consumidores.
 
+## 2.11.0
+
+- PR-75D1: añade `AnalyticsDashboardSourceV1` y `AnalyticsDashboardSourceBlockV1`:
+  referencia pública autorizada al Generic AnalyticsArtifact exacto y sus bloques
+  durables, sin ejecuciones seleccionables ni compatibilidad legacy inferida.
+- Incluye schemas, fixtures, modelos Python, proyección TypeScript y hashes.
+  La validación focalizada se realiza desde un único test backend ApiHub.
+
 ## 2.10.0
 
 - PR-75C2A: publica el read-model de catálogo del editor de dashboards con

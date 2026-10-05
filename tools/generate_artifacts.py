@@ -13,6 +13,10 @@ from pydantic import TypeAdapter
 
 from erp_rag_contracts.models import runtime_v2
 from erp_rag_contracts.models.analytics_presentation import AnalyticsPresentationBlockV1
+from erp_rag_contracts.models.analytics_dashboard_source import (
+    AnalyticsDashboardSourceV1,
+    AnalyticsDashboardSourceBlockV1,
+)
 from erp_rag_contracts.models.dashboard_editor import (
     DashboardEditorBindingOptionV1,
     DashboardEditorCatalogBlockV1,
@@ -250,6 +254,8 @@ RUNTIME_V2_SCHEMA_MODELS: tuple[tuple[str, Any, str], ...] = (
     ("dashboard-editor-catalog-item-v1", DashboardEditorCatalogItemV1, "1"),
     ("dashboard-editor-catalog-block-v1", DashboardEditorCatalogBlockV1, "1"),
     ("dashboard-editor-binding-option-v1", DashboardEditorBindingOptionV1, "1"),
+    ("analytics-dashboard-source-v1", AnalyticsDashboardSourceV1, "1"),
+    ("analytics-dashboard-source-block-v1", AnalyticsDashboardSourceBlockV1, "1"),
     ("dashboard-stream-event-v1", runtime_v2.DashboardStreamEventV1, "1"),
     ("dashboard-result-v1", runtime_v2.DashboardResultV1, "1"),
     ("import-operation-v1", runtime_v2.ImportOperationV1, "1"),
@@ -1007,6 +1013,40 @@ def generate_dashboard_editor_fixtures() -> None:
     dump("fixtures/runtime/dashboard-editor-catalog-v1/invalid/entity-source.json", invalid)
 
 
+def generate_analytics_dashboard_source_fixtures() -> None:
+    source = {
+        "source_kind": "analytics",
+        "analytics_artifact_id": "generic-ranking-artifact",
+        "display_title": "Ranking de ventas por sucursal",
+        "blocks": [
+            {
+                "block_id": "durable-ranking-chart",
+                "kind": "chart",
+                "display_title": "Ranking de ventas por sucursal",
+                "visual_type": "bar",
+            },
+            {
+                "block_id": "durable-ranking-table",
+                "kind": "table",
+                "display_title": "Ranking de ventas por sucursal",
+                "visual_type": None,
+            },
+        ],
+    }
+    root = "fixtures/runtime/analytics-dashboard-source-v1"
+    dump(f"{root}/valid/minimum.json", source)
+    for name, invalid in {
+        "execution-source": {**source, "analytics_execution_id": "execution"},
+        "legacy-presentation": {**source, "blocks": [], "kind": "forecast_summary"},
+        "missing-artifact": {
+            key: value for key, value in source.items() if key != "analytics_artifact_id"
+        },
+        "missing-block": {**source, "blocks": [{"kind": "table", "display_title": "Ventas"}]},
+        "query-source": {**source, "source_kind": "query"},
+    }.items():
+        dump(f"{root}/invalid/{name}.json", invalid)
+
+
 def main() -> None:
     for path, (model, slug) in sorted(SCHEMAS.items()):
         dump(path, schema_for(model, slug))
@@ -1022,6 +1062,7 @@ def main() -> None:
     generate_chat_runtime_fixtures()
     generate_pr01_runtime_fixtures()
     generate_dashboard_editor_fixtures()
+    generate_analytics_dashboard_source_fixtures()
     package_fixture_directory = ROOT / "src" / "erp_rag_contracts" / "runtime_fixtures"
     for source in (ROOT / "fixtures" / "runtime").rglob("*.json"):
         relative = source.relative_to(ROOT / "fixtures" / "runtime")
