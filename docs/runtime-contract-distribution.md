@@ -1,5 +1,31 @@
 # Distribución de contratos runtime
 
+## Dashboard entity filters (PR-75B2A)
+
+`dashboard-filter-v1.schema.json` now includes all published `DashboardFilterV1`
+fields: value_type, scope, impact, default_value, min_value, max_value, unit and
+entity_type, in addition to the original identity/type/label/required fields.
+The same filter definition is embedded in `dashboard-definition-v1`, packaged for
+Python and projected to TypeScript. Manifest hashes track the updated artifacts.
+
+`entity_type` reuses the existing Entity Resolution taxonomy. A non-null value is
+only valid with `value_type=entity`; other filters permit absence/null only. The read
+schema and Python model accept historical entity filters without metadata. New
+ApiHub writes require canonical entity metadata; Python exposes
+`DashboardFilterV1.require_entity_metadata()` for the same write boundary. Historical
+filters without it are not renderable and must never be inferred or backfilled.
+The JSON Schema expresses field and combination constraints; min_value <= max_value
+is enforced by the model/ApiHub validator because Draft 2020-12 cannot compare two
+arbitrary property values. No filter options are embedded.
+
+ApiHub persists this field via manual SQL scripts 017/018 in AssistantPostgres.
+No rag-api or AppWeb implementation changes are required by this addition. Reusable
+ERP selector candidates and the missing public generic options contract are recorded
+in ApiHub's `Application/Assistant/Dashboards/ENTITY_FILTER_CONTRACT.md`.
+
+The single cross-repository validation is ApiHub's Fact
+`PR75B2A_entity_metadata_write_read_and_schema_DTO_parity`. No full suite or DDL is run.
+
 `erp-rag-contracts` es la única fuente editable de los JSON Schema y fixtures
 runtime. Los consumidores no mantienen copias fuente de estos archivos.
 

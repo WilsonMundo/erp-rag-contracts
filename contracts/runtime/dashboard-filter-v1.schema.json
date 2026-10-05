@@ -18,7 +18,8 @@
       "maxLength": 500,
       "minLength": 1,
       "title": "Label",
-      "type": "string"
+      "type": "string",
+      "pattern": "\\S"
     },
     "required": {
       "default": false,
@@ -32,6 +33,82 @@
       ],
       "title": "Type",
       "type": "string"
+    },
+    "value_type": {
+      "enum": [
+        "date_range",
+        "integer",
+        "decimal",
+        "boolean",
+        "string",
+        "entity",
+        null
+      ],
+      "default": null
+    },
+    "scope": {
+      "enum": [
+        "data",
+        "analysis",
+        "presentation",
+        null
+      ],
+      "default": null
+    },
+    "impact": {
+      "enum": [
+        "query",
+        "analysis",
+        "presentation",
+        null
+      ],
+      "default": null
+    },
+    "default_value": {
+      "type": [
+        "object",
+        "number",
+        "string",
+        "boolean",
+        "null"
+      ],
+      "default": null
+    },
+    "min_value": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "default": null
+    },
+    "max_value": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "default": null
+    },
+    "unit": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "\\S",
+      "default": null
+    },
+    "entity_type": {
+      "enum": [
+        "branch",
+        "customer",
+        "product",
+        "supplier",
+        "seller",
+        "document",
+        "classification_level",
+        null
+      ],
+      "default": null,
+      "description": "Canonical Entity Resolution type. Optional for historical reads; required by new entity writes. No inference."
     }
   },
   "required": [
@@ -41,5 +118,196 @@
     "label"
   ],
   "title": "DashboardFilterV1",
-  "type": "object"
+  "type": "object",
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "entity_type": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "entity_type"
+        ]
+      },
+      "then": {
+        "properties": {
+          "value_type": {
+            "const": "entity"
+          }
+        },
+        "required": [
+          "value_type"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "value_type": {
+            "const": "date_range"
+          }
+        },
+        "required": [
+          "value_type"
+        ]
+      },
+      "then": {
+        "properties": {
+          "type": {
+            "const": "date_range"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "value_type": {
+            "enum": [
+              "integer",
+              "decimal",
+              "boolean",
+              "string",
+              "entity"
+            ]
+          }
+        },
+        "required": [
+          "value_type"
+        ]
+      },
+      "then": {
+        "properties": {
+          "type": {
+            "const": "scalar"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "anyOf": [
+          {
+            "properties": {
+              "min_value": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "min_value"
+            ]
+          },
+          {
+            "properties": {
+              "max_value": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "max_value"
+            ]
+          }
+        ]
+      },
+      "then": {
+        "properties": {
+          "value_type": {
+            "enum": [
+              "integer",
+              "decimal"
+            ]
+          }
+        },
+        "required": [
+          "value_type"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "impact": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "impact"
+        ]
+      },
+      "then": {
+        "properties": {
+          "scope": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "scope"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "scope": {
+            "const": "presentation"
+          }
+        },
+        "required": [
+          "scope"
+        ]
+      },
+      "then": {
+        "properties": {
+          "impact": {
+            "const": "presentation"
+          }
+        },
+        "required": [
+          "impact"
+        ]
+      }
+    },
+    {
+      "not": {
+        "properties": {
+          "scope": {
+            "const": "data"
+          },
+          "impact": {
+            "const": "presentation"
+          }
+        },
+        "required": [
+          "scope",
+          "impact"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "default_value": {
+            "not": {
+              "type": "null"
+            }
+          }
+        },
+        "required": [
+          "default_value"
+        ]
+      },
+      "then": {
+        "properties": {
+          "value_type": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "value_type"
+        ]
+      }
+    }
+  ]
 }

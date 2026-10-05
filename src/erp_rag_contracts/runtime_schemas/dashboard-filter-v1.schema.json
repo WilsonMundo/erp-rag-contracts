@@ -9,58 +9,22 @@
       "title": "Dashboard Filter Version",
       "type": "string"
     },
-    "default_value": {
-      "description": "Valor por defecto tipado del par\u00e1metro (nunca el valor aplicado).",
-      "title": "Default Value",
-      "type": [
-        "boolean",
-        "number",
-        "object",
-        "string"
-      ]
-    },
     "filter_id": {
       "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
       "title": "Filter Id",
-      "type": "string"
-    },
-    "impact": {
-      "description": "Qu\u00e9 puede provocar el cambio del valor: query, analysis o presentation.",
-      "enum": [
-        "query",
-        "analysis",
-        "presentation"
-      ],
-      "title": "Impact",
       "type": "string"
     },
     "label": {
       "maxLength": 500,
       "minLength": 1,
       "title": "Label",
-      "type": "string"
-    },
-    "max_value": {
-      "title": "Max Value",
-      "type": "number"
-    },
-    "min_value": {
-      "title": "Min Value",
-      "type": "number"
+      "type": "string",
+      "pattern": "\\S"
     },
     "required": {
       "default": false,
       "title": "Required",
       "type": "boolean"
-    },
-    "scope": {
-      "enum": [
-        "data",
-        "analysis",
-        "presentation"
-      ],
-      "title": "Scope",
-      "type": "string"
     },
     "type": {
       "enum": [
@@ -70,24 +34,81 @@
       "title": "Type",
       "type": "string"
     },
-    "unit": {
-      "maxLength": 40,
-      "minLength": 1,
-      "title": "Unit",
-      "type": "string"
-    },
     "value_type": {
-      "description": "Subtipo escalar tipado de la definici\u00f3n del par\u00e1metro.",
       "enum": [
         "date_range",
         "integer",
         "decimal",
         "boolean",
         "string",
-        "entity"
+        "entity",
+        null
       ],
-      "title": "Value Type",
-      "type": "string"
+      "default": null
+    },
+    "scope": {
+      "enum": [
+        "data",
+        "analysis",
+        "presentation",
+        null
+      ],
+      "default": null
+    },
+    "impact": {
+      "enum": [
+        "query",
+        "analysis",
+        "presentation",
+        null
+      ],
+      "default": null
+    },
+    "default_value": {
+      "type": [
+        "object",
+        "number",
+        "string",
+        "boolean",
+        "null"
+      ],
+      "default": null
+    },
+    "min_value": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "default": null
+    },
+    "max_value": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "default": null
+    },
+    "unit": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "\\S",
+      "default": null
+    },
+    "entity_type": {
+      "enum": [
+        "branch",
+        "customer",
+        "product",
+        "supplier",
+        "seller",
+        "document",
+        "classification_level",
+        null
+      ],
+      "default": null,
+      "description": "Canonical Entity Resolution type. Optional for historical reads; required by new entity writes. No inference."
     }
   },
   "required": [
@@ -97,5 +118,196 @@
     "label"
   ],
   "title": "DashboardFilterV1",
-  "type": "object"
+  "type": "object",
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "entity_type": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "entity_type"
+        ]
+      },
+      "then": {
+        "properties": {
+          "value_type": {
+            "const": "entity"
+          }
+        },
+        "required": [
+          "value_type"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "value_type": {
+            "const": "date_range"
+          }
+        },
+        "required": [
+          "value_type"
+        ]
+      },
+      "then": {
+        "properties": {
+          "type": {
+            "const": "date_range"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "value_type": {
+            "enum": [
+              "integer",
+              "decimal",
+              "boolean",
+              "string",
+              "entity"
+            ]
+          }
+        },
+        "required": [
+          "value_type"
+        ]
+      },
+      "then": {
+        "properties": {
+          "type": {
+            "const": "scalar"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "anyOf": [
+          {
+            "properties": {
+              "min_value": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "min_value"
+            ]
+          },
+          {
+            "properties": {
+              "max_value": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "max_value"
+            ]
+          }
+        ]
+      },
+      "then": {
+        "properties": {
+          "value_type": {
+            "enum": [
+              "integer",
+              "decimal"
+            ]
+          }
+        },
+        "required": [
+          "value_type"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "impact": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "impact"
+        ]
+      },
+      "then": {
+        "properties": {
+          "scope": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "scope"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "scope": {
+            "const": "presentation"
+          }
+        },
+        "required": [
+          "scope"
+        ]
+      },
+      "then": {
+        "properties": {
+          "impact": {
+            "const": "presentation"
+          }
+        },
+        "required": [
+          "impact"
+        ]
+      }
+    },
+    {
+      "not": {
+        "properties": {
+          "scope": {
+            "const": "data"
+          },
+          "impact": {
+            "const": "presentation"
+          }
+        },
+        "required": [
+          "scope",
+          "impact"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "default_value": {
+            "not": {
+              "type": "null"
+            }
+          }
+        },
+        "required": [
+          "default_value"
+        ]
+      },
+      "then": {
+        "properties": {
+          "value_type": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "value_type"
+        ]
+      }
+    }
+  ]
 }

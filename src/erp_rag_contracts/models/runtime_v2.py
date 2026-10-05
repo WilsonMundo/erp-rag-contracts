@@ -1,11 +1,11 @@
 from __future__ import annotations
 
 from datetime import datetime
-from typing import Annotated, Any, Literal, TypeAlias
+from typing import Annotated, Any, Literal, TypeAlias, get_args
 
 from pydantic import ConfigDict, Field, model_validator
 
-from .runtime import Identifier, QueryParameterDraftV2, RuntimeContractModel
+from .runtime import EntityType, Identifier, QueryParameterDraftV2, RuntimeContractModel
 
 NonEmptyText = Annotated[str, Field(min_length=1, max_length=500)]
 ContractId = Annotated[str, Field(pattern=r"^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$")]
@@ -965,12 +965,156 @@ class DashboardFilterBindingV1(RuntimeContractModel):
         return self
 
 
+_DASHBOARD_FILTER_SCHEMA = {
+    "properties": {
+        "dashboard_filter_version": {
+            "const": "1.0",
+            "title": "Dashboard Filter Version",
+            "type": "string",
+        },
+        "filter_id": {
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+            "title": "Filter Id",
+            "type": "string",
+        },
+        "label": {
+            "maxLength": 500,
+            "minLength": 1,
+            "title": "Label",
+            "type": "string",
+            "pattern": "\\S",
+        },
+        "required": {"default": False, "title": "Required", "type": "boolean"},
+        "type": {"enum": ["scalar", "date_range"], "title": "Type", "type": "string"},
+        "value_type": {
+            "enum": ["date_range", "integer", "decimal", "boolean", "string", "entity", None],
+            "default": None,
+        },
+        "scope": {"enum": ["data", "analysis", "presentation", None], "default": None},
+        "impact": {"enum": ["query", "analysis", "presentation", None], "default": None},
+        "default_value": {
+            "type": ["object", "number", "string", "boolean", "null"],
+            "default": None,
+        },
+        "min_value": {"type": ["number", "null"], "default": None},
+        "max_value": {"type": ["number", "null"], "default": None},
+        "unit": {"type": ["string", "null"], "pattern": "\\S", "default": None},
+        "entity_type": {
+            "enum": [*get_args(EntityType), None],
+            "default": None,
+            "description": "Canonical Entity Resolution type. Optional for historical reads; required by new entity writes. No inference.",
+        },
+    },
+    "allOf": [
+        {
+            "if": {"properties": {"entity_type": {"type": "string"}}, "required": ["entity_type"]},
+            "then": {"properties": {"value_type": {"const": "entity"}}, "required": ["value_type"]},
+        },
+        {
+            "if": {
+                "properties": {"value_type": {"const": "date_range"}},
+                "required": ["value_type"],
+            },
+            "then": {"properties": {"type": {"const": "date_range"}}},
+        },
+        {
+            "if": {
+                "properties": {
+                    "value_type": {"enum": ["integer", "decimal", "boolean", "string", "entity"]}
+                },
+                "required": ["value_type"],
+            },
+            "then": {"properties": {"type": {"const": "scalar"}}},
+        },
+        {
+            "if": {
+                "anyOf": [
+                    {"properties": {"min_value": {"type": "number"}}, "required": ["min_value"]},
+                    {"properties": {"max_value": {"type": "number"}}, "required": ["max_value"]},
+                ]
+            },
+            "then": {
+                "properties": {"value_type": {"enum": ["integer", "decimal"]}},
+                "required": ["value_type"],
+            },
+        },
+        {
+            "if": {"properties": {"impact": {"type": "string"}}, "required": ["impact"]},
+            "then": {"properties": {"scope": {"type": "string"}}, "required": ["scope"]},
+        },
+        {
+            "if": {"properties": {"scope": {"const": "presentation"}}, "required": ["scope"]},
+            "then": {"properties": {"impact": {"const": "presentation"}}, "required": ["impact"]},
+        },
+        {
+            "not": {
+                "properties": {"scope": {"const": "data"}, "impact": {"const": "presentation"}},
+                "required": ["scope", "impact"],
+            }
+        },
+        {
+            "if": {
+                "properties": {"default_value": {"not": {"type": "null"}}},
+                "required": ["default_value"],
+            },
+            "then": {"properties": {"value_type": {"type": "string"}}, "required": ["value_type"]},
+        },
+    ],
+}
+
+
 class DashboardFilterV1(RuntimeContractModel):
+    # JSON Schema is the normative read contract; writes require entity metadata separately.
+    model_config = ConfigDict(extra="forbid", json_schema_extra=_DASHBOARD_FILTER_SCHEMA)
     dashboard_filter_version: Literal["1.0"]
     filter_id: ContractId
     type: Literal["scalar", "date_range"]
-    label: NonEmptyText
+    label: Annotated[str, Field(min_length=1, max_length=500, pattern=r"\S")]
     required: bool = False
+    value_type: (
+        Literal["date_range", "integer", "decimal", "boolean", "string", "entity"] | None
+    ) = None
+    scope: Literal["data", "analysis", "presentation"] | None = None
+    impact: Literal["query", "analysis", "presentation"] | None = None
+    default_value: dict[str, Any] | int | float | str | bool | None = None
+    min_value: float | None = None
+    max_value: float | None = None
+    unit: Annotated[str, Field(pattern=r"\S")] | None = None
+    entity_type: EntityType | None = None
+
+    @model_validator(mode="after")
+    def validate_metadata(self) -> DashboardFilterV1:
+        if self.entity_type is not None and self.value_type != "entity":
+            raise ValueError("entity_type is only valid for entity filters")
+        if self.value_type is not None and (
+            (self.value_type == "date_range") != (self.type == "date_range")
+        ):
+            raise ValueError("filter type and value_type are inconsistent")
+        if (self.min_value is not None or self.max_value is not None) and self.value_type not in (
+            "integer",
+            "decimal",
+        ):
+            raise ValueError("bounds require a numeric value_type")
+        if (
+            self.min_value is not None
+            and self.max_value is not None
+            and self.min_value > self.max_value
+        ):
+            raise ValueError("filter bounds are inverted")
+        if self.impact is not None and self.scope is None:
+            raise ValueError("impact requires scope")
+        if self.scope == "presentation" and self.impact != "presentation":
+            raise ValueError("presentation scope requires presentation impact")
+        if self.scope == "data" and self.impact == "presentation":
+            raise ValueError("data scope cannot have presentation impact")
+        if self.default_value is not None and self.value_type is None:
+            raise ValueError("default_value requires value_type")
+        return self
+
+    def require_entity_metadata(self) -> None:
+        """New writes fail closed; historical entity reads retain absent metadata."""
+        if self.value_type == "entity" and self.entity_type is None:
+            raise ValueError("new entity filters require explicit entity_type")
 
 
 class DashboardWidgetV1(RuntimeContractModel):

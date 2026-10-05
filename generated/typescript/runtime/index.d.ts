@@ -11356,6 +11356,7 @@ export type GlobalFilters =
       DashboardFilterV1,
       DashboardFilterV1
     ];
+export type DashboardFilterV1 = DashboardFilterV11;
 export type DashboardFilterVersion = '1.0';
 export type FilterId = string;
 export type Label11 = string;
@@ -13987,12 +13988,38 @@ export interface DashboardDefinitionV1 {
   title: Title16;
   widgets: Widgets;
 }
-export interface DashboardFilterV1 {
+export interface DashboardFilterV11 {
   dashboard_filter_version: DashboardFilterVersion;
   filter_id: FilterId;
   label: Label11;
   required?: Required1;
   type: Type6;
+  value_type?: 'date_range' | 'integer' | 'decimal' | 'boolean' | 'string' | 'entity' | null;
+  scope?: 'data' | 'analysis' | 'presentation' | null;
+  impact?: 'query' | 'analysis' | 'presentation' | null;
+  default_value?:
+    | {
+        [k: string]: any;
+      }
+    | number
+    | string
+    | boolean
+    | null;
+  min_value?: number | null;
+  max_value?: number | null;
+  unit?: string | null;
+  /**
+   * Canonical Entity Resolution type. Optional for historical reads; required by new entity writes. No inference.
+   */
+  entity_type?:
+    | 'branch'
+    | 'customer'
+    | 'product'
+    | 'supplier'
+    | 'seller'
+    | 'document'
+    | 'classification_level'
+    | null;
 }
 export interface DashboardGridLayoutV1 {
   columns: Columns5;

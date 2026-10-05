@@ -222,7 +222,7 @@
     {
       "name": "dashboard-definition-v1",
       "path": "contracts/runtime/dashboard-definition-v1.schema.json",
-      "sha256": "5e48ea0884e5be93669519ae7ab578e4f3162c84fd36c36058de6e086fb7b53f"
+      "sha256": "e5d48b8cb438d0f6b4e4fe1093fa9eeebe467510112062b4d6b107a95fdc785c"
     },
     {
       "name": "dashboard-widget-v1",
@@ -232,7 +232,7 @@
     {
       "name": "dashboard-filter-v1",
       "path": "contracts/runtime/dashboard-filter-v1.schema.json",
-      "sha256": "2dd814f5f180e014faec69d51330d56d6b757a96598f0ddfee782633ae92655c"
+      "sha256": "485a6a44261e2acab192a1eb7931fcd75de2795efe698c904fae3b966f1f3b3e"
     },
     {
       "name": "dashboard-filter-binding-v1",
@@ -310,5 +310,5 @@
       "sha256": "92a460f666bf213867a87f983f834f9b822a50194e5dee76d299dbe769dfe9df"
     }
   ],
-  "index_sha256": "4de904a9ac72d3e26a1247faf62d24e9b8c9fc1b15ed888c6d1eca26a5875e78"
+  "index_sha256": "7f77cc5053c508ee8187b7957103966ffd62d6474b423a77e9382af5ff5363a9"
 }
