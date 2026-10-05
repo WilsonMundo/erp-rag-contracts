@@ -980,6 +980,25 @@ def generate_dashboard_editor_fixtures() -> None:
                           "source_path": "value", "target_parameter": "window"}]}]},
     ]}
     dump("fixtures/runtime/dashboard-editor-catalog-v1/valid/minimum.json", catalog)
+    candidates = {"items": [
+        {"source_kind": "query", "artifact_id": "query-new", "display_title": "Top 10 ventas",
+         "blocks": [{"block_id": "sales_grid", "kind": "data_grid",
+                     "display_title": "Ventas por sucursal", "binding_options": [
+                         {"dashboard_filter_id": "period", "filter_label": "Período",
+                          "source_path": "start", "target_parameter": "x"},
+                         {"dashboard_filter_id": "period", "filter_label": "Período",
+                          "source_path": "end_exclusive", "target_parameter": "y"}]}]},
+        {"source_kind": "analytics", "artifact_id": "analytics-new", "display_title": "Tendencia de ventas",
+         "blocks": [{"block_id": "sales_chart", "kind": "chart", "display_title": "Tendencia de ventas",
+                     "visual_type": "line", "binding_options": [
+                         {"dashboard_filter_id": "horizon", "filter_label": "Horizonte",
+                          "source_path": "value", "target_parameter": "window"},
+                         {"dashboard_filter_id": "period", "filter_label": "Período",
+                          "source_path": "start", "target_parameter": "span"},
+                         {"dashboard_filter_id": "period", "filter_label": "Período",
+                          "source_path": "end_exclusive", "target_parameter": "span"}]}]},
+    ]}
+    dump("fixtures/runtime/dashboard-editor-catalog-v1/valid/binding-candidates.json", candidates)
     invalid = deepcopy(catalog)
     invalid["items"][0]["query_execution_id"] = "execution-must-not-be-selectable"
     dump("fixtures/runtime/dashboard-editor-catalog-v1/invalid/execution-selection.json", invalid)

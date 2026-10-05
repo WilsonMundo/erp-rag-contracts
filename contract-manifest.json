@@ -888,6 +888,10 @@
       "sha256": "5d6dd4d8a0fa2f37e78c8f4c1c03d514ec19ec6555c78c96ad2afa6a474489d2"
     },
     {
+      "path": "fixtures/runtime/dashboard-editor-catalog-v1/valid/binding-candidates.json",
+      "sha256": "9e6e5cf0cbd2804ada9d528640179059064dfc34f0cde4820e0a33ef36ce33a0"
+    },
+    {
       "path": "fixtures/runtime/dashboard-editor-catalog-v1/valid/minimum.json",
       "sha256": "56b5e4fefeebcd118d3753dc806118ec9b2de78b2fcad37f28e432e9e1a26928"
     },

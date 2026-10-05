@@ -30,14 +30,41 @@ permission or change execution authorization.
 
 ## Binding authority
 
-V1 is deliberately conservative: candidate associations come only from durable
-widget bindings already declared **in this dashboard for the same artifact**.
-They are available across that artifact's selectable blocks, since the parameter
-belongs to the artifact. No associations are synthesized by parameter name,
-SQL type, label or matching entity names. An unbound artifact has an empty options
-list; empty means no explicitly declared compatible option, not no parameters.
-Creating a new semantic association requires an explicit contractual authority
-in a later change; the frontend must not fill this gap with heuristics.
+PR-75C2A1 defines `binding_options` as authorized compatible **choices**, not
+as a projection of persisted mappings. The endpoint never creates a mapping.
+The same options apply to every selectable block of the artifact because targets
+belong to the artifact. No SQL text, SQL type, parameter-name matching, labels,
+block titles or Angular inference may establish compatibility.
+
+Existing unambiguous same-artifact destination declarations take precedence:
+revalidate them and preserve the exact source path and `entity_binding`. Any
+already declared target is reserved, even if incompatible or ambiguous, so
+discovery cannot silently replace its authority with another option.
+
+For unoccupied targets, ApiHub applies this fail-closed policy using only durable
+parameter definitions, dashboard filters and Analytics input mappings:
+
+| Target | Required evidence for a new option |
+| --- | --- |
+| Query | Filter `type=value_type=date_range`, `scope=data`, `impact=query`; target is `rebindable` and has exact `semantic_role=period_start` or `period_end_exclusive`, selecting `start` or `end_exclusive` respectively. |
+| Analytics scalar | Filter `type=scalar`, non-entity `value_type` (`string`, `integer`, `decimal`, `boolean`); exact parameter `type`, `scope`, `impact` and `entity_type` match; `source_path=value`. |
+| Analytics range | Filter `type=value_type=date_range`; exact parameter `type`, `scope`, `impact`, `entity_type` match; source paths come exclusively from canonical boundary roles of its durably mapped Query inputs. |
+
+All choices additionally pass the existing dependency authority. Query impact
+must reach a Query input; analysis impact must not reach one. Every downstream
+Query destination must exist and be rebindable; all range destinations must carry
+canonical boundary roles. Source and scope/impact rules are unchanged. Range
+options on Analytics remain alternatives for one target: the editor must preserve
+target uniqueness, never persist both alternatives simultaneously. Runtime range
+propagation continues to use the complete range and each input's boundary role.
+
+Query definitions do not declare semantic scalar type/scope/impact. A matching
+SQL type or convincing parameter name therefore cannot authorize new scalar or
+entity candidates. Analytics `entity_type` alone also does not authorize choosing
+`entity_id` versus `binding_value`; without an existing explicit destination
+encoding, entity candidates are absent. Analysis-only range parameters lacking
+contractual source-path evidence are likewise absent. Empty options mean that
+compatibility cannot be proved, not that the artifact has no parameters.
 
 Each option contains `dashboard_filter_id`, `filter_label`, `source_path`, exact
 `target_parameter` and nullable `entity_binding`. ApiHub revalidates scalar/range
@@ -58,8 +85,10 @@ The later editor groups them into existing `filter_bindings/mappings`, preservin
 1:N destinations and applying current uniqueness rules. Save still uses the full
 definition PUT with `expected_updated_at`. There is no widget display-title field.
 
-The one focused backend Fact validates actual DTO output, exact Query/Analytics
-block IDs, metadata, bindings, incompatibility omission, denied sources, dashboard
+The one focused backend Fact validates existing exact mappings and new unbound
+Query/Analytics candidates, misleading names, rebindability, incompatible scope,
+impact/type and entity encoding omission, as well as actual DTO output, exact
+block IDs, metadata, denied sources, dashboard
 authorization, canonical fixtures, JSON Schema, Python regeneration/model parity,
 TypeScript exports, packaged resources and manifest hashes. Live PostgreSQL,
 session/authorization and visual E2E remain manual; AppWeb is not changed here.

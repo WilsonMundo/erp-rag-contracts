@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+
+- PR-75C2A1: define opciones compatibles de binding sin mapping previo, usando
+  roles de período Query y metadata/mappings durables Analytics. Conserva
+  destinos existentes y falla cerrado cuando falta autoridad semántica o
+  representación entity explícita. No cambia el envelope V1 ni sus consumidores.
+
 ## 2.10.0
 
 - PR-75C2A: publica el read-model de catálogo del editor de dashboards con
