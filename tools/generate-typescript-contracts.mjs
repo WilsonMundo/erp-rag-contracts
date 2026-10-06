@@ -76,6 +76,7 @@ const PR01_SCHEMAS = [
   ['presentation-capability-profile-v1', 'PresentationCapabilityProfileV1'],
   ['import-capability-descriptor-v1', 'ImportCapabilityDescriptorV1'],
   ['analytics-presentation-block-v1', 'AnalyticsPresentationBlockV1'],
+  ['generic-analytics-persist-ack-v1', 'GenericAnalyticsPersistenceReceiptV1'],
 ].map(([slug, typeName]) => [
   slug,
   typeName,

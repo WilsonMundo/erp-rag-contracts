@@ -1,0 +1,79 @@
+{
+  "$id": "urn:erp-rag-contracts:schema:generic-analytics-persist-ack:v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "else": {
+        "properties": {
+          "analytics_result_id": {
+            "type": "null"
+          }
+        }
+      },
+      "if": {
+        "properties": {
+          "status": {
+            "const": "succeeded"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "analytics_result_id": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  ],
+  "description": "Contrato normativo runtime generic-analytics-persist-ack versión 1.",
+  "properties": {
+    "analytics_artifact_id": {
+      "maxLength": 160,
+      "minLength": 1,
+      "title": "Analytics Artifact Id",
+      "type": "string"
+    },
+    "analytics_execution_id": {
+      "maxLength": 160,
+      "minLength": 1,
+      "title": "Analytics Execution Id",
+      "type": "string"
+    },
+    "analytics_result_id": {
+      "anyOf": [
+        {
+          "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Analytics Result Id"
+    },
+    "status": {
+      "enum": [
+        "succeeded",
+        "failed"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "version": {
+      "const": "1.0",
+      "title": "Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "version",
+    "analytics_artifact_id",
+    "analytics_execution_id",
+    "status",
+    "analytics_result_id"
+  ],
+  "title": "GenericAnalyticsPersistenceReceiptV1",
+  "type": "object"
+}

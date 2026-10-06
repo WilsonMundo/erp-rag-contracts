@@ -342,8 +342,13 @@
     {
       "name": "analytics-presentation-block-v1",
       "path": "contracts/runtime/analytics-presentation-block-v1.schema.json",
-      "sha256": "92a460f666bf213867a87f983f834f9b822a50194e5dee76d299dbe769dfe9df"
+      "sha256": "f3dbc52558cb120f5990d38f8502d480664620b117b97c595ef87e1828b9e0aa"
+    },
+    {
+      "name": "generic-analytics-persist-ack-v1",
+      "path": "contracts/runtime/generic-analytics-persist-ack-v1.schema.json",
+      "sha256": "4eb538a868aa8d8c3063b6e4bf23a2b40fa50ace5f9e3cbe50e18fd309755d77"
     }
   ],
-  "index_sha256": "2af5fe01dced63600eb6896bad84177e1125a5442a58a0feb6bbf442f2e81d32"
+  "index_sha256": "8d513add185dcf33aeb390b015f7175c5a157336457dec68e54d5f3f037b9dec"
 }

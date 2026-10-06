@@ -53,6 +53,26 @@
           "minLength": 1,
           "title": "Field",
           "type": "string"
+        },
+        "format": {
+          "anyOf": [
+            {
+              "enum": [
+                "auto",
+                "number",
+                "integer",
+                "currency",
+                "percent",
+                "fraction_percent"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Format"
         }
       },
       "required": [

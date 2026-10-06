@@ -13,6 +13,7 @@ from pydantic import TypeAdapter
 
 from erp_rag_contracts.models import runtime_v2
 from erp_rag_contracts.models.analytics_presentation import AnalyticsPresentationBlockV1
+from erp_rag_contracts.models.analytics_persistence import GenericAnalyticsPersistenceReceiptV1
 from erp_rag_contracts.models.analytics_dashboard_source import (
     AnalyticsDashboardSourceV1,
     AnalyticsDashboardSourceBlockV1,
@@ -255,6 +256,7 @@ RUNTIME_V2_SCHEMA_MODELS: tuple[tuple[str, Any, str], ...] = (
     ("dashboard-editor-catalog-block-v1", DashboardEditorCatalogBlockV1, "1"),
     ("dashboard-editor-binding-option-v1", DashboardEditorBindingOptionV1, "1"),
     ("analytics-dashboard-source-v1", AnalyticsDashboardSourceV1, "1"),
+    ("generic-analytics-persist-ack-v1", GenericAnalyticsPersistenceReceiptV1, "1"),
     ("analytics-dashboard-source-block-v1", AnalyticsDashboardSourceBlockV1, "1"),
     ("dashboard-stream-event-v1", runtime_v2.DashboardStreamEventV1, "1"),
     ("dashboard-result-v1", runtime_v2.DashboardResultV1, "1"),

@@ -5,7 +5,13 @@ from typing import Annotated, Any, Literal, TypeAlias, get_args
 
 from pydantic import ConfigDict, Field, model_validator
 
-from .runtime import EntityType, Identifier, QueryParameterDraftV2, RuntimeContractModel
+from .runtime import (
+    EntityType,
+    Identifier,
+    PresentationValueFormat,
+    QueryParameterDraftV2,
+    RuntimeContractModel,
+)
 
 NonEmptyText = Annotated[str, Field(min_length=1, max_length=500)]
 ContractId = Annotated[str, Field(pattern=r"^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$")]
@@ -357,18 +363,18 @@ class KpiBlockV1(RuntimeContractModel):
     kind: Literal["kpi"]
     title: NonEmptyText
     value: ValueReferenceV1
-    format: Literal["auto", "number", "integer", "currency", "percent"] = "auto"
+    format: PresentationValueFormat = "auto"
 
 
 class ComparisonKpiValueV1(RuntimeContractModel):
     label: NonEmptyText
     value: ValueReferenceV1
-    format: Literal["auto", "number", "integer", "currency", "percent"] = "auto"
+    format: PresentationValueFormat = "auto"
 
 
 class ComparisonKpiChangeV1(RuntimeContractModel):
     value: ValueReferenceV1
-    format: Literal["auto", "number", "integer", "currency", "percent"] = "percent"
+    format: PresentationValueFormat = "percent"
 
 
 class ComparisonKpiBlockV1(RuntimeContractModel):
@@ -532,19 +538,19 @@ class MaterializedKpiBlockV1(RuntimeContractModel):
     kind: Literal["kpi"]
     title: NonEmptyText
     value: JsonScalar
-    format: Literal["auto", "number", "integer", "currency", "percent"]
+    format: PresentationValueFormat
     scope: MaterializedScopeV1
 
 
 class MaterializedComparisonKpiValueV1(RuntimeContractModel):
     label: NonEmptyText
     value: JsonScalar
-    format: Literal["auto", "number", "integer", "currency", "percent"]
+    format: PresentationValueFormat
 
 
 class MaterializedComparisonKpiChangeV1(RuntimeContractModel):
     value: JsonScalar
-    format: Literal["auto", "number", "integer", "currency", "percent"]
+    format: PresentationValueFormat
     direction: Literal["up", "down", "flat", "unknown"]
     sentiment: Literal["positive", "negative", "neutral", "unknown"]
 

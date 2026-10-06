@@ -1,0 +1,11 @@
+{
+  "block_id": "growth_rate_chart",
+  "source_output_id": "growth_rate_chart",
+  "kind": "chart",
+  "chart": {
+    "type": "line",
+    "orientation": "vertical",
+    "category_field": "fecha_periodo",
+    "series": [{ "field": "growth_rate", "format": "fraction_percent" }]
+  }
+}

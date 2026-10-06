@@ -4,14 +4,23 @@ from typing import Annotated, Literal, Self
 
 from pydantic import ConfigDict, Field, StrictStr, model_validator
 
-from .runtime import RuntimeContractModel
+from .runtime import PresentationValueFormat, RuntimeContractModel
 
 AnalyticsBlockIdentifier = Annotated[StrictStr, Field(pattern=r"^[a-z][a-z0-9_]{0,63}$")]
 AnalyticsChartField = Annotated[StrictStr, Field(min_length=1, max_length=128)]
 
+# Chart series presentation format. Reuses the shared `PresentationValueFormat` tokens and adds
+# `fraction_percent` for a raw *fraction* that must display as a percentage (0.083667 -> "8.37 %").
+# `percent` stays percentage-points (rendered as-is) and is not emitted by chart series today.
+AnalyticsChartSeriesFormatV1 = Literal[
+    "auto", "number", "integer", "currency", "percent", "fraction_percent"
+]
+
 
 class AnalyticsChartSeriesV1(RuntimeContractModel):
     field: AnalyticsChartField
+    # Optional for backward compatibility: historical artifacts without it keep the numeric default.
+    format: AnalyticsChartSeriesFormatV1 | None = None
 
 
 class AnalyticsChartPresentationV1(RuntimeContractModel):
@@ -31,8 +40,8 @@ class AnalyticsChartPresentationV1(RuntimeContractModel):
 class AnalyticsKpiPresentationV1(RuntimeContractModel):
     value_field: AnalyticsChartField
     selection: Literal["single_row"]
-    # Same presentation taxonomy as MaterializedKpiBlockV1.format (Query V2).
-    format: Literal["auto", "number", "integer", "currency", "percent"]
+    # Shared presentation taxonomy with MaterializedKpiBlockV1.format (Query V2).
+    format: PresentationValueFormat
 
 
 class AnalyticsPresentationBlockV1(RuntimeContractModel):

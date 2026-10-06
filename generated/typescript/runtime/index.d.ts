@@ -13454,12 +13454,20 @@ export type Orientation2 = 'horizontal' | 'vertical';
  */
 export type Series2 = [AnalyticsChartSeriesV1, ...AnalyticsChartSeriesV1[]];
 export type Field6 = string;
+export type Format6 =
+  ('auto' | 'number' | 'integer' | 'currency' | 'percent' | 'fraction_percent') | null;
 export type Type9 = 'bar' | 'line' | 'area';
 export type Kind23 = 'table' | 'kpi' | 'chart';
-export type Format6 = 'auto' | 'number' | 'integer' | 'currency' | 'percent';
+export type Format7 = 'auto' | 'number' | 'integer' | 'currency' | 'percent';
 export type Selection1 = 'single_row';
 export type ValueField = string;
 export type SourceOutputId = string;
+export type GenericAnalyticsPersistenceReceiptV1 = GenericAnalyticsPersistenceReceiptV11;
+export type AnalyticsArtifactId2 = string;
+export type AnalyticsExecutionId = string;
+export type AnalyticsResultId = string | null;
+export type Status8 = 'succeeded' | 'failed';
+export type Version2 = '1.0';
 
 export interface IntentClassificationV2 {
   analysis_intent?: AnalysisIntent;
@@ -14321,10 +14329,18 @@ export interface AnalyticsChartPresentationV1 {
 }
 export interface AnalyticsChartSeriesV1 {
   field: Field6;
+  format?: Format6;
 }
 export interface AnalyticsKpiPresentationV1 {
-  format: Format6;
+  format: Format7;
   selection: Selection1;
   value_field: ValueField;
+}
+export interface GenericAnalyticsPersistenceReceiptV11 {
+  analytics_artifact_id: AnalyticsArtifactId2;
+  analytics_execution_id: AnalyticsExecutionId;
+  analytics_result_id: AnalyticsResultId;
+  status: Status8;
+  version: Version2;
 }
 

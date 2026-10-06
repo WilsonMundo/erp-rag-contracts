@@ -205,7 +205,7 @@
       "compatibility": "1.x",
       "id": "urn:erp-rag-contracts:schema:analytics-presentation-block:v1",
       "path": "contracts/runtime/analytics-presentation-block-v1.schema.json",
-      "sha256": "92a460f666bf213867a87f983f834f9b822a50194e5dee76d299dbe769dfe9df",
+      "sha256": "f3dbc52558cb120f5990d38f8502d480664620b117b97c595ef87e1828b9e0aa",
       "status": "stable",
       "type": "analytics-presentation-block"
     },
@@ -408,6 +408,14 @@
       "sha256": "3f5eaec923d5a4728c468795c9447db057b1148c5c344e82f18ad9370a655e92",
       "status": "stable",
       "type": "gauge-block"
+    },
+    {
+      "compatibility": "1.x",
+      "id": "urn:erp-rag-contracts:schema:generic-analytics-persist-ack:v1",
+      "path": "contracts/runtime/generic-analytics-persist-ack-v1.schema.json",
+      "sha256": "4eb538a868aa8d8c3063b6e4bf23a2b40fa50ace5f9e3cbe50e18fd309755d77",
+      "status": "stable",
+      "type": "generic-analytics-persist-ack"
     },
     {
       "compatibility": "1.x",
@@ -781,11 +789,11 @@
   "generated_artifacts": [
     {
       "path": "generated/typescript/runtime/generation-metadata.json",
-      "sha256": "0ad0bbc1b185043ef2cca04e78d4a2c61effeeaedfa38e21faae5366579288c5"
+      "sha256": "0292ab307889ab8891b87f37bf9bd23a608b3a9addd31ec17f8ecbb67d79616f"
     },
     {
       "path": "generated/typescript/runtime/index.d.ts",
-      "sha256": "2af5fe01dced63600eb6896bad84177e1125a5442a58a0feb6bbf442f2e81d32"
+      "sha256": "8d513add185dcf33aeb390b015f7175c5a157336457dec68e54d5f3f037b9dec"
     },
     {
       "path": "generated/typescript/runtime/package.json",
@@ -1062,6 +1070,10 @@
     {
       "path": "fixtures/runtime/pr75b0b-generic-kpi/valid/variance-block.json",
       "sha256": "21be986eee1974426b1c70cf571cb1d51cb53d5ef33a4cc3bd9229e6a26bb42b"
+    },
+    {
+      "path": "fixtures/runtime/pr75b0c-generic-chart-format/valid/growth-rate-block.json",
+      "sha256": "e264e7db3a4acd8702b35d83a956e8e9c654f6c99003ef57f13ba63251323577"
     }
   ],
   "templates": [

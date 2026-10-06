@@ -10,6 +10,10 @@ class RuntimeContractModel(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
 
+# Shared presentation value taxonomy: how a durable raw value is displayed. `percent` means
+# the raw value is a fraction (0.083667 -> "8.37 %"); it never rewrites the stored value.
+PresentationValueFormat = Literal["auto", "number", "integer", "currency", "percent"]
+
 EntityType = Literal[
     "branch",
     "customer",
@@ -338,7 +342,7 @@ class ChartCategoryAxisV1(RuntimeContractModel):
 class ChartValueAxisV1(RuntimeContractModel):
     title: Annotated[str, Field(min_length=1, max_length=200)] | None
     scale: Literal["linear", "logarithmic"]
-    format: Literal["auto", "number", "integer", "currency", "percent"]
+    format: PresentationValueFormat
     zero_baseline: Literal["required", "optional", "suppressed"]
 
 
