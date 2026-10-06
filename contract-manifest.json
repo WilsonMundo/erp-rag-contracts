@@ -1,5 +1,5 @@
 {
-  "contract_version": "2.8.0",
+  "contract_version": "2.11.0",
   "contracts": [
     {
       "compatibility": "1.x",
@@ -187,6 +187,30 @@
     },
     {
       "compatibility": "1.x",
+      "id": "urn:erp-rag-contracts:schema:analytics-dashboard-source-block:v1",
+      "path": "contracts/runtime/analytics-dashboard-source-block-v1.schema.json",
+      "sha256": "d0660b15725cd328dd9fef1de6fc478b608bc46558200d08bc24879a52e24110",
+      "status": "stable",
+      "type": "analytics-dashboard-source-block"
+    },
+    {
+      "compatibility": "1.x",
+      "id": "urn:erp-rag-contracts:schema:analytics-dashboard-source:v1",
+      "path": "contracts/runtime/analytics-dashboard-source-v1.schema.json",
+      "sha256": "a4b0335e6cc1ca93757adf0ce8da0fd8ea3b5a247939990f2646231cdcb1ba60",
+      "status": "stable",
+      "type": "analytics-dashboard-source"
+    },
+    {
+      "compatibility": "1.x",
+      "id": "urn:erp-rag-contracts:schema:analytics-presentation-block:v1",
+      "path": "contracts/runtime/analytics-presentation-block-v1.schema.json",
+      "sha256": "6cba8d02b8874c84f47da027002877ec174dfaa5c8eea4a0c8eef47124444587",
+      "status": "stable",
+      "type": "analytics-presentation-block"
+    },
+    {
+      "compatibility": "1.x",
       "id": "urn:erp-rag-contracts:schema:analytics-result:v1",
       "path": "contracts/runtime/analytics-result-v1.schema.json",
       "sha256": "f16e7ff8135cc565a6ef745abb73167992db49cd9f71fff75585e815dace64e3",
@@ -261,15 +285,55 @@
       "compatibility": "1.x",
       "id": "urn:erp-rag-contracts:schema:dashboard-definition:v1",
       "path": "contracts/runtime/dashboard-definition-v1.schema.json",
-      "sha256": "5e48ea0884e5be93669519ae7ab578e4f3162c84fd36c36058de6e086fb7b53f",
+      "sha256": "a7c441dad06071214a55bbd3ec81761fcc2c1fc7c70e1005b9218313fd8c08d3",
       "status": "stable",
       "type": "dashboard-definition"
     },
     {
       "compatibility": "1.x",
+      "id": "urn:erp-rag-contracts:schema:dashboard-editor-binding-option:v1",
+      "path": "contracts/runtime/dashboard-editor-binding-option-v1.schema.json",
+      "sha256": "8b751fe34143cd64f90df1c8bd51b12080412450c572b89f6b0c14f337f3627f",
+      "status": "stable",
+      "type": "dashboard-editor-binding-option"
+    },
+    {
+      "compatibility": "1.x",
+      "id": "urn:erp-rag-contracts:schema:dashboard-editor-catalog-block:v1",
+      "path": "contracts/runtime/dashboard-editor-catalog-block-v1.schema.json",
+      "sha256": "85da397ec3c149a4987c50158ac8ae747716ca800e8e03147e6a1c679929d78f",
+      "status": "stable",
+      "type": "dashboard-editor-catalog-block"
+    },
+    {
+      "compatibility": "1.x",
+      "id": "urn:erp-rag-contracts:schema:dashboard-editor-catalog-item:v1",
+      "path": "contracts/runtime/dashboard-editor-catalog-item-v1.schema.json",
+      "sha256": "930426d25d99dc3beecdc8b6162b2b7c438190a771637a59030d37c8a9152656",
+      "status": "stable",
+      "type": "dashboard-editor-catalog-item"
+    },
+    {
+      "compatibility": "1.x",
+      "id": "urn:erp-rag-contracts:schema:dashboard-editor-catalog:v1",
+      "path": "contracts/runtime/dashboard-editor-catalog-v1.schema.json",
+      "sha256": "bce38f7a71307d077fc9eecd0c97d5e54b64dc336b58e5c97a70b86e8118f395",
+      "status": "stable",
+      "type": "dashboard-editor-catalog"
+    },
+    {
+      "compatibility": "1.x",
+      "id": "urn:erp-rag-contracts:schema:dashboard-entity-selection:v1",
+      "path": "contracts/runtime/dashboard-entity-selection-v1.schema.json",
+      "sha256": "6417ab0a37abc32ae736ce8eba153aba223c61047c6e0982aebb1d333cfa2b27",
+      "status": "stable",
+      "type": "dashboard-entity-selection"
+    },
+    {
+      "compatibility": "1.x",
       "id": "urn:erp-rag-contracts:schema:dashboard-filter-binding:v1",
       "path": "contracts/runtime/dashboard-filter-binding-v1.schema.json",
-      "sha256": "00c81585363aa576a1e984478565eb04d8d4a130f5c4139d350a3f2065fb81c6",
+      "sha256": "f744661b72e7be4adb957b14515de2004cef7294d580bef7dbf8d6754303d18d",
       "status": "stable",
       "type": "dashboard-filter-binding"
     },
@@ -277,7 +341,7 @@
       "compatibility": "1.x",
       "id": "urn:erp-rag-contracts:schema:dashboard-filter-mapping:v1",
       "path": "contracts/runtime/dashboard-filter-mapping-v1.schema.json",
-      "sha256": "c086c90536f62958a42696d622beee03893a46c4922a79d61fc5ca5ba0cf12c1",
+      "sha256": "a3d35751fd85ea47eaf0cc6bd287ac0ff0de2014f3414db703e92be9dff66065",
       "status": "stable",
       "type": "dashboard-filter-mapping"
     },
@@ -285,7 +349,7 @@
       "compatibility": "1.x",
       "id": "urn:erp-rag-contracts:schema:dashboard-filter:v1",
       "path": "contracts/runtime/dashboard-filter-v1.schema.json",
-      "sha256": "2dd814f5f180e014faec69d51330d56d6b757a96598f0ddfee782633ae92655c",
+      "sha256": "db735b99e1f26f877eee5ba539854155bfd219739e727e81ce2fd3b429125010",
       "status": "stable",
       "type": "dashboard-filter"
     },
@@ -309,7 +373,7 @@
       "compatibility": "1.x",
       "id": "urn:erp-rag-contracts:schema:dashboard-widget:v1",
       "path": "contracts/runtime/dashboard-widget-v1.schema.json",
-      "sha256": "5f15b8e4a73e0cb7bf3abec41116fc24595a77a8b32a41cc87840ef168231e08",
+      "sha256": "7e81088e1bab229300f2e6da0624cc60ae73b0c2f5402cbccde49c0094d45664",
       "status": "stable",
       "type": "dashboard-widget"
     },
@@ -344,6 +408,14 @@
       "sha256": "3f5eaec923d5a4728c468795c9447db057b1148c5c344e82f18ad9370a655e92",
       "status": "stable",
       "type": "gauge-block"
+    },
+    {
+      "compatibility": "1.x",
+      "id": "urn:erp-rag-contracts:schema:generic-analytics-persist-ack:v1",
+      "path": "contracts/runtime/generic-analytics-persist-ack-v1.schema.json",
+      "sha256": "4eb538a868aa8d8c3063b6e4bf23a2b40fa50ace5f9e3cbe50e18fd309755d77",
+      "status": "stable",
+      "type": "generic-analytics-persist-ack"
     },
     {
       "compatibility": "1.x",
@@ -717,15 +789,15 @@
   "generated_artifacts": [
     {
       "path": "generated/typescript/runtime/generation-metadata.json",
-      "sha256": "b14370330a5169ca35e77dba133a6ecae7aeea4d82da7e1d43cc448ecb5bf1a0"
+      "sha256": "5cf7101c77d515e9e9a41718ba06f68bda1687800a836f9fa783f310d12ec15a"
     },
     {
       "path": "generated/typescript/runtime/index.d.ts",
-      "sha256": "c513e6a352cacb1a4c244ab7f51472c90121076689edb0cf405431962710a93e"
+      "sha256": "69c4dedae919eb256cfacccf478fffdd052639b516a5bda8816099f793be0423"
     },
     {
       "path": "generated/typescript/runtime/package.json",
-      "sha256": "91294ba78bccffd5e24c487e00a0380509c535f356eca9382b2fe4f67b82d4e3"
+      "sha256": "712fc85290628c829420509d090c70751e059cacb7539a48b8f8fe4956e926b7"
     }
   ],
   "json_schema_version": "2020-12",
@@ -739,6 +811,30 @@
   ],
   "published_on": "2026-09-12",
   "runtime_fixtures": [
+    {
+      "path": "fixtures/runtime/analytics-dashboard-source-v1/invalid/execution-source.json",
+      "sha256": "1c1582adef37a88c5d727cb4112c74a1de87966fc7615001ff7b14d3ed8e3d06"
+    },
+    {
+      "path": "fixtures/runtime/analytics-dashboard-source-v1/invalid/legacy-presentation.json",
+      "sha256": "544537d5a484c69bc969accf577519ae57af6bba77441eb96eac998d184032f1"
+    },
+    {
+      "path": "fixtures/runtime/analytics-dashboard-source-v1/invalid/missing-artifact.json",
+      "sha256": "4024960802161637a450ad2203c15db7f51f3baa480a5388b9ca845e70f3b387"
+    },
+    {
+      "path": "fixtures/runtime/analytics-dashboard-source-v1/invalid/missing-block.json",
+      "sha256": "ceb225338c2b200529f133d68ee3a1b0485885d0091d77916dcdb9507804fa04"
+    },
+    {
+      "path": "fixtures/runtime/analytics-dashboard-source-v1/invalid/query-source.json",
+      "sha256": "ec724a367e8434cd5b39b37e6a21f54ee478cf0e3747008aceff571432b4f66b"
+    },
+    {
+      "path": "fixtures/runtime/analytics-dashboard-source-v1/valid/minimum.json",
+      "sha256": "5b2b46f929f2eb6a4632598ba6fa09e8f6674034f060755b774e03f987b24f37"
+    },
     {
       "path": "fixtures/runtime/assistant-historical-requery-result-v2/valid/minimum.json",
       "sha256": "dba14ebb9fe0d0048684c19c6b19b978815375a891e79cc481e4320f142368f0"
@@ -830,6 +926,22 @@
     {
       "path": "fixtures/runtime/contract-parity/valid/entity-selection-value.json",
       "sha256": "bd5fb98753109d1212b5bffcb123817326841607bdc07998749c8b6612fc1d66"
+    },
+    {
+      "path": "fixtures/runtime/dashboard-editor-catalog-v1/invalid/entity-source.json",
+      "sha256": "8899185f8a2b5b2ab7849c401a4bdfeb1b53e89886af7d30a954be89d11213b4"
+    },
+    {
+      "path": "fixtures/runtime/dashboard-editor-catalog-v1/invalid/execution-selection.json",
+      "sha256": "5d6dd4d8a0fa2f37e78c8f4c1c03d514ec19ec6555c78c96ad2afa6a474489d2"
+    },
+    {
+      "path": "fixtures/runtime/dashboard-editor-catalog-v1/valid/binding-candidates.json",
+      "sha256": "9e6e5cf0cbd2804ada9d528640179059064dfc34f0cde4820e0a33ef36ce33a0"
+    },
+    {
+      "path": "fixtures/runtime/dashboard-editor-catalog-v1/valid/minimum.json",
+      "sha256": "56b5e4fefeebcd118d3753dc806118ec9b2de78b2fcad37f28e432e9e1a26928"
     },
     {
       "path": "fixtures/runtime/historical-query-artifact-view-v1/invalid/ast_fingerprint.json",
@@ -950,6 +1062,18 @@
     {
       "path": "fixtures/runtime/pr06a-presentation-capabilities/valid/profile.json",
       "sha256": "4dd114844040d4c68e554bbf7da6c30335b49a7facf3b225038fcf35c03a33e2"
+    },
+    {
+      "path": "fixtures/runtime/pr75b0a-generic-chart/valid/ranking-block.json",
+      "sha256": "1807c55da4b3e196a4e36c849834d9220002f3f92924591685f90d98aa26ff3e"
+    },
+    {
+      "path": "fixtures/runtime/pr75b0b-generic-kpi/valid/variance-block.json",
+      "sha256": "21be986eee1974426b1c70cf571cb1d51cb53d5ef33a4cc3bd9229e6a26bb42b"
+    },
+    {
+      "path": "fixtures/runtime/pr75b0c-generic-chart-format/valid/growth-rate-block.json",
+      "sha256": "e264e7db3a4acd8702b35d83a956e8e9c654f6c99003ef57f13ba63251323577"
     }
   ],
   "templates": [

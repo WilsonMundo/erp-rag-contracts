@@ -2,6 +2,197 @@
   "$id": "urn:erp-rag-contracts:schema:dashboard-filter:v1",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "entity_type": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "entity_type"
+        ]
+      },
+      "then": {
+        "properties": {
+          "value_type": {
+            "const": "entity"
+          }
+        },
+        "required": [
+          "value_type"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "value_type": {
+            "const": "date_range"
+          }
+        },
+        "required": [
+          "value_type"
+        ]
+      },
+      "then": {
+        "properties": {
+          "type": {
+            "const": "date_range"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "value_type": {
+            "enum": [
+              "integer",
+              "decimal",
+              "boolean",
+              "string",
+              "entity"
+            ]
+          }
+        },
+        "required": [
+          "value_type"
+        ]
+      },
+      "then": {
+        "properties": {
+          "type": {
+            "const": "scalar"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "anyOf": [
+          {
+            "properties": {
+              "min_value": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "min_value"
+            ]
+          },
+          {
+            "properties": {
+              "max_value": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "max_value"
+            ]
+          }
+        ]
+      },
+      "then": {
+        "properties": {
+          "value_type": {
+            "enum": [
+              "integer",
+              "decimal"
+            ]
+          }
+        },
+        "required": [
+          "value_type"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "impact": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "impact"
+        ]
+      },
+      "then": {
+        "properties": {
+          "scope": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "scope"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "scope": {
+            "const": "presentation"
+          }
+        },
+        "required": [
+          "scope"
+        ]
+      },
+      "then": {
+        "properties": {
+          "impact": {
+            "const": "presentation"
+          }
+        },
+        "required": [
+          "impact"
+        ]
+      }
+    },
+    {
+      "not": {
+        "properties": {
+          "impact": {
+            "const": "presentation"
+          },
+          "scope": {
+            "const": "data"
+          }
+        },
+        "required": [
+          "scope",
+          "impact"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "default_value": {
+            "not": {
+              "type": "null"
+            }
+          }
+        },
+        "required": [
+          "default_value"
+        ]
+      },
+      "then": {
+        "properties": {
+          "value_type": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "value_type"
+        ]
+      }
+    }
+  ],
   "description": "Contrato normativo runtime dashboard-filter versión 1.",
   "properties": {
     "dashboard_filter_version": {
@@ -9,21 +200,78 @@
       "title": "Dashboard Filter Version",
       "type": "string"
     },
+    "default_value": {
+      "default": null,
+      "type": [
+        "object",
+        "number",
+        "string",
+        "boolean",
+        "null"
+      ]
+    },
+    "entity_type": {
+      "default": null,
+      "description": "Canonical Entity Resolution type. Optional for historical reads; required by new entity writes. No inference.",
+      "enum": [
+        "branch",
+        "customer",
+        "product",
+        "supplier",
+        "seller",
+        "document",
+        "classification_level",
+        null
+      ]
+    },
     "filter_id": {
       "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
       "title": "Filter Id",
       "type": "string"
     },
+    "impact": {
+      "default": null,
+      "enum": [
+        "query",
+        "analysis",
+        "presentation",
+        null
+      ]
+    },
     "label": {
       "maxLength": 500,
       "minLength": 1,
+      "pattern": "\\S",
       "title": "Label",
       "type": "string"
+    },
+    "max_value": {
+      "default": null,
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "min_value": {
+      "default": null,
+      "type": [
+        "number",
+        "null"
+      ]
     },
     "required": {
       "default": false,
       "title": "Required",
       "type": "boolean"
+    },
+    "scope": {
+      "default": null,
+      "enum": [
+        "data",
+        "analysis",
+        "presentation",
+        null
+      ]
     },
     "type": {
       "enum": [
@@ -32,6 +280,26 @@
       ],
       "title": "Type",
       "type": "string"
+    },
+    "unit": {
+      "default": null,
+      "pattern": "\\S",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "value_type": {
+      "default": null,
+      "enum": [
+        "date_range",
+        "integer",
+        "decimal",
+        "boolean",
+        "string",
+        "entity",
+        null
+      ]
     }
   },
   "required": [

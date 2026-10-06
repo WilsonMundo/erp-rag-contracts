@@ -33,11 +33,48 @@
     },
     "DashboardFilterMappingV1": {
       "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "entity_binding": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "entity_binding"
+            ]
+          },
+          "then": {
+            "properties": {
+              "source_path": {
+                "const": "value"
+              }
+            }
+          }
+        }
+      ],
       "properties": {
         "dashboard_filter_mapping_version": {
           "const": "1.0",
           "title": "Dashboard Filter Mapping Version",
           "type": "string"
+        },
+        "entity_binding": {
+          "anyOf": [
+            {
+              "enum": [
+                "entity_id",
+                "binding_value"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Entity Binding"
         },
         "source_path": {
           "enum": [
@@ -100,7 +137,48 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "additionalProperties": false,
   "description": "Contrato normativo runtime dashboard-widget versión 1.",
+  "oneOf": [
+    {
+      "properties": {
+        "analytics_artifact_id": {
+          "type": "null"
+        },
+        "query_artifact_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "query_artifact_id"
+      ]
+    },
+    {
+      "properties": {
+        "analytics_artifact_id": {
+          "type": "string"
+        },
+        "query_artifact_id": {
+          "type": "null"
+        }
+      },
+      "required": [
+        "analytics_artifact_id"
+      ]
+    }
+  ],
   "properties": {
+    "analytics_artifact_id": {
+      "anyOf": [
+        {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Analytics Artifact Id"
+    },
     "block_id": {
       "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
       "title": "Block Id",
@@ -123,9 +201,17 @@
       "$ref": "#/$defs/DashboardWidgetLayoutV1"
     },
     "query_artifact_id": {
-      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
-      "title": "Query Artifact Id",
-      "type": "string"
+      "anyOf": [
+        {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Query Artifact Id"
     },
     "widget_id": {
       "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
@@ -136,7 +222,6 @@
   "required": [
     "dashboard_widget_version",
     "widget_id",
-    "query_artifact_id",
     "block_id",
     "layout",
     "filter_bindings"

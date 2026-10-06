@@ -4,6 +4,30 @@ Paquete independiente y versionado que define los contratos oficiales del asiste
 
 ## Frontera
 
+PR-75D1 publica la [fuente pública Generic Analytics para dashboards V1](docs/analytics-dashboard-source-v1.md):
+artifact durable exacto y bloques de `presentation_definition`, resueltos por ApiHub
+desde la lineage del resultado y con la misma proyección/autorización del catálogo.
+No habilita AppWeb ni convierte artifacts legacy en fuentes de dashboard.
+
+PR-75C2A publica el [catálogo del editor de dashboards V1](docs/dashboard-editor-catalog-v1.md):
+artifacts reutilizables, bloques durables y opciones explícitas de bindings.
+ApiHub conserva la autoridad de visibilidad/compatibilidad. No modifica AppWeb,
+ejecuciones ni persistencia de widgets.
+
+PR-75B0B añade `kpi.value_field`, `selection: single_row` y `format` al bloque
+Generic Analytics. Reutiliza la taxonomía de `MaterializedKpiBlockV1.format`:
+auto, number, integer, currency y percent. El schema exige metadata en escrituras
+nuevas; los modelos de lectura conservan los KPI históricos sin metadata. Los
+writers llaman `require_kpi()`. Solo rendering exige exactamente una fila.
+El valor permanece exclusivamente en GenericAnalyticsResultV1; no hay backfill.
+
+PR-75B0A publica `contracts/runtime/analytics-presentation-block-v1.schema.json`:
+un bloque Generic Analytics `kind=chart` requiere `chart.type`, `orientation`,
+`category_field` y `series[].field`. Otros kinds no llevan configuración de chart.
+Los campos se validan contra el schema de salida de la operación en los consumidores.
+Los artifacts antiguos incompletos se rechazan para rendering, sin backfill.
+La proyección TypeScript se publica por paridad; este cambio no modifica AppWeb.
+
 Este repositorio define, documenta, versiona y prueba contratos. Es la fuente única tanto de los contratos de conocimiento RAG como de los envelopes runtime; no ejecuta SQL ni conecta con ERP, OpenAI o Milvus y tampoco contiene LangGraph.
 
 ```text

@@ -1,11 +1,17 @@
 from __future__ import annotations
 
 from datetime import datetime
-from typing import Annotated, Any, Literal, TypeAlias
+from typing import Annotated, Any, Literal, TypeAlias, get_args
 
 from pydantic import ConfigDict, Field, model_validator
 
-from .runtime import Identifier, QueryParameterDraftV2, RuntimeContractModel
+from .runtime import (
+    EntityType,
+    Identifier,
+    PresentationValueFormat,
+    QueryParameterDraftV2,
+    RuntimeContractModel,
+)
 
 NonEmptyText = Annotated[str, Field(min_length=1, max_length=500)]
 ContractId = Annotated[str, Field(pattern=r"^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$")]
@@ -357,18 +363,18 @@ class KpiBlockV1(RuntimeContractModel):
     kind: Literal["kpi"]
     title: NonEmptyText
     value: ValueReferenceV1
-    format: Literal["auto", "number", "integer", "currency", "percent"] = "auto"
+    format: PresentationValueFormat = "auto"
 
 
 class ComparisonKpiValueV1(RuntimeContractModel):
     label: NonEmptyText
     value: ValueReferenceV1
-    format: Literal["auto", "number", "integer", "currency", "percent"] = "auto"
+    format: PresentationValueFormat = "auto"
 
 
 class ComparisonKpiChangeV1(RuntimeContractModel):
     value: ValueReferenceV1
-    format: Literal["auto", "number", "integer", "currency", "percent"] = "percent"
+    format: PresentationValueFormat = "percent"
 
 
 class ComparisonKpiBlockV1(RuntimeContractModel):
@@ -532,19 +538,19 @@ class MaterializedKpiBlockV1(RuntimeContractModel):
     kind: Literal["kpi"]
     title: NonEmptyText
     value: JsonScalar
-    format: Literal["auto", "number", "integer", "currency", "percent"]
+    format: PresentationValueFormat
     scope: MaterializedScopeV1
 
 
 class MaterializedComparisonKpiValueV1(RuntimeContractModel):
     label: NonEmptyText
     value: JsonScalar
-    format: Literal["auto", "number", "integer", "currency", "percent"]
+    format: PresentationValueFormat
 
 
 class MaterializedComparisonKpiChangeV1(RuntimeContractModel):
     value: JsonScalar
-    format: Literal["auto", "number", "integer", "currency", "percent"]
+    format: PresentationValueFormat
     direction: Literal["up", "down", "flat", "unknown"]
     sentiment: Literal["positive", "negative", "neutral", "unknown"]
 
@@ -945,10 +951,28 @@ class DashboardWidgetLayoutV1(RuntimeContractModel):
     h: Annotated[int, Field(ge=1)]
 
 
+class DashboardEntitySelectionV1(RuntimeContractModel):
+    """Identity supplied by AppWeb; never a SQL binding value."""
+
+    entity_type: EntityType
+    entity_id: Annotated[str, Field(min_length=1, max_length=160, pattern=r"^\S+$")]
+
+
 class DashboardFilterMappingV1(RuntimeContractModel):
+    model_config = ConfigDict(json_schema_extra={"allOf": [{
+        "if": {"properties": {"entity_binding": {"type": "string"}}, "required": ["entity_binding"]},
+        "then": {"properties": {"source_path": {"const": "value"}}},
+    }]})
     dashboard_filter_mapping_version: Literal["1.0"]
     source_path: Literal["value", "start", "end_exclusive"]
     target_parameter: Identifier
+    entity_binding: Literal["entity_id", "binding_value"] | None = None
+
+    @model_validator(mode="after")
+    def validate_entity_source(self) -> DashboardFilterMappingV1:
+        if self.entity_binding is not None and self.source_path != "value":
+            raise ValueError("entity binding requires source_path=value")
+        return self
 
 
 class DashboardFilterBindingV1(RuntimeContractModel):
@@ -958,28 +982,185 @@ class DashboardFilterBindingV1(RuntimeContractModel):
 
     @model_validator(mode="after")
     def validate_mappings(self) -> DashboardFilterBindingV1:
-        if len({item.source_path for item in self.mappings}) != len(self.mappings):
+        non_entity_paths = [item.source_path for item in self.mappings if item.entity_binding is None]
+        if len(set(non_entity_paths)) != len(non_entity_paths):
             raise ValueError("mapping source paths must be unique")
         if len({item.target_parameter for item in self.mappings}) != len(self.mappings):
             raise ValueError("mapping target parameters must be unique")
         return self
 
 
+_DASHBOARD_FILTER_SCHEMA = {
+    "properties": {
+        "dashboard_filter_version": {
+            "const": "1.0",
+            "title": "Dashboard Filter Version",
+            "type": "string",
+        },
+        "filter_id": {
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+            "title": "Filter Id",
+            "type": "string",
+        },
+        "label": {
+            "maxLength": 500,
+            "minLength": 1,
+            "title": "Label",
+            "type": "string",
+            "pattern": "\\S",
+        },
+        "required": {"default": False, "title": "Required", "type": "boolean"},
+        "type": {"enum": ["scalar", "date_range"], "title": "Type", "type": "string"},
+        "value_type": {
+            "enum": ["date_range", "integer", "decimal", "boolean", "string", "entity", None],
+            "default": None,
+        },
+        "scope": {"enum": ["data", "analysis", "presentation", None], "default": None},
+        "impact": {"enum": ["query", "analysis", "presentation", None], "default": None},
+        "default_value": {
+            "type": ["object", "number", "string", "boolean", "null"],
+            "default": None,
+        },
+        "min_value": {"type": ["number", "null"], "default": None},
+        "max_value": {"type": ["number", "null"], "default": None},
+        "unit": {"type": ["string", "null"], "pattern": "\\S", "default": None},
+        "entity_type": {
+            "enum": [*get_args(EntityType), None],
+            "default": None,
+            "description": "Canonical Entity Resolution type. Optional for historical reads; required by new entity writes. No inference.",
+        },
+    },
+    "allOf": [
+        {
+            "if": {"properties": {"entity_type": {"type": "string"}}, "required": ["entity_type"]},
+            "then": {"properties": {"value_type": {"const": "entity"}}, "required": ["value_type"]},
+        },
+        {
+            "if": {
+                "properties": {"value_type": {"const": "date_range"}},
+                "required": ["value_type"],
+            },
+            "then": {"properties": {"type": {"const": "date_range"}}},
+        },
+        {
+            "if": {
+                "properties": {
+                    "value_type": {"enum": ["integer", "decimal", "boolean", "string", "entity"]}
+                },
+                "required": ["value_type"],
+            },
+            "then": {"properties": {"type": {"const": "scalar"}}},
+        },
+        {
+            "if": {
+                "anyOf": [
+                    {"properties": {"min_value": {"type": "number"}}, "required": ["min_value"]},
+                    {"properties": {"max_value": {"type": "number"}}, "required": ["max_value"]},
+                ]
+            },
+            "then": {
+                "properties": {"value_type": {"enum": ["integer", "decimal"]}},
+                "required": ["value_type"],
+            },
+        },
+        {
+            "if": {"properties": {"impact": {"type": "string"}}, "required": ["impact"]},
+            "then": {"properties": {"scope": {"type": "string"}}, "required": ["scope"]},
+        },
+        {
+            "if": {"properties": {"scope": {"const": "presentation"}}, "required": ["scope"]},
+            "then": {"properties": {"impact": {"const": "presentation"}}, "required": ["impact"]},
+        },
+        {
+            "not": {
+                "properties": {"scope": {"const": "data"}, "impact": {"const": "presentation"}},
+                "required": ["scope", "impact"],
+            }
+        },
+        {
+            "if": {
+                "properties": {"default_value": {"not": {"type": "null"}}},
+                "required": ["default_value"],
+            },
+            "then": {"properties": {"value_type": {"type": "string"}}, "required": ["value_type"]},
+        },
+    ],
+}
+
+
 class DashboardFilterV1(RuntimeContractModel):
+    # JSON Schema is the normative read contract; writes require entity metadata separately.
+    model_config = ConfigDict(extra="forbid", json_schema_extra=_DASHBOARD_FILTER_SCHEMA)
     dashboard_filter_version: Literal["1.0"]
     filter_id: ContractId
     type: Literal["scalar", "date_range"]
-    label: NonEmptyText
+    label: Annotated[str, Field(min_length=1, max_length=500, pattern=r"\S")]
     required: bool = False
+    value_type: (
+        Literal["date_range", "integer", "decimal", "boolean", "string", "entity"] | None
+    ) = None
+    scope: Literal["data", "analysis", "presentation"] | None = None
+    impact: Literal["query", "analysis", "presentation"] | None = None
+    default_value: dict[str, Any] | int | float | str | bool | None = None
+    min_value: float | None = None
+    max_value: float | None = None
+    unit: Annotated[str, Field(pattern=r"\S")] | None = None
+    entity_type: EntityType | None = None
+
+    @model_validator(mode="after")
+    def validate_metadata(self) -> DashboardFilterV1:
+        if self.entity_type is not None and self.value_type != "entity":
+            raise ValueError("entity_type is only valid for entity filters")
+        if self.value_type is not None and (
+            (self.value_type == "date_range") != (self.type == "date_range")
+        ):
+            raise ValueError("filter type and value_type are inconsistent")
+        if (self.min_value is not None or self.max_value is not None) and self.value_type not in (
+            "integer",
+            "decimal",
+        ):
+            raise ValueError("bounds require a numeric value_type")
+        if (
+            self.min_value is not None
+            and self.max_value is not None
+            and self.min_value > self.max_value
+        ):
+            raise ValueError("filter bounds are inverted")
+        if self.impact is not None and self.scope is None:
+            raise ValueError("impact requires scope")
+        if self.scope == "presentation" and self.impact != "presentation":
+            raise ValueError("presentation scope requires presentation impact")
+        if self.scope == "data" and self.impact == "presentation":
+            raise ValueError("data scope cannot have presentation impact")
+        if self.default_value is not None and self.value_type is None:
+            raise ValueError("default_value requires value_type")
+        return self
+
+    def require_entity_metadata(self) -> None:
+        """New writes fail closed; historical entity reads retain absent metadata."""
+        if self.value_type == "entity" and self.entity_type is None:
+            raise ValueError("new entity filters require explicit entity_type")
 
 
 class DashboardWidgetV1(RuntimeContractModel):
+    # Preserve the existing published Query XOR Analytics source contract during generation.
+    model_config = ConfigDict(json_schema_extra={"oneOf": [
+        {"required": ["query_artifact_id"], "properties": {"query_artifact_id": {"type": "string"}, "analytics_artifact_id": {"type": "null"}}},
+        {"required": ["analytics_artifact_id"], "properties": {"analytics_artifact_id": {"type": "string"}, "query_artifact_id": {"type": "null"}}},
+    ]})
     dashboard_widget_version: Literal["1.0"]
     widget_id: ContractId
-    query_artifact_id: ContractId
+    query_artifact_id: ContractId | None = None
+    analytics_artifact_id: ContractId | None = None
     block_id: ContractId
     layout: DashboardWidgetLayoutV1
     filter_bindings: Annotated[list[DashboardFilterBindingV1], Field(max_length=20)]
+
+    @model_validator(mode="after")
+    def validate_source(self) -> DashboardWidgetV1:
+        if (self.query_artifact_id is None) == (self.analytics_artifact_id is None):
+            raise ValueError("dashboard widget requires exactly one Query or Analytics source")
+        return self
 
 
 class DashboardDefinitionV1(RuntimeContractModel):
@@ -990,6 +1171,22 @@ class DashboardDefinitionV1(RuntimeContractModel):
     global_filters: Annotated[list[DashboardFilterV1], Field(max_length=20)]
     widgets: Annotated[list[DashboardWidgetV1], Field(max_length=100)]
     grid_layout: DashboardGridLayoutV1
+
+    def require_entity_bindings(self) -> None:
+        """New-write boundary. Historical mappings remain readable with NULL metadata."""
+        filters = {item.filter_id: item for item in self.global_filters}
+        for item in filters.values():
+            item.require_entity_metadata()
+            if item.value_type == "entity" and item.default_value is not None:
+                selection = DashboardEntitySelectionV1.model_validate(item.default_value)
+                if selection.entity_type != item.entity_type:
+                    raise ValueError("entity default must match explicit entity_type")
+        for widget in self.widgets:
+            for binding in widget.filter_bindings:
+                if filters[binding.filter_id].value_type == "entity" and any(
+                    item.entity_binding is None for item in binding.mappings
+                ):
+                    raise ValueError("every entity destination requires explicit entity_binding")
 
     @model_validator(mode="after")
     def validate_ids(self) -> DashboardDefinitionV1:
@@ -1005,8 +1202,13 @@ class DashboardDefinitionV1(RuntimeContractModel):
         ):
             raise ValueError("widget binding must reference a global filter")
         filter_types = {item.filter_id: item.type for item in self.global_filters}
+        value_types = {item.filter_id: item.value_type for item in self.global_filters}
         for widget in self.widgets:
             for binding in widget.filter_bindings:
+                if value_types[binding.filter_id] != "entity" and any(
+                    item.entity_binding is not None for item in binding.mappings
+                ):
+                    raise ValueError("entity_binding is only valid for entity filters")
                 paths = {item.source_path for item in binding.mappings}
                 if filter_types[binding.filter_id] == "date_range" and paths != {
                     "start",

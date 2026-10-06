@@ -1,0 +1,11 @@
+{
+  "analytics_artifact_id": "generic-ranking-artifact",
+  "blocks": [
+    {
+      "display_title": "Ventas",
+      "kind": "table"
+    }
+  ],
+  "display_title": "Ranking de ventas por sucursal",
+  "source_kind": "analytics"
+}

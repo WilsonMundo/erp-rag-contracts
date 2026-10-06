@@ -1,5 +1,35 @@
 # Changelog
 
+## Unreleased
+
+- PR-75C2A1: define opciones compatibles de binding sin mapping previo, usando
+  roles de período Query y metadata/mappings durables Analytics. Conserva
+  destinos existentes y falla cerrado cuando falta autoridad semántica o
+  representación entity explícita. No cambia el envelope V1 ni sus consumidores.
+
+## 2.11.0
+
+- PR-75D1: añade `AnalyticsDashboardSourceV1` y `AnalyticsDashboardSourceBlockV1`:
+  referencia pública autorizada al Generic AnalyticsArtifact exacto y sus bloques
+  durables, sin ejecuciones seleccionables ni compatibilidad legacy inferida.
+- Incluye schemas, fixtures, modelos Python, proyección TypeScript y hashes.
+  La validación focalizada se realiza desde un único test backend ApiHub.
+
+## 2.10.0
+
+- PR-75C2A: publica el read-model de catálogo del editor de dashboards con
+  artifacts, bloques durables, metadata humana y opciones de binding explícitas.
+- No incluye ejecuciones, SQL, presentation definitions editables ni persistencia
+  de título de widget. ApiHub decide visibilidad y compatibilidad.
+
+## 2.9.0
+
+- Declara selección canónica de dashboard `{entity_type, entity_id}` y
+  `entity_binding` opcional histórico por mapping destino; la escritura nueva y
+  el refresh entity exigen metadata explícita, sin inferencias.
+- Permite destinos entity 1:N desde una misma selección, conservando unicidad de
+  parámetros destino y compatibilidad de filtros no-entity.
+
 ## 2.8.0
 
 - Permite publicar múltiples `ResultScopeV1` de una misma ejecución mediante

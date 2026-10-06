@@ -1,0 +1,50 @@
+{
+  "$id": "urn:erp-rag-contracts:schema:analytics-dashboard-source-block:v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Contrato normativo runtime analytics-dashboard-source-block versión 1.",
+  "properties": {
+    "block_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+      "title": "Block Id",
+      "type": "string"
+    },
+    "display_title": {
+      "maxLength": 500,
+      "minLength": 1,
+      "title": "Display Title",
+      "type": "string"
+    },
+    "kind": {
+      "enum": [
+        "kpi",
+        "chart",
+        "table",
+        "summary"
+      ],
+      "title": "Kind",
+      "type": "string"
+    },
+    "visual_type": {
+      "anyOf": [
+        {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Visual Type"
+    }
+  },
+  "required": [
+    "block_id",
+    "kind",
+    "display_title"
+  ],
+  "title": "AnalyticsDashboardSourceBlockV1",
+  "type": "object"
+}

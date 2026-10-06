@@ -1,0 +1,89 @@
+{
+  "$defs": {
+    "AnalyticsDashboardSourceBlockV1": {
+      "additionalProperties": false,
+      "properties": {
+        "block_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+          "title": "Block Id",
+          "type": "string"
+        },
+        "display_title": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Display Title",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "kpi",
+            "chart",
+            "table",
+            "summary"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "visual_type": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Visual Type"
+        }
+      },
+      "required": [
+        "block_id",
+        "kind",
+        "display_title"
+      ],
+      "title": "AnalyticsDashboardSourceBlockV1",
+      "type": "object"
+    }
+  },
+  "$id": "urn:erp-rag-contracts:schema:analytics-dashboard-source:v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Contrato normativo runtime analytics-dashboard-source versión 1.",
+  "properties": {
+    "analytics_artifact_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,159}$",
+      "title": "Analytics Artifact Id",
+      "type": "string"
+    },
+    "blocks": {
+      "items": {
+        "$ref": "#/$defs/AnalyticsDashboardSourceBlockV1"
+      },
+      "minItems": 1,
+      "title": "Blocks",
+      "type": "array"
+    },
+    "display_title": {
+      "maxLength": 500,
+      "minLength": 1,
+      "title": "Display Title",
+      "type": "string"
+    },
+    "source_kind": {
+      "const": "analytics",
+      "title": "Source Kind",
+      "type": "string"
+    }
+  },
+  "required": [
+    "source_kind",
+    "analytics_artifact_id",
+    "display_title",
+    "blocks"
+  ],
+  "title": "AnalyticsDashboardSourceV1",
+  "type": "object"
+}
