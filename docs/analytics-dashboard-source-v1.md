@@ -13,7 +13,7 @@ Package 2.11.0 adds these contracts without changing existing envelopes.
 | `analytics_artifact_id` | Exact durable Generic AnalyticsArtifact referenced by the selected result's execution. |
 | `display_title` | Durable artifact title, unchanged. |
 | `blocks[].block_id` | Exact `presentation_definition.blocks[].block_id`. |
-| `blocks[].kind` | Durable Generic Analytics block kind: `kpi`, `chart`, `table`. |
+| `blocks[].kind` | Durable Generic Analytics block kind: `kpi`, `chart`, `table`, `summary`. |
 | `blocks[].display_title` | Artifact title, as in Dashboard Editor Catalog; generic blocks have no independent title. |
 | `blocks[].visual_type` | Durable `block.chart.type`, or null/omitted. |
 

@@ -10,7 +10,7 @@ from .runtime_v2 import ContractId, NonEmptyText
 
 class AnalyticsDashboardSourceBlockV1(RuntimeContractModel):
     block_id: ContractId
-    kind: Literal["kpi", "chart", "table"]
+    kind: Literal["kpi", "chart", "table", "summary"]
     display_title: NonEmptyText
     visual_type: Annotated[str, Field(min_length=1, max_length=128)] | None = None
 

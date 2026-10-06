@@ -107,7 +107,8 @@
         "pivot_grid",
         "chart",
         "gauge",
-        "table"
+        "table",
+        "summary"
       ],
       "title": "Kind",
       "type": "string"

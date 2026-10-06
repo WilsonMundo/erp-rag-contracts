@@ -252,27 +252,27 @@
     {
       "name": "dashboard-editor-catalog-v1",
       "path": "contracts/runtime/dashboard-editor-catalog-v1.schema.json",
-      "sha256": "7308b229a8994e9d2aa44851b6bb125d5f71dd6810c2eb2a2cb0c76d035ac333"
+      "sha256": "bce38f7a71307d077fc9eecd0c97d5e54b64dc336b58e5c97a70b86e8118f395"
     },
     {
       "name": "analytics-dashboard-source-v1",
       "path": "contracts/runtime/analytics-dashboard-source-v1.schema.json",
-      "sha256": "8ee6d7df1cd8edb029d8977145932abc782a4eeaaebb2bb236b7e6124e64aee5"
+      "sha256": "a4b0335e6cc1ca93757adf0ce8da0fd8ea3b5a247939990f2646231cdcb1ba60"
     },
     {
       "name": "analytics-dashboard-source-block-v1",
       "path": "contracts/runtime/analytics-dashboard-source-block-v1.schema.json",
-      "sha256": "20564eeae1733733908cb88b154fdb852aaee42f9b0d2ee86d17704bb13258e2"
+      "sha256": "d0660b15725cd328dd9fef1de6fc478b608bc46558200d08bc24879a52e24110"
     },
     {
       "name": "dashboard-editor-catalog-item-v1",
       "path": "contracts/runtime/dashboard-editor-catalog-item-v1.schema.json",
-      "sha256": "d295107be42ae1a4b1df037f7ece87f7ad07d266d67666857d5bd8a1fd1f1474"
+      "sha256": "930426d25d99dc3beecdc8b6162b2b7c438190a771637a59030d37c8a9152656"
     },
     {
       "name": "dashboard-editor-catalog-block-v1",
       "path": "contracts/runtime/dashboard-editor-catalog-block-v1.schema.json",
-      "sha256": "1c6860827628aca70718aa0213963d1521bae0ace7bcdd90e22e90ae303076c7"
+      "sha256": "85da397ec3c149a4987c50158ac8ae747716ca800e8e03147e6a1c679929d78f"
     },
     {
       "name": "dashboard-editor-binding-option-v1",
@@ -342,7 +342,7 @@
     {
       "name": "analytics-presentation-block-v1",
       "path": "contracts/runtime/analytics-presentation-block-v1.schema.json",
-      "sha256": "f3dbc52558cb120f5990d38f8502d480664620b117b97c595ef87e1828b9e0aa"
+      "sha256": "6cba8d02b8874c84f47da027002877ec174dfaa5c8eea4a0c8eef47124444587"
     },
     {
       "name": "generic-analytics-persist-ack-v1",
@@ -350,5 +350,5 @@
       "sha256": "4eb538a868aa8d8c3063b6e4bf23a2b40fa50ace5f9e3cbe50e18fd309755d77"
     }
   ],
-  "index_sha256": "8d513add185dcf33aeb390b015f7175c5a157336457dec68e54d5f3f037b9dec"
+  "index_sha256": "69c4dedae919eb256cfacccf478fffdd052639b516a5bda8816099f793be0423"
 }

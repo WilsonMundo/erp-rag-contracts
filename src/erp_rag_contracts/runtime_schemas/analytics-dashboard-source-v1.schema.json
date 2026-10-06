@@ -18,7 +18,8 @@
           "enum": [
             "kpi",
             "chart",
-            "table"
+            "table",
+            "summary"
           ],
           "title": "Kind",
           "type": "string"

@@ -1,5 +1,42 @@
 {
   "$defs": {
+    "AnalyticsChartEvidenceV1": {
+      "additionalProperties": false,
+      "description": "Per-category values supplied by Python in operation metadata, never derived by UI.",
+      "properties": {
+        "field": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Field",
+          "type": "string"
+        },
+        "format": {
+          "default": "number",
+          "enum": [
+            "auto",
+            "number",
+            "integer",
+            "currency",
+            "percent",
+            "fraction_percent"
+          ],
+          "title": "Format",
+          "type": "string"
+        },
+        "label": {
+          "maxLength": 160,
+          "minLength": 1,
+          "title": "Label",
+          "type": "string"
+        }
+      },
+      "required": [
+        "field",
+        "label"
+      ],
+      "title": "AnalyticsChartEvidenceV1",
+      "type": "object"
+    },
     "AnalyticsChartPresentationV1": {
       "additionalProperties": false,
       "properties": {
@@ -8,6 +45,31 @@
           "minLength": 1,
           "title": "Category Field",
           "type": "string"
+        },
+        "category_labels_field": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Category Labels Field"
+        },
+        "evidence": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/AnalyticsChartEvidenceV1"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
         },
         "orientation": {
           "enum": [
@@ -48,6 +110,22 @@
     "AnalyticsChartSeriesV1": {
       "additionalProperties": false,
       "properties": {
+        "color_role": {
+          "anyOf": [
+            {
+              "enum": [
+                "primary",
+                "secondary"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Color Role"
+        },
         "field": {
           "maxLength": 128,
           "minLength": 1,
@@ -73,6 +151,36 @@
           ],
           "default": null,
           "title": "Format"
+        },
+        "label": {
+          "anyOf": [
+            {
+              "maxLength": 160,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Label"
+        },
+        "line_style": {
+          "anyOf": [
+            {
+              "enum": [
+                "solid",
+                "dash"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Line Style"
         }
       },
       "required": [
@@ -113,6 +221,113 @@
         "format"
       ],
       "title": "AnalyticsKpiPresentationV1",
+      "type": "object"
+    },
+    "AnalyticsSummaryItemV1": {
+      "additionalProperties": false,
+      "properties": {
+        "field": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Field",
+          "type": "string"
+        },
+        "format": {
+          "default": "auto",
+          "enum": [
+            "auto",
+            "number",
+            "integer",
+            "currency",
+            "percent",
+            "fraction_percent"
+          ],
+          "title": "Format",
+          "type": "string"
+        },
+        "label": {
+          "maxLength": 160,
+          "minLength": 1,
+          "title": "Label",
+          "type": "string"
+        },
+        "precision": {
+          "anyOf": [
+            {
+              "maximum": 8,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Precision"
+        },
+        "role": {
+          "default": "evidence",
+          "enum": [
+            "evidence",
+            "conclusion",
+            "explanation",
+            "technical",
+            "title",
+            "subtitle",
+            "chart_title",
+            "chart_context"
+          ],
+          "title": "Role",
+          "type": "string"
+        },
+        "source": {
+          "enum": [
+            "row",
+            "metadata"
+          ],
+          "title": "Source",
+          "type": "string"
+        },
+        "unit_field": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Unit Field"
+        }
+      },
+      "required": [
+        "label",
+        "source",
+        "field"
+      ],
+      "title": "AnalyticsSummaryItemV1",
+      "type": "object"
+    },
+    "AnalyticsSummaryPresentationV1": {
+      "additionalProperties": false,
+      "properties": {
+        "items": {
+          "items": {
+            "$ref": "#/$defs/AnalyticsSummaryItemV1"
+          },
+          "maxItems": 20,
+          "minItems": 1,
+          "title": "Items",
+          "type": "array"
+        }
+      },
+      "required": [
+        "items"
+      ],
+      "title": "AnalyticsSummaryPresentationV1",
       "type": "object"
     }
   },
@@ -177,6 +392,35 @@
           "kpi"
         ]
       }
+    },
+    {
+      "else": {
+        "properties": {
+          "summary": {
+            "type": "null"
+          }
+        }
+      },
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "summary"
+          }
+        },
+        "required": [
+          "kind"
+        ]
+      },
+      "then": {
+        "properties": {
+          "summary": {
+            "type": "object"
+          }
+        },
+        "required": [
+          "summary"
+        ]
+      }
     }
   ],
   "description": "Contrato normativo runtime analytics-presentation-block versión 1.",
@@ -201,7 +445,8 @@
       "enum": [
         "table",
         "kpi",
-        "chart"
+        "chart",
+        "summary"
       ],
       "title": "Kind",
       "type": "string"
@@ -221,6 +466,17 @@
       "pattern": "^[a-z][a-z0-9_]{0,63}$",
       "title": "Source Output Id",
       "type": "string"
+    },
+    "summary": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/AnalyticsSummaryPresentationV1"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
     }
   },
   "required": [

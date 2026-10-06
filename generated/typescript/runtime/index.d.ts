@@ -11733,7 +11733,7 @@ export type BindingOptions = DashboardEditorBindingOptionV1[];
 export type BlockId14 = string;
 export type DisplayTitle = string;
 export type Kind21 =
-  'kpi' | 'comparison_kpi' | 'data_grid' | 'pivot_grid' | 'chart' | 'gauge' | 'table';
+  'kpi' | 'comparison_kpi' | 'data_grid' | 'pivot_grid' | 'chart' | 'gauge' | 'table' | 'summary';
 export type VisualType = string | null;
 export type DisplayTitle1 = string;
 export type SourceKind = 'query' | 'analytics';
@@ -11745,7 +11745,7 @@ export type AnalyticsArtifactId1 = string;
 export type Blocks3 = [AnalyticsDashboardSourceBlockV1, ...AnalyticsDashboardSourceBlockV1[]];
 export type BlockId15 = string;
 export type DisplayTitle2 = string;
-export type Kind22 = 'kpi' | 'chart' | 'table';
+export type Kind22 = 'kpi' | 'chart' | 'table' | 'summary';
 export type VisualType1 = string | null;
 export type DisplayTitle3 = string;
 export type SourceKind1 = 'analytics';
@@ -13447,21 +13447,284 @@ export type MaxBytes = number;
 export type AnalyticsPresentationBlockV1 = AnalyticsPresentationBlockV11;
 export type BlockId16 = string;
 export type CategoryField2 = string;
+export type CategoryLabelsField = string | null;
+export type Field6 = string;
+export type Format6 = 'auto' | 'number' | 'integer' | 'currency' | 'percent' | 'fraction_percent';
+export type Label12 = string;
 export type Orientation2 = 'horizontal' | 'vertical';
 /**
  * @minItems 1
  * @maxItems 1000
  */
 export type Series2 = [AnalyticsChartSeriesV1, ...AnalyticsChartSeriesV1[]];
-export type Field6 = string;
-export type Format6 =
+export type ColorRole = ('primary' | 'secondary') | null;
+export type Field7 = string;
+export type Format7 =
   ('auto' | 'number' | 'integer' | 'currency' | 'percent' | 'fraction_percent') | null;
+export type Label13 = string | null;
+export type LineStyle = ('solid' | 'dash') | null;
 export type Type9 = 'bar' | 'line' | 'area';
-export type Kind23 = 'table' | 'kpi' | 'chart';
-export type Format7 = 'auto' | 'number' | 'integer' | 'currency' | 'percent';
+export type Kind23 = 'table' | 'kpi' | 'chart' | 'summary';
+export type Format8 = 'auto' | 'number' | 'integer' | 'currency' | 'percent';
 export type Selection1 = 'single_row';
 export type ValueField = string;
 export type SourceOutputId = string;
+/**
+ * @minItems 1
+ * @maxItems 20
+ */
+export type Items1 =
+  | [AnalyticsSummaryItemV1]
+  | [AnalyticsSummaryItemV1, AnalyticsSummaryItemV1]
+  | [AnalyticsSummaryItemV1, AnalyticsSummaryItemV1, AnalyticsSummaryItemV1]
+  | [AnalyticsSummaryItemV1, AnalyticsSummaryItemV1, AnalyticsSummaryItemV1, AnalyticsSummaryItemV1]
+  | [
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1
+    ]
+  | [
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1
+    ]
+  | [
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1
+    ]
+  | [
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1
+    ]
+  | [
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1
+    ]
+  | [
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1
+    ]
+  | [
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1
+    ]
+  | [
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1
+    ]
+  | [
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1
+    ]
+  | [
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1
+    ]
+  | [
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1
+    ]
+  | [
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1
+    ]
+  | [
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1
+    ]
+  | [
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1
+    ]
+  | [
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1
+    ]
+  | [
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1,
+      AnalyticsSummaryItemV1
+    ];
+export type Field8 = string;
+export type Format9 = 'auto' | 'number' | 'integer' | 'currency' | 'percent' | 'fraction_percent';
+export type Label14 = string;
+export type Precision3 = number | null;
+export type Role1 =
+  | 'evidence'
+  | 'conclusion'
+  | 'explanation'
+  | 'technical'
+  | 'title'
+  | 'subtitle'
+  | 'chart_title'
+  | 'chart_context';
+export type Source4 = 'row' | 'metadata';
+export type UnitField = string | null;
 export type GenericAnalyticsPersistenceReceiptV1 = GenericAnalyticsPersistenceReceiptV11;
 export type AnalyticsArtifactId2 = string;
 export type AnalyticsExecutionId = string;
@@ -14320,21 +14583,47 @@ export interface AnalyticsPresentationBlockV11 {
   kind: Kind23;
   kpi?: AnalyticsKpiPresentationV1 | null;
   source_output_id: SourceOutputId;
+  summary?: AnalyticsSummaryPresentationV1 | null;
 }
 export interface AnalyticsChartPresentationV1 {
   category_field: CategoryField2;
+  category_labels_field?: CategoryLabelsField;
+  evidence?: AnalyticsChartEvidenceV1 | null;
   orientation: Orientation2;
   series: Series2;
   type: Type9;
 }
-export interface AnalyticsChartSeriesV1 {
+/**
+ * Per-category values supplied by Python in operation metadata, never derived by UI.
+ */
+export interface AnalyticsChartEvidenceV1 {
   field: Field6;
   format?: Format6;
+  label: Label12;
+}
+export interface AnalyticsChartSeriesV1 {
+  color_role?: ColorRole;
+  field: Field7;
+  format?: Format7;
+  label?: Label13;
+  line_style?: LineStyle;
 }
 export interface AnalyticsKpiPresentationV1 {
-  format: Format7;
+  format: Format8;
   selection: Selection1;
   value_field: ValueField;
+}
+export interface AnalyticsSummaryPresentationV1 {
+  items: Items1;
+}
+export interface AnalyticsSummaryItemV1 {
+  field: Field8;
+  format?: Format9;
+  label: Label14;
+  precision?: Precision3;
+  role?: Role1;
+  source: Source4;
+  unit_field?: UnitField;
 }
 export interface GenericAnalyticsPersistenceReceiptV11 {
   analytics_artifact_id: AnalyticsArtifactId2;

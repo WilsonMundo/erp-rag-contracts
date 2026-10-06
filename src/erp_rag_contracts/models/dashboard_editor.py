@@ -29,7 +29,9 @@ class DashboardEditorBindingOptionV1(RuntimeContractModel):
 
 class DashboardEditorCatalogBlockV1(RuntimeContractModel):
     block_id: ContractId
-    kind: Literal["kpi", "comparison_kpi", "data_grid", "pivot_grid", "chart", "gauge", "table"]
+    kind: Literal[
+        "kpi", "comparison_kpi", "data_grid", "pivot_grid", "chart", "gauge", "table", "summary"
+    ]
     display_title: NonEmptyText
     visual_type: Annotated[str, Field(min_length=1, max_length=128)] | None = None
     binding_options: list[DashboardEditorBindingOptionV1]
