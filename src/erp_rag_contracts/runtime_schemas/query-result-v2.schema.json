@@ -1538,7 +1538,7 @@
         },
         "type": "object"
       },
-      "maxItems": 500,
+      "maxItems": 700,
       "title": "Rows",
       "type": "array"
     },

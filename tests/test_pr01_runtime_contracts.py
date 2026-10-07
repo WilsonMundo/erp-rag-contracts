@@ -71,6 +71,26 @@ def load(path: Path) -> Any:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
+def test_query_result_accepts_700_rows_and_rejects_the_read_ahead_row() -> None:
+    payload = load(
+        ROOT / "fixtures/runtime/assistant-historical-requery-result-v2/valid/minimum.json"
+    )["result"]
+    payload["rows"] = [dict(payload["rows"][0]) for _ in range(700)]
+    payload["row_count"] = 700
+    payload["execution"]["truncated"] = True
+    schema = load(ROOT / "contracts/runtime/query-result-v2.schema.json")
+    validator = Draft202012Validator(schema, format_checker=FormatChecker())
+    validator.validate(payload)
+    assert len(runtime_v2.QueryResultV2.model_validate(payload).rows) == 700
+    packaged = load(ROOT / "src/erp_rag_contracts/runtime_schemas/query-result-v2.schema.json")
+    assert packaged == schema
+    payload["rows"].append(dict(payload["rows"][0]))
+    payload["row_count"] = 701
+    assert any(error.validator == "maxItems" for error in validator.iter_errors(payload))
+    with pytest.raises(ValidationError):
+        runtime_v2.QueryResultV2.model_validate(payload)
+
+
 @pytest.mark.parametrize(("slug", "model_name", "version"), CONTRACTS)
 def test_pr01_schema_compiles_and_matches_python_model(
     slug: str, model_name: str, version: str

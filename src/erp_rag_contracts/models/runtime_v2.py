@@ -789,7 +789,7 @@ class QueryResultV2(RuntimeContractModel):
     status: Literal["completed"]
     semantics: ProposedResultSemanticsV2
     columns: Annotated[list[QueryResultColumnV2], Field(max_length=200)]
-    rows: Annotated[list[dict[str, JsonScalar]], Field(max_length=500)]
+    rows: Annotated[list[dict[str, JsonScalar]], Field(max_length=700)]
     row_count: Annotated[int, Field(ge=0)]
     applied_filters: Annotated[list[QueryAppliedFilterV2], Field(max_length=100)]
     presentation: MaterializedPresentationV2

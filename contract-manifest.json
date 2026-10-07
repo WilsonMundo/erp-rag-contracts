@@ -229,7 +229,7 @@
       "compatibility": "2.x",
       "id": "urn:erp-rag-contracts:schema:assistant-historical-requery-result:v2",
       "path": "contracts/runtime/assistant-historical-requery-result-v2.schema.json",
-      "sha256": "7eaf2358eadf01adb3226e657cd10fccf6f0b8201b5a39c35765d96d119b91b2",
+      "sha256": "b9756aeb8a69ae5b6043bc47229e9d99b5f19c632ff4c48c349f7f682057b88e",
       "status": "stable",
       "type": "assistant-historical-requery-result"
     },
@@ -237,7 +237,7 @@
       "compatibility": "2.x",
       "id": "urn:erp-rag-contracts:schema:assistant-historical-result:v2",
       "path": "contracts/runtime/assistant-historical-result-v2.schema.json",
-      "sha256": "9d1985e876d508b897208d670fb9123d005ca048c8d3bdcf90c0e36688ddb00c",
+      "sha256": "995133a92e1f4eb1132f4295e2e1f2b96f0e489c906c713f20b8f30d2f1705c2",
       "status": "stable",
       "type": "assistant-historical-result"
     },
@@ -677,7 +677,7 @@
       "compatibility": "2.x",
       "id": "urn:erp-rag-contracts:schema:query-result:v2",
       "path": "contracts/runtime/query-result-v2.schema.json",
-      "sha256": "b7fe4b7356285e5a67f57e8f24b9fe8059c6a59b041cbe0f6c02b6be0e8bf1e2",
+      "sha256": "91cd1493db7d39a38dc3ea872e5f10e1d41ce3f8cb2be4aa21b263f997806679",
       "status": "stable",
       "type": "query-result"
     },
@@ -789,7 +789,7 @@
   "generated_artifacts": [
     {
       "path": "generated/typescript/runtime/generation-metadata.json",
-      "sha256": "5cf7101c77d515e9e9a41718ba06f68bda1687800a836f9fa783f310d12ec15a"
+      "sha256": "8c38b5901e0bc366414929dd89b04e905005db6a6bad7068987b990139428550"
     },
     {
       "path": "generated/typescript/runtime/index.d.ts",
@@ -797,7 +797,7 @@
     },
     {
       "path": "generated/typescript/runtime/package.json",
-      "sha256": "712fc85290628c829420509d090c70751e059cacb7539a48b8f8fe4956e926b7"
+      "sha256": "7465aee449a0e583a1c1e2fc7269f98de110b49400897d23bf448850b2e51837"
     }
   ],
   "json_schema_version": "2020-12",

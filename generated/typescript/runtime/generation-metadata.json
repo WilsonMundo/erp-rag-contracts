@@ -1,6 +1,6 @@
 {
   "contract_package": "erp-rag-contracts",
-  "contract_package_version": "2.11.0",
+  "contract_package_version": "2.11.1",
   "generator": "json-schema-to-typescript",
   "generator_version": "16.0.0",
   "schemas": [
@@ -167,7 +167,7 @@
     {
       "name": "query-result-v2",
       "path": "contracts/runtime/query-result-v2.schema.json",
-      "sha256": "b7fe4b7356285e5a67f57e8f24b9fe8059c6a59b041cbe0f6c02b6be0e8bf1e2"
+      "sha256": "91cd1493db7d39a38dc3ea872e5f10e1d41ce3f8cb2be4aa21b263f997806679"
     },
     {
       "name": "assistant-client-stream-event-v2",
@@ -187,12 +187,12 @@
     {
       "name": "assistant-historical-result-v2",
       "path": "contracts/runtime/assistant-historical-result-v2.schema.json",
-      "sha256": "9d1985e876d508b897208d670fb9123d005ca048c8d3bdcf90c0e36688ddb00c"
+      "sha256": "995133a92e1f4eb1132f4295e2e1f2b96f0e489c906c713f20b8f30d2f1705c2"
     },
     {
       "name": "assistant-historical-requery-result-v2",
       "path": "contracts/runtime/assistant-historical-requery-result-v2.schema.json",
-      "sha256": "7eaf2358eadf01adb3226e657cd10fccf6f0b8201b5a39c35765d96d119b91b2"
+      "sha256": "b9756aeb8a69ae5b6043bc47229e9d99b5f19c632ff4c48c349f7f682057b88e"
     },
     {
       "name": "query-artifact-v1",
@@ -350,5 +350,5 @@
       "sha256": "4eb538a868aa8d8c3063b6e4bf23a2b40fa50ace5f9e3cbe50e18fd309755d77"
     }
   ],
-  "index_sha256": "69c4dedae919eb256cfacccf478fffdd052639b516a5bda8816099f793be0423"
+  "index_sha256": "c61f45e2a9e7a1ac3c58ce55e08c95aec76a8b0e88d188ccec5f1e7093d3b2d5"
 }
